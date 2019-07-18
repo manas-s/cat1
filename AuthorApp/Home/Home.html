@@ -1,0 +1,412 @@
+﻿<!-- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license at the bottom of this file. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.min.css">
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css">
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>   
+
+    <link href="jquerysctipttop.css" rel="stylesheet" type="text/css">
+    
+    <link href="../../Content/bootstrap-3.3.6.min.css" rel="stylesheet" />
+    <script src="../../Scripts/bootstrap-3.3.6.min.js"></script>
+
+    <link href="../../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <script src="../../Scripts/jquery-ui-1.12.1.js"></script>
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+    <link href="Home.css" rel="stylesheet" type="text/css" />
+    <script src="Home.js" type="text/javascript"></script>
+    <script src="multiselect.js" type="text/javascript"></script>
+    <script src="jquery.scrollbox.js"></script>
+    <script src="../../Scripts/moment.js"></script>    
+    <link rel="stylesheet" type="text/css" href="../../Content/jquery.popup.css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.panel-default').bind('click', function () {
+                // remove the active class from all elements with active class
+                $('.active').removeClass('active')
+                // add active class to clicked element
+                $(this).addClass('active');
+            });
+
+            $("#solution").click(function () {
+                $(".tab-pane1").addClass("intro");
+                $(".tab-pane-1").removeClass("intro");
+                $("#solution").addClass("color");
+                $("#team").removeClass("color");
+            });
+
+            $("#team").click(function () {
+                $(".tab-pane1").removeClass("intro");
+                $(".tab-pane-1").addClass("intro");
+                $("#solution").removeClass("color");
+                $("#team").addClass("color");
+            });
+
+            $('.clause-item li > a').click(function () {
+                $('.clause-item li').removeClass('active');
+                $('.clause-item li').toggleClass('hide');
+                $(this).parent().addClass('active');
+            });
+        });
+
+        $(function () {
+            $('#table1').multiSelect({
+                actcls: 'info',
+                selector: 'tbody tr',
+                except: ['tbody'],
+                statics: ['.danger', '[data-no="1"]'],
+                callback: function (items) {
+                    $('#table2').empty().append(items.clone().removeClass('info').addClass('success'));
+                }
+            });
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <style type="text/css">
+        .info1.newclass + .show-hide {
+            display: table-row !important;
+        }
+
+        .newclass .glyphicon.glyphicon-chevron-right {
+            transform: rotate(90deg);
+            transition: all 0.2s ease 0s;
+        }
+
+        .open .glyphicon.glyphicon-chevron-right {
+            transition: all 0.2s ease 0s;
+        }
+        #txtSearchKeyword::-ms-clear {
+            display: none;
+        }
+        .ui-dialog .ui-dialog-titlebar 
+        {
+            height: 40px; 
+        }  
+        .ui-dialog-title{
+            font-size: 14px !important;            
+        } 
+    </style>
+    <!--<div>
+        <div class="padding ms-font-m">
+            <div id="imaginary_container">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control" id="txtSearchKeyword" placeholder="Search">
+                    <span class="input-group-addon">
+                        <button type="submit" onclick="javascript: search();">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <p>
+                Filter By Contract Type:
+                <select id="ddlContractType" class="form-control" onchange='changecontracttype(this);'></select>
+            </p>
+            <p>
+                Filter By Clause Group:
+                <select id="ddlClauseGroup" class="form-control" onchange='changeclausegroup(this);'></select>
+            </p>
+            <p id="newClauseDivTitle">
+                <button id="get-data-from-selection">Get data from selection</button>
+                <a href="javascript:void(0);" class="button btn-cancel" id="clear-new-clause">Clear</a>
+            </p>
+            <div class="clearfix" id="newClauseDiv" style="display:none;">
+                <div class="form-group">
+                    <label for="ClauseTitle">Title of clause</label>
+                    <input type="text" class="form-control" id="ClauseTitle">
+                </div>
+                <div class="form-group">
+                    <label for="ClauseDescription">Clause text</label>
+                    <textarea class="form-control" id="ClauseDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group action-butons clearfix">
+                    <a href="javascript:void(0);" class="button pull-left btn btn-default" id="write-new-clause">Tag clause</a>
+                    <a href="javascript:void(0);" class="button btn-cancel pull-left" id="cancel-write-new-clause">Cancel</a>
+                </div>
+            </div>
+            <p>Click to add clause to document.</p>
+            <div class="gray">
+                <div class="panel-group white" id="accordion">
+
+                </div>
+                <div class="panel blue" id="target1" style="">
+                    <h4>Alternative Clauses</h4>
+                    <span id="goback" style="cursor:pointer;"> &lt;&lt; Back</span>
+                    <img id="imgLoading" style="display:none;" src="../../Images/loading.gif" />
+                    <div id="alternativeClauses">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group" id="accordion">
+    </div>-->
+
+    <div class="container main">
+        <div class="menu-item">
+            <div id="demo5" class="scroll-img">
+                <ul>
+                    <li class="active" id="tabClause"><a href="javascript:void(0);"><img src="../Images/clause-icon.png" alt="">Clauses</a></li>
+                    <li id="tabVersion" class="hide"><a href="javascript:void(0);"><img src="../Images/version.png" alt="">Versioning</a></li>
+                    <li id="tabMetadata" class="hide"><a href="javascript:void(0);"><img src="../Images/metadata.png" alt="">Metadata</a></li>
+                    <li id="tabWorkflow" class="hide"><a href="javascript:void(0);"><img src="../Images/workflow.png" alt="">Workflow</a></li>
+                    <!--<li id="tabCleanup"><a href="javascript:void(0);"><img src="../Images/clean.png" alt="">Clean Up</a></li>-->
+                </ul>
+            </div>
+            <div id="demo5-btn" class="text-center click">
+                <button class="btn" id="demo5-backward"><img src="../Images/back.png" alt=""></button>
+                <button class="btn" id="demo5-forward"><img src="../Images/for.png" alt=""></button>
+            </div>
+        </div>        
+        <div class="col-sm-12"><a href="javascript:void(0);" style="float:right;" onclick="jacascript: clickrefresh();">Refresh</a>      
+            <div class="center" id="loading">
+                <div class="content">
+                    Loading... <img src="../Images/Loading_icon.gif" alt="">
+                </div>
+            </div>     
+            <div id="tabDetailsClause">                                         
+                <div class="clearfix no-padding">
+                    <div class="clause-delete-sec col-xs-6 no-padding hide">
+                        <a class="this-documents" href="javascript:void(0)">This Document</a> | <a class="all-library grey" href="javascript:void(0)">All (Library)</a>
+                    </div>
+                    <span class="icon-sec col-xs-2 pull-right text-right no-padding">
+                        <div class="name blue">
+                            <span class="add-clasue hide" id="get-data-from-selection" title="Select Text from Document and Save as New Clause"><a href="javascript:void(0);"><img alt="" src="../Images/indent.png"></a></span>
+                            <span class="dropdown clause-hide">
+                                <a href="javascript:void(0)" title="Filter by Clause Group" aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown"><img alt="" src="../Images/filter.png"></a>
+                                <ul class="dropdown-menu" id="ulGroup"></ul>
+                            </span>
+                        </div>
+                    </span>
+                </div>
+                <div class="icon-sec clearfix clause-hide">
+                    <div class="col-xs-12 no-padding">
+                        <span class="col-xs-12 no-padding">
+                            <div class="form-group search">
+                                <div id="custom-search-input">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" id="txtSearchKeyword">
+                                        <span class="input-group-btn">
+                                            <button type="button" onclick="javascript: search();" class="btn btn-info btn-lg">
+                                                <img alt="" src="../Images/search.jpg">
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>   
+                <div class="search-text">
+                    <!--<span>Searched by :</span>-->
+                    <div id="divSearchKeyword">                        
+                    </div>
+                </div>
+
+                <div class="filter-text">
+                    <!--<span>Filtered by :</span>-->
+                    <div id="divFilterKeyword">                        
+                    </div>
+                </div>
+                <div class="get-data hide">
+                    <p>
+                        <!--<button id="get-data-from-selection" class="btn btn-primary">Get data from selection</button>
+                        <a class="button btn-cancel" href="javascript:void(0)">Clear</a>-->
+                        <a class="back button pull-right btn-cancel" href="javascript:void(0)">Back</a>
+                    </p>
+                    <div class="clearfix title-of-clause" id="newClauseDiv" style="display:none;">
+                        <div class="form-group">
+                            <label for="ClauseTitle">Title of clause</label>
+                            <input type="email" id="ClauseTitle" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ClauseDescription">Clause text</label>
+                            <textarea rows="3" id="ClauseDescription" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group action-butons clearfix">
+                            <a class="button btn btn-default" href="javascript:void(0)" id="write-new-clause">Create this clause</a>
+                            <!--<a class="button btn-cancel" href="javascript:void(0)" id="cancel-write-new-clause">Cancel</a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="clause-item this-doc">
+                    <ul id="accordionthisdocument">                                              
+                    </ul>
+                </div>
+                <div class="clause-item hide">
+                    <ul id="accordion"></ul>
+                </div>
+                <!--<div class="tab-content">
+                    <div role="tabpanel" class="tab-pane1 intro" id="home">
+                        <div class="padding ms-font-m">
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" id="txtSearchKeyword" placeholder="Search">
+                                <span class="input-group-addon">
+                                    <button type="submit" onclick="javascript: search();"> <span class="glyphicon glyphicon-search"></span> </button>
+                                </span>
+                            </div>
+                            <p>
+                                Filter By Clause Group:
+                                <select id="ddlClauseGroup" class="form-control" onchange='changeclausegroup(this);'></select>
+                            </p>
+                            <p id="newClauseDivTitle">
+                                <button id="get-data-from-selection">Get data from selection</button>
+                                <a href="javascript:void(0);" class="button btn-cancel">Clear</a>
+                            </p>
+                            <div class="clearfix" id="newClauseDiv" style="display:none;">
+                                <div class="form-group">
+                                    <label for="ClauseTitle">Title of clause</label>
+                                    <input type="email" class="form-control" id="ClauseTitle">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ClauseDescription">Clause text</label>
+                                    <textarea class="form-control" id="ClauseDescription" rows="3"></textarea>
+                                </div>
+                                <div class="form-group action-butons clearfix"> <a href="javascript:void(0);" class="button pull-left btn btn-default" id="write-new-clause">Create this clause</a> <a href="javascript:void(0);" class="button btn-cancel pull-left" id="cancel-write-new-clause">Cancel</a> </div>
+                            </div>
+                            <p>Click to add clause to document.</p>
+                            <div class="form-group gray">
+                                <div class="clearfix panel-group white">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pull-right table-hover">
+                                        <table id="table1" class="table table-hover col-sm-9">
+                                            <tbody id="accordion"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel blue" id="target1" style="">
+                                    <a id="goback" class="btn btn-default" role="button"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                                    <h4>Alternative Clauses</h4>
+                                    <div id="alternativeClauses"></div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div id="tabDetailsVersion" style="display:none;">  
+            </div>
+            <div id="tabDetailsMetadata" class="metadata" style="display:none;">
+                <div class="metadata-option clearfix divMetaHide">
+                    <div class="col-xs-9 no-padding">                        
+                        <div class="name blue">
+                            <span id="metadataSelection">Document</span>
+                            <span class="dropdown">
+                                <a href="javascript:void(0)" aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown"><img alt="" src="../Images/arrowdown.png"></a>
+                                <ul class="dropdown-menu">
+                                    <li id="lidocument"><a href="javascript:void(0);" onclick='changelistnames(this);'>Document</a></li>
+                                    <li id="licontract"><a href="javascript:void(0);" onclick='changelistnames(this);'>Contract Record</a></li>
+                                    <!--<li><a href="javascript:void(0);" onclick='changelistnames(this);'>Counterparties</a></li>-->
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div>
+                            <a href="#1" id="edit-view" class="image" style="margin-right:10px;">
+                                <img class="currentImage" id="get-data-from-selectionmetadata" src="../Images/indent.png" alt="" title="Select text from document and save as metadata" />
+                                <img class="hiddenImage" src="../Images/save.png" alt="" title="Save Metadata" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="metadata-field clearfix divMetaHide" id="divDetailsMetadata">
+
+                </div>
+                <div class="clearfix divMetaNoItemFound" style="display:none;">
+                    <div>Metadata cannot be dispalyed while viewing a version.</div>
+                </div>
+            </div>
+            <div id="tabDetailsWorkflow" style="display:none;">
+                <div class="clearfix divhide">
+                    <div class="col-xs-8 no-padding">
+                        <div class="agreementLeft clearfix">
+                            <div class="col-xs-2 no-padding"><img class="task_head" alt="" src="../Images/workflow-title.png"></div>
+                            <div class="col-xs-10 no-padding">
+                                <h5 class="approval" id="workflowTitle"></h5>
+                                <span class="" title="Workflow started by"> <!--Started by--><span id="createdBy"></span> on <span id="startDate"></span><span id="dueOn"></span> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 no-padding text-right"> 
+                        <!--<a class="linkText" href="javascript:void(0);">1 Past Worflow</a>--> 
+                        <span class="status_yellow" title="Status"></span>
+                    </div>
+                </div>
+                <!-- end top-header -->
+                <div class="stage divhide">
+                    <h5 class="comments-head">Participants &amp; Tasks</h5>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 no-padding">
+                                <div id="accordion-first" class="clearfix">
+                                    <div class="accordion" id="accordion2">
+                                    </div>
+                                    <!-- end accordion -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end stage -->
+                <div class="comments divhide">
+                    <h5 class="comments-head">Comments &amp; Activities <span id="totComments"></span></h5>
+                    <div class="comments-text" id="listTaskComments">
+                    </div>
+                    <div class="post-comments">
+                        <!--<a class="post-comments" href="javascript:void(0);">Post a Comment</a>-->
+                        <div class="comments-sec hide" id="postcommentsec">
+                            <h5 class="comments-heading">Post Comments</h5>
+                            <div class="width100">
+                                <textarea placeholder="Enter your Comments"></textarea>
+                                <select>
+                                    <option>Select</option>
+                                    <option>Option 1</option>
+                                    <option>Option 2</option>
+                                    <option>Option 3</option>
+                                    <option>Option 4</option>
+                                </select>
+                                <div class="comments-btn text-right">
+                                    <button type="button" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-default cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix divNoItemFound" style="display:none;">
+                    <div>No item found.</div>
+                </div>
+            </div>
+            <div id="tabDetailsCleanup" style="display:none;">
+                <button type="button" class="btn btn-primary">Author</button>
+            </div>            
+        </div>
+    </div>
+    <div id="dvBrowse" style="display:none;">
+        <span class="ui-helper-hidden-accessible"><input type="text" /></span>
+        <textarea class="form-control" id="txtVersionComments" rows="3" placeholder="Post a comment"></textarea>
+    </div>
+    <div id="dvBrowseUnpublish" style="display:none;">
+        <span class="ui-helper-hidden-accessible"><input type="text" /></span>
+        <textarea class="form-control" id="txtUnpublishComments" rows="3" placeholder="Post a comment"></textarea>
+    </div>
+    <div id="dvRestoreConfirm" style="display:none;">
+        <p id="txtRestore">You are about to replace the current version with the selected version.</p>
+    </div>
+</body>
+</html>

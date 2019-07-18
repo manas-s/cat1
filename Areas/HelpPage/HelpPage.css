@@ -1,0 +1,106 @@
+pre.wrapped {
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+}
+
+.warning-message-container {
+    margin-top: 20px;
+    padding: 0 10px;
+    color: #525252;
+    background: #EFDCA9; 
+    border: 1px solid #CCCCCC;
+}
+
+.help-page-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0px 0px 20px 0px;
+    border-top: 2px solid #D4D4D4;
+}
+
+.help-page-table th {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #D4D4D4;
+    padding: 8px;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.help-page-table td {
+    border-bottom: 1px solid #D4D4D4;
+    padding: 5px;
+    vertical-align: top;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.help-page-table pre, .help-page-table p {
+    margin: 0px;
+    padding: 0px;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.help-page-table tbody tr:hover td {
+    background-color: #F3F3F3;
+}
+
+a:hover {
+    background-color: transparent;
+}
+
+.sample-header {
+    border: 2px solid #D4D4D4;
+    background: #76B8DB;
+    color: #FFFFFF;
+    padding: 8px 15px;
+    border-bottom: none;
+    display: inline-block;
+    margin: 10px 0px 0px 0px;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.sample-content {
+    display: block;
+    border-width: 0;
+    padding: 15px 20px;
+    background: #FFFFFF;
+    border: 2px solid #D4D4D4;
+    margin: 0px 0px 10px 0px;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.api-name {
+    width: 50%;
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.api-documentation {
+    width: 50%;
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.parameter-name {
+    width: 20%;
+    font-size:13px;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.parameter-documentation {
+    width: 50%;
+    font-size:13px;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.parameter-source {
+    width: 30%;
+    font-size:12px;
+}
+
+.content-wrapper h2 {
+    font-size:20px;
+}

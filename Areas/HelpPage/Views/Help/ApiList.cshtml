@@ -1,0 +1,420 @@
+﻿@{
+    ViewBag.Title = "eContracts API Help Page";
+    Layout = "~/Areas/HelpPage/Views/Shared/_Layout.cshtml";
+}
+
+<header style="background-color:antiquewhite">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1">@ViewBag.Title</b>
+        </div>
+    </div>
+</header>
+<div id="body">
+    <section class="content-wrapper main-content clear-fix">
+        <h2 id="System.Web.Http.Controllers.HttpControllerDescriptor">Contracts</h2>
+        <p>APIs for Contracts</p>
+        <table class="help-page-table">
+            <thead>
+                <tr><th>API</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                @*<tr>
+                        <td class="api-name"><a href="/Help/Api/POST-api-accounts-accountID-Contracts">POST api/accounts/{accountID}/Contracts</a></td>
+                        <td class="api-documentation">
+                            <p>Create a Contract Record</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountID-Contracts">PUT api/accounts/{accountID}/Contracts</a></td>
+                        <td class="api-documentation">
+                            <p>Update a Contract Record</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-Contracts_contractid">PUT api/accounts/{accountid}/Contracts?contractid={contractid}</a></td>
+                        <td class="api-documentation">
+                            <p>Update existing Contract Record with new one</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-Contracts-contractid-changecloseout_closeout">PUT api/accounts/{accountid}/Contracts/{contractid}/changecloseout?closeout={closeout}</a></td>
+                        <td class="api-documentation">
+                            <p>Mark Contract as Closeout</p>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_contractid">GET api/accounts/{accountid}/Contracts?contractid={contractid}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the details of contract for the specified account and contract id</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_contracttitle">GET api/accounts/{accountid}/Contracts?contracttitle={contracttitle}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the details of contract for the specified account and contract title</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_contractnumber">GET api/accounts/{accountid}/Contracts?contractnumber={contractnumber}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the details of contract for the specified account and contract number</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_contracttype">GET api/accounts/{accountid}/Contracts?contracttype={contracttype}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of contracts for the specified account by Contract Type</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_counterparty">GET api/accounts/{accountid}/Contracts?counterparty={counterparty}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of contracts for the specified account by counterparty</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_status">GET api/accounts/{accountid}/Contracts?status={status}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of contracts for the specified account by contract status</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_stage_createdby">GET api/accounts/{accountid}/Contracts?stage={stage}&amp;createdby={createdby}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of contracts for the specified account by Created User</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts">GET api/accounts/{accountid}/Contracts</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of contracts for the specified account.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts-recentlyactiveandrenewed">GET api/accounts/{accountid}/Contracts/recentlyactiveandrenewed</a></td>
+                    <td class="api-documentation">
+                        <p>Get the list of recently active and renewed contracts for a tenant</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts-contractsbycontractarea_contractarea">GET api/accounts/{accountid}/Contracts/contractsbycontractarea?contractarea={contractarea}</a></td>
+                    <td class="api-documentation">
+                        <p>Get Contracts By ContractArea</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts-contractsbybusinessarea_businessarea_contractarea_stage">GET api/accounts/{accountid}/Contracts/contractsbybusinessarea?businessarea={businessarea}&amp;contractarea={contractarea}&amp;stage={stage}</a></td>
+                    <td class="api-documentation">
+                        <p>Get Contracts By BusinessArea</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts-search_customquery_searchkeyword">GET api/accounts/{accountid}/Contracts/search?customquery={customquery}&amp;searchkeyword={searchkeyword}</a></td>
+                    <td class="api-documentation">
+                        <p>No documentation available.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-Contracts_noofitem">GET api/accounts/{accountid}/Contracts?noofitem={noofitem}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of recent created or modified contracts for the specified account</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/DELETE-api-accounts-accountid-Contracts_contractid">DELETE api/accounts/{accountid}/Contracts?contractid={contractid}</a></td>
+                    <td class="api-documentation">
+                        <p>Delete a Contract Record</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="System.Web.Http.Controllers.HttpControllerDescriptor">Documents</h2>
+        <p>APIs for Documents</p>
+        <table class="help-page-table">
+            <thead>
+                <tr><th>API</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents_contractid">GET api/accounts/{accountid}/documents?contractid={contractid}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Contract Documents by Contract ID</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents_counterparty">GET api/accounts/{accountid}/documents?counterparty={counterparty}</a></td>
+                    <td class="api-documentation">
+                        <p>Get the contract documents by counterparty</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents_createdby">GET api/accounts/{accountid}/documents?createdby={createdby}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Contract Documents Created By a User</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents_documenttype">GET api/accounts/{accountid}/documents?documenttype={documenttype}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Contract Documents By Type</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents-NotTaggedToContract_searchkeyword">GET api/accounts/{accountid}/documents/NotTaggedToContract?searchkeyword={searchkeyword}</a></td>
+                    <td class="api-documentation">
+                        <p>Get the list of contract documents not tag with any contract</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents-search_customquery_searchkeyword">GET api/accounts/{accountid}/documents/search?customquery={customquery}&amp;searchkeyword={searchkeyword}</a></td>
+                    <td class="api-documentation">
+                        <p>Get GlobalDocument Search</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents_documentid">GET api/accounts/{accountid}/documents?documentid={documentid}</a></td>
+                    <td class="api-documentation">
+                        <p>Get the document details</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/DELETE-api-accounts-accountid-documents_documentid">DELETE api/accounts/{accountid}/documents?documentid={documentid}</a></td>
+                    <td class="api-documentation">
+                        <p>Delete a Document</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-documents-MarkPrimary_documentid">PUT api/accounts/{accountid}/documents/MarkPrimary?documentid={documentid}</a></td>
+                    <td class="api-documentation">
+                        <p>Mark document as primary document</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-documents-MarkFinal_documentid">PUT api/accounts/{accountid}/documents/MarkFinal?documentid={documentid}</a></td>
+                    <td class="api-documentation">
+                        <p>Mark document as final</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-documents-getdocumentsettings">GET api/accounts/{accountid}/documents/getdocumentsettings</a></td>
+                    <td class="api-documentation">
+                        <p>Get document setting details for a tenant</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="System.Web.Http.Controllers.HttpControllerDescriptor">Counterparty</h2>
+        <p>APIs for Counterparty</p>
+        <table class="help-page-table">
+            <thead>
+                <tr><th>API</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_sortbyfield_orderby">GET api/accounts/{accountid}/counterparty?sortbyfield={sortbyfield}&amp;orderby={orderby}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of counterparties for the specified account sorted by field in ASC or DESC order.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_counterpartytype">GET api/accounts/{accountid}/counterparty?counterpartytype={counterpartytype}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of counterparties for the specified account filter by counterparty type.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_status">GET api/accounts/{accountid}/counterparty?status={status}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of counterparties for the specified account filter by counterparty status.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty-RecentUsed_businessarealocation">GET api/accounts/{accountid}/counterparty/RecentUsed?businessarealocation={businessarealocation}</a></td>
+                    <td class="api-documentation">
+                        <p>No documentation available.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty-search_customquery_searchkeyword">GET api/accounts/{accountid}/counterparty/search?customquery={customquery}&amp;searchkeyword={searchkeyword}</a></td>
+                    <td class="api-documentation">
+                        <p>Get Global Counterparty Search</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty-counterpartypicker">GET api/accounts/{accountid}/counterparty/counterpartypicker</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of Active counterparties for the specified account.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_searchkeyword_customquery_sortbyfield_orderby">GET api/accounts/{accountid}/counterparty?searchkeyword={searchkeyword}&amp;customquery={customquery}&amp;sortbyfield={sortbyfield}&amp;orderby={orderby}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of filtered counterparties for the specified account</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_counterpartyid">GET api/accounts/{accountid}/counterparty?counterpartyid={counterpartyid}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the details of counterparty for the specified account and counterparty id.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty_counterpartyname">GET api/accounts/{accountid}/counterparty?counterpartyname={counterpartyname}</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the details of counterparty for the specified account and counterparty name.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/DELETE-api-accounts-accountid-counterparty_counterpartyid">DELETE api/accounts/{accountid}/counterparty?counterpartyid={counterpartyid}</a></td>
+                    <td class="api-documentation">
+                        <p>Delete counterparty record for the specified account.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-counterparty-contractid-contacts">GET api/accounts/{accountid}/counterparty/{contractid}/contacts</a></td>
+                    <td class="api-documentation">
+                        <p>Returns the list of counterparty contacts.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="System.Web.Http.Controllers.HttpControllerDescriptor">Milestones</h2>
+        <p>APIs for Milestones</p>
+        <table class="help-page-table">
+            <thead>
+                <tr><th>API</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones">GET api/accounts/{accountid}/milestones</a></td>
+                    <td class="api-documentation">
+                        <p>List of Milestones</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones_milestoneid">GET api/accounts/{accountid}/milestones?milestoneid={milestoneid}</a></td>
+                    <td class="api-documentation">
+                        <p>Milestone Details by Milestone ID</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones_status">GET api/accounts/{accountid}/milestones?status={status}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Milestones by Status</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones_assignto_status">GET api/accounts/{accountid}/milestones?assignto={assignto}&amp;status={status}</a></td>
+                    <td class="api-documentation">
+                        <p>Get Calender of Milestones assigned to a user</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones_contractid">GET api/accounts/{accountid}/milestones?contractid={contractid}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Milestones by ContractID</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-milestones_milestonetype">GET api/accounts/{accountid}/milestones?milestonetype={milestonetype}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Milestones by Type</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/POST-api-accounts-accountid-milestones">POST api/accounts/{accountid}/milestones</a></td>
+                    <td class="api-documentation">
+                        <p>Create a Milestone Record</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-milestones_milestoneid">PUT api/accounts/{accountid}/milestones?milestoneid={milestoneid}</a></td>
+                    <td class="api-documentation">
+                        <p>Update a Milestone Record</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-milestones_milestoneid_acheived">PUT api/accounts/{accountid}/milestones?milestoneid={milestoneid}&amp;acheived={acheived}</a></td>
+                    <td class="api-documentation">
+                        <p>Update Milestone Acheived</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/DELETE-api-accounts-accountid-milestones_milestoneid">DELETE api/accounts/{accountid}/milestones?milestoneid={milestoneid}</a></td>
+                    <td class="api-documentation">
+                        <p>Delete a Milestone Record</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="System.Web.Http.Controllers.HttpControllerDescriptor">Obligations</h2>
+        <p>APIs for Obligations</p>
+        <table class="help-page-table">
+            <thead>
+                <tr><th>API</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-obligations-obligationsnew_contractid">GET api/accounts/{accountid}/obligations/obligationsnew?contractid={contractid}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Obligations for a Contract Record</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-obligations_obligationid">GET api/accounts/{accountid}/obligations?obligationid={obligationid}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Obligations by Obligation ID</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/GET-api-accounts-accountid-obligations_obligationtype">GET api/accounts/{accountid}/obligations?obligationtype={obligationtype}</a></td>
+                    <td class="api-documentation">
+                        <p>List of Obligations by Obligation Type</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/PUT-api-accounts-accountid-obligations_obligationid_ismet">PUT api/accounts/{accountid}/obligations?obligationid={obligationid}&amp;ismet={ismet}</a></td>
+                    <td class="api-documentation">
+                        <p>Update Obligation Met</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="api-name"><a href="/Help/Api/DELETE-api-accounts-accountid-obligations_obligationid">DELETE api/accounts/{accountid}/obligations?obligationid={obligationid}</a></td>
+                    <td class="api-documentation">
+                        <p>Delete an Obligation Record</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+@section Scripts {
+    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+    <script src="~/Scripts/NewChanges/jquery.dlmenu.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script src="~/Scripts/doubletaptogo.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/confirm.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/menu-responsive.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/form-media.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+    <link href="~/Content/css/table-style.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <link href="~/Content/css/styesheet.css" rel="stylesheet" />
+    <link href="~/Content/css/inboxstyle.css" rel="stylesheet" />
+    <link href="~/Content/css/resposive.css" rel="stylesheet" />
+    <link href="~/Content/css/table-style.css" rel="stylesheet" />
+    <link href="~/Content/css/component.css" rel="stylesheet" />
+    <link href="~/Content/css/popModal.css" rel="stylesheet" />
+    <link href="~/Content/css/popup_details.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+
+}

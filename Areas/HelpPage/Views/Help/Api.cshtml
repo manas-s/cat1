@@ -1,0 +1,54 @@
+@using System.Web.Http
+@using Corevo.eContracts365.Areas.HelpPage.Models
+@model HelpPageApiModel
+
+@{
+    var description = Model.ApiDescription;
+    ViewBag.Title = description.HttpMethod.Method + " " + description.RelativePath;
+    Layout = "~/Areas/HelpPage/Views/Shared/_Layout.cshtml";
+}
+
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+            <p>
+                @Html.ActionLink("Help Page Home", "Index")
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        @Html.DisplayFor(m => Model)
+    </section>
+</div>
+@Html.DisplayForModel("TestClientDialogs")
+@section Scripts {
+    @Html.DisplayForModel("TestClientReferences")
+    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+    <script src="~/Scripts/NewChanges/jquery.dlmenu.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    @*<script src="~/Scripts/jquery.popup.js"></script>*@
+
+    <script src="~/Scripts/doubletaptogo.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/confirm.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/menu-responsive.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/form-media.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+    <link href="~/Content/css/table-style.css" rel="stylesheet" type="text/css" media="screen" />
+
+    <link href="~/Content/css/styesheet.css" rel="stylesheet" />
+    <link href="~/Content/css/inboxstyle.css" rel="stylesheet" />
+    <link href="~/Content/css/resposive.css" rel="stylesheet" />
+    <link href="~/Content/css/table-style.css" rel="stylesheet" />
+    <link href="~/Content/css/component.css" rel="stylesheet" />
+    <link href="~/Content/css/popModal.css" rel="stylesheet" />
+    <link href="~/Content/css/popup_details.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+
+}
