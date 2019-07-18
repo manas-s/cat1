@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'RobotoLight';
+    src: url('../fonts/RobotoLight.eot');
+    src: url('../fonts/RobotoLight.eot') format('embedded-opentype'),
+         url('../fonts/RobotoLight.woff') format('woff'),
+         url('../fonts/RobotoLight.ttf') format('truetype'),
+         url('../fonts/RobotoLight.svg#RobotoLight') format('svg');
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'RobotoLight';
+	color: #484747;
+}
+.clear {
+	clear: both;
+}
+.footer-content-text ul, .footer-content-text li{
+	display: inline-block;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+	width: 100%;
+	margin: 0 auto;
+}
+.header {
+	background-color: #2f76bc;
+}
+.eContract-logo {
+	padding: 15px 0;
+}
+.body_content {
+	padding-top: 6%;
+	text-align: center;
+}
+#unknown-user-page {
+	background-color: #f7f6f6;
+}
+.body_content h2 {
+	font: 35px/37px robotolight;
+	margin: 0;
+}
+.body_content h5 {
+	font: 25px/30px robotolight;
+	margin: 0;
+	padding: 10px 0 15px;
+}
+.body_content input[type="button"] {
+	background-color: #2f76bc;
+	border: medium none;
+	color: #fff;
+	cursor: pointer;
+	font: 15px/20px robotolight;
+	padding: 10px 15px;
+	margin:0 10px;
+}
+
+.left_content {
+    float: left;
+}
+.right_content {
+    float: right;
+	text-align: right;
+}
+
+.footer-content-text {
+    border-top: 1px solid #ccc;
+    margin: 0 5%;
+    padding-top: 1%;
+	font: 14px/18px robotolight;
+}
+.footer-content-text li:last-child a {
+    color: #0161a8;
+    text-decoration: none;
+}
+.footer-content-text li:last-child {
+    margin-left: 15px;
+}
+
+.right_content p a {
+    color: #0161a8;
+    text-decoration: none;
+}
+.footer_content {
+    bottom: 2%;
+    position: absolute;
+    width: 100%;
+}
