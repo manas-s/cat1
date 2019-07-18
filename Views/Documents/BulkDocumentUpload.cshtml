@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "BulkDocumentUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<script src="~/Scripts/knockout-2.2.0.debug.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css"/>
+<style>
+    input[type=file] {
+        color: transparent;
+    }
+</style>
+@*<style>
+        .bulk_Upload-drop > div > ul > li > div{width: auto !important;}
+    </style>*@
+<section class="activity">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1">Bulk Document Upload</b>
+        </div>
+
+
+        @*<div class="activity_left">
+                <b id="heading_contracts" class="welcome1">Contracts</b>
+            </div>*@
+
+
+        <aside class="new_deatile bulk_Upload-drop">
+
+            <div class="cbp-hrmenu cbp-hrmenu5">
+                <ul class="margin-left-m20">
+                    <li class="newCont1 margin-0px">
+                        <a class="contract_STatus_A drop_a" href="javascript:void(0);" id="btnMultipleAction" onclick="javascript: OptionPermission(this);" style="display:none;background-color: #FFF !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                        <div class="cbp-hrsub nEw_ContRact3 hhide">
+                            <div class="meaan">
+                                <div class="">
+                                    <div class="mean-width3 ">
+                                        <ul>
+                                            <li id="btnMultipleAction_StatusBA" class="gloabalarea"><a href="javascript:void(0);" id="PathBusinessAreaNameAll" onclick="javascript: ViewBusinessAreaPicker(this);">Browse Business Area Name</a></li>
+                                            <li id="btnMultipleAction_Status"><a href="javascript:void(0);" id="PathContractTitleAll" onclick="javascript: ViewContractPicker(this);">Browse Contract Record Name</a></li>
+                                            <li id="btnMultipleAction_People"><a href="javascript:void(0);" id="DocumentType" onclick="javascript: DocumentTypeClick(this);">Browse Document Type</a></li>
+                                            @*<li id="btnMultipleAction_NoPermission" style="display:none;">Don't have permission</li>*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+
+
+
+
+</section>
+
+
+
+<section class="main">
+    <section class="wraper">
+        <div class="box_Summery">
+            <i style="font-size:12px;">(Note: A Document with red font means document already exists in the corresponding document path; uploading such documents will overwrite the existing document)</i>
+            <div id="formBulkControls" enctype="multipart/form-data" class="width100">
+
+                <div id="page-report">
+                    <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated table table-striped width100 bulk-up"></table>
+                </div>
+            </div>
+            <label id="lblFilesCount" style="font-style:italic;"></label><br /><br />
+            <a href='javascript:void(0)' onclick="ManagemoreDoc();" class='linkText clManageDrop' style="display:none">+ Add More Document(s)</a>
+            @*<input title="Browse for documents to be added." type="file" style="cursor:pointer" onchange="javascript:changeinupload(this);" id="files" name="files" multiple /><br /><br />*@
+
+
+            @*<label id="lblContractRecordName" style="font-style:italic;"></label><br /><br />
+                @*<input type="file" id="files1" onclick='ViewContractPicker(this);' name="files1" multiple /><br /><br />
+
+
+                <a href="javascript:void(0);" id="ContractTitle" onclick="ViewContractPicker(this);" class="margin-top-5 float_none"> Browse</a>*@
+
+
+            @*<span style="font-size:15px; margin-top:10px; margin-bottom:10px;">OR</span>
+            <br /><br />*@
+
+            @*<div id="holder" style="width:100%; height:100px; border: 2px dashed #ccc">
+                <label style="font-style:italic; font-size:15px; font-weight:bold;"> Drag and drop documents from your computer here.</label>
+            </div>*@
+            <div id="dvmanageholder" class="clManageDrag" style="margin-top:15px">
+                <div id="holder" style="width:100%; height:150px; border: 2px dashed #ccc;text-align:center">
+                    <i style="margin-top: 10px;"><img src="../Content/Images/Manage_upload.png" alt="" style="height:35px;"></i>
+                    <div id="idManagedropfile" class="dropmanagefiles">Drag & Drop your file(s) here to upload or choose from your computer.</div>
+                    <label for="files" id="lbl_docManageBulk" class="custom-file-upload">
+                        Choose File
+                    </label>
+                    @*<input type="file" id="docManageBulk" name="file" title="Document" style="color: transparent; display:none;" multiple>*@
+                    <input title="Browse for documents to be added." type="file" style="color: transparent; display:none;" onchange="javascript:changeinupload(this);" id="files" name="files" multiple />
+                </div>
+            </div>
+                <span id="idLoading" style="font-size:14px; margin-right:10px; display:none;">
+                    <img src="../Content/Images/loading.gif" /> Uploading Documents...
+                </span>
+                <br /><br />
+                <a href="javascript:void(0)" class="f_button_grey" onclick="canceluploaddocument()" style="margin-left:10px;float:right;margin-top:10px">Cancel</a>
+                <input id="btnBulkUpload" type="submit" value="Upload" class="f_button_green  margin-left-10 clManageDrop" style="cursor:pointer;float:right;margin-top:10px;display:none" onclick="bulkdocumentupload();" />
+                
+
+                <div id="browseContracts" style="display:none;">
+                    <div class="bg-warning">
+                        <p>You can select a contract from below and link to the document.</p>
+                    </div>
+                    <article id="right">
+                        <input id="txtSearchBoxBulkUpload" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchContract();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxBulkUpload').val(''); SearchContract();">Clear</a>
+                    </article>
+                    <div id="loadMA"></div>
+                    <div id="page-wrap">
+                        <ul class="f_list" id="tblContracts"></ul>
+                    </div>
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-paginationContracts"></article>
+                    </div>
+                </div>
+
+                <div id="browseBA_LayoutsBulk" style="overflow-y:auto;display:none;">
+                    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+                        <table id="example-Bulk-1" class="treetable">
+                            <tbody id="tbodyBusinessAreaBulk"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*---------------------------------------------------------------------*@
+                <div id="browseDocumentType" style="display:none;">
+                    @*<div class="bg-warning">
+                    <p>You can select a contract from below and link to the document.</p>
+                </div>*@
+                    @*<article id="right">
+                    <input id="txtSearchBoxBulkUploadType" class="f_inpt cl width80" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchContract();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxBulkUploadType').val(''); SearchContract();">Clear</a>
+                </article>*@
+                    <div id="loadMA"></div>
+                    <div id="page-wrap">
+                        <ul class="f_list" id="tblDocumentType"></ul>
+                    </div>
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-paginationDocumentType"></article>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                @*-------------------------------------------*@
+
+
+
+
+            </div>
+    </section>
+</section>
+
+
+<input type="hidden" id="hdContAreaDocLibName" />
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Documents_BulkDocumentUpload.js?" + DateTime.Now.GetHashCode())
+}

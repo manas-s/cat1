@@ -1,0 +1,892 @@
+﻿
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/confirm.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/menu-responsive.css" />
+@*
+    <link rel="stylesheet" type="text/css" href="~/Content/table-media.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css" />*@
+<link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/form-media.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+<link href="~/Content/css/table-style.css" rel="stylesheet" type="text/css" media="screen" />
+
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/kendo")*@
+@Scripts.Render("~/bundles/econtracts")
+<link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+
+
+@Scripts.Render("~/bundles/Newecontracts")
+@Styles.Render("~/Content/econtractscss")
+@Scripts.Render("~/bundles/spcontext")
+@Scripts.Render("~/Scripts/jquery.contextmenu.js")
+@Scripts.Render("~/Scripts/jquery.simplemodal-1.1.1.js")
+
+
+<script type="text/javascript" src="~/Scripts/moment.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.cluetip.css" />
+<script src="~/Scripts/jquery.cluetip.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+<script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+<script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/corevo.validate.js"></script>
+<script src="~/Scripts/tree.jquery.js"></script>
+
+
+@Styles.Render("~/Content/econtractscss")
+@Styles.Render("~/Contract_Details_CSS")
+
+<div class="content-wraper" >
+    <div id="divCopyLinkExpired" class="share_doc_Aleart bg-failure" style="display:none;background: #FD7C7B !important;">
+        <small style="color:black"> This link has expired. Contact the person who shared this link with you for a new link.</small>
+    </div>
+    <div class="content-wraper-in" id="mainDiv" style="display:none">
+        <div class="contract-info-body">
+            <section class="top-action-info">
+                <div id="dvRecyclebinMessage" class="bg-warning" style="display:none;">
+                    This Contract Record has been deleted.
+                    <a id="lnkRecycleContractToUpdate" href="javascript:void(0);" class="GlobalManage" onclick="RestoreContract();">Restore Contract Record.</a>
+                </div>
+                <div id="dvDraftMessage" class="bg-warning" style="display:none;">
+                    This Contract Record is saved as a draft. To update and submit,
+                    <a id="lnkDraftToUpdate" href="javascript:void(0);">edit Contract Record.</a>
+                </div>
+                <div class="row-group">
+                    <div class="action-content m12 col9">
+                        <div class="col2 m4 no-pad manage_term-Tab">
+                            @*<a href="javascript:void(0);" class="back-btn" onclick="BackToList();"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>*@
+
+                        </div>
+                        <div class="m-status-btn m-on text-right m12"></div>
+
+                        @*<div class="col-10 m12 no-pad text-right">Terms & Clauses > Clause Groups*@
+                        <div class="col-10 m12 no-pad text-right">
+                            <a href="javascript:void(0);" class="wit-btn" onclick="ReloadContracts();" style="margin-right: 5px ! important;" title="Refresh">
+                                <img src="/Content/Images/refresh.png">
+                            </a>
+                            @*<a href="javascript:void(0);" class="group-wit-btn" id="topAction1" style="display:none"></a>*@
+                            @*<a href="javascript:void(0);" class="group-wit-btn" id="topAction2" style="display:none"></a>*@
+                            <div class="refr-Butt" style="float: right;display: none;" >
+                                <a id="topActionMore" href="javascript:void(0);" class="wit-btn openmenuContractSettings">More <img src="/Content/Images/card.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="status-btn-body m12 col3 text-right m-off">
+                        <div>
+                            <span id="idNewStatus"></span>
+                            <span id="spanstatus" style="display:none;"></span>
+                            <span id="spancloseout" style="display:none;"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-body">
+                <div class="content-body-left">
+                    <div class="row-group">
+                        <div class="col12">
+                            <section class="heading-section row-group" style="position: relative;">
+                                <div class="col10 m10 pad-top pad-bot cA-left-width">
+                                    <div class="row-group">
+                                        <div class="col1 no-pad">
+                                            <img src="~/Content/Images/contract-boxnew.png" class="heading-icon img-responsive">
+                                        </div>
+                                        <div class="col11">
+                                            <h2 class="contract-heading WrapText_h2 Alignment" id="lblContractTitleHeading" data-maxlength="100" title="Contract Record Title" style="display:none"></h2>
+                                            <h2 class="contract-heading WrapText_h2 Alignment" id="lblContractTitle" data-maxlength="100" title="Contract Record Title"></h2>
+                                            <p class="content-text Alignment WrapText_h2" id="lblContractDescription" style="text-transform: none !important;" data-maxlength="250" title="Description"></p>
+                                            <!---manoj-->
+                                            <div class="wmessage toolContractDescMinor clearfix clpendingaction" style="display:none">
+                                                <!--ENH 23  Minor Enhancement Specs-Rahul--->   @*Added 2.4final to 2.4*@
+                                                <table id="tblDescriptionMissing"></table>
+                                            </div>
+                                            <!---manoj-->
+                                            <input type="text" id="txtContractTitle" title="Contract Record Title" maxlength="100" class="f_inpt width90 validatebracket" style="display: none;" />
+                                            <textarea id="txtContractDescription" title="Contract Record Description" maxlength="500" rows="2" class="f_text-box width90" style="display: none;"></textarea>                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col2 m2 text-right pad-top pad-bot cA-Rightt-width" style="display: none;">
+                                    <i id="iStandardIcon"></i>
+                                    <a id="aTitleEdit" href="javascript:void(0);" class="title-edit-btn close1 Contribute" title="Edit Contract Record title & description" onclick="MakeTitleEditable()"><img src="/Content/Images/edit.png"></a>                                 
+                                </div>
+
+                                <div class="cnt-det-Btns" style="bottom: 9px !important;z-index: 1;">
+                                    <span class="cnt-det-Btn-span" id="aTitleSave" style="display:none">
+                                        <button class="cnt-det-Btn-span-save" onclick="MakeTitleSave()">
+                                            Save
+                                        </button>
+                                    </span>
+                                    <span class="cnt-det-Btn-span margin-right-0" id="aTitleCancel" style="display:none">
+                                        <button class="cnt-det-Btn-span-Cancel" onclick="MakeTitleCancel()">
+                                            Cancel
+                                        </button>
+                                    </span>
+                                </div>
+                                <div class="col12 no-pad" style="padding-bottom: 10px;">
+                                    <div style="padding-top: 1px; padding-right: 19px ! important; padding-bottom: 0px; padding-left: 20px ! important; width: 97% ! important; display: block;" id="dvLabelList" class="col12 no-pad">
+                                    </div>
+                                    <div id="LabelsAdd" style="padding-top: 1px; padding-right: 19px ! important; padding-bottom: 0px; padding-left: 20px ! important; width: 97% ! important; display: none;">
+                                        <a href="javascript:void(0)" style="opacity: 1 !important;font-size:12px;" class="openAddLabel close1 Contribute"><img src="/Content/Images/labels.png" style="cursor:default;vertical-align: top;width: 12px;">&nbsp;+ Add Labels&nbsp;</a>
+                                    </div>
+                                    @*<div style="float: left;margin-bottom:2px;display:none;" id="LabelEdit">
+                                        <a href="javascript:void(0);" class="openEditLabel close1 Contribute"> <img src="/Content/Images/edit.png" title="Edit Labels">&nbsp;</a>
+                                    </div>*@
+                                </div>
+                            </section>
+
+                            <section class="contract_term row-group height_30px" id="secContractTerm" style="display:none;">
+                                <table class="contract_man_term wmessage">
+                                    <tbody id="tbodyManageTerm"></tbody>
+                                </table>
+                                <div id="dvContractTermLeft" class="contract_term_left" style="display:none;">
+                                    <span id="spContractTerm" class="margin-left-20"></span>
+                                </div>
+                                <div id="dvContractTermRight" class="contract_term_right" style="display:none;">
+                                    <span id="spContractTermEnd" class="margin-right-10 float_right1"></span>
+                                </div>
+                            </section>
+                            <section class="tab-menu-and-tab-info row-group">
+                                <div class="tab-menu col12 no-pad">
+                                    <ul class="borderTop_Right_none">
+                                        <li><a href="javascript:void(0);" id="tabSummary" class="contracttab active" onclick="ShowTabDetail('Summary')"><span title="Summarizes details of the Contract Record." class="m-off">Summary</span></a></li>
+                                        <li id="litabDocumentView" style="display:none"><a href="javascript:void(0);" id="tabDocumentView" class="contracttab FL_DocumentView" onclick="ShowTabDetail('DocumentView');"> <span class="m-off" title="Displays documents related to this Contract Record.">Document(s)</span></a></li>
+                                        @*Performance Optimization*@
+                                        <li><a href="javascript:void(0);" id="tabActivity" class="contracttab" onclick="ShowTabDetail('Activity');"><span title="Shows Workflows, eSignature and Negotiation activities related to this Contract Record." class="m-off">Activities <span id="lblActivityCount" style="display:none;"> </span></span></a></li>
+                                        <li id="artAmendment"><a href="javascript:void(0);" id="tabAmendment" class="contracttab FL_Amendments" onclick="ShowTabDetail('Amendment')"><span class="m-off" title="Displays list of Amendments of the Contract Record.">Amendment(s)</span></a></li>
+                                        <li><a href="javascript:void(0);" id="tabObligation" style="display:none" class="contracttab FL_Obligations" onclick="ShowTabDetail('Obligation')"> <span class="m-off" title="Displays list of Obligations of the Contract Record.">Obligations <span id="lblObligationNewCount" style="display:none;"></span></span></a></li>
+                                        <li><a href="javascript:void(0);" id="tabCorrespondence" class="contracttab FL_Correspondence" onclick="ShowTabDetail('Correspondence')"><span class="m-off" title="Displays list of Correspondence of the Contract Record.">Correspondence</span></a></li>
+                                        @*<li><a href="javascript:void(0);" id="tabTermsClause" class="contracttab FL_TermsClauses" onclick="ShowTabDetail('TermsClause');"><span class="m-off" title="Displays tagged Terms and Clauses within each Contract Documents.">Terms & Clauses</span></a></li>*@
+                                        <li><a href="javascript:void(0);" id="tabNotes" class="contracttab" onclick="ShowTabDetail('Notes');"><span class="m-off" title="Displays details of information shared with users.">Notes <span id="lblNotesCount" style="display:none;"></span></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-info col12">
+                                    <div id="tabSummaryDetail" class="info-box-main-body row-group">
+                                        <div class="col12 info-box " id="dvtabSummaryDocumentView">
+                                        </div>
+                                        <div class="col12 info-box" id="MilestoneEnable">
+                                            <div class="row-group">
+                                                <div class="col10 no-pad">
+                                                    <div class="row-group">
+                                                        <div class="col3 no-pad" style="width: 25.2% !important;">
+                                                            <img src="/Content/Images/cal-icon.png"> <a title="Displays Important Dates associated with the Contract Record." href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvMilestoneSection', '', 'imgMile');">Important Dates (<i id="lblMilestonesCount"></i>)</a>
+                                                        </div>
+                                                        <div class="col2 clpendingaction" style="display:none; width: 25px !important;">
+                                                            <div class="wmessage clearfix clpendingaction" style="display:none;">
+                                                                <table id="tblMilestoneMissing"></table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col3" style="width: 130px !important;display:none" >
+                                                            <a id="btnNewMilestone" href="javascript:void(0);" class="add-btn close1 Contribute draft MilestoneEnableF" onclick="javascript: AddMilestoneMoreNew();"><img src="/Content/Images/add-icon.png"> Add Milestone</a>
+                                                        </div>
+                                                        <div class="col2">
+                                                            <a href="javascript:void(0);" id="milestonesNewActions" class="add-btn close1 margin-left-5 obligation-act-new openmenuMilestoneNewMul" style="display:none"><img src="/Content/Images/icon/drop.png" style="height:14px !important;"></a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col2 text-right no-pad">
+                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvMilestoneSection', '', 'imgMile');"><img id="imgMile" src="/Content/Images/e-open.png"></a>
+                                                </div>
+                                            </div>
+                                            <table class="width100" id="tblMilestone">
+                                                <tr id="milestoneInline" class="inline_add" style="display:none;">
+                                                    <td colspan="2">
+                                                        <input type="text" id="txtMilestoneTitleInline" placeholder="Milestone Title" class="f_inpt obligation_box validelement" />
+                                                        <input type="text" id="dtMilestoneDateInline" placeholder="Milestone Date" class="f_inpt obligation_box validelement validdate" />
+                                                        <span class="button-green" id="btnAddMilestoneInline"> <a href="javascript:void(0)"><img src="/Content/Images/menu-icon.png" class="img-padd" />Add</a></span>
+                                                        <span class="button-grey" id="btnAddMilestone"> <a href="javascript:void(0)">Add More</a></span>
+                                                        <span class="button-blue obligation_Cancel" onclick="javascript: addMilestone();"> <a href="javascript:void(0)">Cancel</a></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div id="dvMilestoneSection" class="row-group pad-top">
+                                                <div class="col12">
+                                                    <ul class="ul-data" id="ulMilestoneBody"></ul>
+                                                </div>
+                                                <div id="dvMilestone" class="col12 pad-top">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="artFinancials" style="display:none;" class="col12 info-box ">
+                                            <div class="row-group">
+                                                <div class="col10 no-pad">
+                                                    <img src="/Content/Images/financials.png"> <a title="Displays the monetary value of the Contract Record" href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvFinancialSection', '', 'imgFina');">Financials</a> 
+                                                    @*<a href="javascript:void(0);" class="add-btn close1 Contribute draft" onclick="ManageContractValue()" title="Edit"><img src="/Content/Images/edit.png"></a>*@
+                                                </div>
+                                                <div class="col2 text-right no-pad">
+                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvFinancialSection', 'dvFinancialMetadata', 'imgFina');"><img id="imgFina" src="/Content/Images/e-open.png"></a>
+                                                </div>
+                                            </div>
+                                            <div id="dvFinancialSection" class="row-group pad-top">
+                                                <div class="col12">
+                                                    <div class="row-group pad-bot pad-top">
+                                                        <div class="col12 m12 text-center pad-bot" id="divfinancialsection">
+                                                            <div id="dvcontractfinacialgroup">
+                                                            </div>
+                                                            <h3 class="f24"></h3>
+                                                            <p class="sub-text">Contract Value</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-group pad-top clsFinancialMetadata" id="dvFinancialMetadata">
+                                                <table id="tblFinancialMetadata" border="0" cellspacing="0" cellpadding="0"></table>
+                                            </div>
+                                        </div>
+                                        <div class="col12 info-box" style="display:none;">
+                                            <div class="row-group">
+                                                <div class="col10 no-pad">
+                                                    <img src="/Content/Images/obligation.png"> <a title="Displays list of obligations of the Contract Record." href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulObligation', 'dvObligation', 'imgObl');">Obligations (<i id="lblObligationsCount"></i>)</a>
+                                                    <a id="btnNewObligation" href="javascript:void(0);" class="add-btn close1 Contribute restricamnd draft" onclick="javascript: addObligation();" style="display: none;"><img src="/Content/Images/add-icon.png"> Add</a>
+                                                </div>
+                                                <div class="col2 text-right no-pad">
+                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulObligation', 'dvObligation', 'imgObl');"><img id="imgObl" src="/Content/Images/e-open.png"></a>
+                                                </div>
+                                            </div>
+                                            <table class="width100" id="tblObligation">
+                                                <tr id="obligationInline" class="inline_add" style="display:none;">
+                                                    <td colspan="2">
+                                                        <input type="text" id="txtObligationTitleInline" placeholder="Obligation Title" class="f_inpt obligation_box validelement" />
+                                                        <input type="text" id="dtDueDateInline" placeholder="Due Date" class="f_inpt obligation_box validelement validdate" />
+                                                        <span class="button-green" id="btnAddObligationInline"> <a href="javascript:void(0)"><img src="/Content/Images/menu-icon.png" class="img-padd" />Add</a></span>
+                                                        <span class="button-grey" id="btnAddObligation"> <a href="javascript:void(0)">Add More</a></span>
+                                                        <span class="button-blue obligation_Cancel" onclick="javascript: addObligation();"> <a href="javascript:void(0)">Cancel</a></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="row-group pad-top">
+                                                <div class="col12">
+                                                    <ul class="ul-data" id="ulObligation"></ul>
+                                                </div>
+                                                <div id="dvObligation" class="col12 pad-top">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabAmendmentDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div id="artAmendment" class="col12 info-box ">
+                                        <div class="row-group">
+                                            <div class="col10 no-pad">
+                                                <img src="/Content/Images/amendments.png"> <a title="Perform addition (addendum), deletion, correction, or similar change in a Contract Record." href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulAmendment', 'dvAmendment', 'imgAmd');">Amendments (<i id="lblAmendmentsCount"></i>)</a>
+                                                @*<a id="btnNewObligation" href="javascript:void(0);" class="add-btn close1 Contribute restricamnd draft" onclick="javascript: addAmendment();"><img src="/Content/Images/add-icon.png"> Add</a>*@
+                                            </div>
+                                            <div class="col2 text-right no-pad">
+                                                <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulAmendment', 'dvAmendment', 'imgAmd');"><img id="imgAmd" src="/Content/Images/e-open.png"></a>
+                                            </div>
+                                        </div>
+                                        <table class="width100" id="tblAmendment">
+                                            <tr id="amendmentInline" class="inline_add" style="display:none;">
+                                                <td colspan="2">
+                                                    <input type="text" id="txtAmendmentTitleInline" placeholder="Amendment Title" class="f_inpt obligation_box validelement" />
+                                                    <input type="text" id="txtAmendmentDescInline" placeholder="Description" class="f_inpt obligation_box" />
+                                                    <span class="button-green" id="btnAddAmendmentInline"> <a href="javascript:void(0)"><img src="/Content/Images/menu-icon.png" class="img-padd" />Add</a></span>
+                                                    <span class="button-grey" id="btnAddAmendment"> <a href="javascript:void(0)">Add More</a></span>
+                                                    <span class="button-blue obligation_Cancel" onclick="javascript: addAmendment();"> <a href="javascript:void(0)">Cancel</a></span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="row-group pad-top">
+                                            <div class="col12">
+                                                <ul class="ul-data" id="ulAmendment"></ul>
+                                            </div>
+                                            <div id="dvAmendment" class="col12 pad-top">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabCorrespondenceDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="col12 info-box FL_Correspondence">
+                                        <div class="row-group">
+                                            <div class="col10 no-pad">
+                                                <img src="/Content/Images/icon/correspondence.png">
+                                                <a title="Saved email from MS Office 365 Outlook is displayed as a correspondence to the Contract Record." href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulCorrespondence', 'dvCorrespondence', 'imgCor');">
+                                                    Correspondence(<i id="lblCorrespondenceCount"></i>)
+                                                </a>
+                                            </div>
+                                            <div class="col2 text-right no-pad">
+                                                <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulCorrespondence', 'dvCorrespondence', 'imgCor');">
+                                                    <img id="imgCor" src="/Content/Images/e-open.png">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row-group pad-top">
+                                            <div class="col12">
+                                                <ul class="ul-data" id="ulCorrespondence"></ul>
+                                            </div>
+                                            <div id="dvCorrespondence" class="col12 pad-top"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabActivityDetail" class="info-box-main-body row-group" style="display:none;">
+
+                                    <div class="col12 info-box ">
+                                        <div class="width97 padding_left_20px" style="float:left;text-align:left;padding-left: 10px;margin-top: 5px;height: 30px;">
+                                            <a href="javascript:void(0);" class="link-head" style="cursor:default">Activities</a>
+                                            @*<a href="javascript:void(0);" class="add-btn close1 Contribute draft" onclick="contextMenuContractSettings('approve', '', '');" id="addActivityApproval"><img src="/Content/Images/add-icon.png">Start Approval</a>*@
+                                        </div>
+                                    </div>
+                                    <div id="dvContractWorkflows" class="width97">
+
+                                    </div>
+                                </div>
+
+                                <div id="tabObligationNewDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="row-group  pad-top">
+                                        <div style="width:50%; float:left;text-align:left;padding-left: 10px;margin-top: 5px;height: 30px;">
+                                            <a href="javascript:void(0);" class="link-head" style="cursor:default">Obligations</a>
+                                            @*<a href="javascript:void(0);" class="add-btn close1 Contribute draft" id="addObligationNewItemPopup"><img src="/Content/Images/add-icon.png">Add Obligation</a>*@
+                                        </div>
+                                        <div class="row-group col-10 m12 no-pad text-right margin-bottom-5" id="obligationNewActionsdiv" style="height: 30px;width:50%;float:right;clear:none;">
+                                            <a id="obligationungroup" class="wit-btn  obligation-act-new close1 active group-wit-btn  " href="javascript:void(0);" onclick="ShowObligationsNew()"><img title="Un-group" src="/Content/Images/icon/ungroup.png" /></a>
+                                            <a id="obligationgroup" class="wit-btn margin-right-10 close1 obli_actiondivdark obligation-act-new group-wit-btn  " href="javascript:void(0);" onclick="BindObligationsNewGroup('')"><img title="Group" src="/Content/Images/icon/group.png" /></a>
+                                            <a href="javascript:void(0);" id="obligationNewActions" class="wit-btn margin-right-10 margin-left0 obligation-act-new openmenuObligationNewMul" style="display:none;"><img src="/Content/Images/icon/drop.png"></a>
+                                        </div>
+                                        <div id="page-wrap" class="cataLog-Tex" style="float:left">
+                                            <table class="width100" id="ObligationNewDetailsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Type</th>
+                                                        <th>Due Date &nbsp;&nbsp;</th>
+                                                        <th>Products/Services</th>
+                                                        <th>Performed By</th>
+                                                        <th style="padding-left:18px;">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ObligationNewDetailsTableBody" class="obligation_table_ui"></tbody>
+                                            </table>
+                                            <table class="width100" id="ObligationNewDetailsTableGroup" style="display:none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Type</th>
+                                                        <th>Repeat</th>
+                                                        <th>Instances</th>
+                                                        <th>Date &nbsp;&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ObligationNewDetailsTableBodyGroup" class="obligation_table_ui"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="row-group Contribute"></div>
+                                        <div id="NoObligationNewDetails" class="margin-top-10 margin-left-14" style="display:none;">
+                                            <span>No Items found.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabNotesDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="col12 info-box ">
+                                        <div class="width97 padding_left_20px" style="float:left;text-align:left;padding-left: 10px;margin-top: 5px;height: 30px;">
+                                            <a href="javascript:void(0);" class="link-head" style="cursor:default">Notes</a>
+                                            @*<a id="btnNewNotes" href="javascript:void(0);" class="add-btn close1 Contribute"><img src="/Content/Images/add-icon.png">Add</a>*@
+                                        </div>
+                                        <div class="width97 padding_left_20px">
+                                            <ul class="toDoContenList" id="ulNotesBody"></ul>
+                                            <div id="dvNotes" class="col12 pad-top"></div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                <div id="tabCatalogDetail" class="info-box-main-body row-group" style="display:none;">
+
+                                    <div class="row-group col-10 m12 no-pad pad-top text-right pad-bot" style="height:46px;">
+                                        <a href="javascript:void(0);" style="display:none;" id="catalogActions" class="wit-btn openmenuCatalogMul">Actions<img src="/Content/Images/card.png"></a>
+                                    </div>
+
+                                    <div class="row-group  pad-top">
+                                        <div id="page-wrap" class="cataLog-Tex">
+                                            <table class="width100" id="catalogDetailsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Units</th>
+                                                        <th>Unit Price &nbsp;&nbsp;</th>
+                                                        <th>Commitments</th>
+                                                        <th>Commitments Met</th>
+                                                        <th>Valid Till</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="catalogDetailsTableBody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="NoCatalogDetails" style="display:none;margin-top:10px;">
+                                            <span>No Items are present for this Contract</span>
+                                        </div>
+                                        <div class="row-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="row-group Contribute">
+                                            <a href="javascript:void(0);" id="addCatalogpopup">Add Item</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="addCatalogMultipopup">Add Multiple Items</a>&nbsp;&nbsp;<a class="drop_a" href="javascript:void(0);" id="btnMultipleCatalogAction" style="display:none;background-color: transparent !important;"><img src="/Content/Images/CM_delete.png" /></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tabTransactionsDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="row-group pad-top">
+                                        <div id="page-wrap">
+                                            <table class="width100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Date</th>
+                                                        <th># of items</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                        <th>Compliance</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="transactionDetailsTableBody">                                                   
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="NoTransactionDetails" style="display:none;margin-top:10px;">
+                                            <span>No transactions are present for this Contract Record</span>
+                                        </div>
+                                        <div class="row-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="row-group Contribute">
+                                            <a href="javascript:void(0);" id="addTransactionpopup">Add More</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tabTermsClauseDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="wrapper-tagged">
+                                        <div class="tagged-header clearfix">
+                                            <div class="tagged-header-left">
+                                                <a href="javascript:void(0);" style="cursor:default;color: #428bca;font-size: 16px;">Tagged Terms &amp; Clauses</a>
+                                            </div>
+                                            <div class="tagged-header-right">
+                                                <a href="javascript:void(0)" style="display:none;">Actions<i class="fa fa-caret-square-o-down"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="available-doc">
+                                            <div style="display:inline-block">
+                                                <select id="ddlTemplateAndClauses" style="width:100%;"></select>
+                                            </div>
+                                            <div id="docversion" style="display:none"></div>
+                                        </div>
+
+                                        <div id="ulTermsClauseBody" class="tagged-inner">
+                                            <div style="margin-top:10px">Select available document.</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---manoj--->
+                                <!---New Document View Details(Feature) --->
+                                <div id="tabDocumentViewDetail" class="info-box-main-body row-group" style="display:none;">
+                                    <div class="col12 info-box " id="dvtabDocumentView">                                        
+                                    </div>
+                                </div>
+                                <!---New Document View Details(Feature) --->
+                                <!---manoj--->
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-body-right">
+                    <div class="row-group">
+                        <div class="col12">
+                            <div class="row-group left-pan-box">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col9 no-pad clSumTemp" id="dvsumtemp" style="display:none">
+                                        </div>
+                                        <div class="col9 no-pad">
+                                            <h3 title="Summary of metadata details of the Contract Record." class="left-pan-box-heading"> <img src="/Content/Images/contract-metadata.png" style="cursor:default"> Metadata</h3>
+                                        </div>
+                                        <div class="col3 no-pad text-right" style="display: none;">
+                                            <a href="javascript:void(0);" class="close1" onclick="contextMenuContractSettings('view', '', '')" title="View All"> <img src="/Content/Images/view-all.png">&nbsp;</a>
+                                            <a href="javascript:void(0);" class="close1 Contribute StatusPermission" onclick="contextMenuContractSettings('edit','','')" title="Edit"> <img src="/Content/Images/edit.png">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+                                            <div class="wmessage toolpeople clearfix clpendingaction" style="margin-left: 99px;margin-top: -27px;margin-bottom: 30px;display:none">
+                                                <table id="tblMetadataMissing"></table>
+                                            </div>
+                                            <table class="clsMetadata" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr id="trContractMetadataNumber" style="display:none;">
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Number</td>
+                                                    <td height="10" align="left" valign="top" class="content-text textcontent width58" id="summCNumber"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Counterparty</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" style="text-transform:none !important;" id="summCounterparty"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Business Area</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCBusArea"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Created on</td>
+                                                    <td height="10" align="left" valign="top" class="content-text" id="summCreated"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Created by</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCreatedBy"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Legal Entity</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCompyLegalEntity"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Type</td>
+                                                    <td height="10" align="left" valign="top" class="content-text-contract-type width58" id="summContractType"></td>
+                                                </tr>
+                                                <tr id="trRelatedRequest">
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Created From</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summRelatedRequest"></td>
+                                                </tr>
+                                            </table>
+                                            <table id="MetadataAll" class="clsMetadataAll" width="100%" border="0" cellspacing="0" cellpadding="0"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-group left-pan-box" style="display:none;">
+                                <div class="col12 no-pad pad-top">
+                                    <div class="row-group">
+                                        <div class="col9 no-pad">
+                                            <h3 title="Shows list of Alerts for the Contract Record." class="left-pan-box-heading">
+                                                <img src="/Content/Images/Alerts.png" style="cursor:default"> Upcoming Alerts                                            
+                                                <a href="javascript:void(0);" style="margin:0px;" class="alert-tab-btn close1 active" onclick="ShowUpcomingAlert()" id="aUpcomingAlert" title="Upcoming Alert(s)"><img src="/Content/Images/upcoming.png"></a>
+                                            </h3>
+                                        </div>
+                                        <div class="col3 no-pad text-right">
+                                            <a href="javascript:void(0);" class="close1" style="display:none" onclick="ShowAllAlerts()" title="View All"> <img src="/Content/Images/view-all.png">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div id="dvSentAertsList" class="col12 no-pad" style="display:none">
+                                            <p class="content-text clr999" id="alertsList"></p>
+                                        </div>
+                                        <div id="dvUpcomingAertsList" class="col12 no-pad">
+                                            <p class="content-text clr999" id="alertsListUpcoming"></p>
+                                            <p class="content-text clr999" id="alertsListUpcomingMilestone"></p>
+                                            <p class="content-text clr999" id="alertsListUpcomingDocument"></p>
+                                            <p class="content-text clr999" id="spNoUpcomingAlert" style="display:inline;">No items found.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@*View Document Metatdata*@
+<div id="showMSWordPopup" style="display:none;overflow: hidden;">
+    <div class="pop-inner">
+        <h1 id="showMSWordPopup_head">We're opening your document in Microsoft Word...</h1>
+        <h5>Did you run into issues?</h5>
+        <div class="file-edit clearfix" id="editwordlink">
+            <a id="linkEditInWordOnline" href="javascript:void(0);" target="_blank"><p><img src="/Content/Images/wordonline.png" alt=""></p><p>Edit in Word Online</p></a>
+        </div>
+        <a style="color:#4b9ef7" href="javascript:void(0);" onclick="req();">Learn more about the requirements</a>
+    </div>
+</div>
+
+
+<input type="hidden" id="hdnPermission" />
+<label style="display:none;" id="hdnContractID"></label>
+<label style="display:none;" id="hdnContractValue"></label>
+<label style="display:none;" id="hdnContractCurrency"></label>
+<label style="display:none;" id="hdnContractPricingType"></label>
+<label style="display:none;" id="hdnTransactionType"></label>
+<label style="display:none;" id="hdnPaymentType"></label>
+<label style="display:none;" id="hdnBillingFrequency"></label>
+<label style="display:none;" id="hdnOldEndDate"></label>
+<label style="display:none;" id="hdnTermEndDate"></label>
+<label style="display:none;" id="hdnBaseContractValue"></label>
+<label style="display:none;" id="hdnBaseContractCurrency"></label>
+<label style="display:none;" id="hdnFinalizedDocumentsUrl"></label>
+<label style="display:none;" id="hdnDraftDocumentsUrl"></label>
+<label style="display:none;" id="hdnContractDocumentsUrl"></label>
+<label style="display:none;" id="hdnContractDocumentsUrlFixed"></label>
+<span id="lblContractArea" style="display:none"></span>
+<span id="lblBusinessArea" style="display:none"></span>
+<span id="lblBusinessAreaPath" style="display:none"></span>
+<span id="lblContractAreaAdmins" style="display:none"></span>
+<span id="lblApprovalWorkflow" style="display:none"></span>
+<span id="lblBusinessAreaOwners" style="display:none"></span>
+<span id="lblCounterparty" style="display:none"></span>
+<span id="lblCompanyProfile" style="display:none"></span>
+<span id="lblContractType" style="display:none"></span>
+<label style="display:none;" id="hdnStartDate"></label>
+<input id="txtBusinessArea" type="hidden" />
+<label style="display:none;" id="hdnIsExtendable"></label>
+<label style="display:none;" id="hdnIsExtendableContract"></label>
+<label style="display:none;" id="hdnRenewApprovalRequired"></label>
+<input type="hidden" id="hdnPinDocumentCount" />
+
+
+
+<input type="hidden" id="hdnnewdocumentfeature" />
+<input type="hidden" id="hdnFolderDocumentView" />
+<h2 id="hdnShowAllTextValue" style="display:none"></h2>
+<h2 id="hdnShowAllTextValueheader" style="display:none"></h2>
+<input type="hidden" id="hdnsummeryTempDocu" />
+<input id="hdChangeStatusClick" type="hidden" value="" />
+<input type="hidden" id="hdnBaseCurrency" value="" />
+<input type="hidden" id="hdnDocumentAction" />
+<label style="display:none;" id="hdncatalogselect"></label>
+<label style="display:none;" id="hdnPriceBreakDownCurrency"></label>
+<label style="display:none;" id="hdnIsDocumentTag"></label>
+<label style="display:none;" id="hdnIsRenewable"></label>
+<label style="display:none;" id="hdnIsRenewableContract"></label>
+<label style="display:none;" id="hdnRelatedContracts"></label>
+<label style="display:none;" id="hdnDocumentID"></label>
+<label id="licontractmanagers" style="display:none"></label>
+<label id="lireviewers" style="display:none"></label>
+<label id="liapprovers" style="display:none"></label>
+<span id="lisignees" style="display:none"></span>
+<label style="display:none;" id="hdnObligationUniqueId"></label>
+<label style="display:none;" id="hdnObligationRowKey"></label>
+<label style="display:none;" id="hdnMilestoneUniqueId"></label>
+<label style="display:none;" id="hdnMilestoneRowKey"></label>
+<label style="display:none;" id="hdnProductUpdates"></label>
+<label style="display:none;" id="lblObligationFinancialsAmount"></label>
+<label style="display:none;" id="lblDocumentExtension"></label>
+<label style="display:none;" id="lblDocumentUrl"></label>
+<input type="hidden" id="hdContAreaDocLibName" />
+
+
+
+
+<ul id="dropdownMenuObligationStatusSettings" class="contextMenu">
+    <li id="MenuObligationStatusUpcoming"><a href="#Upcoming" class="obligation_satus_setting">Upcoming</a></li>
+    <li id="MenuObligationStatusDelayed"><a href="#Delayed" class="obligation_satus_setting">Delayed</a></li>
+    <li id="MenuObligationStatusPartial"><a href="#Partial" class="obligation_satus_setting">Partial</a></li>
+    <li id="MenuObligationStatusCancelled"><a href="#Cancelled" class="obligation_satus_setting">Cancelled</a></li>
+    <li id="MenuObligationStatusComplete"><a href="#Complete" class="obligation_satus_setting">Complete</a></li>
+</ul>
+
+
+
+@*context menu document*@
+<ul id="dropdownMenuFinalSignature" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="separator"></li>
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="separator"></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator"></li>
+</ul>
+
+@*context menu obligation*@
+<ul id="dropdownMenuobligation" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+</ul>
+
+@*context menu milestone*@
+<ul id="dropdownMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+</ul>
+
+
+@*context menu correspondence*@
+<ul id="dropdownMenuCorrespondence" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="download"><a href="#download">Download</a></li>
+</ul>
+
+@*Amendment ViewMetatda*@
+<div id="viewAmendmentMetadataDetail" style="table-layout: fixed; width: 100%;display:none;">
+    <div style="border: 1px solid #6394c5">
+        <table id="tblAmendmentMetadataDetail" style="line-height: 28px !important;" class="clsViewMetadata" cellpadding="1" cellspacing="1"></table>
+    </div>
+</div>
+
+<!-- Document Popup Start -->
+<div id="viewMetadataDetailDocument" style="display:none;overflow-y: auto;">
+    <div id="page-wrap">
+        <ul class="pop_up_Harizondal_meta">
+            <li><a href="javascript:void(0)" id="docMetadata" class="active_tab" onclick="ShowMetadata();">Metadata</a></li>
+            <li><a href="javascript:void(0)" id="docActivities" onclick="ShowActivities();">Activities</a></li>
+        </ul>
+        <table class="MetadataDetailDocument">
+            <thead>
+                <tr id="idDocumentPopup">
+                    <th class="logHisheader" style="width:90px">Date and Time</th>
+                    <th class="logHisheader">Item</th>
+                    <th class="logHisheader">Activity</th>
+                    <th class="logHisheader">User</th>
+                </tr>
+            </thead>
+            <tbody id="documentLogs"></tbody>
+        </table>
+    </div>
+    <table id="tblMetadataDetailDocument" class="width100 MetadataDetailDocument" cellpadding="1" cellspacing="1"></table>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-documentLogs" style="display:none;"></article>
+    </div>
+</div>
+
+<ul id="dropdownMenuMarkFinalSignatureUnPin" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="separator"></li>
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="separator"></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator"></li>
+</ul>
+
+<ul id="dropdownMenuDocumentSort" class="contextMenu">
+    <li class="ascorder"><a href="#ascorder">Sort A to Z</a></li>
+    <li class="descorder"><a href="#descorder">Sort Z to A</a></li>
+</ul>
+
+<div id="dvCorrespondenceDetails" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head width50">Email Subject</td>
+                    <td class="f_list width50" id="CorresSubject"></td>
+                </tr>
+                <tr>
+                    <td class="f_head width50">Comment</td>
+                    <td class="f_list width50" id="CorresComment"></td>
+                </tr>
+                <tr>
+                    <td class="f_head width50">Saved By</td>
+                    <td class="f_list width50" id="SavedBy"></td>
+                </tr>
+                <tr>
+                    <td class="f_head width50">Saved On</td>
+                    <td class="f_list width50" id="SavedOn"></td>
+                </tr>
+                <tr>
+                    <td class="f_head width50">Attachments</td>
+                    <td class="f_list width50" id="Attachments"></td>
+                </tr>
+                <tr id="trEmailText3" style="display:none;">
+                    <td class="f_head width50">Correspondence File</td>
+                    <td class="f_list width60" id="CorrespondenceFile"></td>
+                </tr>
+                <tr id="trEmailText1">
+                    <td class="f_head width50">Email Text</td>
+                    <td class="f_list width60"></td>
+                </tr>
+                @*<tr>
+                    <td colspan="2" style="overflow-y: scroll; height: 150px; border:1px solid #d4d0d0" id="CorresBody">
+                    </td>
+                    </tr>*@
+                <tr id="trEmailText2">
+                    <td colspan="2" id="aaaa" class="f_list">
+                        <iframe id="CorresBody2" width="100%" height="450" style="border: 1px solid #b7b7b7; margin-top: 15px; "></iframe>
+                        @*<div id="CorresBodyNew" width="550" height="400" style="border: 1px solid #b7b7b7; margin-top: 15px; "></div>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="docSignatureDetail" style="display:none;overflow-y: auto;">
+    <table class="width100">
+        <tr>
+            <td class="content-text clr999 width34">Subject</td>
+            <td class="content-text width65" id="tdDocSignsubject"></td>
+        </tr>
+        <tr>
+            <td class="content-text clr999 width34">Message</td>
+            <td class="content-text width65 text_transform_none" id="tdDocSignmessage"></td>
+        </tr>
+        <tr>
+            <td class="content-text clr999 width34">State</td>
+            <td class="content-text width65" id="tdDocSignstate"></td>
+        </tr>
+        <tr id="createdid">
+            <td class="content-text clr999 width34">Created</td>
+            <td class="content-text width65" id="tdDocSigncreated"></td>
+        </tr>
+        <tr id="lastactivityid">
+            <td class="content-text clr999 width34">Last Activity</td>
+            <td class="content-text width65" id="tdDocSignlastactivity"></td>
+        </tr>
+        <tr id="expiresid">
+            <td class="content-text clr999 width34">Expires</td>
+            <td class="content-text width65" id="tdDocSignexpires"></td>
+        </tr>
+        <tr id="completedid">
+            <td class="content-text clr999 width34">Completed</td>
+            <td class="content-text width65" id="tdDocSigncompleted"></td>
+        </tr>
+        <tr>
+            <td class="content-text contract-Right" colspan="2">
+                <span class="Pop-SubTitle margin-top-15" style="font:bold">Participants</span>
+                <ul id="dvDocSignatureUser" class="doc-contUl text_transform_none"></ul>
+            </td>
+        </tr>
+        <tr>
+            <td class="content-text contract-Right" colspan="2">
+                <span class="Pop-SubTitle margin-top-15" style="font:bold">History</span>
+                <ul id="dvDocSignatureHist" class="doc-contUl text_transform_none"></ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="dvMilObgMetadata" style="table-layout: fixed; width: 100%;display:none;">
+    <div>
+        <table id="tblMilObgMetadataDetail" style="line-height: 28px !important;" class="clsViewMetadata" cellpadding="1" cellspacing="1"></table>
+    </div>
+</div>
+
+<input type="hidden" id="copylinkid" value="@ViewBag.LinkID" />
+<input type="hidden" id="hdAccountID" value="@ViewBag.AccountID" />
+<input type="hidden" id="hdAPIKey" value="@ViewBag.APIKey" />
+
+<script type="text/javascript">
+            var vnow = '@DateTime.UtcNow';
+</script>
+@Scripts.Render("~/Contract_Details_JS")
+@Scripts.Render("~/Scripts/Contract365/Contract_Link.js?" + DateTime.Now.GetHashCode())
+    @*@section scripts{
+        <script type="text/javascript">
+            var vnow = '@DateTime.UtcNow';
+        </script>
+        <script src="~/Scripts/corevo.validate.js"></script>
+        <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+        <script src="~/Scripts/tree.jquery.js"></script>
+        @Scripts.Render("~/Contract_Details_JS")
+        @Scripts.Render("~/Scripts/Contract365/Contract_Link.js?" + DateTime.Now.GetHashCode())
+    }*@
+
+

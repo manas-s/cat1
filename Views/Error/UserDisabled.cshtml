@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "User Disabled/Not Available";
+    Layout = "~/Views/Shared/_Layout_Error.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User Disabled/Not Available</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/unknown_user/css/user_style.css">
+</head>
+<body>
+    <div id="unknown-user-page">
+        <div class="header">
+            <div class="wrapper">
+                <div class="eContract-logo"><a href="~/Home?SPHostUrl=https%3A%2F%2Fcorevo%2Esharepoint%2Ecom%2Fsites%2FContract365%2FV2"><img src="/Content/unknown_user/images/e-logo.png" alt=""></a></div>
+            </div>
+        </div>
+        <div class="body_content">
+            <div class="wrapper">
+                <img src="/Content/unknown_user/images/unknown_user.png" alt="">
+                <h2>User Disabled or Unidentified</h2>
+                <h5>Please contact administrator to get your user profile created or enabled in eContracts.</h5>
+                <input id="btnLogin" type="button" value="Click to Login" onclick="ClickToLogin();">
+            </div>
+        </div>
+        <div class="footer_content">
+            <div class="footer-content-text">
+                <div class="right_content">
+                    <ul>
+                        <li>© 2016 Optimus BT</li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript">
+        function autoResizeDiv() {
+            document.getElementById('unknown-user-page').style.height = window.innerHeight + 'px';
+        }
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+        if (typeof localStorage.SPHostUrl == 'undefined' || localStorage.SPHostUrl == '') {
+            if (document.getElementById('btnLogin') != null) {
+                $("#btnLogin").css("display", "none");
+                //document.getElementById('btnLogin').css('display', 'none');
+            }
+        }
+
+        function ClickToLogin() {
+            location = "/Home?SPHostUrl=" + localStorage.SPHostUrl;
+        }
+
+    </script>
+
+</body>
+</html>

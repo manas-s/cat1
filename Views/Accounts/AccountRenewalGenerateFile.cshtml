@@ -1,0 +1,330 @@
+﻿@{
+    ViewBag.Title = "AccountRenewalGenerateFile";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+<div class="content-wraper">
+    <div class="content-wraper-in">
+        <div class="contract-info-body">
+            <section class="top-action-info">
+                <div id="dvDraftMessage" class="bg-warning" style="display:none;">
+                    This contracts is in your draft. To update and Submit,
+                    <a id="lnkDraftToUpdate" href="javascript:void(0);">Open Contract Form.</a>
+                </div>
+
+
+            </section>
+            <section class="content-body">
+                <div>
+                    <div class="row-group">
+                        <div class="col12">
+                            <section class="tab-menu-and-tab-info row-group">
+                                <div class="tab-menu col12 no-pad">
+                                    <ul class="borderTop_Right_none">
+                                        <li><a href="javascript:void(0);" id="tabAccountRenewal" class="contracttab active" onclick="ShowTabDetail('Account')"><img src="/Content/Images/summary.png"> <span title="Summarizes details of the Contract Record." class="m-off">Account</span></a></li>
+                                        <li><a href="javascript:void(0);" id="tabResourcesRenewal" class="contracttab" onclick="ShowTabDetail('Resources');"><img src="/Content/Images/activity.png"> <span title="Shows activities related to each Contract Record, its participants and status." class="m-off">Resources</span></a></li>
+                                        <li><a href="javascript:void(0);" id="tabFeaturesEnable" class="contracttab" onclick="ShowTabDetail('Features')"><img src="/Content/Images/obligation.png"> <span class="m-off" title="Displays list of obligations of the Contract Record.">Features</span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-info col12">
+                                    <div id="tabAccountRenewalDetail" class="info-box-main-body row-group">
+                                        <div id="generateAccountFile">
+                                            <table class="width95_a" id="addAccount">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="pageheading" colspan="4">Account Renewal</td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <label class="f_head1">Status<span class="required">*</span></label>
+
+                                                        </td>
+                                                        <td class="labelleft" colspan="3">
+                                                            <select id="ddlAccountStatus" style="" name="IndustryOrg" title="Industry" class="f_inpt width70 validelement">
+                                                                <option value="0">--Select--</option>
+                                                                <option value="Active">Active</option>
+                                                                <option value="Expire">Expire</option>
+                                                                <option value="Suspend">Suspend</option>
+                                                                <option value="Suspend">Deactivate</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="f_head1">Renewal or Expired Date<span class="required">*</span></label>
+
+                                                        </td>
+                                                        <td class="labelleft" colspan="3">
+                                                            <input id="txtRenewalDate" value="" title="Renewal Date" type="text" class="f_inpt width70 validelement validdate" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label class="f_head1">Expiration Limit<span class="required">*</span></label>
+
+                                                        </td>
+
+                                                        <td class="labelleft" colspan="3">
+                                                            <input id="txtExpirationLimit" value="" title="Expiration Limit" type="text" class="f_inpt width70 validelement" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <label class="f_head1">Suspension Limit<span class="required">*</span></label>
+
+                                                        </td>
+
+                                                        <td class="labelleft" colspan="3">
+                                                            <input id="txtSuspenstionLimit" value="" title="Suspension Limit" type="text" class="f_inpt width70 validelement" />
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                            <table class="width100">
+                                                <tr style="height:60px"></tr>
+                                                <tr>
+                                                    <td align="center">
+                                                        <span class="button-green" id="btnGenerateAccount"><a>SAVE</a></span>
+                                                        <span class="button-blue"> <a href="javascript:void(0)" id="btnAccountCancel" onclick='javascript:CancelAccountSettings();'>CANCEL</a></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-info col12">
+                                    <div id="tabResourcesRenewalDetail" class="info-box-main-body row-group" style="display:none;">
+                                        <div id="addAccountResources">
+                                            <table class="width95_a" cellpadding="2" cellspacing="2">
+
+                                                <tr>
+                                                    <td class="pageheading" colspan="2">Resources Renewal</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Contract Areas<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtContractAreas" name="ContractAreas" type="text" onchange="calcultotalContracts()" title="Contract Areas" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Contracts per Contract Area<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtContractsperContractAreas" name="ContractsperContractAreas" onchange="calcultotalContracts()" type="text" title="Contracts per ContractAreas" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Contracts<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtContracts" onclick="checking()" name="Contracts" disabled type="text" title="Contracts" class="f_inpt width97" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Users<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtUsers" name="Users" type="text" title="Users" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Business User<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtBusinessUser" name="BusinessUser" type="text" title="Business User" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Contract Administrator<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtContractAdministrator" name="ContractAdministrator" type="text" title="Contract Administrator" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Global Contract Owner<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtGlobalContractOwner" name="GlobalContractOwner" type="text" title="Global Contract Owner" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Account Owner<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtAccountOwner" name="AccountOwner" type="text" title="Account Owner" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">BusinessArea Owner<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtBusinessAreaOwner" name="BusinessAreaOwner" type="text" title="BusinessArea Owner" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Contract Types<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtContractTypes" name="ContractTypes" type="text" title="Contract Types" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Active Contract Types<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtActiveContractTypes" name="ActiveContractTypes" type="text" title="Active Contract Types" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Counterparties<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtCounterparties" name="Counterparties" type="text" title="Counterparties" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Active Counterparties<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtActiveCounterparties" name="ActiveCounterparties" type="text" title="Active Counterparties" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label class="f_head1">Active Negotiation Portals<span class="required">*</span></label></td>
+                                                    <td class="verticalalign-top"><input id="txtActiveNegotiationPortals" name="ActiveNegotiationPortals" type="text" title="Active Negotiation Portals" class="f_inpt width97 validelement" /></td>
+                                                </tr>
+                                            </table>
+                                            <table class="width100">
+                                                <tr style="height:60px"></tr>
+                                                <tr>
+                                                    <td align="center">
+                                                        <span class="button-green" id="btnGenerateResources"><a>SAVE</a></span>
+                                                        <span class="button-blue"> <a href="javascript:void(0)" id="btnResourceCancel" onclick='javascript:CancelAccountSettings();'>CANCEL</a></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <p id="inprocessMilestone" class="popup_save_progress" style="visibility:hidden;">
+                                                <img src="/Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-info col12">
+                                    <div id="tabFeaturesEnableDetail" class="info-box-main-body row-group" style="display:none;">
+                                        <div>
+                                            <table class="width95_a" cellpadding="2" cellspacing="2">
+                                                <tbody id="addAccountFeatures"></tbody>
+
+                                            </table>
+                                            <table class="width100">
+                                                <tr style="height:60px"></tr>
+                                                <tr>
+                                                    <td align="center">
+                                                        <span class="button-green" id="btnGenerateFeatures"><a>SAVE</a></span>
+                                                        <span class="button-blue"> <a href="javascript:void(0)" id="btnFeaturesCancel" onclick='javascript:CancelAccountSettings();'>CANCEL</a></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    @Scripts.Render("~/_Layout_JS_One")
+    @Scripts.Render("~/_Layout_JS_Two")
+    @Scripts.Render("~/Scripts/Contract365/Account_AccountRenewalGenerateFile.js?" + DateTime.Now.GetHashCode())
+
+
+    <script type="text/javascript">
+        var vnow = '@DateTime.UtcNow';
+
+        function ShowTabDetail(TabName) {
+            if (TabName == "Account") {
+                $('.info-box-main-body').css("display", "none");
+                $('#tabAccountRenewalDetail').css("display", "");
+
+                $(".contracttab").removeClass("active");
+                $("#tabAccountRenewal").addClass("active");
+
+
+                $("#ddlAccountStatus").removeClass("error");
+                $("#txtRenewalDate").removeClass("error");
+                $("#txtExpirationLimit").removeClass("error");
+                $("#txtSuspenstionLimit").removeClass("error");
+
+                $('#txtExpirationLimit').val('');
+                $('#txtSuspenstionLimit').val('');
+                $('#txtRenewalDate').val('');
+                $('#txtRenewalDate').val('');
+                $('#ddlAccountStatus').val('');
+
+            }
+            else if (TabName == "Resources") {
+                $('.info-box-main-body').css("display", "none");
+                $('#tabResourcesRenewalDetail').css("display", "");
+
+                $(".contracttab").removeClass("active");
+                $("#tabResourcesRenewal").addClass("active");
+
+
+                $('#txtContractAreas').val('');
+                $('#txtContractsperContractAreas').val('');
+                $('#txtContracts').val('');
+                $('#txtUsers').val('');
+                $('#txtBusinessUser').val('');
+
+                $('#txtContractAdministrator').val('');
+                $('#txtGlobalContractOwner').val('');
+                $('#txtAccountOwner').val('');
+                $('#txtBusinessAreaOwner').val('');
+                $('#txtContractTypes').val('');
+
+                $('#txtActiveContractTypes').val('');
+                $('#txtCounterparties').val('');
+                $('#txtActiveCounterparties').val('');
+                $('#txtActiveNegotiationPortals').val('');
+
+
+                $('#txtContractAreas').removeClass("error");
+                $('#txtContractsperContractAreas').removeClass("error");
+                $('#txtContracts').removeClass("error");
+                $('#txtUsers').removeClass("error");
+                $('#txtBusinessUser').removeClass("error");
+
+                $('#txtContractAdministrator').removeClass("error");
+                $('#txtGlobalContractOwner').removeClass("error");
+                $('#txtAccountOwner').removeClass("error");
+                $('#txtBusinessAreaOwner').removeClass("error");
+                $('#txtContractTypes').removeClass("error");
+
+                $('#txtActiveContractTypes').removeClass("error");
+                $('#txtCounterparties').removeClass("error");
+                $('#txtActiveCounterparties').removeClass("error");
+                $('#txtActiveNegotiationPortals').removeClass("error");
+
+            }
+            else if (TabName == "Features") {
+                $('.info-box-main-body').css("display", "none");
+                $('#tabFeaturesEnableDetail').css("display", "");
+
+                $(".contracttab").removeClass("active");
+                $("#tabFeaturesEnable").addClass("active");
+            }
+
+        }
+
+    </script>
+
+    <link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+
+
+    <style>
+        .search-field input {
+            /*min-width:200px !important;*/
+            width: auto !important;
+        }
+
+        .search-choice span {
+            width: auto !important;
+            line-height: 14px !important;
+        }
+
+        #ddlRequestedBy_chosen {
+            width: 91% !important;
+        }
+
+        #ddlSendRenewReminderTo_chosen {
+            width: 92% !important;
+        }
+    </style>
+
+
+}
+
+
+
+

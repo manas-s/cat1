@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "Help Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/econtractscss")
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+<link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css">
+<style>
+          .ui-autocomplete {
+           font-size: 13px !important;
+           max-height: 200px;
+           overflow-y: auto;
+           /* prevent horizontal scrollbar */
+           overflow-x: hidden;
+           /* add padding to account for vertical scrollbar */
+           padding: 8px;
+           line-height:17px;
+           font-size:13px;
+           color:#808080;
+
+       }
+
+
+        dd.file-video {
+        background: url("/Content/Images/Video Icon.png");
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: 18px;
+        margin: 0 5px 0 0;
+        position: relative;
+        top: 3px;
+        width: 18px;
+    }
+</style>
+<section class="activity">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1" style="width:50%;">Help Documents</b>
+            <a href="javascript:void(0);" class="wit-btn" id="btnCreateVideo" style="height:15px !important;border-radius:0 !important; border-left:1px solid #d6d6d6" onclick="UploadVideo();">Upload Video</a>
+            <a href="javascript:void(0);" class="wit-btn" id="btnCreatDocument" style="height:15px !important;border-radius:0 !important; border-left:1px solid #d6d6d6" onclick="UploadDocumnet();">Upload Document</a>
+            <a href="javascript:void(0);" class="wit-btn" id="btnaddnewsubfolder" style="height:15px !important;border-radius:0 !important; border-left:1px solid #d6d6d6">Add Folder</a>
+        </div>
+    </div>
+    <aside>
+        <!---Select for Multi Action Start-->
+        <div class="cbp-hrmenu cbp-hrmenu5">
+            <ul class="margin-left-m20">
+                <li class="newCont1 margin-0px">
+                    <a class="contract_STatus_A drop_a" href="javascript:void(0);" id="btnMultipleAction" style="background-color: #FFF !important;display:none"><img src="../Content/Images/icon/drop.png" /></a>
+                    <div class="cbp-hrsub nEw_ContRactA3 hhide" style="right: 130px !important;">
+                        <div class="meaan">
+                            <div class="">
+                                <div class="mean-width3 ">
+                                    <ul>
+                                        <li id="btnMultipleAction_Delete"><a href="javascript:void(0);" onclick="javascript: MultiDocumentDelete();">Delete</a></li>
+                                        <li id="btnMultipleAction_Download"><a href="javascript:void(0);" onclick="javascript: MultiDocumentDownload();">Download</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+        @*<div class="cbp-hrmenu cbp-hrmenu5 ">
+                <ul>
+                    <li class="newCont">
+                        <div class="single-Bulk">
+                    <input type="button" id="btnCreatDocument" class="f_button_green_small" onclick="UploadDocumnet();" value="Upload Documents" />
+                        </div>
+                    </li>
+                </ul>
+            </div>*@
+    </aside>
+</section>
+
+
+<section class="wraper">
+    <section class="box2">
+        <div class="my-Alerts_contDeat" style="padding-top:0 !important">
+            <div class="my_contract_search_block">
+                <div class="inserch1" id="divSearch" style="margin-top:0 !important">
+                    <a href="javascript:void(0);"><img src="../Content/Images/con_search.png" onclick="javascript:search();" /></a>
+                    <input placeholder="Enter a keyword" type="text" id="txtSearchBox" />
+
+                </div>
+                <span class="sort_filter_block">
+                    @*<span style="float:left;margin: 10px 5px 0 0;">
+                            <img src="../Content/Images/sort_view.png" />
+                        </span>*@
+                    <span style="float:left;display: inline-block;">
+                        <select id="conSortByOptions" class="wide" style="border:none; color:#666;float:left;">
+                            <option value="Recently Updated">Recently Updated</option>
+                            <option value="Recently Created">Recently Created</option>
+                        </select>
+                    </span>
+                </span>
+
+            </div>
+
+            <div style="margin-top: 10px;margin-left: 20px;">
+                <span id="showAll" class="box-title" style="display: inline; width: auto; float: none; line-height: 16px;"></span>@*Showing All Documents*@
+                @*<a href="javascript:void(0);" class="add-btn close1" id="btnaddnewsubfolder"><img id="imgbtnfolder" src="/Content/Images/add-icon.png"> Add Folder</a>*@
+            </div>
+            <div class="selectFIlterItem">
+
+                <div id="liFiltersSearchText">
+
+                </div>
+            </div>
+
+            <div id="loading" class="border-left seArchLi alertbox_status"></div>
+            <div class="width20 float_right1 result_count">
+                <span id="spResult"></span>
+            </div>
+            <div>
+                <span id="spResult"></span>
+            </div>
+            <div class="alertbox_status alertbox_status_contDeat" style="margin-top:0 !important">
+                <div class="alertbox_status alertbox_status_contDeat conTract_Rec" style="margin-top:0 !important">
+                    <ul id="listDocuments" class="border-left" style="padding:0px 20px;display: block;float: left;width: 95%; margin: 0 !important;"></ul>
+                </div>
+            </div>
+            <div id="footerPage" class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </div>
+
+    </section>
+
+</section>
+<div id="addDocument" style="display:none;">
+    <div id="dvPopupHeadingDocumentType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <ul id="formValidityForm" class="poPup_Form_Field">
+            <li id="trFileUpload">
+                <p><b>Browse File</b>&nbsp;<small class="required">*</small><img title="Browse and select the document file to be uploaded." src="/Content/Images/input-help.png"></p>
+                <div class="poPup_Form_Upload">
+                    <input type="file" id="docContract" name="file" title="Document" class="validelement validfilename" onchange="javascript: changeinupload(this);" />
+                </div>
+            </li>
+            <li>
+                <p><b>Destination Folder</b><img title="Folder location to store the new document." src="/Content/Images/input-help.png"></p>
+                <div class="saveLoca">
+                    <span id="lblFolderUrl" style="cursor:default; font-size: 13px">
+                        /Help Documents/
+                    </span>
+                    @*<input id="txtNewFolderName" name="NewFolderName" title="New Folder Name" maxlength="50" onkeypress="return isBackSlashKey(event)" placeholder="New Folder Name" type="text" class="f_inpt width40 specialchar" />*@
+                    <br />
+                </div>
+
+            </li>
+            <li id="trdesc">
+                <p><b>Description</b><img title="Enter the details of the Document." src="/Content/Images/input-help.png"></p>
+                <div class="f_list" style="padding-bottom: 15px;">
+                    <textarea id="txtDescriptionDoc" rows="4" maxlength="300" name="Description" title="Description" class="f_text-box"></textarea>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div id="EditDocument" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingclanguahe" class="modalheader"><span></span></div>
+    <div id="dvfoldercreationvalidate">
+        <table class="" cellpadding="2" cellspacing="2">
+            <tr>
+                <td><label>Name&nbsp;<small class="required">*</small></label></td>
+                <td><input id="txtEditDocumentvalue" type="text" class="f_inpt validelement filecorevo validtitle" maxlength="50" onkeypress="return isBackSlashKey(event)" title="Document Name" style="width: 350px;" name="Document Name" placeholder="Enter Name" /></td>
+                <td><label id="lblextension"></label></td>
+            </tr>
+            <tr>
+                <td><label>Description&nbsp;<small></small></label></td>
+                <td><textarea id="txtEditDescription" rows="4" style="width:340px" maxlength="300" name="Description" title="Description" placeholder="Enter Description" class="f_text-box"></textarea></td>
+                <td><label id="lbldocumentID" style="display:none"></label></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="dvfoldercreation" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingclanguahe" class="modalheader"><span></span></div>
+    <div id="dvfoldercreationvalidate">
+        <table class="table6" cellpadding="2" cellspacing="2">
+            <tr class="table6">
+                <td class="table6"><b>Destination Folder</b><img title="Location of the folder" src="/Content/Images/input-help.png"></td>
+                <td class="table6">
+                    <span id="lblFolderLocation" style="cursor:default; font-size: 13px">
+                        /Help Documents/
+                    </span>
+                    @*<input id="txtNewFolderName" name="NewFolderName" title="New Folder Name" maxlength="50" onkeypress="return isBackSlashKey(event)" placeholder="New Folder Name" type="text" class="f_inpt width40 specialchar" />*@
+                    <br />
+                </td>
+
+            </tr>
+            <tr class="table6">
+                <td class="table6"><label>Folder Name&nbsp;<small class="required">*</small></label></td>
+                <td class="table6"><input id="txtnewfoldervalue" type="text" class="f_inpt validelement specialchar" maxlength="50" onkeypress="return isBackSlashKey(event)" title="folder name" style="width: 350px;" name="Folder Name" placeholder="Enter Folder Name" /></td>
+            </tr>
+        </table>
+    </div>
+    <input id="hdnnewfolderurl" type="hidden" />
+    <input id="hdnnewfoldercreatedfrom" type="hidden" />
+    <input id="hdninsidefolder" type="hidden" />
+</div>
+
+<div id="addVideo" style="display:none;">
+    <div id="dvPopupHeadingVideo" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <ul id="formValidityForm" class="poPup_Form_Field">
+            <li id="trFileUpload">
+                <p><b>Browse File</b>&nbsp;<small class="required">*</small><img title="Browse and select the video file to be uploaded." src="/Content/Images/input-help.png"></p>
+                <div class="poPup_Form_Upload">
+                    <input type="file" id="docVideo" name="file" title="Video file" class="validelement validfilename" onchange="javascript: changeinuploadfiles(this);" />
+                </div>
+            </li>
+            <li>
+                <p><b>Destination Folder</b><img title="Folder location to store the new video." src="/Content/Images/input-help.png"></p>
+                <div class="saveLoca">
+                    <span id="lblFolderUrlVD" style="cursor:default; font-size: 13px">
+                        /Help Documents/
+                    </span>
+                    @*<input id="txtNewFolderName" name="NewFolderName" title="New Folder Name" maxlength="50" onkeypress="return isBackSlashKey(event)" placeholder="New Folder Name" type="text" class="f_inpt width40 specialchar" />*@
+                    <br />
+                </div>
+
+            </li>
+            <li id="trdesc">
+                <p><b>Description</b><img title="Enter the details of the video." src="/Content/Images/input-help.png"></p>
+                <div class="f_list" style="padding-bottom: 15px;">
+                    <textarea id="txtDescriptionVD" rows="4" maxlength="300" name="Description" title="Description" class="f_text-box"></textarea>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div id="loadingPage">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+        </p>
+    </div>
+</div>
+<ul id="myMenuDocument" class="contextMenu">
+    <li class="viewO365 Manage"><a href="#view">View</a></li>
+    <li class="edit Manage Contribute"><a href="#edit">Edit</a></li>
+    <li class="download Manage"><a href="#Download">Download</a></li>
+    <li class="delete Manage Contribute"><a href="#Delete">Delete</a></li>
+</ul>
+<ul id="myMenuVedio" class="contextMenu">
+    <li class="edit Manage Contribute"><a href="#edit">Edit</a></li>
+    <li class="download Manage"><a href="#Download">Download</a></li>
+    <li class="delete Manage Contribute"><a href="#Delete">Delete</a></li>
+</ul>
+<ul id="myMenuFolder" class="contextMenu">
+    <li class="openfolder Manage"><a href="#open">Open</a></li>
+    <li class="delete Manage Contribute"><a href="#Delete">Delete</a></li>
+</ul>
+<input type="hidden" id="hdContAreaDocLibName" />
+
+
+<div id="ShowVideo" style="display:none;">
+    <div id="dvPopupHeadingVideo" class="modalheader"><span id="docText"></span></div>
+    <div class="modalbody">
+        @*<video id="vdPlayer" autoplay controls >
+                <source  src="~/Content/Test2.mp4" type="video/mp4"/>
+                This browser doesn't support video tag.
+            </video>*@
+        <video id="player" controls width="550" height="475">
+            @*<source src="~/Content/Test2.mp4" type=""/>*@
+            This browser doesn't support video tag.
+        </video>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#add_Filterss').click(function () {
+            $('#add_Filterss').popModal({
+                html: $('#add_Filters'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+    });
+</script>
+<style>
+    .table6{
+    padding: 6px;
+    }
+</style>
+@section Scripts {
+
+    <script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+    @Scripts.Render("~/Scripts/Contract365/General_HelpDocuments.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/jquery.nice-select.min.js")
+}

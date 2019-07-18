@@ -1,0 +1,598 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Shared</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/confirm.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/menu-responsive.css" />
+    @*
+        <link rel="stylesheet" type="text/css" href="~/Content/table-media.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/style.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/form-media.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+    <link href="~/Content/css/table-style.css" rel="stylesheet" type="text/css" media="screen" />
+
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/kendo")*@
+    @Scripts.Render("~/bundles/econtracts")
+
+
+    @Scripts.Render("~/bundles/Newecontracts")
+    @Styles.Render("~/Content/econtractscss")
+    @Scripts.Render("~/bundles/spcontext")
+    @Scripts.Render("~/Scripts/jquery.contextmenu.js")
+    @Scripts.Render("~/Scripts/jquery.simplemodal-1.1.1.js")
+
+
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.cluetip.css" />
+    <script src="~/Scripts/jquery.cluetip.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+    @Styles.Render("~/Content/econtractscss")
+
+    @Scripts.Render("~/Scripts/Contract365/Contract_Shared.js?" + DateTime.Now.GetHashCode())
+    <style>
+        .ewa-embed-footer {
+            display: none;
+        }
+
+        #mid-section {
+            margin-top: 10px;
+        }
+
+        .active {
+            background-color: #126fb1;
+        }
+
+        .cl::-ms-clear {
+            display: none;
+        }
+        #tblfinancialMetadata td{
+            padding: 7px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+    </style>
+    <link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <section class="main">
+        <header>
+            <div class="logo">
+                <div class="logoTop">
+                    <small>
+                        &nbsp;
+                    </small>
+                    <b>
+                        <a href="javascript:void(0);"><img src="~/Content/images/logo-mob.png" style="pointer-events:none;" /></a>
+                    </b>
+                </div>
+
+                <img src="~/Content/images/logo.png" class="margin-bottom-10 FL_CompanyBrandingLogo" style="pointer-events:none;max-height:40px;display:none" />
+
+            </div>
+            <ul class="logoRight" style="display:none;">
+                <li id="nvAccLogo" style="display:none;">
+                    <a href="javascript:void(0);"><img id="accountLogo" alt="logo" src="~/Content/images/logo.png" height="20" style="margin-bottom: 6px; padding-left:3px;pointer-events:none;"></a>
+                </li>
+            </ul>
+        </header>
+
+        <section class="wraper">
+            <div id="dvTask" class="share_doc_Aleart" style="display:none;">
+                <small id="hComplete" style="width: 80%;">If you are done negotiating/reviewing this contract, let <i id="spSender"></i> know.</small>
+                <span class="toDoReviewed"><a href="javascript:void(0);" onclick='CompleteReview()'><img src="~/Content/images/reviewed.png" /><small> Mark as Completed</small></a></span>
+            </div>
+            <div id="dvExpired" class="share_doc_Aleart bg-failure" style="display:none;background: #FD7C7B !important;">
+                <small> This link has expired. Contact the person who shared this link with you for a new link.</small>
+            </div>
+            <div id="dvStopped" class="share_doc_Aleart bg-failure" style="display:none;background: #FD7C7B !important;">
+                <small style="color:green"> This link has expired. Contact the person who shared this link with you for a new link.</small>
+            </div>
+            <div class="content-wraper">
+                <div class="content-wraper-in">
+                    <div class="contract-info-body">
+                        @*<section class="top-action-info">
+                                <div class="row-group">
+                                    <div class="action-content m12 col9">
+
+                                    </div>
+                                    <div class="status-btn-body m12 col3 text-right m-off">
+                                        <div class="constatus">
+                                            <span id="spanstatus"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>*@
+
+
+                        <section class="content-body" id="mid-section1" style="display:none">
+                            <div class="content-body-left">
+                                <div class="row-group">
+                                    <div class="col12">
+                                        <section class="heading-section row-group">
+                                            <div class="col11 m10 pad-top pad-bot">
+                                                <div class="row-group">
+                                                    <div class="col1 no-pad">
+                                                        <img src="/Content/Images/contract-box.png" class="heading-icon img-responsive">
+                                                    </div>
+                                                    <div class="col11">
+                                                        <h2 class="contract-heading WrapText_h2 Alignment PreserveSpace" id="lblContractTitle" title="Contract Record Title"></h2>
+                                                        <p class="content-text WrapText_h2 Alignment PreserveSpace" id="lblContractDescription" title="Contract Record Description"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col1 m2 text-right pad-top pad-bot">
+                                                @*<i id="iStandardIcon">
+                                                        <img id="iStandardCont" src="/Content/Images/CM_standard.png" title="Standard Contract" alt="Standard Contract" style="display:none" />
+                                                        <img id="iNonStandardCont" src="/Content/Images/CM_nonstandard.png" title="Non-Standard Contract" alt="Non-Standard Contract" style="display:none" />
+                                                    </i>*@
+                                            </div>
+                                            <div class="col12 no-pad" style="padding-bottom: 10px;">
+                                                <div style="padding-top: 1px; padding-right: 19px ! important; padding-bottom: 0px; padding-left: 20px ! important; width: 97% ! important; display: block;" id="dvLabelList" class="col12 no-pad">
+                                                </div>
+
+                                            </div>
+                                        </section>
+
+
+                                        <section class="contract_term row-group height_30px">
+                                            <div id="dvContractTermLeft" class="contract_term_left">
+                                                <span id="spContractTerm" class="margin-left-20"></span>
+                                            </div>
+                                            <div id="dvContractTermRight" class="contract_term_right">
+                                                <span id="spContractTermEnd" class="margin-right-10 float_right1"></span>
+                                            </div>
+                                        </section>
+
+
+
+                                        <section class="tab-menu-and-tab-info row-group">
+
+
+                                            <div class="tab-menu col12 no-pad">
+                                                <ul class="borderTop_Right_none">
+                                                    <li><a href="javascript:void(0);" id="tabSummary"  style="border-right: 1px solid #ddd !important;" class="contracttab active" onclick="ShowTabDetail('Summary')"><img src="/Content/Images/summary.png"> <span title="Summarizes details of the Contract Record." class="m-off">Summary</span></a></li>
+                                                    @*
+                                                        <li><a href="javascript:void(0);" id="tabActivity" class="contracttab" onclick="ShowTabDetail('Activity');"><img src="/Content/Images/activity.png"> <span title="Shows activities related to each Contract, its participants and status." class="m-off">Activity (<span id="lblActivityCount"></span>)</span></a></li>*@
+                                                    @*
+                                                        <li><a href="javascript:void(0);" id="tabCatalog" class="contracttab FL_Catalog" onclick="ShowTabDetail('Catalog')" style="display:none;"><img src="/Content/Images/catalog.png"> <span class="m-off">Catalog (<span id="lblCatalogsCount"></span>)</span></a></li>*@
+                                                    @*
+                                                        <li><a href="javascript:vosendacopyid(0);" id="tabObligation" class="contracttab FL_Obligations" onclick="ShowTabDetail('Obligation')" style="display:none;"><img src="/Content/Images/obligation.png"> <span class="m-off" title="Displays list of obligations of the Contract.">Obligations (<span id="lblObligationNewCount"></span>)</span></a></li>*@
+                                                    <li><a href="javascript:void(0);" id="tabNotes" class="contracttab" style="border-right: 1px solid #ddd !important;" onclick="ShowTabDetail('Notes');"><img src="/Content/Images/notes.png"> <span class="m-off" title="Displays details of information shared with users.">Notes (<span id="lblNotesCount"></span>)</span></a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div id="tabNotesDetail" class="info-box-main-body row-group" style="display:none;">
+                                                <div class="col12 info-box ">
+                                                    <div class="width97 padding_left_20px">
+                                                        <ul class="toDoContenList" id="ulNotesBody"></ul>
+                                                        <div id="dvNotes" class="col12 pad-top">
+
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="padding_left_20px"><a href="javascript:void(0);" id="btnNewNotes">Add a Note</a></div>*@
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-info col12">
+                                                <div id="tabSummaryDetail" class="info-box-main-body row-group">
+                                                    <div class="col12 info-box ">
+                                                        <div class="row-group">
+                                                            <div class="col10 no-pad">
+                                                                <img src="/Content/Images/documents.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulDocument', 'dvDocument', 'imgdoc');">Documents (<i id="lblDocumentsCount"></i>)</a>
+                                                            </div>
+                                                            <div class="col2 text-right no-pad">
+                                                                <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulDocument', 'dvDocument', 'imgdoc');"><img id="imgdoc" src="/Content/Images/e-open.png"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-group pad-top">
+                                                            <div class="col12">
+                                                                <ul class="ul-data" id="ulDocument"></ul>
+                                                            </div>
+                                                            <div id="dvDocument" class="col12 pad-top">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col12 info-box ">
+                                                        <div class="row-group">
+                                                            <div class="col10 no-pad">
+                                                                <img src="/Content/Images/cal-icon.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvMilestoneSection', '', 'imgMile');">Milestones (<i id="lblMilestonesCount"></i>)</a>
+                                                            </div>
+                                                            <div class="col2 text-right no-pad">
+                                                                <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvMilestoneSection', '', 'imgMile');"><img id="imgMile" src="/Content/Images/e-open.png"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="dvMilestoneSection" class="row-group pad-top">
+                                                            <div class="col12">
+                                                                <ul class="ul-data" id="ulMilestoneBody"></ul>
+                                                            </div>
+                                                            <div id="dvMilestone" class="col12 pad-top">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="artFinancials" style="display:none;" class="col12 info-box ">
+                                                        <div class="row-group">
+                                                            <div class="col10 no-pad">
+                                                                <img src="/Content/Images/financials.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvFinancialSection', '', 'imgFina');">Financials</a>
+                                                            </div>
+                                                            <div class="col2 text-right no-pad">
+                                                                <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvFinancialSection', '', 'imgFina');"><img id="imgFina" src="/Content/Images/e-open.png"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="dvFinancialSection" class="row-group pad-top">
+                                                            @*<div class="col12">
+                                                                    <div class="row-group pad-bot pad-top">
+                                                                        <div class="col4 m12 text-center pad-bot">
+                                                                            <h3 class="f24">
+                                                                                <span id="lblContractValue"></span>
+                                                                                <span id="lblContractCurrency"></span>
+                                                                            </h3>
+                                                                            <p class="sub-text">Contract Value</p>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>*@
+
+                                                            <div class="col12">
+                                                                <div class="row-group pad-bot pad-top">
+                                                                    <div class="col12 m12 text-center pad-bot" id="divfinancialsection">
+                                                                        <div id="dvcontractfinacialgroup">
+                                                                        </div>
+                                                                        <h3 class="f24">
+
+                                                                            @*<span id="lblContractValue"></span>
+                                                                                <span id="lblContractCurrency"></span>*@
+                                                                        </h3>
+
+                                                                        <p class="sub-text">Contract Record Value</p>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col12">
+                                                                <div class="row-group pad-bot pad-top">
+                                                                    <div class="col12 m12 text-center pad-bot" id="divfinancialMeatdatasection">
+                                                                        <div id="dvfinancialMeatdatagroup" style="text-align: center; margin: 25px 25% auto 28%;">
+                                                                            <table style="width: 420px" cellspacing="0" cellpadding="0" border="0">
+                                                                                <tbody id="tblfinancialMetadata" ></tbody>
+                                                                            </table>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        @*<div id="artRenewable" style="display:none;" class="col12 info-box ">
+                                                                <div class="row-group">
+                                                                    <div class="col10 no-pad">
+                                                                        <img src="/Content/Images/CM_contract_renewal.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('tblRenewalHistory', '', 'imgRe');">Renewals </a>
+
+                                                                    </div>
+                                                                    <div class="col2 text-right no-pad">
+                                                                        <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('tblRenewalHistory', '', 'imgRe');"><img id="imgRe" src="/Content/Images/e-open.png"></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row-group pad-top">
+                                                                    <div class="col12">
+                                                                        <ul class="ul-data" id="tblRenewalHistory"></ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>*@
+                                                        <div class="col12 info-box FL_Obligations" style="display:none;">
+                                                            <div class="row-group">
+                                                                <div class="col10 no-pad">
+                                                                    <img src="/Content/Images/obligation.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulObligation', 'dvObligation', 'imgObl');">Obligations (<i id="lblObligationsCount"></i>)</a>
+
+                                                                </div>
+                                                                <div class="col2 text-right no-pad">
+                                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulObligation', 'dvObligation', 'imgObl');"><img id="imgObl" src="/Content/Images/e-open.png"></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-group pad-top">
+                                                                <div class="col12">
+                                                                    <ul class="ul-data" id="ulObligation"></ul>
+                                                                </div>
+                                                                <div id="dvObligation" class="col12 pad-top">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="artAmendment" style="display:none;" class="col12 info-box ">
+                                                            <div class="row-group">
+                                                                <div class="col10 no-pad">
+                                                                    <img src="/Content/Images/amendments.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulAmendment', 'dvAmendment', 'imgAmd');">Amendments (<i id="lblAmendmentsCount"></i>)</a>
+
+                                                                </div>
+                                                                <div class="col2 text-right no-pad">
+                                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulAmendment', 'dvAmendment', 'imgAmd');"><img id="imgAmd" src="/Content/Images/e-open.png"></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-group pad-top">
+                                                                <div class="col12">
+                                                                    <ul class="ul-data" id="ulAmendment"></ul>
+                                                                </div>
+                                                                <div id="dvAmendment" class="col12 pad-top">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col12 info-box FL_Correspondence" style="display:none;">
+                                                            <div class="row-group">
+                                                                <div class="col10 no-pad">
+                                                                    <img src="/Content/Images/icon/correspondence.png"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('ulCorrespondence', 'dvCorrespondence', 'imgCor');">Correspondence (<i id="lblCorrespondenceCount"></i>)</a>
+                                                                </div>
+                                                                <div class="col2 text-right no-pad">
+                                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulCorrespondence', 'dvCorrespondence', 'imgCor');"><img id="imgCor" src="/Content/Images/e-open.png"></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-group pad-top">
+                                                                <div class="col12">
+                                                                    <ul class="ul-data" id="ulCorrespondence"></ul>
+                                                                </div>
+                                                                <div id="dvCorrespondence" class="col12 pad-top">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-body-right">
+                                <div class="row-group">
+                                    <div class="col12">
+                                        @*<div class="row-group left-pan-box">
+                                                <div class="col12 no-pad">
+                                                    <div class="row-group">
+                                                        <div class="col9 no-pad">
+                                                            <h3 class="left-pan-box-heading"> <img src="/Content/Images/contract-metadata.png"> Metadata</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-group pad-top">
+                                                        <div class="col12 no-pad">
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td height="10" align="left" valign="top" class="content-text clr999">Number</td>
+                                                                    <td height="10" align="left" valign="top" class="content-text" id="summCNumber"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10" align="left" valign="top" class="content-text clr999">Counterparty</td>
+                                                                    <td height="10" align="left" valign="top" class="content-text" id="summCounterparty"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10" align="left" valign="top" class="content-text clr999">Business Area</td>
+                                                                    <td height="10" align="left" valign="top" class="content-text" id="summCBusArea">Talent Oursourcing</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10" align="left" valign="top" class="content-text clr999">Created on</td>
+                                                                    <td height="10" align="left" valign="top" class="content-text" id="summCreated">03/02/2010</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10" align="left" valign="top" class="content-text clr999 ">Created by</td>
+                                                                    <td height="10" align="left" valign="top" class="content-text" id="summCreatedBy"></td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        <div class="row-group" id="commentactivity-Right">
+                                            <div class="col12 no-pad">
+                                                <div class="row-group">
+                                                    <div class="col9 no-pad">
+                                                        <h1 class="contrRightMa"> <img src="/Content/Images/chat.png" style="pointer-events:none;"> Comments &amp; Activities</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="row-group">
+                                                    <div id="postComment" style="display:none;" class="postComment">
+                                                        <div id="dvPostComment" style="display:none;">
+                                                            <div class="divpostcommentsec">
+                                                                <label class="toDoTextText">
+                                                                    <textarea id="txtComment" name="Comment" rows="2" class="validelement"></textarea>
+                                                                </label>
+                                                                <div style="clear:both"></div>
+                                                            </div>
+                                                            <div class="divpostcommentsecbtn">
+                                                                <p>
+                                                                    <a class="pop_up_Content_Green" href="javascript:void(0)" id="btnPost">Post</a>
+                                                                    <a class="pop_up_Content_Green pop_up_Content_White" href="javascript:void(0)" onclick="HideComment()">Cancel</a>
+                                                                    <div style="clear:both"></div>
+                                                                </p>
+                                                            </div>
+                                                            <div style="clear:both"></div>
+                                                        </div>
+                                                        @*<div id="dvUpload" style="display:none;">
+                                                                <label class="toDoTextText width100">
+                                                                    <input type="file" id="docToReplace" onchange="javascript:changeinupload(this);" name="file" title="Document" class="width90 validelement" /><br />
+                                                                    <textarea id="txtCommentReplace" name="Comment" rows="2" title="Comment" placeholder="Enter Comment" class="width90 validelement margin-top-10"></textarea>
+                                                                </label>
+                                                                <br />
+                                                            </div>*@
+                                                        <br />
+                                                        <div style="width:100%; overflow:hidden;">
+                                                            <a class="postCommentA" href="javascript:void(0);" onclick="ShowComment()" id="postCommentLink">Post Comment</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col12 no-pad contract-Right">
+                                                        <p class="content-text clr999">
+                                                            <ul id="tblComments" class="doc-contUl"></ul><br />
+                                                            <a id="aCommentsMore" style="display:none;" class="alertbox_status1A" href="javascript:void(0);" onclick="ShowAllComment()">Show more</a>
+                                                            <a id="aCommentsLess" style="display:none;" class="alertbox_status1A" href="javascript:void(0);" onclick="ShowLessComment()">Show less</a>
+                                                        </p>
+                                                        @*<div id="postComment" style="display:none;" class="postComment">
+                                                                <div id="dvPostComment">
+                                                                    <label class="toDoTextText width100">
+                                                                        <textarea id="txtComment" name="Comment" rows="2" class="f_inpt width100 validelement"></textarea>
+                                                                    </label>
+                                                                    <br /><p class="float_right1">
+                                                                        <a class="pop_up_Content_Green " href="javascript:void(0)" id="btnPost">Post</a>
+                                                                        <a class="pop_up_Content_Green pop_up_Content_White" href="javascript:void(0)" onclick="HideComment()">Cancel</a>
+                                                                    </p>
+                                                                </div>
+                                                                <p style="display:none">
+                                                                    <a class="postCommentA" href="javascript:void(0);" onclick="ShowComment()" id="postCommentLink">Post Comment</a>
+                                                                </p>
+                                                            </div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+
+    <input type="hidden" id="hdnPermission" />
+    <input type="hidden" id="hdnExpiry" />
+    <!--Hidden Fields start -->
+    <label style="display:none;" id="hdnContractID"></label>
+    <label style="display:none;" id="hdnTransactionType"></label>
+    <label style="display:none;" id="hdnContractCurrency"></label>
+    <label style="display:none;" id="hdnContractValue"></label>
+    <label style="display:none;" id="hdnContractPricingType"></label>
+    <label style="display:none;" id="hdnPaymentType"></label>
+    <label style="display:none;" id="hdnBillingFrequency"></label>
+    <label style="display:none;" id="hdnIsDocumentTag"></label>
+    <label style="display:none;" id="hdnIsRenewable"></label>
+    <label style="display:none;" id="hdnIsExtendable"></label>
+    <label style="display:none;" id="hdnIsRenewableContract"></label>
+    <label style="display:none;" id="hdnRenewApprovalRequired"></label>
+    <label style="display:none;" id="hdnIsExtendableContract"></label>
+    <label style="display:none;" id="hdnOldEndDate"></label>
+    <label style="display:none;" id="hdnBaseContractValue"></label>
+    <label style="display:none;" id="hdnBaseContractCurrency"></label>
+    <label style="display:none;" id="hdnRelatedContracts"></label>
+    <label style="display:none;" id="hdnDocumentID"></label>
+    <!--manoj-->
+    <label style="display:none;" id="hdnContractAreaName"></label>
+    <script>
+        @functions{
+ public string GetAntiForgeryToken()
+ {
+ string cookieToken, formToken;
+ AntiForgery.GetTokens(null, out cookieToken, out formToken);
+ return cookieToken + "," + formToken;
+ }
+ }
+
+    </script>
+    <input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />
+    <!--manoj-->
+    <!--Hidden Fields end -->
+
+    <div id="dialogSummary" title="Contract Record Summary" class="pop_up" style="display:none">
+
+        <div class="pop_up_Content" style="height:350px;overflow:scroll">
+            <ul class="pop_up_Harizondal">
+                <li><a href="javascript:void(0)" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+                <li><a href="javascript:void(0)" id="Details" onclick="MetadataDetails();">Details</a></li>
+            </ul>
+            <table id="tblSummary" class="width100" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="f_head">Title</td>
+                    <td class="labelleft PreserveSpace" id="tdSumContractTitle"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Number</td>
+                    <td class="labelleft" id="tdSumContractNumber"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Type</td>
+                    <td class="labelleft" id="tdSumContractType"></td>
+                </tr>
+                <tbody id="tblSummaryMetadata"></tbody>
+            </table>
+            <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+        </div>
+    </div>
+
+
+    <div id="dvUpload" style="display:none;">
+        <label class="toDoTextText width100">
+            <input type="file" id="docToReplace" onchange="javascript: changeinupload(this);" name="file" title="Document" class="width90 validelement" /><br />
+            <textarea id="txtCommentReplace" name="Comment" rows="2" title="Comment" placeholder="Enter Comment" class="width90 validelement margin-top-10"></textarea>
+        </label>
+        <br />
+    </div>
+
+
+
+    <div id="allAlerts" style="display:none;">
+        <section id="alertsListAll" class="d-box-table padding_left"></section>
+        <div class="pagination-holder clearfix">
+            <article id="compact-pagination-Alerts"></article>
+        </div>
+    </div>
+    <ul id="dropdownMenu" class="contextMenu">
+        <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    </ul>
+    <ul id="dropdownMenuDocument" class="contextMenu">
+        <li class="viewO365"><a href="#viewdocument">View Document</a></li>
+        <li class="viewdetails"><a href="#view">View Metadata</a></li>
+        <li class="download"><a href="#download">Download</a></li>
+        @*
+            <li class="newdoc hideupload"><a href="#newversion">Upload New Version</a></li>*@
+    </ul>
+    <ul id="dropdownMenuMarkFinal" class="contextMenu">
+        <li class="viewdetails"><a href="#view">View</a></li>
+    </ul>
+
+    <div id="viewMetadataDetail" style="display:none;">
+        <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+    </div>
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+
+
+</body>
+</html>

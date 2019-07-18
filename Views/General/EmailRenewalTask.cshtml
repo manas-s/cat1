@@ -1,0 +1,133 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Email Task</title>
+
+
+    @Styles.Render("~/Content/econtractscss")
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <style>
+        ul.chosen-choices {
+            background-color: #fafafa !important;
+            border: 1px solid #ccc !important;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px #dcdcdc inset;
+            padding: 3px 12px !important;
+            margin-top: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <section class="wraper">
+        <div class="center-div" id="dvRenewalExpire">
+            <div style="color:#29324a; font-size:18px;" id="renewalsMessage"></div>
+            <div class="msg_block">
+                <div style="display:block; float:left; width:100%; margin-bottom:3px;" id="dvContractTitle">
+                    <span class="con_m_head" style="padding-right: 5px;">Contract Title:</span><span class="con_s_head" id="spContractTitle"></span>
+
+                </div>
+                <div style="display:block; float:left; width:100%" id="dvCounterpartyName">
+                    <span class="con_m_head" style="padding-right: 5px;">Counterparty Name:</span><span class="con_s_head" id="spCounterpartyName"></span>
+
+                </div>
+                <div style="display:block; float:left; width:100%" id="dvStartDate">
+                    <span class="con_m_head" style="padding-right: 5px;">Contract Term Start Date:</span><span class="con_s_head" id="spStartDate"></span>
+
+                </div>
+                <div style="display:block; float:left; width:100%" id="dvEndDate">
+                    <span class="con_m_head" style="padding-right: 5px;">Contract Term End Date:</span><span class="con_s_head" id="spEndDate"></span>
+
+                </div>
+                <div style="display:block; float:left; width:100%" id="dvRenewedTerm">
+                    <span class="con_m_head" style="padding-right: 5px;">Renewed Term:</span><span class="con_s_head" id="spRenewedTerm"></span>
+
+                </div>
+
+            </div>
+
+            <div class="form-input-group">
+                <div class="row-group_con commentsRenew" style="margin-top: 30px;" id="dvChecklistRenewal">
+                    <label class="ems_label color_dark" style="font-size: 15px;">Amendment during Renewal<small class="required">*</small></label>
+
+
+                    <div class="width100 height_30px">
+                        <input id="chkRenewalModificationsNew" name="checkboxNotifyNew" value="Renewal without any modifications" type="checkbox" class="css1-checkbox" style="margin-top: 15px;">
+                        <label for="chkRenewalModificationsNew" class="css1-label">Renewal without any modifications</label>
+                    </div>
+                    <div class="width100 height_30px">
+                        <input id="chkRenewalPriceAdjustmentsNew" name="checkboxNotifyNew" value="Renewal with Price Adjustments (minor)" type="checkbox" class="css1-checkbox" style="margin-top: 15px;">
+                        <label for="chkRenewalPriceAdjustmentsNew" class="css1-label">Renewal with Price Adjustments (minor)</label>
+                    </div>
+                    <div class="width100 height_30px">
+                        <input id="chkRenewalRepricingNew" name="checkboxNotifyNew" value="Renewal with Repricing (major)" type="checkbox" class="css1-checkbox" style="margin-top: 15px;">
+                        <label for="chkRenewalRepricingNew" class="css1-label">Renewal with Repricing (major)</label>
+                    </div>
+                    <div class="width100 height_30px">
+                        <input id="chkRenewalOtherNew" name="checkboxNotifyNew" value="Other Amendments" type="checkbox" class="css1-checkbox" style="margin-top: 15px;">
+                        <label for="chkRenewalOtherNew" class="css1-label">Other Amendments</label>
+                    </div>
+                </div>
+                <div class="row-group_con commentsRenew" style="margin-top: 30px;">
+                    <label class="ems_label" id="lblExpireNote">
+                        Add Comment
+                    </label>
+                    <div class="">
+                        <textarea id="txtNote" title="" class="form-controls" type="text" style="width: 67%;height:80px;"></textarea>
+                    </div>
+                </div>
+                <div style="width: 100%;padding:15px 0;display:none;" id="dvActivityComment">
+                    <b class="color_lightgrey" style="font-size: 16px;"><span class="color_dark" style="margin-right: 20px;">Activities </span></b>
+                    <ul class="toDoContenList" style="font-size: 13px;"></ul>
+                </div>
+                <div class="row-group_con commentsRenew">
+                    <a href="javascript:void(0);" class="btn1 btn-blue" id="btnSubmit" style="color: #fff;">Submit</a>
+                    @*<a href="javascript:void(0);" class="btn1" id="btnCancel" @*onclick="location.href='/Pipeline/Requests'"> Cancel</a>*@
+                </div>
+                <div id="dvTask" class="share_doc_Aleart" style="display:none;">
+                    <img src="../Content/Images/right.png" style="margin: 1px 5px 0 0; vertical-align:text-top" /> Authorization completed.
+                </div>
+            </div>
+        </div>
+        <div id="dvTask" class="share_doc_Aleart" style="display:none;">
+            <img src="../Content/Images/right.png" style="margin: 1px 5px 0 0; vertical-align:text-top" /> Authorization completed.
+        </div>
+        <div id="dvExpired" class="share_doc_Aleart bg-failure width95_a" style="display:none;">
+            Sorry, this authorization may be completed / expired.
+        </div>
+    </section>
+
+    <section class="wraper">
+        <div id="dvRenewTask" class="share_doc_Aleart" style="display:none;">
+            <img src="../Content/Images/right.png" style="margin: 1px 5px 0 0; vertical-align:text-top" />
+        </div>
+        <div id="dvRenewExpired" class="share_doc_Aleart bg-failure width95_a" style="display:none;">
+
+        </div>
+    </section>
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/econtracts")
+    <script src="/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="/Scripts/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/Scripts/moment.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/General_EmailRenewalTask.js?" + DateTime.Now.GetHashCode())
+</body>
+</html>

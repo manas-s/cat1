@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Log Out";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogOut</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/econtractscss")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/kendo")*@
+    @Scripts.Render("~/bundles/econtracts")
+    <link rel="stylesheet" type="text/css" href="~/Content/main.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+</head>
+<body>
+    <script type="text/javascript">
+
+        $.post('/Settings/LogOut', { accountID: localStorage.AccountID });
+        var vSPHostUrl=localStorage.SPHostUrl;
+        localStorage.removeItem('UserName');
+        localStorage.removeItem('AccountID');
+        localStorage.removeItem('APIKey');
+        localStorage.removeItem('SPHostUrl');
+        localStorage.removeItem('UserTitle');
+        localStorage.removeItem('OEmail');
+        localStorage.removeItem('UserID');
+        localStorage.removeItem('Permission');
+        localStorage.removeItem('GlobalBusinessArea');
+        localStorage.removeItem('GlobalBusinessAreaLocation');
+        localStorage.removeItem('BusinessAreaAccess');
+        localStorage.removeItem('UserType');
+        localStorage.removeItem('LoginTime');
+        //window.location = vSPHostUrl + '/_layouts/15/SignOut.aspx?loginasanotheruser=true';
+        //window.location = 'https://login.microsoftonline.com/logout.srf?wreply=' + vSPHostUrl + '&loginasanotheruser=true';
+        window.location = vSPHostUrl + '/_layouts/closeConnection.aspx?loginasanotheruser=true&Source=' + vSPHostUrl + '%2F_layouts%2F15%2Fstart.aspx%3FMDSLoginAllowed%3D635434799467517108%26MDSLoginAllowedUrl%3D' + vSPHostUrl;
+        //window.location = vSPHostUrl + '/_layouts/closeConnection.aspx?loginasanotheruser=true&Source=%2F_layouts%2F15%2Fstart.aspx%3FMDSLoginAllowed%3D635434799467517108%26MDSLoginAllowedUrl%3D' + vSPHostUrl;
+    </script>
+
+    <div class="container">
+        <div class="bg-success">
+            <p>You have successfully signed out of eContracts.</p>
+        </div>
+    </div>
+</body>
+</html>

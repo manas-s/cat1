@@ -1,0 +1,1360 @@
+﻿@{
+    ViewBag.Title = "Activity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+   @Scripts.Render("~/Scripts/jquery.nice-select.min.js")
+    @Scripts.Render("~/Scripts/Contract365/Activity_Activity.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+  }
+@*<style>
+    /*font size small in niceSelect*/
+    .nice-select.small {
+        font-size: 11px !important;
+        height: 36px !important;
+        line-height: 34px !important;
+    }
+
+        .nice-select.small .option {
+            line-height: 25px !important;
+            min-height: 21px !important;
+        }
+</style>*@
+<section class="activity">
+    <div class="navigation_div">
+        <div class="main_title_left">
+            <b id="heading_Activity" class="welcome1">Activities</b>
+            <div class="inserch">
+
+            </div>
+            <a class="drop_a" href="javascript:void(0);" id="btnMultipleAction" style="display: none; background-color: rgb(255, 255, 255) !important; border: 1px solid #d6d6d6 !important; border-radius:5px; height:auto;padding-top: 12px;left: 72% !important"><img style="margin: 0 !important; padding: 6px 8px 4px 8px !important;" src="../Content/Images/icon/drop.png" /></a>
+            <div class="activity_multiselect nEw_ContRact3 hhide" id="multiAction" style="display:none;left: 79% !important;margin-top: 5px !important ">
+                <div class="meaan">
+                    <div class="">
+                        <div class="mean-width3 ">
+                            <ul>
+                                <li><a href="javascript:void(0);" style="float: left !important;border: medium none;" onclick="javascript: showObligationStatusMultiple();">Change Status</a></li>
+                                <li><a href="javascript:void(0);" style="float: left !important;border: medium none;" onclick="javascript: multipleObligationDelete();">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aside>
+            @*<input type="button" class="f_button_green_small" onclick="CreateTodo()" value="Create Task" />*@
+        </aside>
+    </div>
+</section>
+
+
+
+
+<section class="wraper">
+
+    <section class="box2">
+        <div class="my-Alerts_contDeat" style="padding-top:0 !important;overflow: visible !important">
+            <div class="my_contract_search_block">
+                <div class="inserch1" style="margin-top:0 !important">
+                    <a href="javascript:void(0);"><img src="/Content/Images/con_search.png" onclick="applyFilter()" /></a>
+                    <input id="txtSearchBox" placeholder="Search" type="text" class="padding_right_20px" />
+
+                </div>
+                <span class="sort_filter_block">
+                    @*<span style="float:left;    margin: 10px 5px 0 0;">
+            <img src="../Content/Images/sort_view.png" />
+            </span>*@
+                    <span style="float:left;display: inline-block;margin-right: 20px;">
+                        <select id="conSortByOptions" name="task" class="wide" style="border:none; color:#666;float:left;">
+                            <option value="Recently Updated">Recently Updated</option>
+                            <option value="Completed Date">Completed Date</option>
+                            <option value="Title(A-Z)">Title(A-Z)</option>
+                            <option value="Title(Z-A)">Title(Z-A)</option>
+                            <option value="Start Date">Start Date</option>
+                            <option value="Due Date">Due Date</option>
+                        </select>
+                    </span>
+                    @*<img id="conSortDirection" src="~/Content/Images/down-arrow_1.png" style="margin-top:5px;" data-direction="ASC" />*@
+
+
+                    @*<aside class="filTer_Ri">*@
+                    <div id="liFiltersforQuickViews" style="float:left">
+                        <aside class="filter_RightNew pipe_Filter" style="margin-top: -7px !important;width: 0% !important;float: right;display: inline-block;" id="btnFilter" di>
+                            <div class="cbp-hrmenu cbp-hrmenu5">
+                                <ul>
+                                    <li>
+                                        <a id="buttonfltr" class=" drop_a2" style="background:#fff !important;padding: 0px !important;" href="javascript:void(0);"><img src="../Content/Images/filter_icon.png" /></a>
+                                        <div id="dvfilter" class="cbp-hrsub fIlter1 hhide2 width60_imp" style="top: 66px !important;">
+                                            <div class="meaan">
+                                                <div class="">
+                                                    <b>Filter</b>
+                                                    <div class="cbp-hrsub-inner">
+                                                        <!--Task Filter Start-->
+                                                        <div class="TaskFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Status</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterTaskStatus" name="Status" size="7" multiple style="width:200%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                    <option value="InProgress">In Progress</option>
+                                                                    <option value="Approved">Approved</option>
+                                                                    <option value="Rejected">Rejected</option>
+                                                                    <option value="Reviewed">Reviewed</option>
+                                                                    <option value="Reassigned">Reassigned</option>
+                                                                    <option value="ChangeRequested">Change Requested</option>
+                                                                    <option value="Delegated">Delegated</option>
+                                                                    <option value="Closed">Closed</option>
+                                                                    <option value="Cancelled">Cancelled</option>
+                                                                    <option value="Stopped">Stopped</option>
+                                                                </select>
+                                                                <p style="font-size: 12px; margin-top: 10px;">
+                                                                    <input id="chkHidePastDateTasks" type="checkbox" name="HidePastDateTasks" />Hide past Tasks
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="TaskFilter mEAnwidth1">
+                                                <h4>Sort By</h4>
+                                                <ul class="line-h">
+                                                    <li>
+                                                        <a id="aTaskRecentlyUpdated" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Updated</a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="aTaskStartDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Start Date</a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="aTaskDueDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Due Date</a>
+                                                    </li>
+                                                    <li><a id="aTaskCompletedDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Completed Date</a></li>
+                                                    <li><a id="aTaskTitle" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Title(A-Z)</a></li>
+                                                 </ul>
+                                            </div>*@
+                                                        <!--Task Filter End-->
+                                                        <!--Workflow Filter Start-->
+                                                        <div class="WorkflowFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Status</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterWorkflowStatus" name="Status" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                    <option value="InProgress">In Progress</option>
+                                                                    <option value="Cancelled">Cancelled</option>
+                                                                    @*  <option value="Restarted">Restarted</option>*@
+                                                                    <option value="Stopped">Stopped</option>
+                                                                    <option value="Completed">Completed</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="WorkflowFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Type</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterWorkflowType" name="Status" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+
+                                                                    <option value="ContractApproval">Contract Approval</option>
+                                                                    @* <option value="RequestApproval">Request Approval</option>*@
+                                                                    @*<option value="RenewalApproval">Renewal Approval</option>*@
+                                                                    <option value="RequestApproval">Request Approval</option>
+                                                                    <option value="DocumentReview">Document Review</option>
+                                                                    <!--Added By Jay 1 Mar 2018-->
+                                                                    <option value="AmendmentApproval">Amendment Approval</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="WorkflowFilter mEAnwidth3">
+                                                <h4>Sort By</h4>
+                                                <ul class="line-h">
+                                                    <li>
+                                                        <a id="aWorkflowRecentlyUpdated" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Updated</a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="aWorkflowStartDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Start Date</a>
+                                                    </li>
+                                                    <li><a id="aWorkflowCompletedDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Completed Date</a></li>
+                                                    <li><a id="aWorkflowTitle" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Title(A-Z)</a></li>
+                                                </ul>
+                                            </div>*@
+                                                        <!--Workflow Filter End-->
+                                                        <!--Milestone Filter Start-->
+                                                        <div class="MilestoneFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Status</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterMilestoneCompleted" name="MilestoneStatus" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                    <option value="Yes">Completed</option>
+                                                                    <option value="No">Not Completed</option>
+                                                                </select>
+                                                                <p style="font-size: 12px; margin-top: 10px;" id="pHideMilestone">
+                                                                    <input id="chkHidePastDate" type="checkbox" name="HidePastDate" value="HidePastDatesMilestones" />Hide past Milestones
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="MilestoneFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Type</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterMilestoneType" name="MilestoneType" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="MilestoneFilter mEAnwidth3">
+                                                <h4>Sort By</h4>
+                                                <ul class="line-h">
+                                                    <li>
+                                                        <a id="aMilestoneRecentlyUpdated" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Updated</a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="aMilestoneDueDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Due Date</a>
+                                                    </li>
+                                                    <li><a id="aMilestoneCompletedDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Completed Date</a></li>
+                                                    <li><a id="aMilestoneTitle" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Title(A-Z)</a></li>
+                                                </ul>
+                                            </div>*@
+                                                        <!--Milestone Filter End-->
+                                                        <!--Obligation Filter Start-->
+                                                        <div class="ObligationFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Status</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterObligationStatus" name="ObligationStatus" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                    <option value="Upcoming">Upcoming</option>
+                                                                    <option value="Delayed">Delayed</option>
+                                                                    <option value="Partial">Partial</option>
+                                                                    <option value="Cancelled">Cancelled</option>
+                                                                    <option value="Complete">Complete</option>
+                                                                </select>
+                                                                <p style="font-size: 12px; margin-top: 10px; display:none;" id="pHideObligation">
+                                                                    <input id="chkHidePastDateObligation" type="checkbox" name="HidePastDateObligation" value="HidePastDatesObligations" />Hide past Obligations
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ObligationFilter mEAnwidth3" style="width:45% !important">
+                                                            <h4>Type</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterObligationType" name="ObligationType" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All">All</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="ObligationFilter mEAnwidth3">
+                                                <h4>Sort By</h4>
+                                                <ul class="line-h">
+                                                    <li>
+                                                        <a id="aObligationDueDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Due Date</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a id="aObligationRecentlyUpdated" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Updated</a>
+                                                    </li>
+
+                                                    <li><a id="aObligationCompletedDate" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Completed Date</a></li>
+                                                    <li><a id="aObligationTitle" href="javascript:void(0)" class="SortBy" style="color: #69befb;" onclick="javascript: highlight(this);">Title(A-Z)</a></li>
+                                                </ul>
+                                            </div>*@
+                                                        <!--Obligation Filter End-->
+
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="pop_up_Content_Bottom3 float_right1">
+                                                    <a class="pop_up_Content_Blue" href="javascript:void(0)" onclick="javascript: applyFilter();" id="popModal_profile">Apply</a>
+                                                    <a class="pop_up_Content_White" href="javascript:void(0)" onclick="javascript:clearSelection();" id="popModal_profile">Clear All</a>
+                                                </div>
+                                            </div>
+                                            <!-- /cbp-hrsub-inner -->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+
+                    </div>
+                </span>
+                    <!--  ------------------------------  -->
+
+                @*</aside>*@
+                
+                            @*<span class="sort_filter_activity">
+                            <img src="../Content/Images/sort_view.png" /> <span>
+                                <select style="border:none; color:#666">
+                                    <option value="Recently Updated">Recently Updated</option>
+                                    <option value="Renewal Date">Renewal Date</option>
+                                    <option value="Expiration Date">Expiration Date</option>
+                                    <option value="Contract Value">Contract Value</option>
+                                    <option value="Created Date">Created Date</option>
+                                    <option value="Title(A-Z)">Title(A-Z)</option>
+                                    <option value="Title(Z-A)">Title(Z-A)</option>
+                                    <option value="Last Modified by Me">Last Modified by Me</option>
+
+                                </select>
+                            </span>
+                        </span>*@
+                            <div class="selectFIlterItem">
+                                <div id="liFiltersApplied">
+
+                                </div>
+                            </div>
+
+                            <div class="saveView"><a href="javascript:void(0)" id="btnAddView" style="display:none;">Save this View</a></div>
+                    </div>
+
+                    <div class="alertbox_status alertbox_status_contDeat">
+                        <ul id="listActivity"></ul>
+
+                    </div>
+
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-pagination"></article>
+                    </div>
+                    <div class="width20 float_right1 result_count">
+                        <span id="spResult"></span>
+                    </div>
+
+                </div>
+                <div class="box2_Right">
+                    <div class="contract-Right">
+                        <h1><img src="../Content/Images/quick-vission.png" title="Quick Views" style="cursor:default;" />Quick Views</h1>
+                        <ul id="liQuickView">
+                            <li id="qvMyTasks">
+                                <p>
+                                    <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' style="width: auto;" id='aMyTasks' name='My Tasks' title="Tasks">
+                                        <span id="spnMyTasks">Tasks</span>
+                                    </a>
+                                </p>
+                            </li>
+                            <li id="qvWorkflows">
+                                <p>
+                                    <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' style="width: auto;" id='aWorkflows' name='All Workflows' title="Workflows">
+                                        <span id="spnMyWorkflows">Workflows</span>
+                                    </a>
+                                </p>
+                            </li>
+                            <li id="qvMilestones">
+                                <p>
+                                    <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' style="width: auto;" id='aMilestones' name='All Milestones' title="Milestones">
+                                        <span id="spnMyMilestones">Milestones</span>
+                                    </a>
+                                </p>
+                            </li>
+                            @*<li id="qvPendingObligations" class="FL_Obligations" style="display:none;">
+                            <p>
+                                <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' style="width: auto;" id='aObligations'  name='All Obligations' title="Pending Obligations">
+                                    <span id="spnMyPendingObligations">Pending Obligations</span>
+                                </a>
+                            </p>
+                        </li>*@
+                            <li id="qvObligations" class="FL_Obligations" style="display:none;">
+                                <p>
+                                    <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' style="width: auto;" id='aObligations' name='All Obligations' title="Obligations">
+                                        <span id="spnMyObligations">Obligations</span>
+                                    </a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    @*<div class="contract-Right">
+                    <h1><img src="/Content/Images/save-views.png" />Saved Views </h1>
+                    <ul id="liSavedViews">
+                    </ul>
+                </div>*@
+                </div>
+</section>
+</section>
+
+<input type="hidden" id="hdActivityType" value="" />
+
+<div id="viewMetadataDetail" style="display:none;" class="width90">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+<div id="viewMetadataDetailForOwner" style="display:none;" class="width90">
+    <table id="tblMetadataDetailForOwner" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+<div id="addNewView" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtViewID" name="ViewID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name</td>
+                    <td class="labelright"><input id="txtViewName" name="ViewName" type="text" class="f_textinput width70" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="viewObligationMetadataDetail" style="display:none;" class="width90">
+    <table id="tblObligationMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+
+
+<ul id="myObligationMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+
+
+
+<!-- Manage Obligation New Context Menu Popup Start-->
+<div id="addEditObligationNew" style="display:none; overflow-y:auto;">
+    <div id="dvPopupHeadingObligationNew" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewObligationNew">
+            <div enctype="multipart/form-data">
+                <table class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td colspan="2">
+                            <h1 class="obligationNew_popuptitle" id="obligationnewheading">New Obligation</h1>
+                            <div class="obligationNew_popuptitlediv" style="float:left;width:32%">
+                                <span class="obligationNew_popuptitlespan">Status</span>
+                                <select id="ddlObligationStatus" class="f_inpt obligationNew_popuptitleddl margin-left0" style="float:right" title="Obligation Status">
+                                    <option value="Upcoming">Upcoming</option>
+                                    <option value="Delayed">Delayed</option>
+                                    <option value="Partial">Partial</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                    <option value="Complete">Complete</option>
+                                </select>
+                            </div>
+                            <div id="AlertObliEnabled" class="switch enabled_slider switch_enable AlertEnabled" style=" float: right;">
+                                <div class="Toggle"></div>
+                                <span class="switch_enable">YES</span>
+                                <span class="switch_disable">NO</span>
+                                <input id="AlertObli" type="hidden" class="switch_val" value="Yes">
+                            </div><div class="float_left" style="text-align: right;float: right!important;display: inline-block;margin: 4px 10px;">
+                                <span class="switch_lefttext">Enabled</span>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="padding_bottom_10px">
+                            <h1 class="amend_head">Summary</h1>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="f_head"></td>
+                        <td class="labelleft"><input id="txtObligationProductsCount" name="ObligationNewID" type="hidden" /></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="f_head"></td>
+                        <td class="labelleft"><input id="txtObligationFinancialsCount" name="ObligationNewID" type="hidden" /></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="f_head"></td>
+                        <td class="labelleft"><input id="txtObligationNewID" name="ObligationNewID" type="hidden" /></td>
+                    </tr>
+
+                    <tr style="display:none">
+                        <td class="f_head"></td>
+                        <td class="labelleft"><input id="txtObligationNewText" name="ObligationNewText" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Contract Record Title</td>
+                        <td class="labelleft"><span id="lblCTitleObligationNew" style="font-weight:bold; font-size:14px;" type="hidden" class="PreserveSpace"></span></td>
+                    </tr>
+                    <tr id="obligationreqvalidator2">
+                        <td class="f_head">Obligation Type<small class="required">*</small></td>
+                        <td class="v_align_top width70_imp">
+                            <select id="ddlObligationTypeNew" class="f_inpt width40 validelement" title="Obligation Type" onchange="SelectedObligationTitleNew(this)">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                        @*<td class="labelleft"><input id="txtObligationNewType" name="ObligationType" title="Obligation Type" type="text" class="f_inpt width90 validelement" /></td>*@
+                    </tr>
+                    <tr>
+                        <td class="f_head">Performed by Party<small class="required">*</small></td>
+                        <td class="labelleft verticalalign-top">
+                            <div>
+                                <input id="rdObligationNewPerformedPartySelf" type="radio" checked name="PerformedParty" class="css-checkbox" value="Self" />
+                                <label for="rdObligationNewPerformedPartySelf" id="PerformedPartySelf" class="css-label margin-right8">My Company</label>
+                            </div>
+                            <div>
+                                <input id="rdObligationNewPerformedPartyCP" type="radio" name="PerformedParty" class="css-checkbox" value="Counterparty" />
+                                <label for="rdObligationNewPerformedPartyCP" id="PerformedPartyCounterparty" class="css-label margin-right8">Counterparty</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="obligationreqvalidator1">
+                        <td class="f_head">Obligation Title<small class="required">*</small></td>
+                        <td class="labelleft"><input id="txtObligationNewTitle" name="ObligationNewTitle" title="Obligation Title" type="text" class="f_inpt width60 validelement validtitle" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Description</td>
+                        <td class="verticalalign-top">
+                            <textarea id="txtObligationNewDesc" name="ObligationDesc" rows="3" style="height:70px !important;" class="f_text-box width55_3"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Obligation Owner(s)</td>
+                        <td class="">
+                            <select id="ddlObligationNewOwner" multiple="multiple" class="f_inpt obli_Cho_mSElect margin-left-2 chosenmulti" data-placeholder="Select Obligation Owner(s)"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Show in Calendar</td>
+                        <td class="labelleft verticalalign-top">
+
+                            <input id="rdObligShowInCalendarYes" type="radio" name="ShowInObligCalendar" class="css-checkbox" checked value="Yes" />
+                            <label for="rdObligShowInCalendarYes" class="css-label">Yes</label>
+
+                            <input id="rdObligShowInCalendarNo" type="radio" name="ShowInObligCalendar" class="css-checkbox" value="No" />
+                            <label for="rdObligShowInCalendarNo" class="css-label">No</label>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Priority<img title="Set the priority of the Obligation as per importance." src="/Content/Images/input-help.png"></td>
+                        <td class="v_align_top width70">
+                            <select id="ddlObligationNewPriority" class="f_inpt width40 validelement" title="Obligation Priority">
+                                <option value="High">High</option>
+                                <option selected value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Auto Complete on Obligation Date?</td>
+                        <td class="padding_10px">
+
+                            <input id="rdObligationNewAutoCompleteYes" type="radio" name="ObligationNewAutoComplete" class="css-checkbox" value="Yes" />
+                            <label for="rdObligationNewAutoCompleteYes" class="css-label margin-right8">Yes</label>
+
+                            <input id="rdObligationNewAutoCompleteNo" type="radio" name="ObligationNewAutoComplete" class="css-checkbox" checked value="No" />
+                            <label for="rdObligationNewAutoCompleteNo" class="css-label margin-right8">No</label>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="row-group margin-bottom-10" style="margin-top: 20px;">
+                                <div class="oblig_ocurr_head">
+                                    <div class="obligationNew_OcurrenceHeading no-pad">
+                                        <h1 style="font-size: 18px;">Occurrence & Dates</h1>
+                                    </div>
+                                    <div class="obligationNew_OcurrenceHeading1">
+                                        <input id="cbObligationRepeat" type="checkbox" name="ObligationRepeat" class="css-checkbox" value="Obligation" onclick="ViewObligationOcurrence(this)" style="display:none" />
+                                        <label for="cbObligationRepeat" class="css-label margin-right8" style="display:none;">Schedule (Repeating)</label>
+                                    </div>
+                                    <div class="col2 text-right no-pad" style="margin-top: 20px;">
+                                        <a href="javascript:void(0);" class="close1 float-right" style="float:right" onclick="javascript: togglediv('dvObliOccurrenceDates', '', 'imgObliga');"><img id="imgObliga" src="/Content/Images/e-open.png"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="dvObliOccurrenceDates" style="display:none">
+                        <td colspan="2">
+                            <ul>
+                                <li class="f_head" style="width: 100%; padding: 0 0 0 5px; line-height: 30px;">
+                                    <div class="obligationNew_Ocurrencebody f_head width27"><span>Start/ Due Date<small class="required">*</small></span></div>
+                                    <input id="dtObligationNewDueDate" name="ObligationDueDate" style="float:left;" title="Obligation Due Date" type="text" class="f_inpt width11 validelement validdate">
+                                </li>
+                                @*<li class="f_head" style="width: 100%; padding: 0 0 0 5px; line-height: 30px;display:none">Obligation Completed Date<input id="dtObligationNewCompletedDate" name="ObligationCompletedDate" style="float:right;" title="Obligation Completed Date" type="text" class="f_inpt width60 hasDatepicker"></li>*@
+                            </ul>
+                            <ul id="ulObligationOcurrence" class="obli_ocurr_ul" style="width: 100%;">
+
+                                <li class="f_head rright" style="width: 99%; padding: 0 0 0 5px; line-height: 30px;" id="liObligationRecurrence">
+                                    <div class="obligationNew_Ocurrencebody f_head width27"><span>Repeat</span></div>
+
+                                    <select name="Duration" id="ddlObligationOccurencess" class="f_inpt width11_7 validelement" title="Obligation Type" data-role="none">
+
+                                        <option value="None">Never</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Yearly">Yearly</option>
+                                    </select>
+                                </li>
+                                <li class="f_head no-pad rright" style="width: 99%;line-height: 30px;margin-top:4px;" id="divObligationOcurrenceWeekly">
+                                    <div class="obligationNew_Ocurrencebody f_head width27"><span>Select Days(s)<small class="required">*</small></span></div>
+
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC0" name="chkRecurrenceCustom" value="0" data-role="none"> Sun
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC1" name="chkRecurrenceCustom" value="1" data-role="none"> Mon
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC2" name="chkRecurrenceCustom" value="2" data-role="none"> Tue
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC3" name="chkRecurrenceCustom" value="3" data-role="none"> Wed
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC4" name="chkRecurrenceCustom" value="4" data-role="none"> Thu
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC5" name="chkRecurrenceCustom" value="5" data-role="none"> Fri
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="ORC6" name="chkRecurrenceCustom" value="6" data-role="none"> Sat
+                                    </label>
+                                </li>
+                                <li class="f_head no-pad rright" style="width: 99%;line-height: 30px;display:none;margin-bottom:-10px;margin-top:4px;" id="divObligationOcurrenceMonthly">
+                                    <div class="obligationNew_Ocurrencebody f_head width27"><span>Select day<small class=" required">*</small></span></div>
+
+                                    <div class="checkbox-inline width65" style="display:none;" id="lblOcurrenceMonth">
+                                        <span class="float-left_imp" style="margin: 0px 10px 0 0;">day</span>
+                                        <input id="dtObligationNewOccurrenceDueDate" name="ObligationNewOccurrenceTitle" title="Obligation Occurrence Date" type="text" class="f_inpt width10" style="float:left;height:23px;width:30px;" readonly />
+                                        <span class="float-left_imp" style="margin: 0px 10px 0 0;">of every</span>
+                                        <select name="Duration" id="ddlRepeatMonthly" class="f_inpt width10" style="float:left;" title="Obligation Type" data-role="none">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                        </select>
+                                        <span class="float-left_imp" style="margin: 0px 10px 0 0;">month(s)</span>
+                                    </div>
+                                    <label class="checkbox-inline width60" style="display:none;" id="lblOcurrenceYear">
+                                        <span style="float: left;margin: 0px 10px 0 0;">on</span>
+                                        <input id="dtOblOcurrMonthforYear" name="Month" title="Month" type="text" class="f_inpt width10" style="float:left;height:23px;width:30px;" readonly />
+                                        <input id="dtOblOcurrDateforYear" name="Date" title="Date" type="text" class="f_inpt width11" style="float:left;height:23px;width:30px;" readonly />
+                                    </label>
+                                </li>
+
+                                <li class="f_head no-pad rright" style="width: 99%;line-height: 30px" id="dvobligationOcurrenceEnd">
+                                    <div class="obligationNew_Ocurrencebody f_head width27" style="margin-top: 10px;">
+                                        <span style="/* padding-top: 44px; */">Number of instances<small class="required">*</small></span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <input id="rdObligationNewEndOccurence" type="radio" name="SelectOccurenceEndDate" class="css-checkbox" value="TillEnd">
+                                            <label for="rdObligationNewEndOccurence" class="css-label margin-right8">Create obligations till end of Contract Record Term</label><label id="ObligationNewOcurrenceEndDate" class="css-label margin-right8" style="padding-left: 4px;"></label>
+                                        </div>
+                                        <div style="margin-top: -8px;">
+                                            <input id="rdObligationNewEndOccurenceUser" type="radio" name="SelectOccurenceEndDate" class="css-checkbox" value="Custom">
+                                            <label for="rdObligationNewEndOccurenceUser" class="css-label margin-right8" style="text-align: -webkit-auto;">
+                                                Create obligations for next
+                                                <input type="text" id="txtOccurrenceCount" onkeypress="javascript: allowNumericsNewMonthly(this);" class="f_inpt width1" style="height: 20px;width: 30px;">instances
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="f_head no-pad rright" style="width: 99%; line-height: 30px;" id="divOcurrenceSummary">
+                                    <div class="obligationNew_Ocurrencebody f_head width27" style="margin-bottom: 5px;">
+                                        <span id="obligationEditOcursumary" style="display:none">Repeat</span>
+                                    </div>
+                                    <label class="checkbox-inline float-left_imp pad-rit-impnew" style="color: #6c9539; font-size: 14px;" id="ObligationOcurrenceSummary">
+
+                                    </label>
+                                    <div id="divRecurrenceEdit" class="float-left_imp">
+                                        <a class="linkText" id="aobligationRecNoneEdit" href="javascript:void(0);">Edit</a>
+                                        <a class="linkText" id="aobligationRecEdit" href="javascript:void(0);">Edit</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <ul id="ulObliCompletedate" style="display:none;">
+                                <li class="f_head" style="width: 100%; padding: 0 0 0 5px; line-height: 30px;">
+                                    <div class="obligationNew_Ocurrencebody f_head width27"><span>Obligation Completed Date<small class="required">*</small></span></div>
+                                    <input id="dtObligationNewCompletedDate" name="ObligationDueDate" style="float:left;" title="Obligation Complete Date" type="text" class="f_inpt width11">
+                                </li>
+                            </ul>
+                        </td>
+
+                    </tr>
+                    <tr style="display:none">
+                        <td class="f_head">&nbsp;</td>
+
+                        <td>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="ObligationNewMilestones" name="chkRecurrenceCustom1" value="0" data-role="none"> Create Milestone(s) for Obligation Due Date(s)
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h1 class="amend_head" id="reminderEnableObligation" style="padding-top: 25px;">
+                                Reminders
+                            </h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelleft"></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Send Reminder To<img title="Select users to be alerted from the list before obligation expiration." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top width70">
+                            <select id="ddlSendReminderToObligationNew" multiple="multiple" class="f_inpt obli_Cho_mSElect margin-left-2 chosenmulti" data-placeholder="Select Send To">
+                                <option value="{Project Managers}">{Project Managers}</option>
+                                <option value="{Contract Owner}">{Contract Owner}</option>
+                                <option value="{Contract Record Creator}">{Contract Record Creator}</option>
+                                <option value="{Contract Area Admin}">{Contract Area Admin}</option>
+                                <option value="{Business Area Owner}">{Business Area Owner}</option>
+                                <option value="{Requestor}">{Requestor}</option>
+                                <option value="{Obligation Owner}">{Obligation Owner}</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr id="trReminderObligation">
+                        <td class="f_head">Reminders<img title="Send reminders to Users and Milestone owners about the days remaining/passed for Milestone expiry." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top">
+                            <select id="ddlReminder1ObligationNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder1ObligationNew" name="Remind1" type="text" maxlength="3" class="f_input_milestone width20" /> days<br />
+                            <select id="ddlReminder2ObligationNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder2ObligationNew" name="Remind2" type="text" maxlength="3" class="f_input_milestone width20" /> days<br />
+                            <select id="ddlReminder3ObligationNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder3ObligationNew" name="Remind3" type="text" maxlength="3" class="f_input_milestone width20" /> days
+                        </td>
+                    </tr>
+
+                    <tr id="trObliCatShow">
+                        <td colspan="2">
+                            <div class="row-group margin-bottom-10" style="margin-top: 20px;">
+                                <div class="oblig_ocurr_head">
+                                    <div class="obligationNew_OcurrenceHeading2 no-pad">
+                                        <input id="cbObligationCatalogProductsSelect" type="checkbox" name="ObligationCatalogCB" class="css-checkbox" style="display:none" value="Obligation" onclick="javascript: togglediv('dvObligationCatalogProducts', '', '');" />
+                                        <h1 for="cbObligationCatalogProductsSelect" class="css-label margin-right8">Products / Services & Commitments</h1>
+                                    </div>
+                                    <div class="col2 text-right no-pad" style="margin-top: 20px;">
+                                        <a href="javascript:void(0);" class="close1 float-right" style="float:right" onclick="javascript: togglediv('dvObligationCatalogProducts', '', 'imgObliga1');"><img id="imgObliga1" src="/Content/Images/e-open.png"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="dvObligationCatalogProducts" style="display:none;">
+                        <td colspan="2">
+                            <div id="dvObligationCatalogSection" class="row-group">
+                                <div id="obligationCatalogAction" style="display:none;">
+                                    <a style="float: right; margin-bottom: 7px;" href="javascript:void(0);" class="obliAction openmenuObligationCatalogSettings">Action <img src="/Content/Images/card.png"></a>
+                                </div>
+                                <div class="coll12">
+                                    <table class="width100" id="obligationcatalogDetailsTable">
+                                        <thead>
+                                            <tr class="obligation_Products_head">
+                                                <th class="width24">Item</th>
+                                                <th class="width15">Expected Qty</th>
+                                                <th class="width15">Actual Qty</th>
+                                                <th class="width15">Expected Amount</th>
+                                                <th class="width15">Actual Amount</th>
+                                                @*<th class="width10">Units</th>*@
+                                                <th>Status</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ulObligationCatalogBody"></tbody>
+                                    </table>
+                                </div>
+                                <div id="NoObligationCatalog" style="display: none; margin-top: 10px;margin-left: 11px;">
+                                    <span>No Items found.</span>
+                                </div>
+
+
+                                <table class="width100" id="tblObligationCatalog" style="display:none">
+                                    <tbody>
+                                        <tr id="ObligationCatalogInline" class="inline_add width100" style="display: block;">
+                                            <td class="width100" style="display:block;">
+                                                <input type="text" id="txtObligationCatalogTitleInline" placeholder="Product Title" style=" width: 16%;" class="f_inpt obligation_quick obligation_box validelement" readonly>
+                                                <img src="../Content/Images/search1.png" onclick="javascript: viewObligationCatalogProductsQuick();" />
+                                                <select name="Duration" id="ddlObligationCatalogInlineUnitsType" style="width: 15%" class="f_inpt obligation_box" title="Units Type" data-role="none">
+                                                    <option value="Exact">Exact</option>
+                                                    <option value="Approximate">Approximate</option>
+                                                </select>
+                                                <input type="text" id="txtObligationCatalogQtyInline" style=" width: 12%;" placeholder="Quantity" class="f_inpt obligation_box">
+                                                <select name="Duration" id="ddlObligationCatalogUnitsInline" style="width: 16.5%; " class="f_inpt obligation_box" title="Units Type" data-role="none">
+                                                    <option value="0">--Select--</option>
+                                                </select>
+                                                <select name="Duration" id="ddlObligationCatalogStatusInline" style="width: 18%; " class="f_inpt obligation_box" title="Units Type" data-role="none">
+                                                    <option value="Upcoming">Upcoming</option>
+                                                    <option value="Delayed">Delayed</option>
+                                                    <option value="Partial">Partial</option>
+                                                    <option value="Cancelled">Cancelled</option>
+                                                    <option value="Complete">Complete</option>
+                                                </select>
+                                                <span class="button-green" id="btnAddObligationCatalogInline"><img src="/Content/Images/icon/task.png" class="img-padd"></span>
+                                                <span class="button-blue obligation_Cancel" onclick="javascript: togglediv('tblObligationCatalog', '', '');"><img src="/Content/Images/icon/task-notcompleted.png" class="img-padd"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row-group Contribute" style="margin-left: 15px; padding-top: 12px; display: block ">
+
+                                    <a href="javascript:void(0);" style="float:left;" class="linkText" id="addObligationCatalogpopup">Add Item</a>@*&nbsp;|&nbsp;<a href="javascript:void(0);" id="addObligationCatalogQuickpopup" class="linkText" onclick="javascript: togglediv('tblObligationCatalog', '', '');">Quick Add</a>&nbsp;|&nbsp;<a href="javascript:void(0);" class="linkText" id="addObligationCatalogMultipopup">Multiple Add</a>&nbsp;&nbsp;<a class="drop_a" href="javascript:void(0);" id="btnMultipleCatalogAction" style="display:none;background-color: transparent !important;"><img src="../Content/Images/CM_delete.png" /></a>*@
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr id="trObliFinShow" style="display:none">
+                        <td colspan="2">
+                            <div class="row-group" style="margin-top: 20px; border-top: 1px solid #ddd;padding-top: 20px;  margin-bottom: 12px;">
+                                <div class="col10 no-pad" style="margin-top: 20px;">
+                                    <input id="cbObligationCatalogFinancialsSelect" type="checkbox" name="ObligationFinancialCB" class="css-checkbox" value="Obligation" onclick="javascript: togglediv('dvObligationCatalogFinancials', '', '');" />
+                                    <label for="cbObligationCatalogFinancialsSelect" class="css-label margin-right8">Financials</label>
+                                </div>
+
+                                <div class="col2 text-right no-pad" style="margin-top: 20px;">
+                                    <a href="javascript:void(0);" class="wit-btn openmenuObligationFinancialsSettings" id="obligationFinancialsAction" style="display:none;">Action <img src="/Content/Images/card.png"></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr id="dvObligationCatalogFinancials" style="display:none;">
+                        <td colspan="2">
+
+                            <div id="dvObligationFinancialsSection" class="row-group">
+                                <div class="col12">
+
+
+                                    <table class="width100" id="obligationFinancialsDetailsTable">
+                                        <thead>
+                                            <tr class="obligation_Products_head">
+                                                <th style=" width: 42.5%;">Item</th>
+                                                <th style=" width: 28%;">Amount</th>
+                                                <th style=" width:17%;">Status</th>
+                                                <th style="width: 20%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ulObligationFinancialsBody"></tbody>
+                                    </table>
+                                </div>
+                                <div id="NoObligationFinantials" style="display: none; margin-top: 10px;padding-top: 29px;margin-left: 11px;">
+                                    <span>No Items found.</span>
+                                </div>
+                                <table class="width100" id="tblObligationFinancials" style="display:none">
+                                    <tbody>
+                                        <tr id="ObligationFinancialsInline" class="inline_add width100">
+                                            <td class="width100" style="display:block;">
+                                                <input type="text" id="txtObligationFinancialsTitleInline" placeholder="Product Title" class="f_inpt obligation_quick_fin obligation_quick obligation_box validelement" readonly>
+                                                <img src="../Content/Images/con_search.png" onclick="javascript: viewObligationFinancialsProductsQuick();" />
+                                                <select name="Duration" id="ddlObligationFinancialsInlineAmountType" class="f_inpt obligation_box width17_5" title="Units Type" data-role="none">
+                                                    <option value="Exact">Exact</option>
+                                                    <option value="Approximate">Approximate</option>
+                                                </select>
+                                                <input type="text" id="txtObligationFinancialAmountInline" placeholder="Amount" class="f_inpt obligation_box width21">
+
+                                                <label>
+                                                    <span style="display:inline" class="obl_fin_currency">(USD)</span>
+                                                </label>
+
+                                                @*<input type="text" id="txtObligationFinancialsUnitsInline" style="width: 130px" placeholder="Units" class="f_inpt obligation_box">*@
+                                                <select name="Duration" id="ddlObligationFinancialsStatusInline" class="f_inpt obligation_box width18" title="Units Type" data-role="none">
+                                                    <option value="Upcoming">Upcoming</option>
+                                                    <option value="Delayed">Delayed</option>
+                                                    <option value="Partial">Partial</option>
+                                                    <option value="Cancelled">Cancelled</option>
+                                                    <option value="Complete">Complete</option>
+                                                </select>
+                                                <span class="button-green" id="btnAddObligationFinancialsInline"> <img src="/Content/Images/icon/task.png" class="img-padd"></span>
+                                                <span class="button-blue obligation_Cancel" onclick="javascript: togglediv('tblObligationFinancials', '', '');"> <img src="/Content/Images/icon/task-notcompleted.png" class="img-padd"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row-group Contribute" style="margin-left: 15px; padding-top: 12px; display: block; ">
+
+                                    <a href="javascript:void(0);" class="linkText" id="addObligationFinancialspopup">Add</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="addObligationFinancialsQuickpopup" class="linkText" onclick="javascript: togglediv('tblObligationFinancials', '', '');">Quick Add</a>&nbsp;|&nbsp;<a href="javascript:void(0);" class="linkText" id="addObligationFinancialsMultipopup">Multiple Add</a>&nbsp;&nbsp;<a class="drop_a" href="javascript:void(0);" id="btnMultipleCatalogAction" style="display:none;background-color: transparent !important;"><img src="../Content/Images/CM_delete.png" /></a>
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                @*<p id="inprocessAmendment" class="popup_save_progress" style="visibility:hidden;">
+            <img src="/Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Manage ObligationCatalog New Context Menu Popup Start-->
+
+<div id="obligationcatalogsAddPopup" class="calog_Add_pop" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingObligationCatalog" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="ObligationCatalogForm">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td colspan="2">
+                        <h1 class="obligationNew_popuptitle">Add Item</h1>
+                        <select id="ddlObligationCatalogStatus" class="f_inpt width20 margin-left0" style="float:right" title="Obligation Catalog Status">
+                            <option value="Upcoming">Upcoming</option>
+                            <option value="Delayed">Delayed</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Complete">Complete</option>
+                        </select>
+                        <span style="float: right;margin: 10px 10px  0 0;color: #4f4f4f;">Status</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtProductID" name="ProductID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none">
+
+                    <td class="f_head" style="display:none">Contract Record Title</td>
+                    <td height="40px;"><span id="lblObligationCatalogCTitle" style="font-weight:bold; font-size:14px;" type="hidden"></span></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Item Name <small class="required">*</small></td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogName" name="ObligationCatalogName" type="text" title="Obligation Catalog Name" style="margin-bottom: 5px !important;" class="f_input width40 validelement" disabled/>
+                        <a id="viewObligationProductDetails" href='javascript:void(0)' class='linkText'>Browse Catalog</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="verticalalign-top">
+                        <textarea id="txtObligationCatalogDesc" name="ObligationCatalogDesc" rows="3" style="max-height: 70px !important;width: 45.5% !important; margin-bottom: 5px !important;font-size: 13px ! important;" class="f_text-box width40"></textarea>
+                    </td>
+                </tr>
+                <tr id="productcompleteddate" style="display:none">
+                    <td class="f_head">Completed / Cancelled Date <small class="required">*</small></td>
+                    <td class="verticalalign-top">
+                        <input id="dtObligationProductCompletedDate" name="Completed Date" type="text" title="Completed Date" style="margin-bottom: 5px !important;" class="f_input width20 padding_right_none " />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h1 class="amend_head margin-bottom-10">Quantity</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">Quantity (Expected) @*<small class="required">*</small>*@</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogQty" name="ObligationCatalogQty" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 validnumber " />
+                        <select id="ddlObligationCatalogUnits" class="f_inpt width30 margin-left0" title="Unit Type">
+                            <option value="0">--Select--</option>
+                        </select>
+                        <select id="ddlObligationCatalogUnitType" class="f_inpt width30" title="Base Currency">
+                            <option value="Exact">Exact</option>
+                            <option value="Approximate">Approximate</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr id="trObligationActualQty">
+                    <td class="f_head margin-top-8">Quantity (Actuals)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogQtyNew" name="ObligationCatalogQty" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 validnumber " disabled />
+                        <select id="ddlObligationCatalogUnitsNew" class="f_inpt width30 obli_catalog_disable" title="Unit Type" disabled>
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">&nbsp;</td>
+                    <td class="verticalalign-top" id="obliCatalogQtysummary"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h1 class="amend_head margin-bottom-10">Amount</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">Amount (Expected)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationProductAmountNew" name="ObligationFinancialsAmount" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 " />
+                        <label class="calog_Add_curr" id="CurrencyExpected"></label>
+                        <select id="ddlObligationProductAmountTypeNew" class="f_inpt width30" title="Base Currency">
+                            <option value="Exact">Exact</option>
+                            <option value="Approximate">Approximate</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr id="trObligationAmountActual">
+                    <td class="f_head margin-top-8">Amount (Actuals)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationProductAmountNewActual" name="ObligationFinancialsAmount" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 " disabled />
+                        <label class="calog_Add_curr" id="CurrencyActual"></label>
+                        @*<select id="ddlObligationFinancialsAmountTypeActual" class="f_inpt width30 margin-left0" title="Base Currency">
+                                <option value="Exact">Exact</option>
+                                <option value="Approximate">Approximate</option>
+                            </select>*@
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">&nbsp;</td>
+                    <td class="verticalalign-top" id="obliCatalogAmontsummary">
+                        <label id="catalogAmountsumaryTitle"></label>
+                        <label id="catalogAmountsumaryValue"></label>
+                    </td>
+                </tr>
+            </table>
+            <p id="inprocessCatalog" class="popup_save_progress" style="visibility:hidden;">
+                <img src="/Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="obligationcatalogsViewPopup" style="display:none;overflow-y: auto;">
+    <table id="tblObligationCatalogMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+
+
+<div id="obligationcatalogseditPopup" class="calog_Add_pop" style="display:none;">
+    <div id="dvPopupHeadingObligationCatalogEdit" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="ObligationCatalogFormEdit">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td colspan="2">
+                        <h1 class="obligationNew_popuptitle">Edit Item</h1>
+                        <select id="ddlObligationCatalogStatusEdit" class="f_inpt width20 margin-left0" style="float:right" title="Obligation Catalog Status">
+                            <option value="Upcoming">Upcoming</option>
+                            <option value="Delayed">Delayed</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Cancelled">Cancelled</option>
+                            <option value="Complete">Complete</option>
+                        </select>
+                        <span style="float: right;margin: 10px 10px  0 0;color: #4f4f4f;">Status</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtObligationProductIDedit" name="ProductID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtObligationCatObligationIDedit" name="ObligationID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtObligationCatalogIDedit" name="CatalogID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none">
+
+                    <td class="f_head" style="display:none">Contract Record Title</td>
+                    <td height="40px;"><span id="lblObligationCatalogCTitleEdit" style="font-weight:bold; font-size:14px;" type="hidden"></span></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Item Name <small class="required">*</small></td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogNameedit" name="ObligationCatalogName" type="text" title="Catalog Name" style="margin-bottom: 5px !important;" class="f_input width40 validelement" disabled/>
+                        <a id="viewObligationProductDetailsEdit" href='javascript:void(0)' class='linkText'>Browse</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="verticalalign-top">
+                        <textarea id="txtObligationCatalogDescEdit" name="ObligationCatalogDescEdit" rows="3" style="height: 70px !important;width: 45.5% !important; margin-bottom: 5px !important;" class="f_text-box width40"></textarea>
+                    </td>
+                </tr>
+                <tr id="productcompleteddateEdit" style="display:none">
+                    <td class="f_head">Completed / Cancelled Date <small class="required">*</small></td>
+                    <td class="verticalalign-top">
+                        <input id="dtObligationProductCompletedDateEdit" name="Completed Date" type="text" title="Completed Date" style="margin-bottom: 5px !important;" class="f_input width20 padding_right_none " />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h1 class="amend_head margin-bottom-10">Quantity</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">Quantity (Expected)@*<small class="required">*</small>*@</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogQtyEdit" name="ObligationCatalogQtyEdit" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 " />
+                        <select id="ddlObligationCatalogUnitsEdit" class="f_inpt width30 margin-left0" title="Unit Type">
+                            <option value="0">--Select--</option>
+                        </select>
+                        <select id="ddlObligationCatalogUnitTypeEdit" class="f_inpt width30" title="Base Currency">
+                            <option value="Exact">Exact</option>
+                            <option value="Approximate">Approximate</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr id="trObligationActualQtyEdit">
+                    <td class="f_head margin-top-8">Quantity (Actuals)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationCatalogQtyNewEdit" name="ObligationCatalogQty" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 " disabled />
+                        <select id="ddlObligationCatalogUnitsNewEdit" class="f_inpt width30 obli_catalog_disable" title="Unit Type" disabled>
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">&nbsp;</td>
+                    <td class="verticalalign-top" id="obliCatalogQtyEditsummary"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h1 class="amend_head margin-bottom-10">Amount</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">Amount (Expected)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationProductAmountNewEdit" name="ObligationFinancialsAmount" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20 " />
+                        <label class="calog_Add_curr" id="CurrencyEditExpected"></label>
+                        <select id="ddlObligationProductAmountTypeNewEdit" class="f_inpt width30" title="Base Currency">
+                            <option value="Exact">Exact</option>
+                            <option value="Approximate">Approximate</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr id="trObligationAmountActualEdit">
+                    <td class="f_head margin-top-8">Amount (Actuals)</td>
+                    <td class="verticalalign-top">
+                        <input id="txtObligationProductAmountNewActualEdit" name="ObligationFinancialsAmount" type="text" style="margin-bottom: 5px !important;" class="f_inpt width20" disabled />
+                        <label class="calog_Add_curr" id="CurrencyEditActual"></label>
+
+                        @*<select id="ddlObligationFinancialsAmountTypeActualEdit" class="f_inpt width30 margin-left0" title="Base Currency">
+                                <option value="Exact">Exact</option>
+                                <option value="Approximate">Approximate</option>
+                            </select>*@
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-8">&nbsp;</td>
+                    <td class="verticalalign-top" id="obliCatalogAmontEditsummary">
+                        <label id="catalogAmountsumaryTitleEdit"></label>
+                        <label id="catalogAmountsumaryValueEdit"></label>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div id="viewProductsPopup" style="display:none;overflow: hidden;">
+    <p class="text1" style="padding: 0px 10px 10px 10px;">You can select one product from below and link to this Contract Record.</p>
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBoxProduct" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchProducts();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxProduct').val(''); SearchProducts();">Clear</a>
+    </article>
+    <div id="loadProduct"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tbodyExistingProducts"></table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationProducts"></article>
+    </div>
+    <p class="f_list overflow_hidden">
+        <span class='right-float'><a href="javascript:void(0)" style="float:right;" onclick="AddProductPopup()">Add New Product</a></span>
+    </p>
+</div>
+
+
+
+<div id="viewProductsMulPopup" style="display:none;overflow: hidden;">
+    <p class="text1" style="padding: 0px 10px 10px 10px;">You can select one product from below and link to this Contract Record.</p>
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBoxProductMul" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchProductsMul();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxProductMul').val(''); SearchProductsMul();">Clear</a>
+    </article>
+    <div id="loadProductMul"></div>
+    <div id="page-wrap" class="" style="margin-bottom: 10px;">
+        <table id="tbodyExistingMulProducts"></table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationMulProducts"></article>
+    </div>
+    <p class=" overflow_hidden">
+        <span class='right-float'><a href="javascript:void(0)" style="float:right;" onclick="AddProductPopup()">Add New Product</a></span>
+    </p>
+</div>
+
+
+<div id="AddNewProductsPopup" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingProduct" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="ProductForm">
+            <table class="width100" cellpadding="2" cellspacing="2">
+
+                <tr>
+                    <td class="f_head">Product Name</td>
+                    <td class="labelright"><input id="txtProductName" name="ProductName" type="text" title="Product Name" class="f_inpt width31_imp validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Units</td>
+                    <td class="labelright">
+                        <select id="ddlProductUnits" class="f_inpt width30 validelement" title="Unit Types">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Unit Price</td>
+                    <td class="labelright">
+                        <input id="txtProductUnitPrice" name="UnitPrice" type="text" style="margin-bottom: 5px !important;" class="f_inpt width31_imp validnumber" />
+                        <select id="ddlProductCurrency" class="f_inpt width30 " title="Base Currency">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="obligationcatalogsRecurrenceEditPopup" style="display:none;overflow-y: auto;">
+    @*<div id="dvPopupHeadingRecurrenceEdit" class="modalheader"><span style="font-size: 16px ! important; display: block; font-weight: 600; margin-bottom: 20px; color: rgb(102, 102, 102);">Edit recurring obligation</span></div>*@
+    <div class="modalbody">
+        <ul class="ulObliRec">
+            <li style="min-height: 24px;">
+                <span class="spanlineheight">
+                    <a class="linkText font_14" onclick="javascript: updateObligationRecurrenceNew('SINGLE');" href="javascript:void(0);">Update only this Obligation</a>
+                    <lable id="orepupdatesingle" class="font_14"></lable>
+                 </span>
+                @*<span style="width: 60%; float: left; color: rgb(131, 130, 130);">All other obligations in the series will remain the same.</span>*@
+            </li>
+
+            <li>
+                <span class="spanlineheight">
+                    <a class="linkText font_14" onclick="javascript: updateObligationRecurrenceNew('SERIES');" href="javascript:void(0);">Update all following / future Obligations in this series</a>
+                    <lable id="orepupdaterecurrence" class="font_14"></lable>
+                </span>
+                @*<span style="width: 60%; float: left; color: rgb(131, 130, 130);">Upcoming obligations in the series will be changed.</span>*@
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+
+<div id="obligationRecurrenceEditPopup" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <ul class="ulObliRec">
+            <li style="min-height: 24px;">
+                <span class="spanlineheight">
+                    <a class="linkText font_14" onclick="javascript: updateNewObligationsNew('SINGLE');" href="javascript:void(0);">Update only this Obligation</a>
+                    <lable id="ornepupdatesingle" class="font_14"></lable>
+
+                 </span>
+            </li>
+
+            <li>
+                <span class="spanlineheight">
+                    <a class="linkText font_14" onclick="javascript: updateNewObligationsNew('SERIES');" href="javascript:void(0);">Update all following / future Obligations in this series</a>
+                    <lable id="ornepupdaterecurrence" class="font_14"></lable>
+
+                 </span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+
+
+<!-- Manage ObligationCatalog New Context Menu Popup Start-->
+
+<div id="addEditStatusMultiple" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingStatusM" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewStatusMultiple">
+            <ul id="menuSMultiple" class="f_list">
+                <li id="Upcoming">
+                    <input id="S1" type="radio" checked onclick="javascript:statusclick(this);" name="rdstatus" value="Upcoming" class="css-checkbox" />
+                    <label for="S1" class="css-label">Upcoming</label>
+                </li>
+                <li id="Delayed">
+                    <input id="S2" type="radio" onclick="javascript:statusclick(this);" name="rdstatus" value="Delayed" class="css-checkbox" />
+                    <label for="S2" class="css-label">Delayed</label>
+                </li>
+                <li id="Partial">
+                    <input id="S3" type="radio" onclick="javascript:statusclick(this);" name="rdstatus" value="Partial" class="css-checkbox" />
+                    <label for="S3" class="css-label">Partial</label>
+                </li>
+                <li id="Cancelled">
+                    <input id="S4" type="radio" onclick="javascript:statusclick(this);" name="rdstatus" value="Cancelled" class="css-checkbox" />
+                    <label for="S4" class="css-label">Cancelled</label>
+                </li>
+                <li id="Complete">
+                    <input id="S5" type="radio" onclick="javascript:statusclick(this);" name="rdstatus" value="Complete" class="css-checkbox" />
+                    <label for="S5" class="css-label">Complete</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<ul id="dropdownMenuObligationStatusSettings" class="contextMenu">
+    <li id="MenuObligationStatusUpcoming"><a href="#Upcoming" class="obliAction obligation_satus">Upcoming</a></li>
+    <li id="MenuObligationStatusDelayed"><a href="#Delayed" class="obliAction obligation_satus">Delayed</a></li>
+    <li id="MenuObligationStatusPartial"><a href="#Partial" class="obliAction obligation_satus">Partial</a></li>
+    <li id="MenuObligationStatusCancelled"><a href="#Cancelled" class="obliAction obligation_satus">Cancelled</a></li>
+    <li id="MenuObligationStatusComplete"><a href="#Complete" class="obliAction obligation_satus">Complete</a></li>
+</ul>
+
+<ul id="dropdownMenuRelatedObligationCatalogs" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Item</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="dropdownMenuObligationCatalogSettings" class="contextMenu">
+    @*<li class="update Manage"><a href="#update">Update Status</a></li>*@
+    <li class="delete Manage"><a href="#delete">Delete </a></li>
+</ul>
+
+<label style="display:none;" id="hdncatalogselect"></label>
+<label style="display:none;" id="hdnContractCurrency"></label>
+<label style="display:none;" id="hdnObligationUniqueId"></label>
+<label style="display:none;" id="hdnObligationRowKey"></label>
+<label style="display:none;" id="hdnProductUpdates"></label>
+<span id="lblCounterparty" style="display:none"></span>
+<span id="lblCompanyProfile" style="display:none"></span>
+<label style="display:none;" id="hdnOldEndDate"></label>
+<!-- Milestone Popup End -->

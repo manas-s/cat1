@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Email Task</title>
+    @Styles.Render("~/Content/econtractscss")
+    @Styles.Render("~/Content/econtractscss")
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <style>
+        ul.chosen-choices {
+            background-color: #fafafa !important;
+            border: 1px solid #ccc !important;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px #dcdcdc inset;
+            padding: 3px 12px !important;
+            margin-top: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <section class="wraper">
+        <div class="center-div" id="dvRenewalExpire">
+            <div style="color:#29324a; font-size:18px;" id="renewalsMessage"></div>
+            <div class="msg_block">
+                <div style="display:block; float:left; width:100%; margin-bottom:3px;" id="dvContractTitle">
+                    <span class="con_m_head" id="hdtitleContract" style="padding-right: 5px; display:none">Contract Title:</span><span class="con_s_head" id="spContractTitle"></span>
+                    <span class="con_m_head" id="hdtitleRequest" style="padding-right: 5px; display:none">Request Title:</span><span class="con_s_head" id="spRequestTitle"></span>
+                </div>
+
+            </div>
+           
+            <div class="form-input-group ">                
+                <div class="row-group_con commentTask" style="margin-top: 30px;">
+                    <label class="ems_label" id="lblExpireNote">
+                        Add Comment
+                    </label>
+                    <div class="">
+                        <textarea id="txtNote" title="" class="form-controls" type="text" style="width: 67%;height:80px;"></textarea>
+                    </div>
+                </div>
+               
+          <div class="row-group_con" id="sendTo">
+                <div class="row-group_con">
+                <div class="row-group_con commentTask sendToUser">
+                    <label class="ems_label">
+                        Send To
+                    </label>
+                    <div class="">
+                        <select id="ddlOwners" multiple='multiple' class='form-contro width70 chosenmulti validselect' name="" title='Users' data-placeholder="--Select--"></select>
+                    </div>
+                </div>
+                <div style="width: 100%;padding:15px 0;display:none;" id="dvActivityComment">
+                    <b class="color_lightgrey" style="font-size: 16px;"><span class="color_dark" style="margin-right: 20px;">Activities </span></b>
+                    <ul class="toDoContenList" style="font-size: 13px;"></ul>
+                </div>
+                <div class="row-group_con commentTask" id="dvBtns">
+                    <a href="javascript:void(0);" class="btn1 btn-blue" id="btnSubmit" style="color: #fff;">Submit</a>
+                    @*<a href="javascript:void(0);" class="btn1" id="btnCancel"> Cancel</a>*@
+                </div>
+                <div id="dvPostComment" class="share_doc_Aleart" style="display:none;">
+                    <img src="../Content/Images/right.png" style="margin: 1px 5px 0 0; vertical-align:text-top" /> 
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div id="dvTask" class="share_doc_Aleart" style="display:none;">
+            <img src="../Content/Images/right.png" style="margin: 1px 5px 0 0; vertical-align:text-top; cursor:default;" /> Task completed.
+        </div>
+        <div id="dvExpired" class="share_doc_Aleart bg-failure width95_a" style="display:none;">
+            Sorry, this task may be completed / expired.
+        </div>
+    </section>
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    @Scripts.Render("~/bundles/econtracts")
+    <script src="/Scripts/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/Scripts/moment.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/General_EmailTask.js?" + DateTime.Now.GetHashCode())
+</body>
+</html>

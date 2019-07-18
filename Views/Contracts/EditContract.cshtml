@@ -1,0 +1,1526 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractTypeMetadata>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Contract Record";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title id="formTitle">Edit Contract Record</title>
+    @Styles.Render("~/Edit_Contract_CSS")
+
+    @*<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+        <link rel="stylesheet" href="/Content/css/jquery_002.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">*@
+    <style>
+        .cl::-ms-clear {
+            display: none;
+        }
+
+        .simple-pagination {
+            margin-left: -10px;
+        }
+        /*eO310319*/
+        #txtSearchBoxCounterparties::-webkit-search-cancel-button {
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="txthdnBusinessArea" style="display:none;" />
+    <div class="form-wraper">
+        <div class="form-wraper-in">
+            <div class="form-body">
+                <div class="form-body-in">
+
+                    <div class="form-headding-bdy">
+                        <div class="form-headding-bdy">
+                            <div class="row-group">
+                                <div class="col10 m12">
+                                    <h2 id="hformtitle" class="h2-head"></h2>
+                                    <p id="pformdescription" class="p-text help"></p>
+                                </div>
+                                <div class="col2 m12">
+                                    <div class="head-help text-right">
+                                        <a href="javascript:void(0);" id="btnHelp" class="btn1 btn-blue btn-help"> <img src="~/Content/Images/input-help-white.png"> Hide Help</a>
+                                        <a class="btn1 p-text btn-required"><span class="text-red font-16">*</span> Required Fields.</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="createstatusdisplay" style="display:none">
+                        <div id="dvCreateContMsg" class="width98dot5 bg-warning margin-top-5 margin-left-10">
+                            <p id="dvCreateContMsgText" class="margin-bottom-0">
+
+                            </p>
+                        </div>
+                    </div>
+                    <div id="saveContactForm" class="width100">
+                        <div class="form-boddy-content ">
+                            <div class="form-boddy-content-in">
+                                <div id="statusdisplay" style="display:none">
+                                    <div class="float_right1 padding_top_10px padding_right_10px padding_bottom_15px">
+                                        <select id="ddlContractStatus" name="Status" title="Contract Status" class="form-contro validelement"></select>
+                                    </div>
+                                    <div class="float_right1 margin-top-10 padding_top_10px padding_right_10px">
+                                        Status:
+                                    </div>
+                                </div>
+                                <div class="form-boddy-content-bdr">
+
+                                    @*<div class="form-tab-group">
+                                            <ul>
+                                                <li><a href="javascript:void(0);" class="active" style="border-left:0px;"> <img src="~/Content/Images/summary.png"> <span class="m-off">Summary</span></a></li>
+                                            </ul>
+                                            <div id="statusdisplay" style="display:none">
+                                                <div class="float_right1 padding_top_10px padding_right_10px">
+                                                    <select id="ddlContractStatus" name="Status" title="Contract Status" class="form-contro validelement"></select>
+                                                </div>
+                                                <div class="float_right1 margin-top-10 padding_top_10px padding_right_10px">
+                                                    Status:
+                                                </div>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="form-tab-content">
+                                        <div class="form-tab-content-in">
+                                            @*<div class="row-group tab-title">
+                                                    <div class="col12">
+                                                        <div class="pad-all no-paa-bot padding_left_none">
+                                                            <h2 class="h2-head text-blue">Summary</h2>
+                                                            <p class="p-text help">
+                                                                This summary form gathers essential information (which may change with each Contract Type) for managing a contract.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                            <div class="form-wraper">
+                                                <div>
+                                                    @*class="form-wraper-in"*@
+                                                    <div class="form-section">
+                                                        <div class="form-section-in" id="formTable">
+
+                                                            <div class="row-group">
+                                                                <div class="col12 no-pad">
+                                                                    <div class="collapse-heading">
+                                                                        <div class="col10 no-pad">
+                                                                            <h3 class="h3-head" style="padding-left:10px;" id="fieldGroup-1">Primary Fields</h3>
+                                                                            <p class="p-text" id="fieldGroup-1Desc"></p>
+                                                                        </div>
+                                                                        <div class="col2 text-right">
+                                                                            <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('dvPrimaryField', 'primefirst', 'newdivforcheck');"><img id="primefirst" src="~/Content/Images/e-close.png" title="Collapse" /></a>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-group pad-top" id="dvPrimaryField">
+                                                                <div class="form-input-group">
+                                                                    <div class="row-group">
+                                                                        <label class="col3 m12 margin-top-8">
+                                                                            Business Area<span class="text-red">*</span><img id="imgbusinessarea" src="/Content/Images/input-help.png">
+                                                                        </label>
+                                                                        <div class="col6 m11">
+                                                                            <input id="txtBusinessArea" title="Business Area" class='form-contro validelement' readonly='readonly' type='text' />
+                                                                            <label class="col12 p-text text-left help" id="lblBusinessAreaDescription"></label>
+                                                                        </div>
+                                                                        <div class="col3 m1">
+                                                                            <div class="success-input-msg margin-top-8">
+                                                                                <a class="linkText" id="viewbusinessarea" href='javascript:void(0)' onclick='ViewBusinessArea()'> Browse</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-input-group ctypeconfigure">
+                                                                    <div class="row-group">
+                                                                        <label class="col3 m12 margin-top-8">
+                                                                            Contract Record Type<span class="text-red">*</span><img id="imgcontracttype" src="/Content/Images/input-help.png">
+                                                                        </label>
+                                                                        <div class="col6 m12">
+                                                                            <select id="ddlContractTypes" title="Contract Record Type" class="form-contro validelement">
+                                                                                <option value="0">--Select--</option>
+                                                                            </select>
+                                                                            <label class="col12 p-text text-left help" id="lblContractTypeDescription"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                @*<div id="trPopulateTemplate" class="form-input-group" style="display:none;">
+                                                                        <div class="row-group">
+                                                                            <label class="col3 m12 margin-top-8">
+                                                                                Contract Type<span class="text-red">*</span>
+                                                                            </label>
+                                                                            <div class="col6 m12">
+                                                                                <input type="checkbox" id="chkPopulateTemplate" class="css1-checkbox" />
+                                                                                <label for="chkPopulateTemplate" class="css1-label">Display default values for this Contract Type</label>
+                                                                                <input type="hidden" id="templateName" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+
+                                                                @*<div id="trTransactionType" class="form-input-group" style="display:none;">
+                                                                        <div class="row-group">
+                                                                            <label class="col3 m12">
+                                                                                Transaction Type<span class="text-red">*</span>
+                                                                            </label>
+                                                                            <div class="col6 m12">
+                                                                                <select id="ddlTransactionTypes" title="Transaction Type" class="form-contro">
+                                                                                    <option value=" 0">--Select--</option>
+                                                                                    <option value="Buy-Side">Buy-Side</option>
+                                                                                    <option value="Sell-Side">Sell-Side</option>
+                                                                                    <option value="Legal/General Agreement">Legal/General Agreement</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+
+                                                                @*<div id="trContractClass" class="form-input-group" style="display:none;">
+                                                                        <div class="row-group">
+                                                                            <label class="col3 m12 margin-top-8">
+                                                                                Contract Class<span class="text-red">*</span>
+                                                                            </label>
+                                                                            <div class="col6 m12">
+                                                                                <select id="ddlContractClasses1" onchange="changecontractclass(this);" title="Contract Class" class="form-contro">
+                                                                                    <option value="0">--Select--</option>
+                                                                                    <option value="Individual">Individual</option>
+                                                                                    <option value="Master Agreement">Master Agreement</option>
+                                                                                    <option value="Sub-Contract">Sub-Contract</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+
+                                                                <div id="trmaster" class="form-input-group" style="display:none;">
+                                                                    <div class="row-group">
+                                                                        <label class="col3 m12 margin-top-8">
+                                                                            Master Agreement<span class="text-red">*</span>
+                                                                        </label>
+                                                                        <div class="col6 m11">
+                                                                            <input id="txtMasterAgreement" name="RelatedContract" readonly='readonly' type="text" class="form-contro" />
+                                                                            <input id="txtRelatedContractID" name="RelatedContractID" style="display:none;" />
+                                                                        </div>
+                                                                        <div class="col3 m1">
+                                                                            <div class="success-input-msg margin-top-8">
+                                                                                <a class="linkText" href='javascript:void(0)' onclick='ViewMasterAgreement()'> Browse</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-input-group">
+                                                                    <div class="row-group">
+                                                                        <label class="col3 m12 margin-top-8">
+                                                                            Contract Record Title<span class="text-red">*</span><img id="imgcontracttitle" src="/Content/Images/input-help.png">
+                                                                        </label>
+                                                                        <div class="col6 m12">
+                                                                            <input id="txtContractTitle" type="text" maxlength="100" title="Contract Record Title" class="form-contro validelement validtitle validatebracket" />
+                                                                            <label id="lblTitleDesc" class="col12 p-text text-left help"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="newdivforcheck">
+
+                                                            </div>
+                                                            <div id="undercheck">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-group btn-body">
+                                                <div class="col12">
+                                                    <div class="pad-all text-right">
+                                                        <a href="javascript:void(0);" class="btn1 btn-blue" id="btnCreate">Submit</a>
+                                                        <a href="javascript:void(0);" class="btn1 btn-blue" id="btnDuplicate" style="display:none;">Duplicate</a>
+                                                        <a href="javascript:void(0);" class="btn-blue-border" id="btnSaveDraft"> Save As Draft</a>
+                                                        <a href="javascript:void(0);" class="btn1" id="btnClearFilter"> Cancel</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col12">
+                                                    <div class="pad-all text-right pad-top-none help">
+                                                        <p class="p-text" id="duplicateDescription" style="display:none;"><strong>Duplicate</strong> will duplicate an existing Contract Record.</p>
+                                                        <p class="p-text" id="updateDescription">@*<strong>Update</strong> will update an existing contract and created info will go to user mail ID.*@</p>
+                                                        <p class="p-text" id="draftDescription"><strong>Save As Draft</strong> to continue to work on this form and submit later.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---manoj--->
+            <div id="divcustommilestone">
+
+            </div>
+            <!---manoj--->
+        </div>
+    </div>
+    <section id="p_form">
+        <div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+            <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+                <table id="example-basic-15" class="treetable">
+                    <tbody id="tbodyBusinessAreaEdit"></tbody>
+                </table>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedBA">
+                </div>
+            </div>
+            <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+            <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+            <input id="txtBusinessAreaDescription" type="hidden" />
+            <input id="txtContractTemplateName" type="hidden" />
+        </div>
+        <div id="browseTaxonomy" class="k-content" style="display: none; text-align: left; height:600px;">
+            <div id="loadTaxonomy"></div>
+            <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+                <table id="example-basic-Taxonomy12" class="treetable">
+                    <tbody id="tbodyTaxonomy12"></tbody>
+                </table>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedTaxonomy">
+                </div>
+            </div>
+        </div>
+        <div id="browseCounterparty">
+            <ul id="menuSMultiple" style="display:none;" class="f_list">
+                @*Bug id: eO37487*@
+            <li id="Upcoming">
+                <input id="rdCPExistingCounterparty" type="radio" checked name="PickCounterparty" onclick="SelectExistingCounterparty()" value="Existing" class="css-checkbox" />
+                <label for="rdCPExistingCounterparty" class="css-label">Select from eContract existing Counterparty Database</label>
+            </li>
+            <li id="Delayed">
+                <input id="rdCPAddCounterparty" type="radio" name="PickCounterparty" onclick="SelectAddCounterparty()" value="New" class="css-checkbox" />
+                <label for="rdCPAddCounterparty" class="css-label">Create/Add Counterparty</label>
+            </li>
+        </ul>
+        <div id="dvCPExistingCounterparty" class="width100">
+            @*<p class="text1" style="padding: 0px 10px 10px 10px;">You can select one or more Counterparty from below and link to this Contract Record.</p>
+                <article style="width:100%; text-align:center;">
+                    <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+                </article>*@
+            <div id="page-wrap" class="" style="margin-bottom: 10px;">
+                <!---manoj--->
+                <div id="listWrapper">
+                    @*Performance Optimization*@
+                    <div id="tblCounterpartiesAlphabet" class="alphabet"><span class="clear active">All</span><span>#</span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></div>
+                    <div class="dataTables_length" id="tblCounterparties_length"><label>Show <select id="ddltblCounterparties"><option value="10">10</option><option selected="selected" value="20">20</option><option value="30">30</option></select> entries</label></div>
+                    <div id="tblCounterparties_filter" class="dataTables_filter"><label>Search:<input type="search" id="txtSearchBoxCounterparties"></label></div>
+                    <table id="tblCounterparties" class="f_list dataTable no-footer"></table>
+                    @*Performance Optimization*@
+                </div>
+                <!---manoj--->
+                @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+                        <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').attr('checked', false);">Unselect All</a>
+                    </span>*@
+                <div id="loadGenCounterParty"></div>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationCounterparties"></article>
+                </div>
+                <div class="selectFIlterItem" style="margin-bottom:15px;">
+                    <div id="liSelectedCounterParty">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="dvCPAddCounterparty" class="width100" style="display:none;">
+            <div id="addNewEntityFields">
+                <div id="counterpartyForm" class="width100">
+                    <ul class="poPup_Form_Field pop-up-space" id="counterpartyItems">
+                        <li>
+                            <p></p>
+                            <div>
+                                <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                            </div>
+                        </li>
+                        <li>
+                            <p><b>Counterparty Name</b><small>*</small></p>
+                            <div>
+                                <input id="txtCounterpartyName" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" onchange="ReplaceSpecialCharacters(this);" class="validelement" />
+                            </div>
+                        </li>
+                        <li id="spAddCounterparty">
+                            <div style="display: block; clear: both;width: 100%;">
+                                <input type="checkbox" id="chkCounterpartyNotInList" class="css1-checkbox cp-check">
+                                <label for="chkCounterpartyNotInList" class="css1-label">Add to eContracts Counterparty Database</label>
+                            </div>
+                        </li>
+                        <li class="CP_Det1" id="trcp-type">
+                            <p><b>Counterparty Type</b><small>*</small></p><div>
+                                <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="CP_Det1" id="trcp-gbl">
+                            <p><b>Global or Regional</b><small>*</small></p><div>
+                                <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                            </div>
+                        </li>
+                        <li class="" id="trcp-RgBusi" style="display:none">
+                            <p><b>Business Area</b><small>*</small></p><div>
+                                <input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="">
+                                <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                            </div>
+                        </li>
+                        <li class="CP_Det1">
+                            <p><b>Status</b><small>*</small></p><div>
+                                <select id="ddlStatus" name="Status" style="pointer-events:none">
+                                    <option value="Active">Active</option>
+                                    @*<option value="Inactive">Inactive</option>*@
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="poPup_Form_Field pop-up-space" id="counterpartyDynamicItems"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="browseLegalEntity">
+
+        <div id="dvCPExistingLegalEntity" class="width100">
+            @*<article style="width:100%; text-align:center;">
+                    <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+                </article>*@
+            <div id="page-wrap" class="" style="margin-bottom: 10px;">
+                <div id="listLEWrapper">
+                    @*<table id="tblCounterparties"></table>*@
+                </div>
+                @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+                        <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').attr('checked', false);">Unselect All</a>
+                    </span>*@
+                <div id="loadGenLegalEntity"></div>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationLegalEntity"></article>
+                </div>
+                <div class="selectFIlterItem" style="margin-bottom:15px;">
+                    <div id="liSelectedLegalEntity">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+        <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+            <table id="example-basic-11" class="treetable">
+                <tbody id="tbodyBusinessArea11"></tbody>
+            </table>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:10px;">
+            <div id="liSelectedBAOwners">
+            </div>
+            <label id="lblBusinessAreaOwners" style="display: none;"></label>
+        </div>
+
+        <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+    </div>
+    <div id="browseMasterAgreements" style="display:none;overflow-y: auto;">
+        <div id="loadMA"></div>
+        <div id="page-wrap">
+            <ul class="f_list" id="tblMasterAgreements"></ul>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationMasterAgreements"></article>
+        </div>
+    </div>
+    <div id="browseOriginatingParty" style="display:none;overflow-y: auto;">
+        <div id="loadOP"></div>
+        <div id="page-wrap">
+            <ul class="f_list" id="tblOriginatingParties"></ul>
+        </div>
+        <div class="pop_up_Content MetadataDetailDocument" style="min-height:550px;width:100%;">
+            <ul class="pop_up_Harizondal">
+                <li><a href="javascript:void(0)" id="OPLeagalEntities" class="pop_up_Harizondal_meta_active" onclick="SelectLegalEntities();">Company Legal Entities</a></li>
+                <li><a href="javascript:void(0)" id="OPCounterparties" onclick="SelectCounterparties();">Counterparties</a></li>
+            </ul>
+            <div id="page-wrap">
+                <article id="artOPLegal" style="width:100%; text-align:center;">
+                    <input id="txtSearchBoxOPLegal" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchOPLegalEntities();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxOPLegal').val(''); getcompanyprofile();">Clear</a>
+                </article>
+                <ul class="f_list" style="padding: 10px;" id="tblOPLegalEntities"></ul>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationOPLegalEntities"></article>
+                </div>
+            </div>
+
+
+            <div id="page-wrap">
+                <article style="width:100%; text-align:center;display:none;" id="artOPCounterparties">
+                    <input id="txtSearchBoxOPCounterparties" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchOPCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxOPCounterparties').val(''); CounterpartyFunc1();">Clear</a>
+                </article>
+                <ul class="f_list" id="tblOPCounterparties" style="padding: 10px;display:none;"></ul>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationOPCounterparties" style="display:none;"></article>
+                </div>
+            </div>
+
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationOPLegalEntities"></article>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationOPCounterparties" style="display:none;"></article>
+        </div>
+    </div>
+    <input id="txtOriginatingPartyType" type="hidden" />
+    <div id="browseProjects" style="display:none;overflow: hidden;">
+        <ul id="menuPMultiple" class="f_list">
+            <li id="ExistingProjectList">
+                <input id="rdProjectList" type="radio" checked name="PickProject" onclick="SelectExistingProject()" value="Existing" class="css-checkbox" />
+                <label for="rdProjectList" class="css-label">Select existing project</label>
+            </li>
+            <li id="NewProject">
+                <input id="rdNewProject" type="radio" name="PickProject" onclick="SelectAddProject()" value="New" class="css-checkbox" />
+                <label for="rdNewProject" class="css-label">Create/Add Project</label>
+            </li>
+        </ul>
+        <div id="dvexistingProject" class="width100">
+            <p class="text1" style="padding: 0px 10px 10px 10px;">You can select a Project from below and link to this Contract Record.</p>
+            <article style="width:100%; text-align:center;">
+                <input id="txtSearchBoxProjects" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchProjects();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="ClearProjectSearch();">Clear</a>
+            </article>
+            <div id="loadPro"></div>
+            <div id="page-wrap" class="" style="margin-bottom: 10px;">
+                <table id="tblProjects" class="f_list no-footer"></table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationProjects"></article>
+            </div>
+        </div>
+        <div id="dvAddProject" class="width100" style="display:none;">
+            <div class="modalbody">
+                <div id="addNewProjectEntityFields">
+                    <table cellpadding="2" cellspacing="2" class="width100">
+                        <tr>
+                            <td class="labelright width40"></td>
+                            <td class="labelright width60"><input id="txtProjectRowKey" name="ProjectRowKey" type="hidden" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Project ID<small class="required">&nbsp;*</small></td>
+                            <td class="labelright width60"><input id="txtProjectID" name="ProjectID" type="text" maxlength="100" class="f_inpt width98 validelement" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Project Name<small class="required">&nbsp;*</small></td>
+                            <td class="labelright width60"><input id="txtProjectName" name="ProjectName" type="text" maxlength="100" class="f_inpt width98 validelement" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Description</td>
+                            <td class="labelright width60"><textarea id="txtDescription" name="Description" rows="2" cols="20" style="height: 80px;" maxlength="300" class="f_inpt width98"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">
+                                Status
+                            </td>
+                            <td class="labelright">
+                                <select id="ddlStatus" class="f_inpt width98" title="Status">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Start Date</td>
+                            <td class="labelright width60"><input id="dtStartDate" name="StartDate" type="text" class="form-contro-Date f_inpt width40 validdate" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">End Date</td>
+                            <td class="labelright width60"><input id="dtEndDate" name="StartDate" type="text" class="form-contro-Date f_inpt width40 validdate" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Sub Account</td>
+                            <td class="labelright width60"><input id="txtSubAccount" name="SubAccount" type="text" class="f_inpt width98" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Project Manager</td>
+                            <td class="labelright width60">
+                                <select class="f_inpt chosenmulti" title="Select User(s)" id="ddlProjectManager" multiple data-placeholder='Select User(s)'></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Business Manager</td>
+                            <td class="labelright width60">
+                                <select class="f_inpt chosenmulti" title="Select User(s)" id="ddlBusinessManager" multiple data-placeholder='Select User(s)'></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Contract Owner</td>
+                            <td class="labelright width60">
+                                <select class="f_inpt chosenmulti" title="Select User(s)" id="ddlContractManager" multiple data-placeholder='Select User(s)'></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">USAID Contract Number</td>
+                            <td class="labelright width60"><input id="txtUSAIDContractNumber" name="USAIDContractNumber" type="text" class="f_inpt width98" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Customer ID</td>
+                            <td class="labelright width60"><input id="txtCustomerID" name="CustomerID" type="text" class="f_inpt width98" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">
+                                Country
+                            </td>
+                            <td class="labelright">
+                                <select id="ddlCountry" class="f_inpt width98" title="Country">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Division</td>
+                            <td class="labelright width60"><input id="txtDivision" name="Division" type="text" class="f_inpt width98" /></td>
+                        </tr>
+                        <tr>
+                            <td class="labelright width40">Practice Area</td>
+                            <td class="labelright width60"><input id="txtPracticeArea" name="PracticeArea" type="text" class="f_inpt width98" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="browseProjectTasks" style="display:none;overflow: hidden;">
+        <div id="loadProTask"></div>
+        <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+            <table id="tblProjectTasks"></table>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationProjectTasks"></article>
+        </div>
+    </div>
+
+    <div id="browseGenericforrelcon" style="display:none;overflow: hidden;">
+        <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+            <table id="tblGenericforcon"></table>
+        </div>
+        <div id="loadGencon"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationGenericcon" style="width:100%; text-align:center;"></article>
+        </div>
+    </div>
+
+    <!---manoj--->
+    <div id="browseRequest" style="display:none;overflow: hidden;">
+        <p class="text1" style="padding: 0px 10px 10px 10px;">You can select a Request from below and link to this Contract Record.</p>
+        <article style="width:100%; text-align:center;">
+            <input id="txtSearchBoxRequest" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchRequest();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxRequest').val(''); SearchRequest();">Clear</a>
+        </article>
+        <div id="loadProRequest"></div>
+        <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+            <table id="tblRequests"></table>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationContracts"></article>
+        </div>
+    </div>
+    <!---manoj--->
+    <div id="browseGeneric" style="display:none;overflow: hidden;">
+        <div id="page-wrap" style="margin-bottom: 10px;">
+            <table id="tblGenericheader"></table>
+            <div class="f_list">
+                <table id="tblGeneric"></table>
+            </div>
+        </div>
+        <div id="loadGen"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationGeneric" class="compact-theme simple-pagination"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelectedRU">
+            </div>
+        </div>
+    </div>
+    <!---manoj--->
+    <div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+        <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="bg-warning">
+                <p>You can select one or more existing Counterparty from below and link to this Counterparty.</p>
+            </div>
+            <article id="right">
+                <input id="txtAddSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtAddSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+            </article>
+            <div>
+                <label>Relationship Type</label>
+                <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                    <option value="0">--Select--</option>
+                    <option value="Parent">Parent - Subsidiary</option>
+                    <option value="Supplier">Supplier - Customer</option>
+                    <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                    <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div>
+                    <div>
+                        <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                        <select id="ddlRelationshipTypeParentcounterparties" class="f_inpt width30 validelement"></select>
+                    </div>
+                </div>
+                <div id="page-wrap" class="f_list">
+                    <table id="tblPopupCounterparties"></table>
+                </div>
+            </div>
+            <div id="loadCounterparties"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedCounterparties">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Milestone New Popup Start -->
+    <div id="addEditMilestoneNew" style="display:none;overflow: visible !important;">
+        <div id="dvPopupHeadingMilestoneNew" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <input id="hdnfieldname" type="hidden">
+            <div id="addNewMilestoneNew">
+                <table class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td colspan="2">
+                            <h1 class="obligationNew_popuptitle" id="milestonenewheading">New Milestone</h1>
+                            <div class="obligationNew_popuptitlediv" style="float:left;width:32%">
+                                <span class="obligationNew_popuptitlespan">Status</span>
+                                <select id="ddlMilestoneNewStatus" class="f_input_milestone obligationNew_popuptitleddl margin-left0 valid" style="float:right;padding-left: 0px;margin-left: 4px !important;" title="Milestone Status">
+                                    <option value="Upcoming">Upcoming</option>
+                                    <option value="Delayed">Delayed</option>
+                                    <option value="Complete">Complete</option>
+                                </select>
+                            </div>
+                            <div id="AlertMileEnabled" class="switch enabled_slider switch_enable AlertEnabled" style=" float: right;">
+                                <div class="Toggle"></div>
+                                <span class="switch_enable">YES</span>
+                                <span class="switch_disable">NO</span>
+                                <input id="AlertMile" type="hidden" class="switch_val" value="Yes">
+                            </div><div class="float_left" style="text-align: right;float: right!important;display: inline-block;margin: 4px 10px;">
+                                <span class="switch_lefttext">Enabled<img src="../Content/Images/help_training.png" alt="Reminders for this milestone are disabled." title="Reminders for this milestone is set as Enabled/Disabled."></span>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h1 class="amend_head">Summary</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelleft width70"><input id="txtMilestoneIDNew" name="MilestoneID" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="labelleft"><input id="txtMilestoneNewText" name="MilestoneNewText" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td>Contract Title</td>
+                        <td height="40px;"><span id="lblCTitleNew" style="font-weight:bold; font-size:14px;"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Milestone Type <small class="required">*</small><img title="Select the type of Milestone to be created from the list of Milestone type." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top">
+                            <select id="ddlMilestoneTypeNew" class="f_input_milestone width36_1 margin-left0 validelement" title="Milestone Type">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Milestone Title <small class="required">*</small><img title="Enter a name for the Milestone to be created." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top"><input id="txtMilestoneTitleNew" maxlength="50" name="MilestoneTitle" type="text" title="Milestone Title" class="f_input_milestone width60 validelement validtitle" /></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td class="verticalalign-top">
+                            <textarea id="txtMileDescriptionNew" name="MileDescription" rows="2" class="f_text-box width95 margin-left0"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Show in Calendar</td>
+                        <td class="padding_10px">
+                            <input id="rdShowInCalendarYesNew" type="radio" name="ShowInCalendarNew" class="css-checkbox" checked value="Yes" />
+                            <label for="rdShowInCalendarYesNew" class="css-label">Yes</label>
+                            <input id="rdShowInCalendarNoNew" type="radio" name="ShowInCalendarNew" class="css-checkbox" value="No" />
+                            <label for="rdShowInCalendarNoNew" class="css-label">No</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Milestone Owner(s)<img title="By default, the Owner of the Milestone is its creator. More users can be added as Owners of the Milestone from the list." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top">
+                            <select id="ddlMilestoneOwnerNew" multiple="multiple" class="f_input_milestone width60 chosenmulti" data-placeholder="Select Owner(s)">
+                                @*<option value="{Contract Owner}">{Contract Owner}</option>
+                                    <option value="{Contract Record Creator}">{Contract Record Creator}</option>
+                                    <option value="{Contract Area Admin}">{Contract Area Admin}</option>
+                                    <option value="{Business Area Owner}">{Business Area Owner}</option>
+                                    <option value="{Requestor}">{Requestor}</option>
+                                    <option value="{Project Managers}">{Project Managers}</option>*@
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Priority<img title="Set the priority of the Milestone as per importance." src="/Content/Images/input-help.png"></td>
+
+
+                        <td class="verticalalign-top">
+                            <select id="ddlMilestoneNewPriority" class="f_input_milestone width36_1 margin-left0 validelement" title="Milestone Priority">
+                                <option value="High">High</option>
+                                <option selected value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Auto Complete on Milestone Date?</td>
+                        <td class="padding_10px">
+                            <input id="rdMilestoneNewAutoCompleteYes" type="radio" name="MilestoneNewAutoComplete" class="css-checkbox" value="Yes" />
+                            <label for="rdMilestoneNewAutoCompleteYes" class="css-label margin-right8">Yes</label>
+                            <input id="rdMilestoneNewAutoCompleteNo" type="radio" name="MilestoneNewAutoComplete" class="css-checkbox" value="No" />
+                            <label for="rdMilestoneNewAutoCompleteNo" class="css-label margin-right8">No</label>
+                        </td>
+                    </tr>
+
+                    <tr style="display:none">
+                        <td colspan="2">
+                            <h1 class="amend_head margin-top-15">
+                                Occurrence & Dates
+                            </h1>
+
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelleft"></td>
+                        <td class="labelleft"></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td colspan="2">
+                            <ul>
+                                <li style="width: 100%; padding: 0 0 0 0px; line-height: 30px;">
+                                    <div class="obligationNew_Ocurrencebody" style="width:29.74%;"><span>Start/ Due Date<small class="required">*</small><img title="Select the achievable date of the miletone." src="/Content/Images/input-help.png"></span></div>
+                                    <input id="dtMilestoneDateNew" name="MilestoneDate" style="float:left;" title="Milestone Date" type="text" class="f_input_milestone width10 validelement validdate">
+                                </li>
+                            </ul>
+                            <ul id="ulMilestoneNewCompletedDate" style="display:none">
+                                <li style="width: 100%; padding: 0 0 0 0px; line-height: 30px;float: right;">
+                                    <div class="obligationNew_Ocurrencebody" style="width:29.74%;"><span>Milestone Completed Date<small class="required">*</small></span></div>
+                                    <input id="dtMilestoneNewCompletedDate" name="MilestoneCompletedDate" style="float:left;" title="Milestone Completed Date" type="text" class="f_input_milestone width10">
+                                </li>
+                            </ul>
+                            <ul id="ulMilestoneOcurrence" class="obli_ocurr_ul" style="width: 100%;">
+
+                                <li style="width: 100%; padding: 0 0 0 0px; line-height: 30px;float: right;" id="liMilestoneRecurrence">
+                                    <div class="obligationNew_Ocurrencebody" style="width:29.74%;"><span>Repeat<img title="Select option based on the occurence of the Miletone." src="/Content/Images/input-help.png"></span></div>
+
+                                    <select name="Duration" id="ddlMilestoneOccurencess" class="f_input_milestone width12_5 validelement" title="Milestone Recurrence Type" data-role="none">
+                                        <option value="None">Never</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Yearly">Yearly</option>
+                                    </select>
+                                </li>
+                                <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;margin-top:4px;" id="divMilestoneOcurrenceWeekly">
+                                    <div class="obligationNew_Ocurrencebody" style="width:29.74%"><span>Select Days(s)<small class="required">*</small></span></div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC0" name="chkMilestoneRecurWeekly" value="0" data-role="none"> Sun
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC1" name="chkMilestoneRecurWeekly" value="1" data-role="none"> Mon
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC2" name="chkMilestoneRecurWeekly" value="2" data-role="none"> Tue
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC3" name="chkMilestoneRecurWeekly" value="3" data-role="none"> Wed
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC4" name="chkMilestoneRecurWeekly" value="4" data-role="none"> Thu
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC5" name="chkMilestoneRecurWeekly" value="5" data-role="none"> Fri
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="MRC6" name="chkMilestoneRecurWeekly" value="6" data-role="none"> Sat
+                                    </label>
+                                </li>
+                                <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;margin-bottom:-10px;margin-top:4px;" id="divMilestoneOcurrenceMonthly">
+                                    <div class="obligationNew_Ocurrencebody" style="width: 29.74%"><span>Select day<small class=" required">*</small></span></div>
+                                    <div class="milestone_Rec_month">
+                                        <div class="checkbox-inline" style="width:60%;" id="lblMilestoneOcurrenceMonth">
+                                            <span style="float: left;margin: 4px 10px 0 0;">day</span>
+                                            <input id="dtMilestoneNewOccurrenceDueDate" name="MilestoneNewOccurrenceTitle" title="Milestone Occurrence Date" type="text" class="f_input_milestone width10" style="float:left;height:20px;width:25px !important;" readonly />
+                                            <span style="float: left;margin: 4px 10px 0 0;">of every</span>
+                                            <select name="Duration" id="ddlMilestoneRepeatMonthly" class="f_input_milestone width20" style="float:left;width:60px !important" title="Milestone" data-role="none">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                            </select>
+                                            <span style="float: left;margin: 4px 10px 0 0;">month(s)</span>
+                                        </div>
+                                        <label class="checkbox-inline" style="width:60%;" id="lblMilestoneOcurrenceYear">
+                                            <span style="float: left;margin: 4px 10px 0 0;">on</span>
+                                            <input id="dtMilestoneOcurrMonthforYear" name="Month" title="Month" type="text" class="f_input_milestone width20" style="float:left;height:20px;width:30px;" readonly />
+                                            <input id="dtMilestoneOcurrDateforYear" name="Date" title="Date" type="text" class="f_input_milestone width10" style="float:left;height:20px;width:30px;" readonly />
+                                        </label>
+                                    </div>
+                                </li>
+
+                                <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right" id="dvMilestoneOcurrenceEnd">
+                                    <div class="obligationNew_Ocurrencebody" style="width:29.74%;margin-top: 10px;">
+                                        <span style="/* padding-top: 44px; */">Number of instances<small class="required">*</small></span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <input id="rdMilestoneNewEndOccurence" type="radio" name="SelectMilestoneOccurenceEndDate" onclick="MilestoneNewEndOccurence()" class="css-checkbox" value="TillEnd">
+                                            <label for="rdMilestoneNewEndOccurence" class="css-label margin-right8">Create Milestone till end of Contract Term</label><label id="MilestoneNewOcurrenceEndDate" class="css-label margin-right8" style="padding-left: 4px;"></label>
+                                        </div>
+                                        <div style="margin-top: -8px;">
+                                            <input id="rdMilestoneNewEndOccurenceUser" type="radio" onclick="MilestoneNewEndOccurenceUser()" name="SelectMilestoneOccurenceEndDate" class="css-checkbox" value="Custom">
+                                            <label for="rdMilestoneNewEndOccurenceUser" class="css-label margin-right8" style="text-align: -webkit-auto;">
+                                                Create milestones for next
+                                                @*<input type="text" id="txtMilestoneOccurrenceCount" onclick="javascript: allowNumericsNewMonthly(this);" class="f_input_milestone width1" style="height: 20px;width: 30px;">instances*@
+                                                <input type="text" id="txtMilestoneOccurrenceCount" maxlength="2" onkeypress="javascript: allowNumericsNewMonthly(this);" class="f_input_milestone width1" style="height: 20px;width: 30px;">instances
+                                            </label>
+                                            <label id="lblerrorreclimitMilestone" class="error" style="display:none"> * Maximum Allowed Recurrence is 30</label>
+                                            <label id="lblerrorreclimitMilestoneNotZero" class="error" style="display:none"> * Zero instance not allowed</label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;" id="divMilestoneOcurrenceSummary">
+                                    <div class="obligationNew_Ocurrencebody" style="width: 29.74%; margin-bottom: 5px;">
+                                        <span id="milestoneEditOcursumary" style="display:none">Repeat<img title="Select option based on the occurence of the milestone." src="/Content/Images/input-help.png"></span>
+                                    </div>
+                                    <label class="checkbox-inline float-left pad-rit" style="color: #6c9539; font-size: 14px;" id="MilestoneOcurrenceSummary">
+
+                                    </label>
+                                    <div id="divMilestoneRecurrenceEdit" class="float-left">
+                                        <a class="linkText" id="amilestoneRecNoneEdit" href="javascript:void(0);">Edit</a>
+                                        <a class="linkText" id="amilestoneRecEdit" href="javascript:void(0);">Edit</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h1 class="amend_head margin-top-15" id="reminderEnable"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelleft"></td>
+                    </tr>
+                    <tr>
+                        <td>Send Reminder To<img title="Select user(s) to be alerted from the list before/after Milestone expiration." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top width70">
+                            <select id="ddlSendReminderToNew" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select Send To">
+                                <option value="{Project Managers}">{Project Managers}</option>
+                                <option value="{Contract Owner}">{Contract Owner}</option>
+                                <option value="{Contract Record Creator}">{Contract Record Creator}</option>
+                                <option value="{Contract Area Admin}">{Contract Area Admin}</option>
+                                <option value="{Business Area Owner}">{Business Area Owner}</option>
+                                <option value="{Requestor}">{Requestor}</option>
+                                <option value="{Milestone Owner}">{Milestone Owner}</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr id="trReminderMilestone">
+                        <td>Reminders<img title="Send reminders to Users and Milestone wners about the days remaining/passed for Milestone expiry." src="/Content/Images/input-help.png"></td>
+                        <td class="verticalalign-top">
+                            <select id="ddlReminder1MilestoneNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder1MilestoneNew" name="Remind1" type="text" maxlength="3" class="f_input_milestone width20" /> days<br />
+                            <select id="ddlReminder2MilestoneNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder2MilestoneNew" name="Remind2" type="text" maxlength="3" class="f_input_milestone width20" /> days<br />
+                            <select id="ddlReminder3MilestoneNew" class="f_input_milestone width30">
+                                <option value="before">before</option>
+                                <option value="after">after</option>
+                            </select>
+                            <input id="txtReminder3MilestoneNew" name="Remind3" type="text" maxlength="3" class="f_input_milestone width20" /> days
+                        </td>
+                    </tr>
+                </table>
+                <p id="inprocessMilestone" class="popup_save_progress" style="visibility:hidden;">
+                    <img src="/Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Milestone New Popup End -->
+    <!---manoj--->
+
+    <div id="addEditCounterparty" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+        </div>
+    </div>
+    <!-- Manual Renewable Popup Harshitha REnewal-->
+    <div id="RenewalTermNew" style="display:none;overflow-y: auto;">
+        <div id="divRenewalNew">
+            <input type="hidden" autofocus="autofocus" />
+            <input type="hidden" id="FlagEditAdd" />
+
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr id="trNumberOfTerms">
+                    <td class="labelleft" style="color: #3f91cc">
+                        Number of Terms
+                    </td>
+                    <td class="labelright">
+                        <input name="TermsSingleMultiple" value="Yes" type="radio" onclick="SingleMultipleTerms()" id="rdTermsSingle" checked="">
+                        <label for="rdTermsSingle">Single</label>
+                        <input style="margin: 0 0 0 20px;" name="TermsSingleMultiple" value="No" type="radio" onclick="SingleMultipleTerms()" id="rdTermsMultiple">
+                        <label for="rdTermsMultiple">Multiple</label>
+                    </td>
+                </tr>
+
+                <tr class="trMultiple" style="display:none;">
+                    <td class="labelleft width40" style="color: #3f91cc"></td>
+                    <td class="labelright width60">
+                        <label> Upto</label>
+                        <select id="ddlTermPeriodSetRenewal" class="f_select_small width30 ">
+                            <option value="Renewal 1">Renewal 1</option>
+                            <option value="Renewal 2">Renewal 2</option>
+                            <option value="Renewal 3">Renewal 3</option>
+                            <option value="Renewal 4">Renewal 4</option>
+                            <option value="Renewal 5">Renewal 5</option>
+                            <option value="Renewal 6">Renewal 6</option>
+                            <option value="Renewal 7">Renewal 7</option>
+                            <option value="Renewal 8">Renewal 8</option>
+                            <option value="Renewal 9">Renewal 9</option>
+                            <option value="Renewal 10">Renewal 10</option>
+                            <option value="Renewal 11">Renewal 11</option>
+                            <option value="Renewal 12">Renewal 12</option>
+                            <option value="Renewal 13">Renewal 13</option>
+                            <option value="Renewal 14">Renewal 14</option>
+                            <option value="Renewal 15">Renewal 15</option>
+                        </select>
+
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft width40" style="color: #3f91cc">
+                        Name of Term(s)
+                    </td>
+                    <td class="labelright width60" id="tdNameofTerms">
+                </tr>
+                <tr>
+                    <td class="labelleft width40" style="color: #3f91cc">
+                        Start Date<small class="required">*</small>
+                    </td>
+                    <td class="labelright width60">
+                        <input id="txtRenewStartDate" name="" type="text" onchange="calculateenddateRenew('txtRenewStartDate', 'ContractTermRenewChoicesNew', 'ContractTermRenewNew', 'txtRenewEndDate', 'txtRenewStatus')" title="Renewal Term Start Date" class="form-contro-Date f_input_small width25 validelement validdate" readonly='readonly' />
+                    </td>
+                </tr>
+
+                <tr class="trSingle">
+                    <td class="labelleft width40" style="color: #3f91cc">End Date<small class="required">*</small></td>
+                    <td class="labelleft width60">
+                        <div class="width100">
+                            <input checked="" style="float: left;margin: 10px 10px 0px 0px;" name="rdRenewTermEndDate" value="Term" type="radio" onclick="EnableContractTermRenewEndChoice();">
+                            <input id="ContractTermRenewNew" maxlength="4" style="float: left; width: 85%;" onchange="calculateenddateRenew('txtRenewStartDate', 'ContractTermRenewChoicesNew', 'ContractTermRenewNew', 'txtRenewEndDate','txtRenewStatus')" name="ContractTerm" title="End Date" class="f_input_small width10" value="1" type="text">
+                            <select id="ContractTermRenewChoicesNew" name="ContractTermChoices" class="f_select_small width19" onchange="calculateenddateRenew('txtRenewStartDate', 'ContractTermRenewChoicesNew', 'ContractTermRenewNew', 'txtRenewEndDate', 'txtRenewStatus')">
+                                <option value="days" selected="">Day(s)</option>
+                                <option value="months">Month(s)</option>
+                                <option value="years">Year(s)</option>
+                            </select>
+                        </div>
+                        <div class="width100 clear_both">
+                            <input name="rdRenewTermEndDate" value="EndDate" style="float: left;margin: 10px 10px 0px 0px;" type="radio" onclick="EnableContractRenewTermEndDate();"><input id="txtRenewEndDate" title="End Date" type="text" onchange="calculateenddateRenew('txtRenewStartDate', 'ContractTermRenewChoicesNew', 'ContractTermRenewNew', 'txtRenewEndDate','txtRenewStatus')" class="form-contro-Date f_input_small width25 validelement validdate" readonly='readonly' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="trMultiple" style="display:none;">
+                    <td class="labelleft width40" style="color: #3f91cc">Term Duration<small class="required">*</small></td>
+
+                    <td class="labelright width60">
+                        <input id="txtContractTermRenewSetMulti" maxlength="4" style="float: left; width: 85%;" type="text" class="f_input_small width20" onchange="calculateenddateRenew('txtRenewStartDate', 'ddlTermPeriodSetMulti', 'txtContractTermRenewSetMulti', 'txtRenewEndDate')">
+                        <select id="ddlTermPeriodSetMulti" class="f_select_small width19 " onchange="calculateenddateRenew('txtRenewStartDate', 'ddlTermPeriodSetMulti', 'txtContractTermRenewSetMulti', 'txtRenewEndDate')">
+                            <option selected="" value="days">Day(s)</option>
+                            <option value="months">Month(s)</option>
+                            <option value="years">Year(s)</option>
+                        </select>
+                        <p style="font-size:10.5px;display: inline;">
+
+                        </p>
+                        <input id="AutoContractRenewOn" type="hidden" value="">
+
+
+
+                    </td>
+                </tr>
+                <tr class="trSingle">
+                    <td class="labelleft width40" style="color: #3f91cc">
+                        Status
+                    </td>
+                    <td class="labelright width60">
+                        <label id="txtRenewStatus" class="css1-label"><b title="Current" class="" style="padding: 5px 0px; display: inline-block;width: 88px;vertical-align: middle;text-align: left;height: 15px;">Not Started</b></label>
+                    </td>
+                </tr>
+                <tr id="RenewalChecklistNew">
+                    <td class="labelleft" style="color: #3f91cc">
+                        Amendment during Renewal<small class="required">*</small> <!---ENH 23  Minor Enhancement Specs-Rahul---> @*Added from 2.4final to 2.4*@
+                    </td>
+                    <td class="labelright text1" style="font-size:14px">
+                        <div class="width100 height_30px">
+                            <input id="chkRenewalModificationsNew" name="checkboxNotifyNew" value="Renewal without any modifications" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="chkRenewalModificationsNew" class="css1-label">Renewal without any modifications</label>
+                        </div>
+                        <div class="width100 height_30px">
+                            <input id="chkRenewalPriceAdjustmentsNew" name="checkboxNotifyNew" value="Renewal with Price Adjustments (minor)" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="chkRenewalPriceAdjustmentsNew" class="css1-label">Renewal with Price Adjustments (minor)</label>
+                        </div>
+                        <div class="width100 height_30px">
+                            <input id="chkRenewalRepricingNew" name="checkboxNotifyNew" value="Renewal with Repricing (major)" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="chkRenewalRepricingNew" class="css1-label">Renewal with Repricing (major)</label>
+                        </div>
+                        <div class="width100 height_30px">
+                            <input id="chkRenewalOtherNew" name="checkboxNotifyNew" value="Other Amendments" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="chkRenewalOtherNew" class="css1-label">Other Amendments</label>
+                        </div>
+
+
+                        @*<input id="checkboxNotify" name="checkboxNotify" value="Yes" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="checkboxNotify" class="css1-label">Renewal with the following Amendments</label>
+                            <input id="checkboxNotify" name="checkboxNotify" value="Yes" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="checkboxNotify" class="css1-label">Renewal without any modifications</label>*@
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft" style="color: #3f91cc">
+                        Notes<small class="required"></small>
+                    </td>
+                    <td class="labelright">
+                        <textarea id="txtRenewalNotesNew" name="RenewalNotes" cols='40' rows='3' title="Renewal Notes" class='f_text-box width95_a'></textarea>
+                    </td>
+                </tr>
+                <tr id="SendRenewalNotificationNew">
+                    <td class="labelleft" style="color: #3f91cc">
+                        Send Renewal Notification(Internal)
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlRenewalNotfInternalNew" multiple="multiple" class="f_inpt width86 chosenmulti" data-placeholder="Select Send To"></select>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        @*<div class="modalbody">
+            </div>*@
+    </div>
+    <!-- Milestone New Popup End -->
+    <!---manoj--->
+    <!-- Related Contract Records Start -->
+    <div id="popupContracts" style="height:auto !important; display: none; overflow-y: auto;">
+        <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="bg-warning">
+                <p style="text-align: left;">Select one or more existing Contract Records and relate to this Contract Record.</p>
+            </div>
+
+            <div>
+                <label>Relationship Type <img title="Choose a type to relate from the list of relationship types." src="/Content/Images/input-help.png"> </label>
+                <select id="ddlRelationshipType" class="f_inpt width50 validelement margin-l0px">
+                    <option value="0">--Select--</option>
+                    @*<option value="Master Agreement">Master Agreement - Sub-Agreement/SOW</option>
+                        <option value="Prime Contractor Agreement">Prime Contractor Agreement - Sub Contractor Agreement</option>
+                        <option value="Blanket Agreement">Blanket Agreement - Order/Invoice</option>
+                        <option value="Original">Original - Duplicate/Copy</option>
+                        <option value="Past Contract">Past Contract - Renegotiated Contract</option>
+                        <option value="Primary Contract">Primary Contract - Amendment/Modification</option>
+                        <option value="Other">Other</option>*@
+                </select>
+                <div>
+                    <span><label id="lblRelatedPopup_ContractTitle" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10 PreserveSpace"> </label><img style="padding-bottom: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                    <select id="ddlRelationshipTypeParent" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <article id="right">
+                <input id="txtSearchBoxContract" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewContracts();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxContract').val(''); ViewContracts();">Clear</a>
+                <aside class="filTer_Ri" id="btnFilter">
+                    <div class="cbp-hrmenu cbp-hrmenu5">
+                        <ul>
+                            <li>
+                                <a id="" class="drop_a2 pad9px contractdetals_popup" style="background-color: white !important;color: #aaa !important;" href="javascript:void(0);"> <img src="../Content/Images/icon/filter.png" /></a>
+                                <div id="dvfilter" class="cbp-hrsub fIlter1 hhide2 width40_imp">
+                                    <div class="meaan">
+                                        <div class="">
+                                            <b>Filter</b>
+                                            <div class="cbp-hrsub-inner">
+                                                <div class="mEAnwidth4" id="filteroptiontype">
+                                                    <h4>Contract Record Type</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select class="chosenmulti" data-placeholder=" " size="7" style="width:100%;  height:139px;" title="contract type" multiple="multiple" id="ddlRelConFilterContractType"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth4" id="filteroptionstatus">
+                                                    <h4>Counterparty(ies)</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select class="chosenmulti" data-placeholder=" " size="7" style="width:100%;  height:139px;" title="counterpary" multiple="multiple" id="ddlRelConFilterCounterparty"></select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="pop_up_Content_Bottom3 float_right1">
+                                            <a id="btnRelConApplyFilter" onclick="javascript: ViewContracts();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                            <a id="btnRelConCancel" onclick="javascript:clearRelConSelection();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </article>
+            <div id="page-wrap" class="f_list">
+                @*<table id="tblPopupContracts"></table>*@
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Related Contract Record</th>
+                            <th>Type</th>
+                            <th>Counterparty</th>
+                            <th>Number</th>
+                            <th>Status</th>
+                            <th id="relatedrole" style="display:none">Relationship</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblPopupContracts"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="loadContract"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedContracts" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div style="display:inline-block">
+                <div id="liSelected">
+                </div>
+                <div id="liSelectedRelatedContract">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Related Contract Records End -->
+    <div id="RenewalTermNewlb" style="display:none;overflow-y: auto;">
+        <div id="divRenewalNewlb">
+            <input type="hidden" autofocus="autofocus" />
+            <input type="hidden" id="FlagEditAdd" />
+            <table class="width100" cellpadding="2" cellspacing="2">
+
+                <tr>
+                    <td class="text_label width40">
+                        Start Date<small class="required"></small>
+                    </td>
+                    <td class="text width60">
+                        <label id="txtRenewStartDatelb" class="css1-label" style="text-align:left;"></label>
+                    </td>
+                </tr>
+
+                <tr>
+                <tr id="">
+                    <td class="text_label width40">End Date<small class="required"></small></td>
+                    <td class="text width60">
+                        <label id="txtRenewEndDatelb" class="css1-label" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text_label width40">
+                        Status
+                    </td>
+                    <td class="text width60">
+                        <label id="txtRenewStatuslb" class="css1-label" style="text-align:left;">Not Started</label>
+                    </td>
+                </tr>
+                <tr id="RenewalTypelb">
+                    <td class="text_label width40">Renewal Type</td>
+                    <td class="text width60">
+                        <label id="txtRenewalTypelb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr id="RenewalChecklistNewlb">
+                    <td class="text_label width40" style="vertical-align: top;">
+                        Renewal Checklist
+                    </td>
+                    <td class="text width60">
+                        <label id="txtRenewalChecklistNewlb" style="text-align:left;"></label>
+
+
+                        @*<input id="checkboxNotify" name="checkboxNotify" value="Yes" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="checkboxNotify" class="css1-label">Renewal with the following Amendments</label>
+                            <input id="checkboxNotify" name="checkboxNotify" value="Yes" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                            <label for="checkboxNotify" class="css1-label">Renewal without any modifications</label>*@
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text_label width40">
+                        Notes<small class="required"></small>
+                    </td>
+                    <td class="text width60">
+                        <label id="txtRenewalNotesNewlb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr id="SendRenewalNotificationNewlb">
+                    <td class="text_label width40">
+                        Send Renewal Notification(Internal)
+                    </td>
+                    <td class="text width60">
+                        <label id="ddlRenewalNotfInternalNewlb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr id="AuthorizRequiredlb">
+                    <td class="text_label width40">
+                        Requires Authorization?
+                    </td>
+                    <td class="text width60">
+                        <label id="txtAuthorizRequiredlb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr id="AuthorizedBylb">
+                    <td class="text_label width40" style="vertical-align:top;">
+                        Renewal Authorization Users
+                    </td>
+                    <td class="text width60">
+                        <label id="ddlAuthorizedBylb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+                <tr id="RenewedBylb">
+                    <td class="text_label width40">
+                        Renewed By
+                    </td>
+                    <td class="text width60">
+                        <label id="ddlRenewedBylb" style="text-align:left;"></label>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        @*<div class="modalbody">
+            </div>*@
+    </div>
+</section>
+
+
+<!-- Manual Renewable Popup Harshitha REnewal-->
+
+<ul id="menuRenewalAll" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Details</a></li>
+    <li class="edit"><a href="#editsave">Edit</a></li>
+</ul>
+
+<ul id="menuRenewalDel" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="menuRenewalDelNew" class="contextMenu">
+    <li class="deleteexpired"><a href="#deleteexpired">Delete</a></li>
+</ul>
+
+<ul id="menuRenewalExp" class="contextMenu">
+    <li class="remove"><a href="#expire">Expire</a></li>
+</ul>
+<ul id="menuRenewalCur" class="contextMenu">
+    <li class="remove"><a href="#current">Current</a></li>
+</ul>
+@*// ENH493 Customer inhancment*@
+<div id="viewMetadataDetailDocument" style="display:none;overflow-y: auto;">
+    <table id="tblMetadataDetailDocument" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+@*//ENH487 Customer inhanc*@
+
+<div id="dvViewProject" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field overflow_hidden my-profile projectpop">
+        <li>
+            <p><b>Project ID</b></p>
+            <div id="dvProjectID">
+            </div>
+        </li>
+        <li>
+            <p><b>Project Name</b></p>
+            <div id="dvProjectName">
+            </div>
+        </li>
+        <li>
+            <p><b>Description</b></p>
+            <div id="dvDescription">
+            </div>
+        </li>
+        <li>
+            <p><b>Status</b></p>
+            <div id="dvStatus">
+            </div>
+        </li>
+        <li>
+            <p><b>Start Date</b></p>
+            <div id="dvStartDate">
+            </div>
+        </li>
+        <li>
+            <p><b>End Date</b></p>
+            <div id="dvEndDate">
+            </div>
+        </li>
+        <li>
+            <p><b>Sub Account</b></p>
+            <div id="dvSubAccount">
+            </div>
+        </li>
+        <li>
+            <p><b>Project Manager</b></p>
+            <div id="dvProjectManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Business Manager</b></p>
+            <div id="dvBusinessManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Customer ID</b></p>
+            <div id="dvCustomerID">
+            </div>
+        </li>
+        <li>
+            <p><b>Country</b></p>
+            <div id="dvCountry">
+            </div>
+        </li>
+        <li>
+            <p><b>Division</b></p>
+            <div id="dvDivision">
+            </div>
+        </li>
+        <li>
+            <p><b>PracticeArea</b></p>
+            <div id="dvPracticeArea">
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="dvViewProjectTask" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field overflow_hidden my-profile projectpop">
+        <li>
+            <p><b>Task ID</b></p>
+            <div id="dvTaskID">
+            </div>
+        </li>
+        <li>
+            <p><b>Description</b></p>
+            <div id="dvTaskDescription">
+            </div>
+        </li>
+        <li>
+            <p><b>Manager</b></p>
+            <div id="dvManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Start Date</b></p>
+            <div id="dvTaskStartDate">
+            </div>
+        </li>
+        <li>
+            <p><b>End Date</b></p>
+            <div id="dvTaskEndDate">
+
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+</html>
+<input id="hdContAreaDocLibName" type="hidden" />
+<input type="hidden" id="hdDocument_TEMP" />
+<input id="hdCurrentTermName" type="hidden">
+<input id="hdCurrentRenewalTermEnd" type="hidden">
+<input id="hdCurrentRenewalTermStart" type="hidden">
+<input id="hdNextRenewalTermStart" type="hidden">
+<input id="hdParticipantsXML" type="hidden">
+<!---manoj--->
+<input id="hdhMilestoneCapture" type="hidden">
+@*<input id="hdhCTypeCustomMetadata" type="hidden">*@
+<!---manoj--->
+<!---Sridhar--->
+<label style="display:none;" id="hdnRelatedContracts"></label>
+<!---Sridhar--->
+<input id="hdRequestID" type="hidden">
+<input id="hdRequestTitle" type="hidden">
+@section scripts{
+    <style scoped>
+        /*.dataTables_scrollHeadInner {
+            width: 100% !important;
+        }
+        .dataTables_scrollHeadInner > table {
+            width: 100% !important;
+        }*/
+    </style>
+    @*<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>*@
+    @*<script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
+    @*<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+        <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+        <script src="~/Scripts/binary.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Edit_Contract_JS")
+    @Scripts.Render("~/Scripts/Contract365/Contract_EditContract.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/Contract365/Contract_FormTerm.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/intlTelInput.js")
+}

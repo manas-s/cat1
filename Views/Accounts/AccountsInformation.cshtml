@@ -1,0 +1,199 @@
+﻿@*@model Corevo.eContracts365.TableEntities.AccountSettingEntity*@
+@{
+    ViewBag.Title = "AccountsInformation";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+<style type="text/css">
+    textarea.error {
+        color: #6c6c6c;
+        border: 1px solid #CA4236;
+    }
+</style>
+<input id="txtrowkey" value=""  type="hidden" />
+<input id="txtPartitionKey" value="" type="hidden" />
+@*<input id="txtContractActivationdateDate12" value="" type="text" class="validdate" />*@
+<input id="txtDate12" value="" title="Next Evaluation Date" type="hidden" class="validdate" style="width: 100px !important;margin-top: 8px;margin-left: -10px;border:1px solid;" />
+<table class="width95_a" id="addAccount">
+    
+    <tr>
+        <td colspan="4" class="labelleft">
+            <div style="width: 100%; height: 138px; float: left;">
+                <label class="f_head1" style="float: left;width:50%;" value="" id="headingCompanyName"></label>
+                <label class="f_head1" id="headingstatus"></label>
+                <label class="f_head1" style="float: left;width:50%;" id="headingActivationDate"></label>
+                <label class="f_head1" id="headingExpireDate"></label>
+                <label class="f_head1" style="float: left;width:26%;" >
+                    Next Renewal/Expiration Date
+                </label>
+                <input id="txtContractTermEvaluationDate" value="" title="Next Evaluation Date" type="text" class="validdate" style="width: 100px !important;margin-top: 8px;margin-left: -10px;border:1px solid;" />
+               
+                
+                <label class="f_head1" style="float: right;width:50%;">
+                    Update Status
+                    <select id="ddlIndustryOrg">
+                        <option value="Active">Active</option>
+                        <option value="Expire">Expire</option>
+                        <option value="Suspend">Suspend</option>
+                        <option value="Suspend">Deactivate</option>
+
+                    </select>
+                    <br />
+                </label>
+                <label class="f_head1" style="float: left;width:100%;">
+                    <span class="button-green" style="float: right; padding-right: 175px;" id="btnNext" onclick='SaveAccountSettings()'><a>UPDATE</a></span>
+                </label>
+            </div>
+          
+
+        </td>                
+    </tr>
+
+</table>
+
+<table class="width95_a" id="addAccount">
+
+    <tr>
+        <td class="pageheading" colspan="3">Resources Utilization</td>
+        <td class="pageheading">
+            <a href="javascript:void(0)" onclick="EditResorces()" style="float:right;">
+                <img src="../Content/Images/edit_2.png">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelleft" colspan="4">
+            <div id="page-wrap">
+                <table class="tblgrid width100">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Limit</th>
+                            <th>Used</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblResources"></tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+<div id="addEditAccountResources" style="display:none;">
+    <div id="dvPopupHeadingAccountResources" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addAccountResources">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtRowKey" name="RowKey" type="hidden" /></td>
+                    <td class="labelleft"><input id="txtPartitionKey" name="PartitionKey" type="hidden" /></td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Contract Areas <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtContractAreas" name="ContractAreas" type="text" onchange="calcultotalContracts()" title="Contract Areas" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contracts per Contract Area <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtContractsperContractAreas" name="ContractsperContractAreas" onchange="calcultotalContracts()" type="text" title="Contracts per ContractAreas" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contracts <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtContracts" name="Contracts" disabled type="text" title="Contracts" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Users <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtUsers" name="Users" type="text" title="Users" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Business User <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtBusinessUser" name="BusinessUser" type="text" title="Business User" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Administrator <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtContractAdministrator" name="ContractAdministrator" type="text" title="Contract Administrator" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Global Contract Owner <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtGlobalContractOwner" name="GlobalContractOwner" type="text" title="Global Contract Owner" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Account Owner <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtAccountOwner" name="AccountOwner" type="text" title="Account Owner" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">BusinessArea Owner <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtBusinessAreaOwner" name="BusinessAreaOwner" type="text" title="BusinessArea Owner" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Types <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtContractTypes" name="ContractTypes" type="text" title="Contract Types" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Active Contract Types <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtActiveContractTypes" name="ActiveContractTypes" type="text" title="Active Contract Types" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Counterparties <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtCounterparties" name="Counterparties" type="text" title="Counterparties" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Active Counterparties <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtActiveCounterparties" name="ActiveCounterparties" type="text" title="Active Counterparties" class="f_inpt width97 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Active Negotiation Portals <small class="required">*</small></td>
+                    <td class="verticalalign-top"><input id="txtActiveNegotiationPortals" name="ActiveNegotiationPortals" type="text" title="Active Negotiation Portals" class="f_inpt width97 validelement" /></td>
+                </tr>                
+            </table>
+            <p id="inprocessMilestone" class="popup_save_progress" style="visibility:hidden;">
+                <img src="/Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/Contract365/Account_AccountsInformation.js?" + DateTime.Now.GetHashCode())
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

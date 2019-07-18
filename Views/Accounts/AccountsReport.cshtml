@@ -1,0 +1,203 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.LicenseLimit>
+@{
+    ViewBag.Title = "AccountsReport";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+<table class="width95_a" id="addAccount">
+    <tr>
+        <td colspan="4" class="labelleft">
+            <div style="clear: both ! important;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="4">Accounts Report</td>
+    </tr>
+    <tr>
+        <td class="labelleft" colspan="4">
+            <div id="page-wrap">
+                <table class="tblgrid width100">
+                    <thead>
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Company Name</th>
+                            <th>Activation Date</th>
+                            <th style="text-align:center;! important;">Next Renewal/Expiration Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customertable">
+
+
+                        @foreach (Corevo.eContracts365.TableEntities.LicenseLimit item in @Model)
+                        {
+                            <tr id="customerrow" class="labelleft">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PartitionKey)
+                                    @*<a href="#edit">@Html.DisplayFor(modelItem => item.PartitionKey, new { id = item.PartitionKey })</a>*@
+                                    @*<a href="/Accounts/AccountsInformation?AccountKey=@Html.DisplayFor(modelItem => item.PartitionKey)">@Html.DisplayFor(modelItem => item.PartitionKey, new { id = item.PartitionKey })</a>*@
+
+                                </td>
+                                <td>
+                                    <label style="display:none;" id="ID">@item.RowKey~@item.PartitionKey</label>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)  <img src="~/Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenu margin-left-5">
+
+                                </td>
+                                <td>
+                                    @if (item.ActivationDate.HasValue)
+                                    {
+                                        string parameterValue = item.ActivationDate.Value.ToString("MM/dd/yyyy");
+                                        @Html.DisplayFor(modelItem => parameterValue)
+                                    }
+
+                                </td>
+                                <td style="text-align:center;! important;">
+                                    @if (item.NextRenewalORExpirationDate.HasValue)
+                                    {
+                                        string renewaldate = item.NextRenewalORExpirationDate.Value.ToString("MM/dd/yyyy");
+                                        @Html.DisplayFor(modelItem => renewaldate)
+                                    }
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="accountLogsPopup" style="display:none; position: static !important;">
+    <div id="page-wrap">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:25%;background: #29324a;  color: white;  font-weight: bold;">Date and Time</th>
+  
+  
+                        <th style="background: #29324a;  color: white;  font-weight: bold;">Activity</th>
+
+                </thead>
+                <tbody id="accountLogs"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Activity"></article>
+    </div>
+</div>
+
+<div class="pagination-holder clearfix margin-left-m20">
+    <article id="compact-pagination"></article>
+</div>
+
+<ul id="dropdownMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="history"><a href="#viewhistory">View History</a></li>
+</ul>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+        var vCount = $("#customertable tr").length;
+
+        $(".openmenu").contextMenu({ menu: "dropdownMenu", leftButton: true }, function (action, el, pos) { contextMenuAccounts(action, el.parent("td"), pos); });
+        if (vCount > 5) {
+            $('#compact-pagination').css('display', '');
+            $('#compact-pagination').pagination({
+                items: vCount,
+                itemsOnPage: 5,
+                type: 'tbody',
+                row: 'tr',
+                typeID: 'customertable',
+                cssStyle: 'compact-theme'
+            });
+        } else {
+            $('#compact-pagination').css('display', 'none');
+        }
+
+
+        $("#accountLogsPopup").dialog({
+            autoOpen: false,
+            width: "50%",
+            title: "Account History",
+            dialogClass: "popup_width100",
+            closeText: "",
+            modal: true,
+            buttons: {
+                "Close": function () { $(this).dialog("close"); }
+            }
+        });
+
+    });
+
+    function contextMenuAccounts(action, el, pos) {
+        switch (action) {
+            case "viewdetails":
+                {
+                    var ID = $(el).find("#ID").text();
+                    location = "/Accounts/AccountsInformation?RowKey=" + ID.split("~")[0] + "&AccountKey=" + ID.split("~")[1];
+                    break;
+                }
+            case "viewhistory":
+                {
+
+                    var ID = $(el).find("#ID").text();
+                    var rowkey = ID.split("~")[0];
+                    var AccountId = ID.split("~")[1]
+                    CreateContractActivityList(AccountId)
+                    break;
+                }
+        }
+    }
+
+    function CreateContractActivityList(AccountId) {
+        $.ajax({
+            url: vApiBaseSiteUrl +'/api/accounts/' + AccountId + '/AccountHistory',
+            type: 'GET',
+            dataType: 'json',
+            headers: { 'eContracts-ApiKey': localStorage.APIKey },
+            cache: false,
+            success: function (data) {
+                $("#accountLogs").empty();
+                var datalenght = data.length;
+                for (var i = 0; i < datalenght; i++) {
+                    var item = data[i];
+                    var sActivity = item.Message;
+                    var sTimestamp = "";
+                    if (localStorage.AppDateFormat == "undefined" || localStorage.AppDateFormat == null || localStorage.AppDateFormat == "")
+                    { sTimestamp = moment(new Date(item.Timestamp)).format('MM/DD/YYYY h:mm A'); }
+                    else {
+                        sTimestamp = moment(new Date(item.Timestamp)).format(localStorage.AppDateFormat + " h:mm A");
+                    }
+
+                    var article = '<tr><td><span class="logHis_Datetime">' + sTimestamp + '</span></td><td><span class="logHis_Activity">' + sActivity + '</span></td></tr>';
+                    $("#accountLogs").append(article);
+                }
+                $('#compact-pagination-Activity').pagination({
+                    items: data.length,
+                    itemsOnPage: 15,
+                    type: 'tbody',
+                    typeID: 'accountLogs',
+                    row: 'tr',
+                    cssStyle: 'compact-theme'
+                });
+               
+                $('#accountLogsPopup').dialog('open');
+            },
+            error: function () {
+               
+            }
+        });
+    }
+
+    </script>
+}
+

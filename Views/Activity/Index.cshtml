@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+@*<script type="text/javascript" src="~/Scripts/moment.js"></script>*@
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Summary</b>
+
+    </div>
+    <aside>
+        @*<input type="button" class="f_button_green_small" onclick="CreateTodo()" value="Create Task" />*@
+    </aside>
+</section>
+
+<section class="main">
+    <section class="wraper">
+        <section class="box2">
+            <div class="my-Alerts_Cont my-Log_histroy ">
+                @*<div class="my-Alerts_Act1">
+                        <h1>Calender </h1>
+                    </div>*@
+                <div class="alertbox_status alertbox_status_Contss">
+                    <div id="fullcal">
+                    </div>
+                    <div id="scheduler"></div>
+                </div>
+                <br>
+            </div>
+        </section>
+
+        <section class="box2">
+            <div class="my-Alerts_Cont">
+                <div class="my-Alerts_Act1">
+                    <h1>Recent Logs</h1>
+                </div>
+
+                <div class="alertbox_status alertbox_status_Contss">
+                    <ul id="recentLogs"></ul>
+
+
+                </div>
+
+                <div class="pagination-holder clearfix">
+                    <article id="compact-pagination"></article>
+                </div>
+
+            </div>
+            <div class="box2_Right">
+                <div class="contract-Right">
+                    <h1><img src="/Content/Images/quick-vission.png" />Tasks</h1>
+                    <ul id="todo" class="margin-top-45">
+                        <li><p>All Contracts</p></li>
+                        <li><p>Approval for MSA for Optimusbt</p></li>
+                        <li><p>Review for General IT Service Agreement for olymphora</p></li>
+                        <li><p>Review for Employee benefit Agreement</p></li>
+                        <li><p>Review for Plan Agreement Document</p></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+
+
+
+<div id="viewMetadataDetail" style="display:none;" class="width40">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+
+<script id="treeviewBA-template" type="text/kendo-ui-template">
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Activity_Index.js?" + DateTime.Now.GetHashCode())
+
+    @*@*<script src="~/Scripts/jquery.window.min.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/fullcalendar.js" type="text/javascript"></script>
+    <link href="~/Content/fullcalendar.css" rel="stylesheet" type="text/css" />
+    @*<script src="~/Scripts/Contract365/Activity_Index.js" type="text/javascript"></script>*@
+
+    <script type="text/javascript" src="~/Scripts/Contract365/Activity_TaskDetails.js"></script>
+}
+

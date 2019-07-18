@@ -1,0 +1,1594 @@
+﻿@model Corevo.eContracts365.TableEntities.AccountSettingEntity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+<style type="text/css">
+    textarea.error {
+        color: #6c6c6c;
+        border: 1px solid #CA4236;
+    }
+</style>
+<table class="width95_a" id="addAccount">
+    <tr>
+        <td class="pageheading" colspan="3">Account Settings</td>
+        <td class="pageheading">
+            <a href="javascript:void(0)" onclick="EditAccount()" style="float:right;">
+                <img src="../Content/Images/edit_2.png">
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="4" class="labelleft">
+
+            <div style="width:150px; height:138px;float: left;">
+                @if (Model != null)
+                {
+
+                    if (Model.CompanyLogo == "")
+                    {
+                        @:Company Logo
+                }
+                    else if (Model.CompanyLogo != "")
+                    {
+                        <img src="@Model.CompanyLogo" id="imgOfCompanyLogo" style="max-width: 100%; max-height: 100%; cursor:default" />
+                    }
+                }
+                else
+                {
+                    @:Company Logo
+                }
+
+                <span class="button-blue"> <a style="display:none;height: 35px;width: 75px;padding: 6px 2px;text-align: center;margin-top: 7px;margin-left: 30px;" id="btnimgEdit" href="javascript:void(0)" onclick="$('#imgCompanylogo').click();"> Browse </a></span> @*bug id:eO37468*@
+
+            </div>
+            <div style="width: 80%; height: 138px; float: left;">
+                <label class="acc_heading" style="font-size:13px;" id="headingCompanyName"></label>
+                <label class="acc_heading" style="font-size:13px;" id="headingStatus"></label>
+                <label class="acc_heading" style="font-size:13px;float:left" id="headingActivationDate"></label>
+                <label class="acc_heading" style="font-size:13px;" id="headingExpireDate"></label>
+                <label class="acc_heading" style="font-size:13px;float:left; margin-top:5px;" id="headingRenewalDate"></label>
+                @*<input type="button" text="Renew Now" id="btnrenewnow" onclick="RenewNow()" value="Renew Now"></div>*@
+                <label class="f_head1">
+                    <span class="button-green" style="float: left;margin-top: 0px;" onclick="RenewNow()"><a style="font-size:13px !important;">Renew Now</a></span>
+                </label>
+
+
+            </div>
+
+            <div style="clear: both ! important;"></div>
+            @*<input type="file" id="imgCompanylogo" name="file" title="Document" class="f_inpt"  accept="image/*" />*@
+            <input type="file" id="imgCompanylogo" accept="image/*" onchange="changeinuploadfiles(this);previewFile()" style="visibility:hidden" />
+            @if (Model != null)
+            {
+                <input type="hidden" id="hdnCompanyLogo" value="@Model.CompanyLogo" />
+            }
+
+        </td>
+    </tr>
+
+
+
+    @*<tr>
+        <td colspan="4" class="labelleft">
+            @Html.Label("ACTIVE from December 26, 2013", htmlAttributes: new { @class = "cls-lblActiveFrom", @id = "lblActiveFrom" })
+            <span class="button-green-chngStatus" id="btnChangeStatus">*@
+    @*<a href="javascript:void(0)">CHANGE STATUS</a>*@
+    @*</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="pagesubheading" colspan="4">Company Information</td>
+        </tr>
+        <tr>
+            <td>
+                <label class="f_head1">Company Name</label>
+            </td>
+            <td class="labelleft" colspan="2"><input id="txtCompanyName" name="Company Name" maxlength="100" type="text" class="f_inpt width70  validelement" value="@Model.CompanyName"></td>
+            <td class="pagesubheading" rowspan="12" valign="top">
+                <div style="width:150px; height:100px">
+                    @if (Model.CompanyLogo == "")
+                    {
+                        @:Company Logo
+                        }
+                    else if (Model.CompanyLogo != "")
+                    {
+                        <img src="@Model.CompanyLogo" id="imgOfCompanyLogo" style="max-width: 100%; max-height: 100%;" />
+                    }
+
+                    <b>  <a style="display:none;" id="btnimgEdit" href="javascript:void(0)" onclick="$('#imgCompanylogo').click();"> Browse </a></b>
+
+                </div>
+                <div style="width: 80%; height: 138px; float: left;">
+                    <label class="f_head1" style="float: left;width:50%;" id="headingCompanyName"></label>
+                    <label class="f_head1" id="headingStatus"></label>
+                    <label class="f_head1" style="float: left;width:50%;" id="headingActivationDate"></label>
+                    <label class="f_head1" id="headingExpireDate"></label>
+                    <label class="f_head1" style="float: left;width:50%;" id="headingRenewalDate"></label>*@
+    @*<input type="button" text="Renew Now" id="btnrenewnow" onclick="RenewNow()" value="Renew Now"></div>*@
+
+    @*<label class="f_head1" style="float: right;width:50%;">
+                <span class="button-green" style="float: right; padding-right: 175px;" onclick="RenewNow()"><a>Renew Now</a></span>
+            </label>
+
+        </div>
+        <div style="clear: both ! important;"></div>*@
+    @*<input type="file" id="imgCompanylogo" name="file" title="Document" class="f_inpt"  accept="image/*" />*@
+    @*<input type="file" id="imgCompanylogo" accept="image/*" onchange="previewFile()" style="visibility:hidden" />
+
+            <input type="hidden" id="hdnCompanyLogo" value="@Model.CompanyLogo" />
+
+        </td>*@
+
+
+
+    @*<tr>
+            <td colspan="4" class="labelleft">
+                @Html.Label("ACTIVE from December 26, 2013", htmlAttributes: new { @class = "cls-lblActiveFrom", @id = "lblActiveFrom" })
+                <span class="button-green-chngStatus" id="btnChangeStatus">
+                    <a href="javascript:void(0)">CHANGE STATUS</a>
+                </span>
+            </td>
+        </tr>*@
+    <tr>
+        <td class="pagesubheading" colspan="4">Company Information</td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Company Name</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblCompanyName"></label>
+            @if (Model != null)
+            {
+                <input id="txtCompanyName" style="display:none" name="Company Name" type="text" class="f_inpt width70  validelement" value="@Model.CompanyName">
+            }
+        </td>
+        @*<td class="pagesubheading" rowspan="12" valign="top">
+                <div style="width:150px; height:100px">
+                    @if (Model.CompanyLogo == "")
+                    {
+                        @:Company Logo
+                        }
+                    else if (Model.CompanyLogo != "")
+                    {
+                        <img src="@Model.CompanyLogo" id="imgOfCompanyLogo" style="max-width: 100%; max-height: 100%;" />
+                    }
+                </div>
+                <input type="file" id="imgCompanylogo" name="file" title="Document" class="f_inpt width80" accept="image/*" />
+                <input type="hidden" id="hdnCompanyLogo" value="@Model.CompanyLogo" />
+            </td>*@
+
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Industry</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblIndustryOrg"></label>
+            <select id="ddlIndustryOrg" style="display:none" name="IndustryOrg" title="Industry" class="f_inpt width70 validelement">
+                <option value="0">--Select--</option>
+                <option value="Airline / Aerospace">Airline / Aerospace</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Banking / Insurance">Banking / Insurance</option>
+                <option value="Construction">Construction</option>
+                <option value="Education">Education</option>
+                <option value="Energy / Environment">Energy / Environment</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Financial Services">Financial Services</option>
+                <option value="Food & Drink">Food & Drink</option>
+                <option value="Governmental">Governmental</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Logistics & Transporation">Logistics & Transporation</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Mining">Mining</option>
+                <option value="Oil & Gas">Oil & Gas</option>
+                <option value="Others">Others</option>
+                <option value="Pharmaceuticals / Chemicals">Pharmaceuticals / Chemicals</option>
+                <option value="Professional Services">Professional Services</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Retail">Retail</option>
+                <option value="Technology">Technology</option>
+                <option value="Telecommunication">Telecommunication</option>
+                <option value="Travel & Leisure">Travel & Leisure</option>
+                <option value="Utilities">Utilities</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Country</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblCountryOrg"></label>
+            <select id="ddlCountryOrg" style="display:none" title="Country" name="countryorg" class="f_inpt width70 validelement"></select>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <label class="acc_heading">Address Line 1</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblAddress"></label>
+            @if (Model != null)
+            {
+                <textarea rows="4" style="display:none" id="txtAddress" title="Address" name="" type="text" class="f_inpt width70 validelement">@Model.Address</textarea>
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <label class="acc_heading">Address Line 2</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblAddress2"></label>
+            @if (Model != null)
+            {
+                <textarea rows="4" id="txtAddress2" style="display:none" title="Address" name="" type="text" class="f_inpt width70 ">@Model.Address2</textarea>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">City</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblCity"></label>
+            @if (Model != null)
+            {
+                <input id="txtCity" name="" type="text" style="display:none" title="City" class="f_inpt width70 validelement" placeholder="City" value="@Model.City" />
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">State</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblState"></label>
+            @if (Model != null)
+            {
+                <input id="txtState" style="display:none" name="" title="State / Province" type="text" class="f_inpt width70 validelement" placeholder="State / Province" value="@Model.StateProvince" />
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Zip/Postal Code</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblZip"></label>
+            @if (Model != null)
+            {
+                <input id="txtZip" style="display:none" name="" title="Zip / Postal Code" type="text" class="f_inpt width70 validelement" placeholder="Zip / Postal Code" value="@Model.ZipPostalCode" />
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Website</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblWebsite"></label>
+            @if (Model != null)
+            {
+                <input id="txtWebsite" style="display:none" name="" type="text" class="f_inpt width70" placeholder="http://www." value="@Model.Website" />
+            }
+        </td>
+    </tr>
+    <tr class="FL_CompanyBranding">
+        <td class="pagesubheading" colspan="4">
+            Branding Settings
+        </td>
+    </tr>
+    <tr class="FL_CompanyBranding">
+        <td>
+            <label class="acc_heading">Email Header</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblEmailheader"></label>
+            @if (Model != null)
+            {
+                <input id="txtEmailheader" style="display:none" name="" type="text" class="f_inpt width70" placeholder="Email Header" value="@Model.EmailHeader" />
+            }
+        </td>
+    </tr>
+    <tr class="FL_CompanyBranding">
+        <td>
+            <label class="acc_heading">Email Footer</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblEmailfooter"></label>
+            @if (Model != null)
+            {
+                <input id="txtEmailfooter" style="display:none" name="" type="text" class="f_inpt width70" placeholder="Email Footer" value="@Model.EmailFooter" />
+            }
+        </td>
+    </tr>
+    <tr class="FL_CompanyBranding">
+        <td>
+            <label class="acc_heading">Email Footer Url</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblEmailfooterurl"></label>
+            @if (Model != null)
+            {
+                <input id="txtEmailfooterurl" style="display:none" name="" type="text" class="f_inpt width70" placeholder="Email Footer" value="@Model.EmailFooterUrl" />
+            }
+        </td>
+    </tr>
+    <tr class="FL_CompanyBranding">
+        <td>
+            <label class="acc_heading">Notification Email Address</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblNEmailid"></label>
+            @if (Model != null)
+            {
+                <input id="txtNEmailid" style="display:none" name="" type="text" title="Notification Email Address" class="f_inpt width70 validemail" value="@Model.NotificationEmail" />
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td class="pagesubheading" colspan="4">
+            Regional Settings
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Time zone</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblTimeZone"></label>
+            <select id="ddlTimeZone" style="display:none" name="TimeZone" class="f_inpt width70"></select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Date Format</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblDateFormat"></label>
+            <select id="ddlDateFormat" style="display:none" name="DateFormat" class="f_inpt width70">
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                @*<option value="mm-dd-yyyy">mm-dd-yyyy</option>*@
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Time Format</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblTimeFormat"></label>
+            <select id="ddlTimeFormat" style="display:none" name="TimeFormat" class="f_inpt width70">
+                <option value="12 Hour">12 Hour</option>
+                <option value="24 Hour">24 Hour</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Work Week</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblWorkWeek"></label>
+            <select id="ddlWorkWeek" style="display:none" name="WorkWeek" class="f_inpt width70">
+                <option>Monday to Friday</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="pagesubheading" colspan="4">
+            Account Primary Owner
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Name</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblPname"></label>
+            <select id="ddlPname" style="display:none" class="f_inpt width70 validelement">
+                <option value="0">--Select--</option>
+            </select>
+            @*<input id="txtPname" name="" title="Primary Owner Name" type=" text" class="f_inpt width70 validelement" value="@Model.PrimaryName" />*@
+            @if (Model != null)
+            {
+                <input id="hdnPrimaryOwnerName" name="" title="Primary Owner Name" type="hidden" class="f_inpt width70" value="@Model.PrimaryName" />
+            }
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <label class="acc_heading">Designation</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblPdesignation"></label>
+            @if (Model != null)
+            {
+                <input id="txtPdesignation" style="display:none" name="" title="Primary Owner Designation" type="text" class="f_inpt width70 validelement" value="@Model.PrimaryDesignation" />
+            }
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Phone</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblPphone"></label>
+            @if (Model != null)
+            {
+                <input id="txtPphone" style="display:none" name="" type="text" title="Primary Owner Phone" class="f_inpt width70 validelement validnumber" value="@Model.PrimaryPhone" />
+            }
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <label class="acc_heading">Email Address</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblPemail"></label>
+            @if (Model != null)
+            {
+                <input id="txtPemail" style="display:none" name="" type="text" title="Primary Owner Email Address" class="f_inpt width70 validelement validemail" value="@Model.PrimaryEmail" />
+            }
+        </td>
+
+    </tr>
+    <tr>
+        <td class="pagesubheading" colspan="4">
+            Account Secondary Owner
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Name</label>
+        </td>
+
+        <td class="labelleft" colspan="3">
+            <label id="lblSname"></label>
+            <select id="ddlSname" style="display:none" class="f_inpt width70">
+                <option value="0">--Select--</option>
+            </select>
+            @*<input id="txtSname" name="" type="text" class="f_inpt width70" value="@Model.SecondaryName" />*@
+            @if (Model != null)
+            {
+                <input id="hdnSecondaryOwnerName" name="" title="Secondary Owner Name" type="hidden" class="f_inpt width70" value="@Model.SecondaryName" />
+            }
+        </td>
+
+    </tr>
+    <tr>
+
+        <td>
+            <label class="acc_heading">Designation</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblSdesignation"></label>
+            @if (Model != null)
+            {
+                <input id="txtSdesignation" style="display:none" name="" maxlength="50" type="text" class="f_inpt width70" value="@Model.SecondaryDesignation" />
+            }
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <label class="acc_heading">Phone</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblSphone"></label>
+            @if (Model != null)
+            {
+                <input id="txtSphone" style="display:none" name="" type="text" maxlength="50" class="f_inpt width70" value="@Model.SecondaryPhone" />
+            }
+        </td>
+
+    </tr>
+    <tr>
+
+        <td>
+            <label class="acc_heading">Email Address</label>
+        </td>
+        <td class="labelleft" colspan="3">
+            <label id="lblSemail"></label>
+            @if (Model != null)
+            {
+                <input id="txtSemail" style="display:none" name="" type="text" maxlength="50" class="f_inpt width70" value="@Model.SecondaryEmail" />
+            }
+        </td>
+
+    </tr>
+    @*<tr>
+            <td></td>
+            <td id="tdPemailStatus">
+                <label class="cls-lblEmailmsg">
+                    <input type="hidden" id="txtPemailStatus" value="@Model.PrimaryEmailVerifiedStatus">
+                    @Model.PrimaryEmailVerifiedStatus
+                    @if (Model.PrimaryEmailVerifiedStatus == "Not Verified")
+                    {
+                        <a href="javascript:void(0);">Resend Verification email?</a>
+                    }
+                </label>
+            </td>
+            <td></td>
+            <td id="tdSemailStatus">
+                <label class="cls-lblEmailmsg">
+                    <input type="hidden" id="txtSemailStatus" value="@Model.SecondaryEmailVerifiedStatus">
+                    @Model.SecondaryEmailVerifiedStatus
+                    @if (Model.SecondaryEmailVerifiedStatus == "Not Verified")
+                    {
+                        <a href="javascript:void(0);">Resend Verification email?</a>
+                    }
+                </label>
+            </td>
+        </tr>*@
+</table>
+<div id="browserenew" style="display:none;">
+    <div>
+        <input type="file" id="docTextfile" name="file" title="'eContractsAccountRenewal 'Text file" class="validelement" style="cursor:pointer" accept="text/plain" />
+
+
+    </div>
+</div>
+<table class="width100">
+    <tr style="height:60px"></tr>
+    <tr>
+        <td align="center">
+            <span class="button-green" style="display:none;" id="btnNext" onclick='SaveAccountSettings()'><a>SAVE</a></span>
+            <span class="button-blue"> <a href="javascript:void(0)" style="display:none;" id="btnCancel" onclick='javascript:CancelAccountSettings();'>CANCEL</a></span>
+        </td>
+    </tr>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/_Layout_JS_One")
+    @Scripts.Render("~/_Layout_JS_Two")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script type="text/javascript">
+        var arrUser = [];
+        var FAccountOwner="";
+        var SAccountOwner="";
+
+        function previewFile() {
+            var formData = new FormData();
+            var opmlFile = $('#imgCompanylogo')[0];
+            var filePath = $('#imgCompanylogo').val();
+            var ext = opmlFile.src;
+            var preview = document.querySelector('#imgOfCompanyLogo');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+            $("#imgOfCompanyLogo").attr("src", filePath)
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+
+
+        function EditAccount(){
+
+            $("#liDelegateTo").css("display", "");
+            $("#spCounterpartiesUnselect").css("display", "none");
+
+            $("#lblCompanyName").css("display", "none");
+            $("#lblIndustryOrg").css("display", "none");
+            $("#lblCountryOrg").css("display", "none");
+            $("#lblAddress").css("display", "none");
+            $("#lblAddress2").css("display", "none");
+            $("#lblCity").css("display", "none");
+            $("#lblState").css("display", "none");
+            $("#lblZip").css("display", "none");
+            $("#lblWebsite").css("display", "none");
+            $("#lblTimeZone").css("display", "none");
+            $("#lblDateFormat").css("display", "none");
+            $("#lblTimeFormat").css("display", "none");
+            $("#lblWorkWeek").css("display", "none");
+            $("#lblPname").css("display", "none");
+            $("#lblPdesignation").css("display", "none");
+            $("#lblPphone").css("display", "none");
+            $("#lblPemail").css("display", "none");
+            $("#lblSname").css("display", "none");
+            $("#lblSdesignation").css("display", "none");
+            $("#lblSphone").css("display", "none");
+            $("#lblSemail").css("display", "none");
+
+            $("#lblEmailfooter").css("display", "none");
+            $("#lblEmailheader").css("display", "none");
+            $("#lblNEmailid").css("display", "none");
+            $("#lblEmailfooterurl").css("display", "none");
+            $("#txtCompanyName").css("display", "");
+            $("#ddlIndustryOrg").css("display", "");
+            $("#ddlCountryOrg").css("display", "");
+            $("#txtAddress").css("display", "");
+            $("#txtAddress2").css("display", "");
+            $("#txtCity").css("display", "");
+            $("#txtState").css("display", "");
+            $("#txtZip").css("display", "");
+            $("#txtWebsite").css("display", "");
+            $("#ddlTimeZone").css("display", "");
+            $("#ddlDateFormat").css("display", "");
+            $("#ddlTimeFormat").css("display", "");
+            $("#ddlWorkWeek").css("display", "");
+            $("#ddlPname").css("display", "");
+            $("#txtPdesignation").css("display", "");
+            $("#txtPphone").css("display", "");
+            $("#txtPemail").css("display", "");
+            $("#ddlSname").css("display", "");
+            $("#txtSdesignation").css("display", "");
+            $("#txtSphone").css("display", "");
+            $("#txtSemail").css("display", "");
+
+            $("#txtEmailfooter").css("display", "");
+            $("#txtEmailheader").css("display", "");
+            $("#txtNEmailid").css("display", "");
+            $("#txtEmailfooterurl").css("display", "");
+
+            $("#btnNext").css("display", "");
+            $("#btnCancel").css("display", "");
+            $("#btnimgEdit").css("display", "");
+        }
+
+        function CancelAccountSettings()
+        {
+            location=location;
+            //$("#txtCompanyName").val("");
+            //$("#ddlIndustryOrg").val("");
+            //$("#ddlCountryOrg").val("");
+            //$("#txtAddress").val("");
+            //$("#txtCity").val("");
+            //$("#txtState").val("");
+            //$("#txtZip").val("");
+            //$("#txtWebsite").val("");
+            //$("#ddlTimeZone").val("");
+            //$("#ddlDateFormat").val("");
+            //$("#ddlTimeFormat").val("");
+            //$("#ddlWorkWeek").val("");
+            //$("#txtPname").val("");
+            //$("#txtSname").val("");
+            //$("#txtPdesignation").val("");
+            //$("#txtSdesignation").val("");
+            //$("#txtPphone").val("");
+            //$("#txtSphone").val("");
+            //$("#txtPemail").val("");
+            //$("#txtSemail").val("");
+            //$("#txtPemailStatus").val("");
+            //$("#txtSemailStatus").val("");
+        }
+
+        function SaveAccountSettings()
+        {
+            var isValid = true;
+            isValid=requiredValidator('addAccount');
+            //$(".validelement").each(function (index, element) {
+
+            //    if($(element).val() == null || $.trim($(element).val()) == "")
+            //    {
+            //        $(element).addClass("error");
+            //        isValid = false;
+            //    }
+            //    else
+            //    {
+            //        $(element).removeClass("error");
+            //    }
+
+            //});
+
+            if(isValid)
+            {
+                var isfeatureAvailable =false;
+                var veContractFeatures = JSON.parse(localStorage.getItem("eContractFeatures"));
+                var vAccFeat = $.grep(veContractFeatures, function (n, i) {
+                    return (n.RowKey == "29" && n.Status == "ON");
+                });
+                if (vAccFeat.length > 0) {
+                    isfeatureAvailable=true;
+                }
+                else
+                {
+                    isfeatureAvailable=false;
+                }
+
+                var opmlFile = $('#imgCompanylogo')[0];
+                var formData = new FormData();
+                formData.append("opmlFile", opmlFile.files[0]);
+                formData.append("AccountID", localStorage.AccountID);
+                formData.append("LogoCreatedBy", localStorage.UserName);
+                formData.append("LogoModifiedBy", localStorage.UserName);
+                formData.append("CompanyName", $("#txtCompanyName").val());
+                formData.append("Address", $("#txtAddress").val());
+                formData.append("Address2", $("#txtAddress2").val());
+                formData.append("City", $("#txtCity").val());
+                formData.append("State", $("#txtState").val());
+                formData.append("Zip", $("#txtZip").val());
+                formData.append("Website", $("#txtWebsite").val());
+                //formData.append("Pname", $("#txtPname").val());
+                formData.append("Pname", $("#ddlPname").find('option:selected').text());
+                formData.append("hdnPName", $("#hdnPrimaryOwnerName").val());
+                formData.append("Sname", $("#ddlSname").find('option:selected').text());
+                formData.append("hdnSName", $("#hdnSecondaryOwnerName").val());
+                formData.append("Pdesignation", $("#txtPdesignation").val());
+                formData.append("Sdesignation", $("#txtSdesignation").val());
+                formData.append("Pphone", $("#txtPphone").val());
+                formData.append("Sphone", $("#txtSphone").val());
+                formData.append("Pemail", $("#txtPemail").val());
+                formData.append("Semail", $("#txtSemail").val());
+                formData.append("PemailStatus", $("#txtSemailStatus").val());
+                formData.append("SemailStatus", $("#txtSemailStatus").val());
+                formData.append("Industry", $("#ddlIndustryOrg").find('option:selected').text());
+                formData.append("Country", $("#ddlCountryOrg").find('option:selected').text());
+                formData.append("TimeZone", $("#ddlTimeZone").find('option:selected').val());
+                formData.append("TimeZoneDisplayName", $("#ddlTimeZone").find('option:selected').text());
+                formData.append("DateFormat", $("#ddlDateFormat").find('option:selected').val());
+                formData.append("TimeFormat", $("#ddlTimeFormat").find('option:selected').text());
+                formData.append("WorkWeek", $("#ddlWorkWeek").find('option:selected').text());
+                formData.append("username", localStorage.UserName);
+                formData.append("hdnCompanyLogo", $("#hdnCompanyLogo").val());
+
+                formData.append("EmailFooter", $("#txtEmailfooter").val());
+                formData.append("EmailHeader", $("#txtEmailheader").val());
+                formData.append("NotificationEmail", $("#txtNEmailid").val());
+                formData.append("EmailFooterUrl", $("#txtEmailfooterurl").val());
+                formData.append("CompanyBrandingFeature",isfeatureAvailable);
+                var url='@Url.Action("SaveAccountSettings", "Accounts")';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey ,'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging},
+                    processData: false,
+                    success: function (person) {
+                        localStorage.removeItem("CompanyBrandingLogo");
+                        localStorage.AppDateFormat=$("#ddlDateFormat").find('option:selected').val();
+                        updateUserType();
+                        $.ajax({
+                            url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/LicenseLimitUpdateCompany',
+                            type: 'PUT',
+                            dataType: 'json',
+                            headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                            data: {
+                                CompanyName:$("#txtCompanyName").val(),
+                                PrimaryOwnerName:$("#ddlPname").val(),
+                                PrimaryOwnerEmailAddress:$("#txtPemail").val(),
+                                SecondaryOwnerName:$("#ddlSname").val(),
+                                SecondaryOwnerEmailAddress:$("#txtSemail").val()
+                            },
+                            cache: false,
+                            success: function (person) {
+                                location = location;
+                            }
+                        });
+
+                    },
+                    error:
+                        function (person) {
+                            location = location;
+                        }
+
+                });
+
+
+
+            }
+        }
+
+
+        $(document).ready(function () {
+            BindPeople();
+            BindDropdown();
+            BindResources();
+            var veContractFeatures = JSON.parse(localStorage.getItem("eContractFeatures"));
+            var vAccFeat = $.grep(veContractFeatures, function (n, i) {
+                return (n.RowKey == "29" && n.Status == "ON");
+            });
+            if (vAccFeat.length > 0) {
+                if('@(Model)'!='')
+                {
+                    $(".FL_CompanyBranding").css('display','');
+                    if('@(Model.EmailHeader)'==""||'@Model.EmailHeader'==null)
+                    {
+                        $("#lblEmailheader").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailheader").text('@Model.EmailHeader');
+
+                    }
+                    if('@Model.EmailFooter'==""||'@Model.EmailFooter'==null)
+                    {
+                        $("#lblEmailfooter").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailfooter").text('@Model.EmailFooter');
+
+                    }
+                    if('@Model.NotificationEmail'==""||'@Model.NotificationEmail'==null)
+                    {
+                        $("#lblNEmailid").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblNEmailid").text('@Model.NotificationEmail');
+
+                    }
+
+                    if('@Model.EmailFooterUrl'==""||'@Model.EmailFooterUrl'==null)
+                    {
+                        $("#lblEmailfooterurl").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailfooterurl").text('@Model.EmailFooterUrl');
+                    }
+
+                }
+
+            } else {
+                if('@(Model)'!='')
+                {
+                    $(".FL_CompanyBranding").css('display','none');
+                    if('@Model.EmailHeader'==""||'@Model.EmailHeader'==null)
+                    {
+                        $("#lblEmailheader").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailheader").text('@Model.EmailHeader');
+
+                    }
+                    if('@Model.EmailFooter'==""||'@Model.EmailFooter'==null)
+                    {
+                        $("#lblEmailfooter").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailfooter").text('@Model.EmailFooter');
+
+                    }
+                    if('@Model.NotificationEmail'==""||'@Model.NotificationEmail'==null)
+                    {
+                        $("#lblNEmailid").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblNEmailid").text('@Model.NotificationEmail');
+
+                    }
+                    if('@Model.EmailFooterUrl'==""||'@Model.EmailFooterUrl'==null)
+                    {
+                        $("#lblEmailfooterurl").text('Not Available');
+                    }
+                    else
+                    {
+                        $("#lblEmailfooterurl").text('@Model.EmailFooterUrl');
+
+                    }
+                }
+            }
+            if('@(Model)'!='')
+            {
+                if('@Model.CompanyName'==""||'@Model.CompanyName'==null)
+                {
+                    $("#lblCompanyName").text('Not Available');
+                }
+                else
+                {
+                    $("#lblCompanyName").text('@Model.CompanyName');
+
+                }
+                if('@Model.Industry'==""||'@Model.Industry'==null)
+                    $("#lblIndustryOrg").text('Not Available');
+                else
+                {
+                    var enc = '@Model.Industry'.replace("&amp;", "&");
+                    $("#ddlIndustryOrg option[value='"+enc+"']").prop('selected', true);
+                    $("#lblIndustryOrg").text(enc);
+                }
+
+                if('@Model.Country'==""||'@Model.Country'==null)
+                    $("#lblCountryOrg").text('Not Available');
+                else
+                    $("#lblCountryOrg").text('@Model.Country');
+
+                if('@Model.Address'==""||'@Model.Address'==null)
+                    $("#lblAddress").text('Not Available');
+                else
+                    $("#lblAddress").text('@Model.Address');
+
+                if('@Model.Address2'==""||'@Model.Address2'==null)
+                    $("#lblAddress2").text('Not Available');
+                else
+                    $("#lblAddress2").text('@Model.Address2');
+
+                if('@Model.City'==""||'@Model.City'==null)
+                    $("#lblCity").text('Not Available');
+                else
+                    $("#lblCity").text('@Model.City');
+
+                if('@Model.StateProvince'==""||'@Model.StateProvince'==null)
+                    $("#lblState").text('Not Available');
+                else
+                    $("#lblState").text('@Model.StateProvince');
+
+                if('@Model.ZipPostalCode'==""||'@Model.ZipPostalCode'==null)
+                    $("#lblZip").text('Not Available');
+                else
+                    $("#lblZip").text('@Model.ZipPostalCode');
+
+                if('@Model.Website'==""||'@Model.Website'==null)
+                    $("#lblWebsite").text('Not Available');
+                else
+                    $("#lblWebsite").text('@Model.Website');
+
+                if('@Model.TimeZoneDisplayName'==""||'@Model.TimeZoneDisplayName'==null)
+                    $("#lblTimeZone").text('Not Available');
+                else
+                    $("#lblTimeZone").text(@Html.Raw(Json.Encode(@Model.TimeZoneDisplayName)));
+
+                if('@Model.DateFormat'==""||'@Model.DateFormat'==null)
+                    $("#lblDateFormat").text('Not Available');
+                else {
+                    $("#lblDateFormat").text('@Model.DateFormat');
+                    //manoj
+                    localStorage.AppDateFormat='@Model.DateFormat';
+                    //manoj
+                }
+
+
+                if('@Model.TimeFormat'==""||'@Model.TimeFormat'==null)
+                    $("#lblTimeFormat").text('Not Available');
+                else
+                    $("#lblTimeFormat").text('@Model.TimeFormat');
+
+                if('@Model.WorkWeek'==""||'@Model.WorkWeek'==null)
+                    $("#lblWorkWeek").text('Not Available');
+                else
+                    $("#lblWorkWeek").text('@Model.WorkWeek');
+
+                if('@Model.PrimaryName'==""||'@Model.PrimaryName'==null)
+                    $("#lblPname").text('Not Available');
+                else
+                    $("#lblPname").text('@Model.PrimaryName');
+
+                if('@Model.PrimaryDesignation'==""||'@Model.PrimaryDesignation'==null)
+                    $("#lblPdesignation").text('Not Available');
+                else
+                    $("#lblPdesignation").text('@Model.PrimaryDesignation');
+
+                if('@Model.PrimaryPhone'==""||'@Model.PrimaryPhone'==null)
+                    $("#lblPphone").text('Not Available');
+                else
+                    $("#lblPphone").text('@Model.PrimaryPhone');
+
+                if('@Model.PrimaryEmail'==""||'@Model.PrimaryEmail'==null)
+                    $("#lblPemail").text('Not Available');
+                else
+                    $("#lblPemail").text('@Model.PrimaryEmail');
+
+                if('@Model.SecondaryName'==""||'@Model.SecondaryName'==null)
+                    $("#lblSname").text('Not Available');
+                else
+                    $("#lblSname").text('@Model.SecondaryName');
+
+                if('@Model.SecondaryDesignation'==""||'@Model.SecondaryDesignation'==null)
+                    $("#lblSdesignation").text('Not Available');
+                else
+                    $("#lblSdesignation").text('@Model.SecondaryDesignation');
+
+                if('@Model.SecondaryPhone'==""||'@Model.SecondaryPhone'==null)
+                    $("#lblSphone").text('Not Available');
+                else
+                    $("#lblSphone").text('@Model.SecondaryPhone');
+
+                if('@Model.SecondaryEmail'==""||'@Model.SecondaryEmail'==null)
+                    $("#lblSemail").text('Not Available');
+                else
+                    $("#lblSemail").text('@Model.SecondaryEmail');
+
+                $("#ddlPname option").filter(function (index) { return $(this).text() === '@Model.PrimaryName'; }).prop('selected', true);
+                $("#ddlSname option").filter(function (index) { return $(this).text() === '@Model.SecondaryName'; }).prop('selected', true);
+                $("#headingCompanyName").text('@Model.CompanyName');
+
+                if( $('#ddlPname').val()!="0"){
+                    var article='';
+                    FAccountOwner=$('#ddlPname').val();
+                    var Pval = $('#ddlPname').val();
+                    var Sval = $('#ddlSname').find('option:selected').text();
+
+                    var arrUser1=arrUser;
+                    arrUser1 = arrUser1.filter(function (x) {
+                        return Pval.indexOf(x) < 0 })
+                    var datalenght = arrUser1.length;
+                    article='';
+                    for (var i = 0; i < datalenght; i++) {
+                        var sUserName = arrUser1[i];
+                        article += '<option value="' + sUserName + '">' + sUserName + '</option>';
+                    }
+                    $("#ddlSname").empty();
+                    $("#ddlSname").append('<option value=0>--Select--</option>');
+                    $("#ddlSname").append(article);
+                    $('#ddlSname').find('option[value="'+Sval+'"]').attr('selected','selected');
+
+                }
+                if( $('#ddlSname').val()!="0"){
+                    var article='';
+                    SAccountOwner=$('#ddlSname').val();
+                    var Sval = $('#ddlSname').val();
+                    var Pval =$('#ddlPname').find('option:selected').text();
+
+                    var arrUser2=arrUser;
+                    arrUser2 = arrUser2.filter(function (x) {
+                        return Sval.indexOf(x) < 0 })
+                    var datalenght = arrUser2.length;
+                    article ='';
+                    for (var i = 0; i < datalenght; i++) {
+                        var sUserName = arrUser2[i];
+                        article += '<option value="' + sUserName + '">' + sUserName + '</option>';
+                    }
+                    $("#ddlPname").empty();
+                    $("#ddlPname").append('<option value=0>--Select--</option>');
+                    $("#ddlPname").append(article);
+                    $('#ddlPname').find('option[value="'+Pval+'"]').attr('selected','selected');
+                }
+                $("#ddlDateFormat option[value='@Model.DateFormat']").prop('selected', true);
+                $("#ddlTimeFormat option[value='@Model.TimeFormat']").prop('selected', true);
+                $("#WorkWeek option[value='@Model.WorkWeek']").prop('selected', true);
+
+                $("#ddlCountryOrg option[value='@Model.Country']").prop('selected', true);
+                $("#ddlTimeZone option[value='@Model.Timezone']").prop('selected', true);
+            }
+            $("#browserenew").dialog({
+                autoOpen: false, closeText: "",
+                width: "30%",
+                height: 200,
+                title: "Renew Now",
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        readfile();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+
+
+        function BindResources()
+        {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/LicenseLimit',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (entity) {
+                    if(entity.CompanyName =="" ||entity.CompanyName ==null)
+                    {
+                        $('#headingCompanyName').text("Company Name");
+                    }
+                    else
+                    {
+                        $('#headingCompanyName').text("Company Name :" +entity.CompanyName);
+                    }
+                    if (entity.Status == "" || entity.Status == null) {
+                        $('#headingStatus').text("Account Status: mm/dd/yyyy");
+                    }
+                    else {
+                        $('#headingStatus').text("Account Status:  " + entity.Status);
+                    }
+
+                    if (entity.ActivationDate == "" || entity.ActivationDate == null) {
+                        $('#headingActivationDate').text("Activation Date");
+                    }
+                    else {
+                        var date = new Date(entity.ActivationDate);
+                        var renewaldate1 = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+                        $('#headingActivationDate').text('Activation Date  ' + renewaldate1);
+                    }
+                    if (entity.NextRenewalORExpirationDate == "" || entity.NextRenewalORExpirationDate == null) {
+
+                        $('#headingRenewalDate').text("Next Renewal OR Expiration Date");
+                    }
+                    else {
+                        var date = new Date(entity.NextRenewalORExpirationDate);
+                        var renewaldate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+
+                        $('#headingRenewalDate').text("Next Renewal/Expiration Date  " + renewaldate);
+                    }
+
+                    var d = new Date();
+                    var month = d.getMonth() + 1;
+                    var day = d.getDate();
+
+                    var output = d.getFullYear() + '/' + (month < 10 ? '0' : '') + month + '/' + (day < 10 ? '0' : '') + day;
+                    if (output != "" && $("#txtContractTermEvaluationDate").val() != "") {
+                        var From_date = new Date(output);
+                        var To_date = new Date(entity.NextRenewalORExpirationDate);
+
+                        var days = DiffBetDate(From_date, To_date);
+
+                        if (days == 0) {
+
+                            $('#headingExpireDate').text("Your Account is going to expire on today ");
+                        }
+                        else if (days < 0) {
+
+                            $('#headingExpireDate').text("Your Account has expired ");
+                        }
+                        else {
+                            // document.getElementById('headingExpireDate').innerHTML = "Your Account will expire in  " + days;
+                            $('#headingExpireDate').text("Your Account will expire in  " + days);
+                        }
+
+                    }
+                }
+            });
+        }
+        function RenewNow()
+        {
+            $('#docTextfile').removeClass('error')
+            $('#docTextfile').val("");
+            $("#browserenew").dialog("option", "title", "Renew Now");
+            $("#browserenew").dialog("open");
+        }
+        function readfile()
+        {
+
+            if (requiredValidator('browserenew')) {
+
+                var ext = $('#docTextfile').val().split('/').pop().split('\\').pop();
+                if(ext=="eContractsAccountRenewal.txt")
+                {
+                    var vTime = new Date() + " - ";
+                    var formData = new FormData();
+                    var opmlFile = $('#docTextfile')[0];
+                    formData.append("opmlFile", opmlFile.files[0]);
+                    formData.append("AccountID", localStorage.AccountID);
+
+                    $.ajax({
+                        url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/AccountRenew',
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                        processData: false,
+                        success: function (data) {
+                            $("#browserenew").dialog("close");
+                            location='/Accounts/AccountSettings';
+                        }
+                    });
+
+
+                }
+                else
+                {
+                    $('#docTextfile').addClass('error')
+                }
+
+            }
+
+
+        }
+
+
+        function BindDropdown() {
+            $("#ddlCountryOrg").empty();
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/countrynames',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    $("#ddlCountryOrg").append('<option value=0 selected=true>--Select--</option>');
+                    $(data).each(function (i, item) {
+                        $("#ddlCountryOrg").append('<option value="' + item + '">' + item + '</option>');
+                    });
+                    if ('@Model' != '')
+                    {
+                        $("#ddlCountryOrg option[value='@Model.Country']").prop('selected', true);
+                    }
+
+                },
+                error:
+                    function (data) {
+                    }
+            });
+            var timeZone = @Html.Raw(Json.Encode(ViewBag.TimeZone));
+            if(timeZone != null)
+            {
+                $("#ddlTimeZone").append('<option value=0 selected=true>--Select--</option>');
+                for (var i = 0; i < timeZone.length; i++) {
+                    var value = timeZone[i].Value;
+                    $("#ddlTimeZone").append("<option value='" + value + "'>" + timeZone[i].Text + "</option>");
+                }
+
+            }
+            $("#ddlCountryOrg").empty();
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/countrynames',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                async:false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    $("#ddlCountryOrg").append('<option value=0  selected=true>--Select--</option>');//
+                    $(data).each(function (i, item) {
+                        $("#ddlCountryOrg").append('<option value="' + item + '">' + item + '</option>');
+                        $("#ddlCountry").append('<option value="' + item + '">' + item + '</option>');
+                    });
+                },
+                error:
+                    function (data) {
+                    }
+            });
+            if ('@Model' != '')
+            {
+                $("#ddlTimeZone option[value='@Model.Timezone']").prop('selected', true);
+            }
+        }
+
+        function BindPeople() {
+            var article='';
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                async:false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    var v = $(data).length;
+                    $(data).each(function (i, item) {
+                        var sRowKey = item.RowKey;
+                        var sUserName = item.UserName;
+                        arrUser.push(sUserName);
+                        article += '<option value="' + sUserName + '">' + sUserName + '</option>';
+                    });
+
+                    $("#ddlPname").append(article);
+                    $("#ddlSname").append(article);
+                },
+                error:
+                    function (data) {
+                    }
+            });
+        }
+
+        $('#btnCompanylogo').click(function () {
+            $("input[type='file']").trigger('click');
+        })
+
+        $("input[type='file']").change(function () {
+            $('#spnCompanylogo').text(this.value.replace(/C:\\fakepath\\/i, ''))
+        })
+
+
+        $("#ddlPname").change(function () {
+            var Pval = $('#ddlPname').val();
+            var Sval = $('#ddlSname').find('option:selected').text();
+            if(Pval!="0" && Pval!='')
+            {
+                $("#ddlSname").empty();
+                $("#ddlSname").append('<option value=0>--Select--</option>');
+                var arrUser1=arrUser;
+                arrUser1 = arrUser1.filter(function (x) {
+                    return Pval.indexOf(x) < 0 })
+                var datalenght = arrUser1.length;
+                for (var i = 0; i < datalenght; i++) {
+                    var sUserName = arrUser1[i];
+                    var article = '<option value="' + sUserName + '">' + sUserName + '</option>';
+                    $("#ddlSname").append(article);
+                }
+                $("#ddlSname").append('<option value="'+Sval+'" selected=true>'+Sval+'</option>');
+            }
+        });
+        $("#ddlSname").change(function () {
+            var Sval = $('#ddlSname').val();
+            var Pval =$('#ddlPname').find('option:selected').text();
+            if(Sval!="0" && Sval!='')
+            {
+                $("#ddlPname").empty();
+                $("#ddlPname").append('<option value=0>--Select--</option>');
+                var arrUser2=arrUser;
+                arrUser2 = arrUser2.filter(function (x) {
+                    return Sval.indexOf(x) < 0 })
+                var datalenght = arrUser2.length;
+                for (var i = 0; i < datalenght; i++) {
+                    var sUserName = arrUser2[i];
+                    var article = '<option value="' + sUserName + '">' + sUserName + '</option>';
+                    $("#ddlPname").append(article);
+                }
+                $("#ddlPname").append('<option value="'+Pval+'" selected=true>'+Pval+'</option>');
+            }
+        });
+        function updateUserType()
+        {
+            if(FAccountOwner!="" && FAccountOwner !=$('#ddlPname').val() ){
+
+                $.ajax({
+                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users?username=' + FAccountOwner,
+                    type: 'GET',
+                    dataType: 'json',
+                    'Content-Type': 'application/json',
+                    cache: false,
+                    async:false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                    success: function (entity) {
+                        var userType="";
+                        //var userType=entity.UserType;
+                        if (entity.UserType.indexOf("Account Owner") > -1) {
+                            userType  = entity.UserType.replace("; Account Owner",'');
+                            // userType=entity.UserType + "; Account Owner";
+                            //[Route("updateuser")]
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/updateuser?username='+ FAccountOwner+'&userType=' + userType,
+                                type: 'PUT',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (date) {
+
+                                },
+                                error:
+                                    function (data) {
+                                    }
+                            });
+
+                        }
+                    },
+                    error:
+                        function (data) {
+                        }
+                });
+
+            }
+            if(   FAccountOwner !=$('#ddlPname').val() && $('#ddlPname').val()!="0"  )
+            {
+                var Pval = $('#ddlPname').val();
+                $.ajax({
+                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users?username=' + Pval,
+                    type: 'GET',
+                    dataType: 'json',
+                    'Content-Type': 'application/json',
+                    cache: false,
+                    async:false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                    success: function (entity) {
+                        var userType="";
+                        if (entity.UserType.indexOf("Account Owner") <= -1) {
+                            userType=entity.UserType + "; Account Owner";
+
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/updateuser?username='+ Pval+'&userType=' + userType,
+                                type: 'PUT',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (userdetails) {
+
+                                },
+                                error:  function (userdetails) {
+                                }
+                            });
+
+                        }
+                    },
+                    error:
+                        function (data) {
+                        }
+                });
+            }
+            if(SAccountOwner!="" && SAccountOwner !=$('#ddlSname').val()){
+
+                $.ajax({
+                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users?username=' + SAccountOwner,
+                    type: 'GET',
+                    dataType: 'json',
+                    'Content-Type': 'application/json',
+                    cache: false,
+                    async:false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                    success: function (entity) {
+                        var userType="";
+                        if (entity.UserType.indexOf("Account Owner") > -1) {
+                            userType  = entity.UserType.replace("; Account Owner",'');
+
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/updateuser?username='+ SAccountOwner+'&userType=' + userType,
+                                type: 'PUT',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (date) {
+
+                                },
+                                error:
+                                    function (data) {
+                                    }
+                            });
+
+                        }
+                    },
+                    error:
+                        function (data) {
+                        }
+                });
+
+
+            }
+            if($('#ddlSname').val()!="0" && SAccountOwner !=$('#ddlSname').val() )
+            {
+                var Sval = $('#ddlSname').val();
+                $.ajax({
+                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users?username=' + Sval,
+                    type: 'GET',
+                    dataType: 'json',
+                    'Content-Type': 'application/json',
+                    cache: false,
+                    async:false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                    success: function (entity) {
+
+                        var userType="";
+                        if (entity.UserType.indexOf("Account Owner") <= -1) {
+                            userType=entity.UserType + "; Account Owner";
+
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/updateuser?username='+ Sval+'&userType=' + userType,
+                                type: 'PUT',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (userdetails) {
+
+                                },
+                                error:
+                                                function (userdetails) {
+                                                }
+                            });
+
+                        }
+                    },
+                    error:
+                        function (data) {
+                        }
+                });
+            }
+        }
+        function changeinuploadfiles(obj) {
+            $("#imgOfCompanyLogo").css("display","");
+            var id = obj.id;
+            var filecontrol = document.getElementById(id);
+            var txt = "";
+            if ('files' in filecontrol) {
+                if (filecontrol.files.length == 0) {
+                } else {
+                    for (var i = 0; i < filecontrol.files.length; i++) {
+                        var acceptExtension = ['png', 'jpg', 'gif', 'bmp'];
+                        var file = filecontrol.files[i];
+                        var ext = file.name.split('.').pop().toString();
+                        if (acceptExtension.indexOf(ext.trim().toLowerCase()) > -1) {
+                            if ('size' in file) {
+                                if (file.size > 0)
+                                {
+                                    var Filelengthcol = Math.round((file.size / 1048576));
+                                    if (Filelengthcol > (Math.round(parseInt(localStorage.MaxRequestLength) / 1000))) {
+                                        //swal("", "The maximum permissible size is " + Math.round(parseInt(localStorage.MaxRequestLength) / 1024) + " MB, Please upload a file which is less than " + Math.round(parseInt(localStorage.MaxRequestLength) / 1024) + " MB");
+                                        swal("", "File exceeds " + Math.round((parseInt(localStorage.MaxRequestLength) / 1000)) + "MB size limit.");
+                                        $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                    } else {
+                                        if (!isSpecialCharacterFileName(file.name.substr(0, file.name.lastIndexOf('.')))) {
+                                            swal({
+                                                title: '',
+                                                //text: "File names can't contain the following characters /:*\\?\"<>|#%.",
+                                                // For Brookfield allow dot in filename
+                                                text: "File names can't contain the following characters /:*\\?\"<>|#%",
+                                                // For Brookfield allow dot in filename
+                                                type: 'warning',
+                                                showCancelButton: false,
+                                                confirmButtonText: 'OK',
+                                                html: true
+                                            },
+                                                function (confirmed) {
+                                                    $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                                });
+                                        } else if (!isContainsThreeAlphabets(file.name.substr(0, file.name.lastIndexOf('.')))) {
+                                            swal({
+                                                title: '',
+                                                text: "File names should contain the minimum of 3 alphabets.",
+                                                type: 'warning',
+                                                showCancelButton: false,
+                                                confirmButtonText: 'OK',
+                                                html: true
+                                            },
+                                                function (confirmed) {
+                                                    $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                                });
+                                        } else {
+                                            var selecteddifffilename = [];
+                                            $('input[type="file"]').each(function () {
+                                                var thisid = this.id;
+                                                var classnamevalue = (this.className.indexOf("HLeyckU8") > -1) ? true : false
+                                                if (id != thisid && classnamevalue) {
+                                                    var filecontroltocheck = document.getElementById(thisid);
+                                                    if (filecontroltocheck.files.length > 0) {
+                                                        var filetocheck = filecontroltocheck.files[0];
+                                                        selecteddifffilename.push(filetocheck.name);
+                                                    }
+                                                }
+                                            });
+                                            //manoj
+                                            if (selecteddifffilename.indexOf(file.name) > -1) {
+                                                swal("", "<span style='font-weight:700'>" + file.name + "</span> already selected.");
+                                                $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                            }
+                                            //manoj
+                                        }
+                                    }
+                                } else {
+                                    swal("", "File cannot be empty.");
+                                    $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                }
+                            }
+                        }
+                        else {
+                            $("#imgOfCompanyLogo").css("display","none");
+                            swal({
+                                title: '',
+                                text: "Only file type png, jpg, gif, bmp are allowed.",
+                                type: 'warning',
+                                showCancelButton: false,
+                                confirmButtonText: 'OK',
+                                html: true
+                            },
+                                           function (confirmed) {
+                                               $("#" + id).replaceWith($("#" + id).val('').clone(true));
+                                           });
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+}

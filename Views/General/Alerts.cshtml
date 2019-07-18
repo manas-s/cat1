@@ -1,0 +1,296 @@
+﻿
+@{
+    ViewBag.Title = "Alerts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .AdvanceViewlnk {
+        border-bottom: 1px solid #dcdcdc;
+        color: #777777;
+        float: left;
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        padding: 0 0 6px 0;
+    }
+</style>
+
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<section class="activity">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1">My Alerts</b>
+        </div>
+        <aside>
+            <input type="button" class="f_button_green_small" onclick="MayAlertSettings()" value="My Alert Settings" />
+        </aside>
+    </div>
+</section>
+
+<section class="wraper">
+    <section class="box2">
+        <div class="my-Alerts_contDeat" style="padding-top: 0 !important;">
+            <div class="my-Alerts_Act1" style="padding-bottom: 1px;">
+                <div class="inserch1"  style="margin-top: -1%;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="SearchAlert()" /></a>
+                </div>
+                <span class="sort_filter_block">
+                    <div id="liFiltersforQuickViews" style="float:left">
+                        <aside style="margin-top:-115%;margin-right:-30%;">
+                            <div class="cbp-hrmenu cbp-hrmenu5" style="margin-top: 30%;">
+                                <ul>
+                                    <li>
+                                        <a id="" class="drop_a2 pad7px" style="background:#fff !important;" href="javascript:void(0);"><img src="/Content/Images/filter_icon.png"></a>
+                                        <!-- /cbp-hrsub -->
+                                        <div class="cbp-hrsub fIlter1 hhide2" style="width: 43% !important;margin-top: 2%;margin-right: -2%;">
+                                            <div class="meaan">
+                                                <div class="">
+                                                    <b>Filter</b>
+                                                    <div class="cbp-hrsub-inner">
+                                                        <div class="mEAnwidth1">
+                                                            <h4>Priority</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterPriority" name="Status" size="7" multiple style="width:100%;height: 139px">
+                                                                    <option value="All">All</option>
+                                                                    <option value="High">High</option>
+                                                                    <option value="Medium">Medium</option>
+                                                                    <option value="Low">Low</option>
+                                                                </select>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="mEAnwidth1">
+                                                            <h4>Notification Type</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterType" name="Status" size="7" multiple style="width:100%;height: 139px">
+                                                                    <option value="All">All</option>
+                                                                    <option value="Contract">Contract</option>
+                                                                    <option value="Extended">Extended</option>
+                                                                    <option value="Ownership">Ownership</option>
+                                                                    <option value="Permission">Permission</option>
+                                                                    <option value="Renewal">Renewal</option>
+                                                                    <option value="Status">Status</option>
+                                                                    <option value="Value">Value</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="pop_up_Content_Bottom3 float_right1">
+                                                    <a class="pop_up_Content_Blue" href="javascript:void(0)" onclick="javascript: applyFilter();" id="popModal_profile">Apply</a>
+                                                    <a class="pop_up_Content_White" href="javascript:void(0)" onclick="javascript:clearSelection();" id="popModal_profile">Clear All</a>
+                                                </div>
+                                            </div>
+                                            <!-- /cbp-hrsub-inner -->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                </span>
+
+                <div class="selectFIlterItem" style="padding-top: 2%;">
+
+                    <div id="liFiltersQuickView">
+                    </div>
+                    <div id="liFiltersSearchText">
+                    </div>
+                    <div id="liFiltersPriority">
+                    </div>
+                    <div id="liFiltersType">
+                    </div>
+                    <div id="liAdvanceViewFilter">
+                    </div>
+
+                </div>
+            </div>
+            @*<div class="saveView"><a href="javascript:void(0)" id="btnAddView" style="display:none;">Save this View</a></div>*@
+            <div class="alertbox_status alertbox_status_Act">
+                <ul id="myAlerts" class=""></ul>
+
+            </div>
+
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+
+        </div>
+        <div class="box2_Right">
+            <div class="contract-Right">
+                <h1 style="width:80% !important;"><img src="../Content/Images/quick-vission.png" title="Quick View" style="cursor:default" />Quick View</h1>
+                <div id="idAdvanceViewlnk" class="AdvanceViewlnk"><a href="javascript:void(0)" onclick="CreateAdvanceView()">Create View</a></div>
+                <ul id="liQuickView">
+                    <li id="qvAllAlertList">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript: CreateMyAlertList();' id='aAlertList' name='All Documents' title="All Alerts">
+                                <span id="spnAllAlertList">All Alerts</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvAlertListDismissed">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' id='aAlertListDismissed' name='Finalized Documents' title="Dismissed Alerts">
+
+                                <span id="spnAlertListDismissed">Dismissed Alerts</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvAlertListActive">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this)' id='aAlertListActive' name='Draft Documents' title="Active Alerts">
+
+                                <span id="spnAlertListActive">Active Alerts</span>
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contract-Right">
+                <h1><img src="~/Content/Images/save_views.png" title="Saved Views" style="cursor:default;" />Saved Views </h1>
+                <ul id="liSavedViews" class="alertS_Saved">
+                    @*<li><p>Expired with recently updated</p><a href="javascript:void(0);"><img src="/Content/Images/close-quick.png" /></a></li>*@
+                </ul>
+            </div>
+         </div>
+    </section>
+</section>
+
+<div id="dvNotificationDetail" style="display:none;overflow-y: auto;">
+    <table width="100%" border="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td style="border:0px!important" id="tdNotificationText"></td>
+            </tr>
+            <tr>
+                <td style="border:0px!important">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="border:0px!important;border-top:1px dashed #c7c7c7!important">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td align="left" valign="middle" style="border:0px!important;color:#999999;font-size:12px;font-family:Verdana,arial,sans-serif"><span style="color:#555555">Sent To:</span> <span id="tdNotificationSentTo"></span></td>
+                                <td align="right" valign="middle" style="border:0px!important;color:#999999;font-size:12px;font-family:Verdana,arial,sans-serif"><span style="color:#555555">Sent On:</span> <span id="tdNotificationSentOn"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Details</a></li>
+    <li class="forward"><a href="#forward">Forward</a></li>
+    <li class="dismiss"><a href="#dismiss">Dismiss</a></li>
+</ul>
+
+<ul id="myMenuDismissed" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Details</a></li>
+    <li class="forward"><a href="#forward">Forward</a></li>
+</ul>
+
+<div id="dvAlertForward" style="display:none;">
+    <ul class="poPup_Form_Field">
+        <li>
+            <div id="alertTitleForward" class="alert_detai"></div>
+            <p class="alert_detaPright" style="margin-top: -18px; margin-bottom: 8px;">
+                Sent on&nbsp;<i id="sentOnForward"></i>
+            </p>
+        </li>
+        <li>
+            <div id="alertTextForward" class="width100" style="padding-bottom:10px;"></div>
+        </li>
+        <li>
+            <br />
+        </li>
+        <li>
+            <p class="width30">Forward To</p>
+            <div class="width70"><select id="ddlForwardTo" title="Forward To" multiple="multiple" class="validuser poP-up-SelecT" data-placeholder="Select User(s)"></select></div>
+        </li>
+    </ul>
+</div>
+
+<div id="divToAppend" class="ui-dialog" style="background-color: #ffffff; font-size: 14px; display: none; padding: 10px; margin: 10px;">
+</div>
+
+<div id="addNewAdvanceView" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <div style="width: 100%;float: left;display: block;margin-bottom: 5px;">
+                <table cellpadding="2" cellspacing="2" class="width60 new_view_table">
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelright"><input id="txtViewID" name="ViewID" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px;color:#666">View Name<span style="color:red">*</span></td>
+                        <td class="labelright"><input id="txtAdvanceViewName" name="ViewName" type="text" class="f_textinput validelement" maxlength="50" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width:100%;float:left;display:block;font-size: 18px;margin-bottom: 20px;color: #383838;border-bottom: solid 1px #ccc;padding-bottom: 5px;">Filters</div>
+            <table width="100%" class="filter_list">
+                <thead>
+                    <tr>
+                        <th style="width: 200px">And / Or </th>
+                        <th style="width: 300px">Metadata</th>
+                        <th style="width: 200px">Operator</th>
+                        <th>Value</th>
+                        <th style="width: 20px"></th>
+                    </tr>
+                </thead>
+                <tbody id="tblfilterConditions">
+                    <tr id="tr_0">
+                        <td></td>
+                        <td>
+                            <input id="metadata_label_0" type="text" class="validelement width90" />
+                            <input id="metadata_value_0" type="hidden" />
+                            <input id="metadata_type_0" type="hidden" />
+                        </td>
+                        <td>
+                            <span>
+                                <select id="operator_0" class="validelement" onchange="validateFilterValue(this)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="btnAddNewAdFilter" style="width:100%;float:left;display:block;font-size:13px;"><a onclick="insertNewfilterCondition(this)" id="insertNewfilter_0" href="#" style="font-size:13px; color:#3f91cc"><img src="~/Content/Images/add_view.png" style="width:10px" /> Add More</a></div>
+        </div>
+    </div>
+</div>
+
+<div id="addNewView" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtViewID" name="ViewID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name</td>
+                    <td class="labelright"><input id="txtViewName" name="ViewName" type="text" class="f_textinput width70" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<input id="hdNotificationID" value="" type="hidden" />
+@section Scripts {
+    @*<script src="~/Scripts/jquery.window.min.js" type="text/javascript"></script>*@
+    @*<script src="~/Scripts/Contract365/General_Alerts.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/General_Alerts.js?" + DateTime.Now.GetHashCode())
+}
+

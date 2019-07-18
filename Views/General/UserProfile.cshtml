@@ -1,0 +1,365 @@
+﻿@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="welcome">My Profile</div>
+<section id="p_form" class="wraper" oncontextmenu="return false;">
+    <div class="p_form1" style="border:solid 1px #ccc;-webkit-box-shadow: 0px 0px 10px 5px #ebebeb; -moz-box-shadow: 0px 0px 10px 5px #ebebeb; box-shadow: 0px 0px 10px 5px #ebebeb; width:100% !important; margin-top:20px !important; padding-top:20px;">
+        @*<h2 class="blue-title" style="padding-right: 30px; padding-bottom:27px !important; background:#44a6d8 !important; padding-top:12px !important">
+                My Profile
+                <a class="pop_up_Content_White" href="javascript:void(0)" onclick="OpenEditProfile()">Edit</a>
+                <span class="float_right1 margin-left-14 padding_right_20px">
+                    <a href="javascript:void(0)" style="font-size:14px;" onclick="OpenEditProfile()">
+
+                        <img src="../Content/Images/edit_white.png" style="height:16px;" /> Edit Profile
+                    </a>
+                </span>
+            </h2>*@
+        <div style="padding:0px 30px 30px;">
+
+            <ul class="poPup_Form_Field overflow_hidden my-profile">
+                <li class="poPup_Form_Title1">
+                    <b style="border-bottom:solid 1px #e0e0e0 !important">Summary <a href="javascript:void(0)" style="font-size:14px;float:right" onclick="OpenEditProfile()"><img src="/Content/Images/edit.png"></a> </b>
+                </li>
+                <li>
+                    <p><b>User Name</b></p>
+
+                    <div id="tdUserName">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>Profile Picture</b></p>
+                    <div>
+                        <img height="50" width="50" id="imgUser1" src="http://contract365v25.blob.core.windows.net/profilepicture/phNfiVV8_nxtvOoeg.png">
+                        <a href="javascript:void(0)" id="ChangePicture1" onclick="$('#imageUploder').click();"></a>
+                    </div>
+                </li>
+                <li>
+                    <p><b>Login Email ID</b></p>
+                    <div id="tdLoginEmailID">
+                        -
+                    </div>
+                </li>
+
+                <li>
+                    <p><b>Address</b></p>
+                    <div id="tdAddress">
+                        -
+                    </div>
+                </li>
+                @*<li>
+                    <p><b>&nbsp;</b></p>
+                    <div id="tdAddress2">
+                    </div>
+                    </li>
+                    <li>
+                    <p><b>&nbsp;</b></p>
+                    <div id="tdCity">
+                    </div>
+                    </li>
+                    <li>
+                    <p><b>&nbsp;</b></p>
+                    <div id="tdCountry">
+                    </div>
+                    </li>*@
+                <li>
+                    <p><b>Email ID(for eContracts notifications)</b></p>
+                    <div id="tdEmailID" class="word-break">
+                        -
+                    </div>
+                </li>
+
+                <li>
+                    <p><b>Phone 1</b></p>
+                    <div id="tdPhoneNo1">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>Phone 2</b></p>
+                    <div id="tdPhoneNo2">
+                        -
+                    </div>
+                </li>
+                <li class="FL_esacalation">
+                    <p><b>Job Title</b></p>
+                    <div id="tdJobTitle">
+                        -
+                    </div>
+                </li>
+                <li class="FL_esacalation">
+                    <p><b>Department</b></p>
+                    <div id="tdDepartment">
+                        -
+                    </div>
+                </li>
+                <li class="FL_esacalation">
+                    <p><b>Reporting Manager</b></p>
+                    <div id="tdReportsTo" class="lineheight20">
+                        <div style="width:202px !important;" id="tdMyManager">
+                            -
+                        </div>
+                        <a id="btnViewReportingHierarchy" href="javascript:void(0)" style="display:none">View Reports To Hierarchy</a>
+                    </div>
+                </li>
+                <li class="poPup_Form_Title1">
+                    <b style="border-bottom:solid 1px #e0e0e0 !important">Preferences</b>
+                </li>
+                <li>
+                    <p><b>Out of Office</b></p>
+                    <div id="tdOutOfOffice">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>Delegate To</b></p>
+                    <div id="tdDelegateTo">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>Default Business Area</b></p>
+                    <div id="tdDefaultBusinessArea" class="lineheight20">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>My Landing page</b></p>
+                    <div id="tdMyLandingpage" class="lineheight20">
+                    </div>
+                </li>
+
+                <li class="poPup_Form_Title1">
+                    <b style="border-bottom:solid 1px #e0e0e0 !important">Permission</b>
+                </li>
+
+
+                <li>
+                    <p><b>User Role</b></p>
+                    <div id="tdUserRole" class="lineheight20">
+                        -
+                    </div>
+                </li>
+
+                <li>
+                    <p><b>User Type</b></p>
+                    <div id="tdUserType" class="lineheight20">
+                        -
+                    </div>
+                </li>
+
+
+                <li>
+                    <p><b>Contract Area(s)</b></p>
+                    <div id="tdContractArea" class="lineheight20">
+                    </div>
+                </li>
+                <li>
+                    <p><b>Owner of Business Area(s)</b></p>
+                    <div id="tdOwnershipBusinessArea" class="lineheight20">
+                        -
+                    </div>
+                </li>
+                <li>
+                    <p><b>Full Control Business Area(s)</b></p>
+                    <div id="tdfullCtrlBusinessArea" class="lineheight20">
+                        -
+                    </div>
+                </li>
+
+                <li>
+                    <p><b>Contribute Business Area(s)</b></p>
+                    <div id="tdContributeBusinessArea" class="lineheight20">
+                        -
+                    </div>
+                </li>
+
+                <li>
+                    <p><b>Read Only Business Area(s)</b></p>
+                    <div id="tdReadBusinessArea" class="lineheight20">
+                        -
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<div id="dvViewHierarchy" style="display:none">
+    <div class="modalbody">
+        <table class="tblgrid width100">
+            <tbody id="tblviewHierarchy"></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="dvUpdateUserDetail" style="display:none;" oncontextmenu="return false;">
+    <ul class="poPup_Form_Field overflow_hidden">
+
+        <li>
+            <p></p>
+            <div>
+                <input id="txtUserID" name="UserID" type="hidden" />
+            </div>
+        </li>
+
+        <li>
+            <p><b>User Name<img src="/Content/Images/input-help.png" class="float_none" alt="Enter name of the user to be created." title="Enter name of the user to be created." /></b></p>
+            <div>
+                <input id="txtUserName" name="UserName" readonly="readonly" type="text" />
+            </div>
+        </li>
+        <li>
+            <p><b>Profile Picture</b></p>
+
+            <div>
+                <img height="50" width="50" id="imgUser" />
+                <a href="javascript:void(0)" id="ChangePicture" onclick="$('#imageUploder').click();"></a>
+            </div>
+            <input type="file" id="imageUploder" accept="image/*" onchange="previewFile()" style="visibility:hidden" />
+            <input type="hidden" id="hdnProfileURI" />
+
+        </li>
+
+        <li>
+            <p><b>Address<img src="/Content/Images/input-help.png" class="float_none" alt="Enter address of the user." title="Enter address of the user." /></b></p>
+            <div>
+                <input id="txtAddress1" name="Address1" type="text" />
+            </div>
+        </li>
+
+        <li>
+            <p>&nbsp;</p>
+            <div>
+                <input id="txtAddress2" name="Address2" type="text" />
+            </div>
+        </li>
+
+        <li>
+            <p>&nbsp;</p>
+            <div>
+                <input id="txtCity" name="City" type="text" />
+            </div>
+        </li>
+
+        <li>
+            <p><b>Country<img src="/Content/Images/input-help.png" class="float_none" alt="Choose the name of the country which the user belongs to from the list." title="Choose the name of the country which the user belongs to from the list." /></b></p>
+            <div>
+                <select id="ddlCountry" name="Country"></select>
+            </div>
+        </li>
+
+        <li>
+            <p><b>Email ID(for eContracts notifications)<img src="/Content/Images/input-help.png" class="float_none" alt="Enter email id of the user." title="Enter email id of the user." /></b></p>
+            <div>
+                <input id="txtEmailID" name="EmailID" type="text" class="validelement validemail" />
+            </div>
+        </li>
+
+        <li>
+            <p><b>Phone 1<img src="/Content/Images/input-help.png" class="float_none" alt="Enter phone number of the user." title="Enter phone number of the user." /></b></p>
+            <div>
+                <input id="txtPhoneNo1" name="PhoneNo1" type="text" />
+            </div>
+        </li>
+
+        <li>
+            <p>Phone 2<img src="/Content/Images/input-help.png" class="float_none" alt="Enter phone number of the user." title="Enter phone number of the user." /></p>
+            <div>
+                <input id="txtPhoneNo2" name="PhoneNo2" type="text" />
+            </div>
+        </li>
+
+        <li>
+            <p>Out of Office<img src="/Content/Images/input-help.png" class="float_none" alt="Sends an automated reply to incoming messages if 'yes' is chosen." title="Sends an automated reply to incoming messages if 'yes' is chosen." /></p>
+
+            <div class="poPup_Form_radio">
+                <input id="rbnYes" value="Yes" type="radio" name="OutOfOffice" onclick="OutOfOffice(this)" class="border-none" />&nbsp;<small>Yes</small>&nbsp;
+                <input id="rbnNo" checked="checked" value="No" type="radio" onclick="OutOfOffice(this)" name="OutOfOffice" class="border-none" />&nbsp;<small>No</small>
+            </div>
+        </li>
+
+        <li id="liDelegateTo" style="display:none;">
+            <p>Delegate To</p>
+
+            <div class="poPup_Form_radio">
+                <select id="ddlDelegateTo" name="DelegateTo"></select>
+            </div>
+
+        </li>
+
+        <li>
+            <p>Default Business Area<img src="/Content/Images/input-help.png" class="float_none" alt="Select business area under which user will create Contract(s) / Request(s) usually." title="Select business area under which user will create Contract(s) / Request(s) usually." /></p>
+
+            <div>
+                <input id="txtBusinessArea" title="Business Area" class='form-contro width82' readonly='readonly' type='text' />
+                <a id="viewbusinessarea" href='javascript:void(0)' class="user_ba" onclick='ViewBusinessArea()'> Browse</a>
+            </div>
+
+        </li>
+        <li>
+            <p>My Landing page<img src="/Content/Images/input-help.png" class="float_none" alt="Select landing page" title="Select landing page" /></p>
+
+            <div class="poPup_Form_radio">
+                <div class="width100">  <input id="rdMyDashboard" type="radio" name="Landingpage" value="My Dashboard" /><small>My Dashboard</small></div>
+                <div class="width100"> <input id="rdMetrics" type="radio" name="Landingpage" value="Metrics" /><small>Metrics</small></div>
+                <div class="width100"> <input id="rdBusinessAreaMetrics" type="radio" name="Landingpage" value="Specific Business Area Metrics" /><small>Specific Business Area Metrics</small></div>
+                <div class="width100">  <input id="rdBusinessAreaDashboard" type="radio" name="Landingpage" value="Specific Business Area Dashboard" /><small>Specific Business Area Dashboard</small></div>
+                <div class="width100"> <input id="rdAdminDashboard" type="radio" name="Landingpage" value="Admin Dashboard" /><small>Admin Dashboard</small></div>
+                <div class="width100"> <input id="rdAccountDashboard" type="radio" name="Landingpage" value="Account Dashboard" /><small>Account Dashboard</small></div>
+            </div>
+
+        </li>
+
+    </ul>
+
+
+</div>
+
+
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+    <div id="loadBA"></div>
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+</div>
+
+
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+@Scripts.Render("~/Scripts/Contract365/General_UserProfile.js?" + DateTime.Now.GetHashCode())
+
+<script type="text/javascript">
+    document.onkeypress = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
+    document.onmousedown = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
+    document.onkeydown = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
+</script> 

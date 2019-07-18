@@ -1,0 +1,1602 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Styles.Render("~/IndexPage_CSS")
+<link href="~/Content/css/wizard.css" rel="stylesheet" />
+@*<link rel="stylesheet" type="text/css" href="~/Content/kendo/2012.3.1114/jquery.jui_dropdown.css" />*@
+
+@*<link href="~/Content/Charts/jquery.circliful.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Charts/font-awesome.min.css" rel="stylesheet" type="text/css" />*@
+@*<link href="~/Content/fullcalendar.css" rel="stylesheet" type="text/css" />*@
+
+<div class="welcome">
+    <div style="float:left" id="heading_dashboard">My Dashboard</div>
+    <div style="float:right;display:none" id="HomeQuickAction">
+
+        <div class="wrapper-demo" style="display:none;">
+            <div id="dd" class="wrapper-dropdown-3" tabindex="1">
+                <span><img src="~/Content/Images/quick_action.png" width="18" height="18" style="vertical-align:middle"> Quick Actions</span>
+                <ul class="dropdown">
+                    <li class="FL_Requests" style="display:none;">
+                        <a href="/Pipeline/CreateRequest">
+                            <img src="~/Content/Images/request.png" width="18" height="18" style="vertical-align:middle"> New Request
+                            <p>Submit a Request to your contracts/legal team.</p>
+                        </a>
+                    </li>
+
+                    <li class="UserPermisionPL" style="display:none;">
+                        <a href="/Contracts/CreateContract?Stage=pipeline">
+                            <img src="~/Content/Images/contract_details.png" width="18" height="18" style="vertical-align:middle"> New Contract Record
+                            <p>Create a new Contract Record in the pipeline.</p>
+                        </a>
+                    </li>
+                    <li class="UserPermisionCon" style="display:none;">
+                        <a href="/Contracts/CreateContract?Stage=active">
+                            <img src="~/Content/Images/add_contract.png" width="18" height="18" style="vertical-align:middle"> Add Contract Record
+                            <p>Create a Contract Record to upload your Finalized/Ready for Signature contracts.</p>
+                        </a>
+                    </li>
+                    <li class="CounterSetting" style="display:none;">
+                        <a href="/Counterparty/CreateCounterparty">
+                            <img src="~/Content/Images/new_counterparty.png" width="18" height="18" style="vertical-align:middle"> New Counterparty
+                            <p>Create a new Counterparty.</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="clear:both"></div>
+<section class="wraper">
+    <section class="box2 eli_mar_top">
+        <div class="my-AlertsLeft">
+            <div class="my-AlertsLeftMargin">
+                <div class="my-Alerts1">
+                    <h1 class="width-auto"><i class="DashboardType">My</i> Contract Summary </h1>
+                    <div class="todos">
+                        <span><a href="javascript:void(0)" id="aContractsSummaryInPercentage" onclick="ShowContractsSummaryInPercentage()">Percentage</a></span>
+                        <span><a class="act" href="javascript:void(0)" id="aContractsSummaryInNumber" onclick="ShowContractsSummaryInNumber()">Count</a></span>
+                        @*<span><a class="act" href="javascript:void(0)" id="aContractsSummaryInNumber" onclick="CreateDashboardContracts()">Test</a></span>*@
+                    </div>
+                    <div class="todos1">
+                        <span><a href="javascript:void(0)" id="aContractsSummaryInPercentage_Mob" onclick="ShowContractsSummaryInPercentage()">Percentage</a></span>
+                        <span><a class="act" href="javascript:void(0)" id="aContractsSummaryInNumber_Mob" onclick="ShowContractsSummaryInNumber()">Count</a></span>
+                    </div>
+                </div>    @*Added from 2.4final to 2.4*@
+                    <div id="dvDashboardSummary" class="cont_sum min_height_103 margin-left-2perc">
+                    </div>
+            </div>
+            <div class="my-AlertsLeftMargin my-AlertsLeftHeight">
+                @*style="margin-top: -14px;margin-bottom: 8px;"*@
+                <div class="my-Alerts1">
+                    <h1 class="width-auto"><i class="DashboardType">My</i> Contract Updates</h1>
+                    <div class="todos">
+                        <span><a href="javascript:void(0)" id="aAboutToExpire" onclick="ShowContractsAboutToExpire()">About to Expire<i id="aAboutToExpireCount"></i></a></span>
+                        <span><a href="javascript:void(0)" id="aUpcomingRenewals" onclick="ShowContractsUpcomingRenewals()">Up for Renewal<i id="aUpcomingRenewalsCount"></i></a></span>
+                        <span><a class="act" href="javascript:void(0)" id="aRecent" onclick="ShowContractsRecent()">Recent<i id="aRecentCount"></i></a></span>
+                    </div>
+                    <div class="todos1">
+                        <span><a href="javascript:void(0)" id="aAboutToExpire_Mob" onclick="ShowContractsAboutToExpire()">About to Expire<i id="aAboutToExpireCount_Mob"></i></a></span>
+                        <span><a href="javascript:void(0)" id="aUpcomingRenewals_Mob" onclick="ShowContractsUpcomingRenewals()">Up for Renewal<i id="aUpcomingRenewalsCount_Mob"></i></a></span>
+                        <span><a class="act" href="javascript:void(0)" id="aRecent_Mob" onclick="ShowContractsRecent()">Recent<i id="aRecentCount_Mob"></i></a></span>
+                    </div>
+                </div>
+
+                <div class="alertbox_status">  @*Added from 2.4final to 2.4*@
+                    <ul class="alertbox_status_null" id="ContractsRecentList"></ul>
+
+                    <ul class="alertbox_status_null" id="ContractsUpcomingRenewalsList" style="display:none"></ul>
+
+                    <ul class="alertbox_status_null" id="ContractsAboutToExpireList" style="display:none"></ul>
+
+                </div>
+
+            </div>
+
+            <div id="dvBASpecific1" class="my-AlertsLeftMargin height_chart" style="display:none;">
+
+                <div class="my-Alerts1">
+                    <h1 class="width100"><i class="DashboardType">My</i> Top Contract Record Types</h1>
+                </div>
+
+                <div id="TopContractTypes" class="alertbox_status">
+
+                </div>
+                <table id="tblTopContractTypeChart" border="0" cellpadding="0" cellspacing="0" class="width100 margin-top-m75" style="display:none;">
+                    <tr>
+                        <td class="width10">&nbsp;</td>
+                        <td class="width4" style="background-color:#44a6d8; border:1px solid #383737;">&nbsp;</td>
+                        <td class="width34 padding_left_20px" align="left">Finalized Contracts</td>
+                        <td class="width10">&nbsp;</td>
+                        <td class="width4" style="background-color:#eee; border:1px solid #383737;">&nbsp;</td>
+                        <td class="width34 padding_left_20px" align="left">Pipeline Contracts</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="my_Alersmargin">
+
+            <div class="alertbox_status_Right my_activity_height" style="height:514px;"> @*Added from 2.4final to 2.4*@
+                <div class="my-Alerts1">
+                    <h1 class="width-auto"><i class="DashboardType">My</i> Activities</h1>
+                    <div class="todos">
+                        <span><a href="javascript:void(0)" onclick="ShowWorkflows()" id="aWorkflows">Workflows<i id="aWorkflowsCount"></i></a></span>
+                        <span><a class="act" href="javascript:void(0)" onclick="ShowTodos()" id="aTodos">Tasks<i id="aTodosCount"></i></a></span>
+                    </div>
+                    <div class="todos1">
+                        <span><a class="act" href="javascript:void(0)" onclick="ShowTodos()" id="aTodos_Mob">Tasks<i id="aTodosCount_Mob"></i></a></span>
+                        <span><a href="javascript:void(0)" onclick="ShowWorkflows()" id="aWorkflows_Mob">Workflows<i id="aWorkflowsCount_Mob"></i></a></span>
+                    </div>
+                </div>
+
+                <div class="alertbox_status" style="overflow:visible;">  @*Added from 2.4final to 2.4*@
+                    <ul class="alertbox_status_null" id="mytodoList"></ul>
+                    <ul class="alertbox_status_null" id="workflowList" style="display:none"></ul>
+                </div>
+
+            </div>
+
+
+            <div id="dvBASpecific2" class="alertbox_status_Right" style="height:520px;display:none;">
+                <div class="my-Alerts1">
+                    <h1 class="width100 pad_bot10"><i class="DashboardType">My</i> Recent Counterparties</h1>
+                </div>
+
+                <div class="alertbox_status" style="overflow:visible;">
+                    <ul class="alertbox_status_null" id="CounterpartiesRecentUsed"></ul>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </section>
+
+
+
+    <section class="dashcalanderbox2 margin-top-m20">
+        <div class="dashcalanderstatus_Left width100">
+            <h1 class="margin-bottom-25"><i class="DashboardType">My</i> <i id="DashboardCalender">Calendar</i></h1>
+            <div class="status_Left1 width95 margin-0px">
+                <div id="fullcal">
+                </div>
+                <div id="scheduler"></div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+
+
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Details</a></li>
+    <li class="forward"><a href="#forward">Forward</a></li>
+    <li class="dismiss"><a href="#dismiss">Dismiss</a></li>
+</ul>
+
+<div id="dvAlertForward" style="display:none;">
+    <ul class="poPup_Form_Field">
+        <li>
+            <p class="alert_detaPright">
+                Sent on&nbsp;
+                <span id="sentOnForward"></span>
+            </p>
+        </li>
+        <li>
+            <div id="alertTitleForward" class="alert_detai"></div>
+        </li>
+        <li>
+            <div id="alertTextForward" class="width100"></div>
+        </li>
+        <li>
+            <div class="width100">&nbsp;</div>
+        </li>
+        <li>
+            <p class="width30">Forward To</p>
+            <div class="width70"><select id="ddlForwardTo" title="Forward To" multiple="multiple" class="validuser poP-up-SelecT"></select></div>
+        </li>
+    </ul>
+</div>
+
+<div id="dvContractsRecentListAll" class="alertbox_status padding_top_0 margin_top_0">
+    <ul class="alertbox_status_null removebottomline" id="ContractsRecentListAll"></ul>
+    <div class="pagination-holder clearfix">
+        <article id="pagination_ContractsRecent" class="margin-left-m20"></article>
+    </div>
+    <div class="width20 float_right1 result_count padding_right_none">
+        <span id="spResult_ContractsRecent"></span>
+    </div>
+</div>
+
+<div id="dvContractsUpcomingRenewalsListAll" class="alertbox_status padding_top_0 margin_top_0">
+    <ul class="alertbox_status_null removebottomline" id="ContractsUpcomingRenewalsListAll"></ul>
+    <div class="pagination-holder clearfix">
+        <article id="pagination_ContractsRenewal" class="margin-left-m20"></article>
+    </div>
+    <div class="width20 float_right1 result_count padding_right_none">
+        <span id="spResult_ContractsRenewal"></span>
+    </div>
+</div>
+
+<div id="dvContractsAboutToExpireListAll" class="alertbox_status padding_top_0 margin_top_0">
+    <ul class="alertbox_status_null removebottomline" id="ContractsAboutToExpireListAll"></ul>
+    <div class="pagination-holder clearfix">
+        <article id="pagination_ContractsExpire" class="margin-left-m20"></article>
+    </div>
+    <div class="width20 float_right1 result_count padding_right_none">
+        <span id="spResult_ContractsExpire"></span>
+    </div>
+</div>
+
+
+
+
+<div id="addEditInitialSetup" style="display:none;">
+    <div class="modalbody">
+        <div id="addInitialSetup">
+            <div style="padding:0px 30px 30px; overflow:hidden;">
+                <ul id="leftTab" class="form-tabmenu-v" style="float:left;width:28%; margin-right:10px;">
+                    <li><a href="javascript:void(0)" class="form-active" id="tabCompany" onclick="tabchange(this);">Company Profile</a></li>
+                    <li><a href="javascript:void(0)" id="tabUser" onclick="tabchange(this);">Users and Roles</a></li>
+                    @*<li><a href="javascript:void(0);" id="tabBusinessAreas" onclick="tabchange(this);">Business Areas</a></li>*@
+                    <li><a href="javascript:void(0)" id="tabContractMetadata" onclick="tabchange(this);">Metadata</a></li>
+                    <li><a href="javascript:void(0)" id="tabContractTypes" onclick="tabchange(this);">Contract Record Types</a></li>
+                </ul>
+                <!--Company Profile Start-->
+                <table id="tblCompanyProfile" cellpadding="2" cellspacing="2" width="70%">
+                    @if (ViewData["Organisation"] != null)
+                    {
+                        var item = ViewBag.Organisation as Corevo.eContracts365.TableEntities.OrganisationsEntity;
+                        @*@foreach (var item in ViewBag.Organisation as IEnumerable<Corevo.eContracts365.TableEntities.OrganisationsEntity>)
+                            {*@
+                        <tr>
+                            <td class="pageheading">Company Profile</td>
+                            <td class="pageheading" align="right"></td>
+                        </tr>
+                        <tr>
+                            <td class="f_head1"></td>
+                            <td class="labelleft"><input id="txtOrganisationID" value="@item.RowKey" name="OrganisationID" type="hidden" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Company Name <img src='../Content/Images/help_training.png' title="Company Name"></label>
+                            </td>
+
+                            <td class="labelleft"><input id="txtCompanyName" name="CompanyName" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Country <img src='../Content/Images/help_training.png' title="Country"></label>
+                            </td>
+                            <td class="labelleft">
+                                <select id="ddlCountryOrg" name="CountryOrg" class="f_inpt width70">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="f_head1">Address</td>
+                            <td class="labelleft"><input id="txtAddress1Org" name="Address1Org" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td class="labelleft"><input id="txtAddress2Org" name="Address2Org" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        <tr>
+                            <td class="f_head1">City</td>
+                            <td class="labelleft"><input id="txtCityOrg" name="CityOrg" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        <tr>
+                            <td class="f_head1">State</td>
+                            <td class="labelleft"><input id="txtStateOrg" name="StateOrg" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        <tr>
+                            <td class="f_head1">Zip/Postal Code</td>
+                            <td class="labelleft"><input id="txtZipOrg" name="ZipCodeOrg" type="text" class="f_inpt width70" /></td>
+                        </tr>
+                        @*<tr>
+                                <td class="f_head1">Key People</td>
+                                <td class="labelleft">
+                                    <input id="txtKeyPeople" name="KeyPeople" type="text" class="f_inpt width70" />
+                                </td>
+                            </tr>*@
+                        <tr>
+                            <td style="font-weight:bold;">Regional Settings<br /><br /></td>
+                            <td class="labelleft"><br /><br /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Time Zone <img src='../Content/Images/help_training.png' title="Specify the standard time zone."></label>
+                            </td>
+                            <td class="labelleft">
+                                <select id="ddlTimeZone" name="TimeZone" class="f_inpt width70">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Date Format <img src='../Content/Images/help_training.png' title="Date Format"></label>
+                            </td>
+                            <td class="labelleft">
+                                <select id="ddlDateFormat" name="DateFormat" class="f_inpt width70">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Time Format <img src='../Content/Images/help_training.png' title="Time Format"></label>
+                            </td>
+                            <td class="labelleft">
+                                <select id="ddlTimeFormat" name="TimeFormat" class="f_inpt width70">
+                                    <option>12 Hour</option>
+                                    <option>24 Hour</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Work Week <img src='../Content/Images/help_training.png' title="Select which days comprise your work week and select the first day of each work week."></label>
+                            </td>
+                            <td class="labelleft f_list">
+                                <input id="chkSun" name="WorkWeek" value="Sunday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkSun" class="css1-label">Sun</label>
+                                <input id="chkMon" name="WorkWeek" value="Monday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkMon" class="css1-label">Mon</label>
+                                <input id="chkTue" name="WorkWeek" value="Tuesday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkTue" class="css1-label">Tue</label>
+                                <input id="chkWed" name="WorkWeek" value="Wednesday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkWed" class="css1-label">Wed</label>
+                                <input id="chkThu" name="WorkWeek" value="Thursday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkThu" class="css1-label">Thu</label>
+                                <input id="chkFri" name="WorkWeek" value="Friday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkFri" class="css1-label">Fri</label>
+                                <input id="chkSat" name="WorkWeek" value="Saturday" type="checkbox" class="css1-checkbox" />
+                                <label for="chkSat" class="css1-label">Sat</label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                First Day of Week
+                                <select id="ddlFirstDay" name="FirstDay" class="f_inpt width30">
+                                    <option>Sunday</option>
+                                    <option>Monday</option>
+                                    <option>Tuesday</option>
+                                    <option>Wednesday</option>
+                                    <option>Thursday</option>
+                                    <option>Friday</option>
+                                    <option>Saturday</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="f_head1">Default Currency <img src='../Content/Images/help_training.png' title="Default Currency"></label>
+                            </td>
+
+                            <td class="labelleft">
+                                <select id="ddlDefaultCurrency" name="DefaultCurrency" class="f_inpt width70"></select>
+                            </td>
+                        </tr>
+                        @*break;
+                            }*@
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                No organisation found.
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <!--Company Profile End-->
+                <!--User and Roles Start-->
+                <table id="tblUserandRoles" style="display:none;" cellpadding="2" cellspacing="2" width="70%">
+                    <tr>
+                        <td class="pageheading">User &amp; Roles</td>
+                        <td class="pageheading" align="right"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="f_head1">Account Owner(s) <img src='../Content/Images/help_training.png' title="Account Owner(s)"></label>
+                        </td>
+
+                        <td class="labelleft">
+                            <select id="ddlAccountOwners" multiple="multiple" class="f_inpt" style="width:350px;"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="f_head1">Contract Administrator(s) <img src='../Content/Images/help_training.png' title="Contract Administrator(s)"></label>
+                        </td>
+
+                        <td class="labelleft">
+                            <select id="ddlContractAdministrators" multiple="multiple" class="f_inpt" style="width:350px;"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="f_head1">Contract Manager(s) <img src='../Content/Images/help_training.png' title="Contract Manager(s)"></label>
+                        </td>
+
+                        <td class="labelleft">
+                            <select id="ddlContractManagers" multiple="multiple" class="f_inpt" style="width:350px;"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="f_head1">Business Manager(s) <img src='../Content/Images/help_training.png' title="Business Manager(s)"></label>
+                        </td>
+
+                        <td class="labelleft">
+                            <select id="ddlBusinessManagers" multiple="multiple" class="f_inpt" style="width:350px;"></select>
+                        </td>
+                    </tr>
+                </table>
+                <!--User and Roles End-->
+                <!--Metadata Start-->
+                <table id="tblContractMetadata" style="display:none;" cellpadding="2" cellspacing="2" width="70%">
+                    <tr>
+                        <td class="pageheading">Metadata</td>
+                        <td class="pageheading" align="right"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="page-report">
+                                <table class="paginated width100">
+                                    <thead>
+                                        <tr>
+                                            <th>Metadata</th>
+                                            <th>Field Type</th>
+                                            <th>Required</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contractMetadata">
+                                        @*@if(ViewBag.Metadata != null)
+                                            {
+                                                foreach (var item in ViewBag.Metadata as IEnumerable<Corevo.eContracts365.TableEntities.ContractFieldsEntity>)
+                                                {
+                                                    <tr id="row" style="border-bottom: 1px dotted #eeeaea; font-size: 12px;">
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            <b> @Html.DisplayFor(modelItem => item.FieldDisplayName)</b>
+                                                        </td>
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            @Html.DisplayFor(modelItem => item.FieldType)
+                                                        </td>
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            @Html.DisplayFor(modelItem => item.Required)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }*@
+                                    </tbody>
+                                </table>
+                                <div id="loading"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class='right-float'><a href='javascript:void(0)' onclick='AddMoreMetadata()'> Add More...</a></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <!--Metadata End-->
+                <!--Contract Type Start-->
+                <table id="tblContractTypes" style="display:none;" cellpadding="2" cellspacing="2" width="70%">
+                    <tr>
+                        <td class="pageheading">Contract Types</td>
+                        <td class="pageheading" align="right"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-top:5px;">
+                            <div id="page-report">
+                                <table class="paginated width100">
+                                    <thead>
+                                        <tr>
+                                            <th>Contract Type</th>
+                                            <th>Transaction Type</th>
+                                            <th>Contract Class</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contractTypes">
+                                        @*@if(ViewBag.ContractTypes != null)
+                                            {
+                                                foreach (var item in ViewBag.ContractTypes as IEnumerable<Corevo.eContracts365.TableEntities.ContractTypesEntity>)
+                                                {
+                                                    <tr id="row" style="border-bottom:1px dotted #eeeaea; font-size:12px;">
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            <b> @Html.DisplayFor(modelItem => item.ContractType)</b>
+                                                        </td>
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            @Html.DisplayFor(modelItem => item.TransactionType)
+                                                        </td>
+                                                        <td align="center" style="vertical-align: top;" class="f_list">
+                                                            @Html.DisplayFor(modelItem => item.ContractClass)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }*@
+                                    </tbody>
+                                </table>
+                                <div id="loading"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class='right-float'><a href='javascript:void(0)' onclick='AddMoreContractTypes()'> Add More...</a></span>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <!--Contract Type End-->
+
+            </div>
+            <table class="width100">
+                <tr>
+                    <td class="f_list" width="30%">
+                        <input id="chkDontShow" name="DontShow" value="DontShow" type="checkbox" onchange='javascript:cTrig()' class="css1-checkbox" />
+                        <label for="chkDontShow" class="css1-label">Dont't show this dialog again.</label>
+                    </td>
+                    <td>
+                        <span class="button-blue" id="btnPrevious" style="display:none;"> <a href="javascript:void(0)" onclick="javascript:previousClick();">Previous</a></span>
+                    </td>
+                    <td align="right">
+                        <span class="button-green" id="btnNext"> <a href="javascript:void(0)" onclick="javascript:SaveOrg();">Next</a></span>
+                        <span class="button-green" id="btnFinish" style="display:none;"> <a href="javascript:void(0)" onclick='$("#addEditInitialSetup").dialog("close")'>Finish</a></span>
+                        <span class="button-blue"> <a href="javascript:void(0)" onclick='$("#addEditInitialSetup").dialog("close")'>Cancel</a></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="dialogAddField" style="display:none;">
+    <div class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2">
+            <tr>
+                <td>
+                    <input type="text" id="ContractFieldIdHdn" style="display:none;" />
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Field Type
+                </td>
+                <td class="labelright">
+                    <select id="ddlFieldType" onchange="changevalues(this);" class="f_inpt fullwidth">
+                        <option value="0">--Select--</option>
+                        <option value="Single Line Text">Single Line Text</option>
+                        <option value="Multi Line Text">Multi Line Text</option>
+                        <option value="Date">Date</option>
+                        <option value="Choice">Choice</option>
+                        <option value="User">User</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Field Display Name
+                </td>
+                <td class="labelright">
+                    <input type="text" id="txtFieldDisplayName" class="f_inpt fullwidth" />
+                </td>
+            </tr>
+            <tr id="trfieldorder" style="display:none;">
+                <td class="f_head">
+                    Order
+                </td>
+                <td class="labelright">
+                    <select id="ddlFieldOrder" class="f_inpt fullwidth"></select>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Required</td>
+                <td>
+                    <input type="checkbox" id="chkRequired" class="css1-checkbox" />
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Description</td>
+                <td class="labelright">
+                    <textarea id="txtDescription" class="f_inpt fullwidth"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Field Help</td>
+                <td>
+                    <input type="checkbox" id="chkHelp" class="css1-checkbox" />
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Help Text</td>
+                <td class="labelright">
+                    <textarea id="txtHelpText" class="f_inpt fullwidth"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Default Field</td>
+                <td>
+                    <input type="checkbox" id="chkDefaultField" class="css1-checkbox" />
+                </td>
+            </tr>
+            <tr id="trchoicesvalues" style="visibility:hidden;">
+                <td class="f_head">
+                    Choice Values
+                </td>
+                <td class="labelright">
+                    <textarea id="txtChoicesValues" class="f_inpt fullwidth"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="AddEditContractTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTypeID" name="ContractTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Type Name</td>
+                    <td class="labelright"><input id="txtContractType" name="ContractType" type="text" class="f_inpt width70" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Transaction Type</td>
+                    <td class="labelright">
+                        <select id="ddlTransactionType" name="TransactionType" class="f_inpt width70">
+                            <option value="Select" selected="selected">--Select--</option>
+                            <option value="Buy-Side">Buy-Side</option>
+                            <option value="Sell-Side">Sell-Side</option>
+                            <option value="Legal/General Agreement">Legal/General Agreement</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Class</td>
+                    <td class="labelright">
+                        <select id="ddlContractClass" name="ContractClass" class="f_inpt width70">
+                            <option value="Select" selected="selected">--Select--</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Master Agreement">Master Agreement</option>
+                            <option value="Sub-Contract">Sub-Contract</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" name="Description" rows="2" cols="20" class="f_text-box width70"></textarea></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Extensions</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Extendable" id="chkExtendable" class="css1-checkbox" value="Extendable" />
+                        <label for="chkExtendable" class="css1-label">Yes, Contracts of this type can be extended.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkExtensionApproval" disabled="disabled" name="ExtensionApproval" class="css1-checkbox" type="checkbox" value="ExtensionApproval" />
+                        <label for="chkExtensionApproval" class="css1-label">Extensions requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Renewals</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Renewable" id="chkRenewable" class="css1-checkbox" value="Renewable" />
+                        <label for="chkRenewable" class="css1-label">Yes, Contracts of this type are renewable.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkRenewalApproval" disabled="disabled" name="RenewalApproval" class="css1-checkbox" type="checkbox" value="RenewalApproval" />
+                        <label for="chkRenewalApproval" class="css1-label">Renewals requires approvals.</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Amendments</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Amendable" id="chkAmendable" class="css1-checkbox" value="Amendable" />
+                        <label for="chkAmendable" class="css1-label">Yes, Contracts of this type can be amended.</label>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px dashed #808080;display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left:20px;">
+                        <input id="chkAmendmentApproval" disabled="disabled" name="AmendmentApproval" class="css1-checkbox" type="checkbox" value="AmendmentApproval" />
+                        <label for="chkAmendmentApproval" class="css1-label">Amendments requires approvals.</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="viewMetadataDetail" style="display:none;" class="padding_top_0">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+<div id="viewMetadataDetailForOwner" style="display:none;" class="padding_top_0">
+    <table id="tblMetadataDetailForOwner" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+<input id="hdNotificationID" value="" type="hidden" />
+<style>
+    #canvas .circle {
+        display: inline-block;
+        margin: 1em;
+    }
+
+    .circles-decimals {
+        font-size: .4em;
+    }
+
+    .ctdivLeft {
+        width: 45%;
+        float: left;
+    }
+
+    .ctdivRight {
+        width: 45%;
+        float: right;
+    }
+
+    .margin-topchart {
+        margin-top: -50px;
+    }
+
+    .half_circle {
+        line-height: 16px !important;
+        width: 60% !important;
+        margin: 105px 0px 0px 49px;
+    }
+
+    .small_circle {
+        line-height: 16px !important;
+        width: 100% !important;
+        margin: 58px 0px 0px 0px;
+    }
+
+    .removebottomline > li
+    {
+        border-bottom:none !important;
+    }
+</style>
+@section Scripts {
+
+
+
+    @*<script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/Charts/jquery.circliful.js"></script>*@
+    <script src="~/Scripts/fullcalendar.js" type="text/javascript"></script>
+
+    @Scripts.Render("~/IndexPage_JS")
+    @Scripts.Render("~/Scripts/Contract365/Home_Index.js?" + DateTime.Now.GetHashCode())
+    @*<script src="~/Scripts/jquery.window.min.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+
+
+        var urlContractDetails = '@Url.Action("ContractDetails", "Contracts", new { ContractID = "__param__" })';
+        $(document).ready(function () {
+            if ('@Session["UserName"]' != '' || '@Session["AccountID"]' != '') {
+                localStorage.UserName = decodeURI(unescape('@Session["UserName"]'));
+                localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+                localStorage.APIKey = '@Session["APIKey"]';
+                localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+                localStorage.UserTitle = '@Session["UserTitle"]';
+                localStorage.OEmail = decodeURI(unescape('@Session["OEmail"]'));
+                localStorage.UserID = '@Session["UserID"]';
+                localStorage.UserType = '@Session["UserType"]';
+            }
+
+
+
+            $('#dvDashboardSummary1').circliful();
+            $('#dvDashboardSummary2').circliful();
+            $('#dvDashboardSummary3').circliful();
+            $('#dvDashboardSummary4').circliful();
+            $('#dvDashboardSummary5').circliful();
+            //$('#myStathalf3').circliful();
+            //$('#myStathalf4').circliful();
+
+            // var startWithDataset =1;
+            // var startWithData =1;
+
+            // var doughnutData2 = [
+            //{
+            //    value: 300,
+            //    color:"#F7464A",
+            //    highlight: "#FF5A5E",
+            //    title: "Master Service Agreement <img src='/Content/Images/CM_nonstandard.png' />"
+            //},
+            //{
+            //    value: 320,
+            //    color:"#f97477",
+            //    highlight: "#FF5A5E",
+            //    title: "Master Service Agreement <img src='/Content/Images/CM_standard.png' />"
+            //},
+            //{
+            //    value: 80,
+            //    color: "#46BFBD",
+            //    highlight: "#5AD3D1",
+            //    title: "Non Disclosure Agreement <img src='/Content/Images/CM_nonstandard.png' />"
+            //},
+            //{
+            //    value: 50,
+            //    color: "#8bd7d6",
+            //    highlight: "#5AD3D1",
+            //    title: "Non Disclosure Agreement <img src='/Content/Images/CM_standard.png' />"
+            //},
+            //{
+            //    value: 100,
+            //    color: "#FDB45C",
+            //    highlight: "#FFC870",
+            //    title: "Consulting Agreement <img src='/Content/Images/CM_nonstandard.png' />"
+            //},
+            //{
+            //    value: 90,
+            //    color: "#fed099",
+            //    highlight: "#FFC870",
+            //    title: "Consulting Agreement <img src='/Content/Images/CM_standard.png' />"
+            //},
+            //{
+            //    value: 70,
+            //    color: "#949FB1",
+            //    highlight: "#A8B3C5",
+            //    title: "Statement of Work <img src='/Content/Images/CM_nonstandard.png' />"
+            //},
+            //{
+            //    value: 40,
+            //    color: "#cacfd8",
+            //    highlight: "#A8B3C5",
+            //    title: "Statement of Work <img src='/Content/Images/CM_standard.png' />"
+            //},
+            //{
+            //    value: 120,
+            //    color: "#7b68ee",
+            //    highlight: "#616774",
+            //    title: "General IT Service Agreement <img src='/Content/Images/CM_nonstandard.png' />"
+            //},
+            //{
+            //    value: 50,
+            //    color: "#ada1f4",
+            //    highlight: "#616774",
+            //    title: "General IT Service Agreement <img src='/Content/Images/CM_standard.png' />"
+            //}
+
+            // ];
+
+            // window.onload = function(){
+            //     var ctx = document.getElementById("chart-area").getContext("2d");
+            //     window.myDoughnut = new Chart(ctx).Doughnut(doughnutData2, {responsive : true,
+            //         animationStartWithDataset : startWithDataset,
+            //         animationStartWithData : startWithData,
+            //         animateRotate : true,
+            //         animateScale : false,
+            //         animationByData : "ByArc",
+            //         animationSteps : 50,
+            //         //canvasBorders : true,
+            //         //canvasBordersWidth : 3,
+            //         //canvasBordersColor : "black",
+            //         //graphTitle : "animateRotate=true - animateScale=false - animationByData='ByArc'",
+            //         inGraphDataVAlign: "top",
+            //         legend : false,
+            //         inGraphDataShow : true,
+            //         animationEasing: "linear",
+            //         annotateDisplay : true,
+            //         spaceBetweenBar : 5,
+            //         graphTitleFontSize: 18,
+            //         annotateLabel: "<%=(v1 == ''? '' : v1+': ')+ v2 %>",
+            //         percentageInnerCutout: 70,
+            //         inGraphDataTmpl: "<%=(v1 == ''? '' : v1.replace(\"<img src='/Content/Images/CM_standard.png' />\", \"\").replace(\"<img src='/Content/Images/CM_nonstandard.png' />\", \"*\")+': ')+ v2%>",
+            //     });
+            // };
+
+            var InitialSetupRequired = @Html.Raw(Json.Encode(ViewBag.InitialSetupRequired));
+
+            if(InitialSetupRequired != false)
+            {
+                BindDropdown();
+                BindPeople();
+                if ($('#txtOrganisationID').val() != "") {
+                    $.ajax({
+                        url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/organisations',
+                        type: 'GET',
+                        dataType: 'json',
+                        headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                        cache: false,
+                        success: function (legalentity) {
+                            $(legalentity).each(function (i, item) {
+                                $("#txtOrganisationID").val(item.RowKey);
+                                $("#txtCompanyName").val(item.OrganisationName);
+                                $("#ddlCountryOrg option").filter(function (index) { return $(this).text() === item.Country; }).prop('selected', true);
+                                $("#txtAddress1Org").val(item.AddressLine1);
+                                $("#txtAddress2Org").val(item.AddressLine2);
+                                $("#txtCityOrg").val(item.City);
+                                $("#txtStateOrg").val(item.State);
+                                $("#txtZipOrg").val(item.Zip);
+                                $("#txtKeyPeople").val(item.KeyPeople);
+
+                                $("#ddlTimeZone option").filter(function (index) { return $(this).val() === item.TimeZone; }).prop('selected', true);
+                                $("#ddlDateFormat option").filter(function (index) { return $(this).val() === item.DateFormat; }).prop('selected', true);
+
+                                $("#ddlTimeFormat option").filter(function (index) { return $(this).text() === item.TimeFormat; }).prop('selected', true);
+                                if (item.WorkWeek.indexOf("Monday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Monday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Tuesday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Tuesday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Wednesday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Wednesday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Thursday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Thursday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Friday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Friday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Saturday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Saturday"]').prop('checked', true);
+                                }
+                                if (item.WorkWeek.indexOf("Sunday") >= 0) {
+                                    $('input[name="WorkWeek"][value="Sunday"]').prop('checked', true);
+                                }
+                                $("#ddlFirstDay option").filter(function (index) { return $(this).text() === item.FirstDayofWeek; }).prop('selected', true);
+                                $("#ddlDefaultCurrency option").filter(function (index) { return $(this).text() === item.DefaultCurrency; }).prop('selected', true);
+
+                                //var accountOwners = $("#ddlAccountOwners").data("kendoMultiSelect");
+                                //if (accountOwners != null)
+                                //    accountOwners.value(getselectedusers(item.AccountOwners));
+
+                                //var contractAdministrators = $("#ddlContractAdministrators").data("kendoMultiSelect");
+                                //if (contractAdministrators != null)
+                                //    contractAdministrators.value(getselectedusers(item.ContractAdministrators));
+
+                                //var contractManagers = $("#ddlContractManagers").data("kendoMultiSelect");
+                                //if (contractManagers != null)
+                                //    contractManagers.value(getselectedusers(item.ContractManagers));
+
+                                //var businessManagers = $("#ddlBusinessManagers").data("kendoMultiSelect");
+                                //if (businessManagers != null)
+                                //    businessManagers.value(getselectedusers(item.BusinessManagers));
+
+                                GetValuesAndAutoPopulate("ddlAccountOwners",item.AccountOwners);
+
+                                GetValuesAndAutoPopulate("ddlContractAdministrators",item.ContractAdministrators);
+
+                                GetValuesAndAutoPopulate("ddlContractManagers",item.ContractManagers);
+
+                                GetValuesAndAutoPopulate("ddlBusinessManagers",item.BusinessManagers);
+                            });
+                        }
+                    });
+                }
+                getContractTypes();
+                getContractMetadata();
+            }
+
+        });
+
+        function getContractTypes(){
+            $("#contractTypes").empty();
+            $('#contractTypes').html('<img src="../Content/Images/icon/loading.gif">');
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/contracttypes',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                success: function (legalentity) {
+                    $("#contractTypes").empty();
+                    $(legalentity).each(function (i, item) {
+                        var article ='<tr id="row" style="border-bottom:1px dotted #eeeaea; font-size:12px;">';
+                        article +='<td align="center" style="vertical-align: top;" class="f_list">';
+                        article +='<b>'+item.ContractType+'</b>';
+                        article +=' </td>';
+                        article +=' <td align="center" style="vertical-align: top;" class="f_list">'+item.TransactionType+'';
+                        article +='</td>';
+                        article +='<td align="center" style="vertical-align: top;" class="f_list">'+item.ContractClass+'';
+                        article +='</td>';
+                        article +='</tr>';
+                        $("#contractTypes").append(article);
+                    });
+                }
+            });
+        }
+        function getContractMetadata(){
+            $("#contractMetadata").empty();
+            $('#contractMetadata').html('<img src="../Content/Images/icon/loading.gif"> ');
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/contractfields',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                success: function (legalentity) {
+                    $("#contractMetadata").empty();
+                    $(legalentity).each(function (i, item) {
+                        var article ='<tr id="row" style="border-bottom:1px dotted #eeeaea; font-size:12px;">';
+                        article +='<td align="center" style="vertical-align: top;" class="f_list">';
+                        article +='<b>'+item.FieldDisplayName+'</b>';
+                        article +=' </td>';
+                        article +=' <td align="center" style="vertical-align: top;" class="f_list">'+item.FieldType+'';
+                        article +='</td>';
+                        article +='<td align="center" style="vertical-align: top;" class="f_list">'+item.Required+'';
+                        article +='</td>';
+                        article +='</tr>';
+                        $("#contractMetadata").append(article);
+                    });
+                }
+            });
+        }
+        function cTrig() {
+            if ($("#chkDontShow").checked == false) {
+                return false;
+            } else {
+                swal({
+                    title: '',
+                    text: "Are you sure you want to do this?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                    html: true
+                },
+    function (confirmed) {
+        if (confirmed) {
+            SaveOrg();
+            $("#addEditInitialSetup").dialog("close");
+            return true;
+        }
+        else
+        {
+            $("#chkDontShow").checked = false;
+        }
+        return;
+    });
+                //var box = confirm("Are you sure you want to do this?");
+                //if (box == false) {
+                //$("#chkDontShow").checked = false;
+                //}
+                //else {
+                //SaveOrg();
+                //$("#addEditInitialSetup").dialog("close");
+                //return true;
+                //}
+            }
+        }
+        function getselectedusers(users) {
+            var usersarr = [];
+            var res = users.split(";");
+
+            for (var i = 0; i < res.length; i++) {
+                usersarr.push(res[i].trim());
+            }
+
+            return usersarr;
+        }
+
+        function BindPeople() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    var v = $(data).length;
+                    $(data).each(function (i, item) {
+                        var sRowKey = item.RowKey;
+                        var sUserName = item.UserName;
+                        var article = '<option value="' + sUserName + '">' + sUserName + '</option>';
+                        $("#ddlAccountOwners").append(article);
+                        $("#ddlContractManagers").append(article);
+                        $("#ddlContractAdministrators").append(article);
+                        $("#ddlBusinessManagers").append(article);
+                        $("#ddlForwardTo").append(article);
+                    });
+
+                    $("#ddlAccountOwners").chosen();
+                    $("#ddlContractManagers").chosen();
+                    $("#ddlContractAdministrators").chosen();
+                    $("#ddlBusinessManagers").chosen();
+                    $("#ddlForwardTo").chosen();
+
+                    $('.chosenmulti').on('chosen:showing_dropdown', function (evt, params) {
+                        $('.result-selected').css('display', 'none');
+                    });
+                },
+                error:
+                    function (data) {
+                    }
+            });
+        }
+
+        function modalOpenAddNewField(dialog) {
+
+            var strGroupName = "";
+            if ($("#ddlFieldGroup").find('option:selected').text() != "--Select--") {
+                strGroupName = $("#ddlFieldGroup").find('option:selected').text();
+            }
+
+            $.ajax({
+                url: '@Url.Action("SaveContractFieldAndMetadata", "Settings")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    RowKey: $("#ContractFieldIdHdn").val(),
+                    FieldName: $("#txtFieldName").val(),
+                    FieldType: $("#ddlFieldType").find('option:selected').text(),
+                    ChoiceValues: $("#txtChoicesValues").val(),
+                    FieldDisplayName: $("#txtFieldDisplayName").val(),
+                    Order: $("#ddlFieldOrder").find('option:selected').text(),
+                    FieldGroup: strGroupName,
+                    Required: $('#chkRequired').is(":checked"),
+                    Description: $("#txtDescription").val(),
+                    FieldHelp: $("#chkHelp").is(":checked"),
+                    HelpText: $("#txtHelpText").val(),
+                    DefaultField: $("#chkDefaultField").is(":checked"),
+                    ContractTypeID: $("#contractTypeID").text()
+                },
+                cache: false,
+                success: function (person) {
+                }
+            });
+        }
+
+        function changevalues(ddl) {
+            if (ddl.value == "Choice") {
+                $('#trchoicesvalues').css('visibility', 'visible');
+            } else {
+                $('#trchoicesvalues').css('visibility', 'hidden');
+            }
+        }
+
+        function SaveOrg() {
+            if ($("#txtComapnyName").val() == "") {
+                //alert("Enter Organisation Name.")
+                swal("", "Enter Organisation Name.");
+            }
+            else {
+
+                var values = "";
+                $.each($("input[name='WorkWeek']:checked"), function () {
+                    values += $(this).val()+','
+                });
+
+                var accountOwners = $("#ddlAccountOwners").val();
+                var ao = '';
+                $(accountOwners).each(function (i, item) {
+                    if (ao == '') {
+                        ao = item;
+                    }
+                    else {
+                        ao += "; " + item;
+                    }
+                });
+
+                var contractAdministrators = $("#ddlContractAdministrators").val();
+                var ca = '';
+                $(contractAdministrators).each(function (i, item) {
+                    if (ca == '') {
+                        ca = item;
+                    }
+                    else {
+                        ca += "; " + item;
+                    }
+                });
+
+                var contractManagers = $("#ddlContractManagers").val();
+                var cm = '';
+                $(contractManagers).each(function (i, item) {
+                    if (cm == '') {
+                        cm = item;
+                    }
+                    else {
+                        cm += "; " + item;
+                    }
+                });
+                var businessManagers = $("#ddlBusinessManagers").val();
+                var bm = '';
+                $(businessManagers).each(function (i, item) {
+                    if (bm == '') {
+                        bm = item;
+                    }
+                    else {
+                        bm += "; " + item;
+                    }
+                });
+                var showinitialsetup="";
+                if ($("#chkDontShow")[0].checked == true) {
+                    showinitialsetup="No"
+                } else {
+                    showinitialsetup = "Yes"
+                }
+                $.ajax({
+                    url: '@Url.Action("SaveOrganisation", "Settings")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        RowKey: $("#txtOrganisationID").val(),
+                        OrganisationName: $("#txtCompanyName").val(),
+                        Country: $("#ddlCountryOrg").find('option:selected').text(),
+                        Address1: $("#txtAddress1Org").val(),
+                        Address2: $("#txtAddress2Org").val(),
+                        City: $("#txtCityOrg").val(),
+                        State: $("#txtStateOrg").val(),
+                        ZipCode: $("#txtZipOrg").val(),
+                        TimeZone: $("#ddlTimeZone").find('option:selected').val(),
+                        DateFormat: $("#ddlDateFormat").find('option:selected').val(),
+                        TimeFormat: $("#ddlTimeFormat").find('option:selected').text(),
+                        WorkWeek: values,
+                        FirstDayofWeek: $("#ddlFirstDay").find('option:selected').text(),
+                        DefaultCurrency: $("#ddlDefaultCurrency").find('option:selected').text(),
+                        AccountOwners: ao,
+                        ContractAdministrators: ca,
+                        ContractManagers: cm,
+                        BusinessManagers: bm,
+                        ShowInitialSetup: showinitialsetup,
+                    },
+                    cache: false,
+                    success: function (person) {
+                        var obj = new Object();
+                        if($("#tabCompany")[0].className == "form-active")
+                        {
+                            obj.id = "tabUser";
+                            tabchange(obj);
+                        }else if($("#tabUser")[0].className == "form-active"){
+                            obj.id = "tabContractMetadata";
+                            tabchange(obj);
+                        }
+                        else if($("#tabContractMetadata")[0].className == "form-active"){
+                            obj.id = "tabContractTypes";
+                            tabchange(obj);
+                        }
+                    }
+                });
+            }
+        }
+        function previousClick(){
+            var obj = new Object();
+            if($("#tabUser")[0].className == "form-active"){
+                obj.id = "tabCompany";
+                tabchange(obj);
+            }
+            else if($("#tabContractMetadata")[0].className == "form-active"){
+                obj.id = "tabUser";
+                tabchange(obj);
+            }
+            else if($("#tabContractTypes")[0].className == "form-active"){
+                obj.id = "tabContractMetadata";
+                tabchange(obj);
+            }
+        }
+        function SaveContractTypes() {
+
+            if ($("#txtContractType").val() == "") {
+                // alert("Enter Contract Type.")
+                swal("", "Enter Contract Type.");
+            }
+            else if ($("#ddlTransactionType").find('option:selected').val() == "Select") {
+                // alert("Select Transaction Type.")
+                swal("", "Select Transaction Type.");
+            }
+            else if ($("#ddlContractClass").find('option:selected').val() == "Select") {
+                // alert("Select Contract Class.")
+                swal("", "Select Contract Class.");
+            }
+            else {
+                var vOrganisations = "";
+                $('input:checkbox[name="Organisations"]:checked').each(function () {
+                    if (vOrganisations == "") {
+                        vOrganisations = this.value;
+                    }
+                    else {
+                        vOrganisations += ", " + this.value;
+                    }
+                });
+                $.ajax({
+                    url: '@Url.Action("SaveContractType", "Settings")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        RowKey: $("#txtContractTypeID").val(),
+                        ContractType: $("#txtContractType").val(),
+                        TransactionType: $("#ddlTransactionType").find('option:selected').text(),
+                        ContractClass: $("#ddlContractClass").find('option:selected').text(),
+                        Description: $("#txtDescription").val(),
+                        Extendable: $("#chkExtendable").is(':checked') ? 'Yes' : 'No',
+                        ExtensionApproval: $("#chkExtensionApproval").is(':checked') ? 'Yes' : 'No',
+                        Renewable: $("#chkRenewable").is(':checked') ? 'Yes' : 'No',
+                        RenewalApproval: $("#chkRenewalApproval").is(':checked') ? 'Yes' : 'No',
+                        Amendable: 'Yes',
+                        AmendmentApproval:'Yes',
+                        Organisations: vOrganisations
+                    },
+                    cache: false,
+                    success: function (person) {
+
+                    }
+                });
+            }
+        }
+        function BindDropdown()
+        {
+            var timeZone = @Html.Raw(Json.Encode(ViewBag.TimeZone));
+
+            if(timeZone != null)
+            {
+                //$('#addEditInitialSetup').dialog({ maxHeight: 700 });
+                $("#addEditInitialSetup").dialog("option", "title", "Setup Wizard");
+                $("#addEditInitialSetup").dialog("open");
+
+                $("#ddlTimeZone").append('<option value=0 selected=true>--Select--</option>');
+                for (var i = 0; i < timeZone.length; i++) {
+                    $("#ddlTimeZone").append('<option value=' + timeZone[i].Value + '>' + timeZone[i].Text + '</option>');
+                }
+
+            }
+
+            var locale = @Html.Raw(Json.Encode(ViewBag.Locale));
+            if(locale != null){
+                $("#ddlDateFormat").append('<option value=0 selected=true>--Select--</option>');
+                for (var i = 0; i < locale.length; i++) {
+                    $("#ddlDateFormat").append('<option value=' + locale[i].Value + '>' + locale[i].Text + '</option>');
+                }
+            }
+
+            var country = @Html.Raw(Json.Encode(ViewBag.Country));
+            if(country != null)
+            {
+                $("#ddlCountryOrg").append('<option value=0 selected=true>--Select--</option>');
+                for (var i = 0; i <country.length; i++) {
+                    $("#ddlCountryOrg").append('<option value=' + country[i].Value + '>' + country[i].Text + '</option>');
+                }
+            }
+
+            var currency = @Html.Raw(Json.Encode(ViewBag.Currency));
+            if(currency != null){
+                $("#ddlDefaultCurrency").append('<option value=0 selected=true>--Select--</option>');
+                for (var i = 0; i <currency.length; i++) {
+                    $("#ddlDefaultCurrency").append('<option value=' + currency[i].Value + '>' + currency[i].Text + '</option>');
+                }
+            }
+        }
+
+        function AddMoreMetadata() {
+
+            $("#dialogAddField").dialog("option", "title", "New Field");
+            $("#dialogAddField").dialog("open");
+
+        }
+
+        function AddMoreContractTypes(){
+            $("#AddEditContractTypes").dialog("option", "title", "New Contract Type");
+            $("#AddEditContractTypes").dialog("open");
+        }
+
+        function tabchange(object) {
+            if (object.id == "tabCompany") {
+                $("#tabCompany").addClass('form-active');
+                $("#tabUser").removeClass('form-active');
+                $("#tabContractMetadata").removeClass('form-active');
+                $("#tabContractTypes").removeClass('form-active');
+
+                $("#tblCompanyProfile").css('display', '');
+                $("#tblUserandRoles").css('display', 'none');
+                $("#tblContractMetadata").css('display', 'none');
+                $("#tblContractTypes").css('display', 'none');
+
+                $("#btnPrevious").css('display', 'none');
+                $("#btnNext").css('display', '');
+                $("#btnFinish").css('display', 'none');
+
+            } else if(object.id == "tabUser") {
+                $("#tabUser").addClass('form-active');
+                $("#tabCompany").removeClass('form-active');
+                $("#tabContractMetadata").removeClass('form-active');
+                $("#tabContractTypes").removeClass('form-active');
+
+                $("#tblUserandRoles").css('display', '');
+                $("#tblCompanyProfile").css('display', 'none');
+                $("#tblContractMetadata").css('display', 'none');
+                $("#tblContractTypes").css('display', 'none');
+
+                $("#btnPrevious").css('display', '');
+                $("#btnNext").css('display', '');
+                $("#btnFinish").css('display', 'none');
+
+            } else if (object.id == "tabContractMetadata") {
+                $("#tabContractMetadata").addClass('form-active');
+                $("#tabCompany").removeClass('form-active');
+                $("#tabUser").removeClass('form-active');
+                $("#tabContractTypes").removeClass('form-active');
+
+                $("#tblContractMetadata").css('display', '');
+                $("#tblCompanyProfile").css('display', 'none');
+                $("#tblUserandRoles").css('display', 'none');
+                $("#tblContractTypes").css('display', 'none');
+
+                $("#btnPrevious").css('display', '');
+                $("#btnNext").css('display', '');
+                $("#btnFinish").css('display', 'none');
+            }
+            else if (object.id == "tabContractTypes") {
+                $("#tabContractTypes").addClass('form-active');
+                $("#tabContractMetadata").removeClass('form-active');
+                $("#tabCompany").removeClass('form-active');
+                $("#tabUser").removeClass('form-active');
+
+                $("#tblContractTypes").css('display', '');
+                $("#tblContractMetadata").css('display', 'none');
+                $("#tblCompanyProfile").css('display', 'none');
+                $("#tblUserandRoles").css('display', 'none');
+
+                $("#btnPrevious").css('display', '');
+                $("#btnNext").css('display', 'none');
+                $("#btnFinish").css('display', '');
+            }
+        }
+
+
+
+    </script>
+
+@*Added from 2.4final to 2.4*@
+<div id="viewMetadataUpForRenewal" style="display:none; border: 1px solid #6394c5;margin-right:20px;margin-left:20px;padding-left:20px;padding-right:20px">
+
+
+    <div class="col12 info-box ">
+        <div class="row-group"><div class="col10 no-pad"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvTermSummary', '', 'imgTermSummary');" style="color: #428bca;">Summary</a></div><div class="col2 text-right no-pad"><a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvTermSummary', '', 'imgTermSummary');"><img id="imgTermSummary" src="../Content/Images/e-close.png" title="Collapse"></a></div></div><div class="row-group pad-top">
+            <div class="col12">
+                <div style="width: 100%;font-size: 13px;" id="dvTermSummary">
+                    <table>
+                        <tbody id="tbodyTermSummary"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col12 info-box renewableTermDetails">
+        <div class="row-group"><div class="col10 no-pad"> <a title="Displays Primary and Pinned Document(s) associated with the Contract Record." href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvRenewHistory', '', 'imgRenewHistory');" style="color: #428bca;">Renewal History</a></div><div class="col2 text-right no-pad"><a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvRenewHistory', '', 'imgRenewHistory');"><img id="imgRenewHistory" src="../Content/Images/e-close.png" title="Collapse"></a></div></div><div class="row-group pad-top">
+            <div class="col12" style="padding: 0;">
+                <div style="width: 100%;display:none;" id="dvRenewHistory">
+                    <div id="page-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Term</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                    <th>Renewed On</th>
+                                    <th>Renewed By</th>
+                                    <th>Renewal Checklist</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="renewalViewHistoryNew"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col12 info-box">
+        <div class="row-group"><div class="col10 no-pad"> <a href="javascript:void(0);" class="link-head" onclick="javascript: togglediv('dvActivityComment', '', 'imgActivityComment');" style="color: #428bca;">Activities &amp; Comments</a></div><div class="col2 text-right no-pad"><a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('dvActivityComment', '', 'imgActivityComment');"><img id="imgActivityComment" src="../Content/Images/e-close.png" title="Collapse"></a></div></div><div class="row-group pad-top">
+            <div class="col12" style="padding: 0;">
+                <div style="width: 100%;display:none;" id="dvActivityComment">
+                    <ul class="toDoContenList" style="font-size: 13px;" id="ulActivityComment">
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="tblMetadataDetailtest" class="width100" cellpadding="1" cellspacing="1"></table>
+    @*<ul id="ulMetadataUpForRenewal"></ul>*@
+    <div id="dvAfterRenew" style="display:none"> <span id="spanAfterRenew" style="height: 20px;background: #F4EEB2; font-size:14px; display:none"></span></div>
+</div>
+<div id="dvActionButton1" style="display:none">
+    <div class="status-btn-body m12 col3 text-right m-off clearfix">
+        <div id="toDo_btn">
+            <span id="btnApprove" name="btnRenew1" class="toDoReviewed margin-right-5" style="padding: 8px 10px;color:#fff;float: left;margin-left: 69%;cursor: pointer;"><a href="#" onclick="checkAwaiting();"><small>Renew</small></a></span>
+            <span id="btnReject" name="btnExpireContract1" class="toDoReviewed toDoReject margin-right-5" style="padding: 8px 8px;color:#fff;float: right;cursor: pointer;"><a href="#" onclick="ExpireContract();"><small>Expire Contract</small></a> </span>
+        </div>
+    </div>
+</div>
+<div id="dvActionButton2" style="display:none">
+    <div class="status-btn-body m12 col3 text-right m-off clearfix">
+        <div id="toDo_btn">
+            <span id="btnApprove" name="btnAuthorise2" class="toDoReviewed margin-right-5" style="padding: 8px 10px;color:#fff;float: left;margin-left: 69%;cursor: pointer;"><a href="#" onclick="Authorize();"><small>Authorize</small></a></span>
+            <span id="btnReject" name="btbtnReject2" class="toDoReviewed toDoReject margin-right-5" style="padding: 8px 8px;color:#fff;float: right;cursor: pointer;"><a href="#" onclick="StopRenew();"><small>Stop, Renewal</small></a></span>
+        </div>
+    </div>
+</div>
+<div id="dvActionButton3" style="display:none">
+    <div class="status-btn-body m12 col3 text-right m-off clearfix">
+        <span id="btnReject" name="btnExpireContract3" class="toDoReviewed toDoReject margin-right-5" style="padding: 8px 8px;color:#fff;float: right;cursor: pointer;"><a href="#" onclick="ExpireContract();"><small>Expire Contract</small></a></span>
+    </div>
+</div>
+<div id="dvActionButton4" style="display:none">
+    <div class="status-btn-body m12 col3 text-right m-off clearfix">
+        <span id="btnApprove" name="btnAuthorise4" class="toDoReviewed margin-right-5" style="padding: 8px 10px;color:#fff;float: left;margin-left: 69%;cursor: pointer;"><a href="#" onclick="Authorize();"><small>Authorize</small></a> </span>'
+        <span id="btnApprove" name="btbtnReject4" class="toDoReviewed margin-right-5" style="padding: 8px 8px;color:#fff;float: right;cursor: pointer;"><a href="#" onclick="StopRenew();"><small>Stop, Renewal</small></a></span>
+    </div>
+</div>
+<div id="dvActionButton5" style="display:none">
+    <div class="status-btn-body m12 col3 text-right m-off clearfix">
+        <span id="btnApprove" name="btnRenew5" class="toDoReviewed margin-right-5" style="padding: 8px 10px;color:#fff;float: left;margin-left: 69%;cursor: pointer;"><a href="#" onclick="checkAwaiting();"><small>Renew</small></a></span>
+    </div>
+</div>
+
+<div id="viewExtraCounterparty" style="display:none; border: 1px solid #6394c5;margin-right:20px;margin-left:20px;padding-left:20px;padding-right:20px">
+
+    <ul id="ulExtraCounterparty"></ul>
+</div>
+    <div id="browseAwaitingAuthorisation" style="display:none;overflow-y: auto;border: 1px solid #6394c5;margin-right: 10px; margin-left: 10px; padding-left: 15px; padding-right: 15px; width: auto">
+    <div>
+        <div style='color:#000000'>This Contract Term is awaiting authorization on following user(s)</div>
+        <ul id="AwaitingAuthorisationUL"></ul>
+    </div>
+</div>
+    <div id="dialogSummary" title="Contract Summary" class="pop_up" style="display:none">
+
+        <div class="pop_up_Content MetadataDetailDocument" style="height:350px;width:100%;">
+            <ul class="pop_up_Harizondal">
+                <li><a href="#" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+                <li><a href="#" id="Details" onclick="MetadataDetails();">Details</a></li>
+                <li style="float: right;">
+                    @*<a href="#" id="DetailsContractRecLink" class="" style="color: #44A6D8;text-decoration: underline !important"><img src="/Content/Images/icon/contracts.png" style="float: left;padding-right: 4px !important;">View Contract Record</a>*@
+                </li>
+            </ul>
+            <div style="height:314px;overflow-y:auto;">
+                <table id="tblSummary" class="width100 marginbottom12px " border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="f_head">Contract Record Title</td>
+                        <td class="labelleft" id="tdSumContractTitle"></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Contract Record Number</td>
+                        <td class="labelleft" id="tdSumContractNumber"></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Contract Record Type</td>
+                        <td class="labelleft" id="tdSumContractType"></td>
+                    </tr>
+                    <tbody id="tblSummaryMetadata"></tbody>
+                </table>
+                <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+}

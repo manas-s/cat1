@@ -1,0 +1,298 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateDocument</title>    
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/econtractscss")
+    @Scripts.Render("~/bundles/econtracts")
+                @Styles.Render("~/Content/econtractscss")
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.12.1.js"></script>
+        <link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/contracts365Dev.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    
+    <script>
+        var vApiKey = "";
+        var vAccountID = "";
+        var vCounterparty = "";
+        var vContactName = "";
+        var vOpportunityId = "";
+        $(function () {
+
+            vAccountID = getParameterByName("AccountKey");
+            vCounterparty = getParameterByName("AccountName");
+            vContactName = getParameterByName("ContactName");
+            vOpportunityId = getParameterByName("OpportunityId");
+            vApiKey = getAPIKey(vAccountID);
+            
+            BindTemplate();
+            BindDocumentTypes();
+        });
+
+        function BindTemplate()
+        {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + vAccountID + '/templatedocuments',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': vApiKey },
+                cache: false,
+                success: function (templates) {
+                    var datalenght = templates.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = templates[i];
+
+                        $("#ddlDocumentTemplate").append("<option value='" + item.TemplateName + "~" + item.DocumentType + "'>" + item.TemplateName + "</option>");
+                    }
+                }
+            });
+        }
+
+        function BindDocumentTypes()
+        {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + vAccountID + '/documenttypes',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': vApiKey },
+                cache: false,
+                success: function (documenttypes) {
+                    var datalenght = documenttypes.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = documenttypes[i];
+
+                        $("#ddlDocumentType").append("<option value='" + item.TypeName + "'>" + item.TypeName + "</option>")
+                    }
+                    $("#ddlDocumentType").val("0");//$("#ddlDocumentType").find('option[value="Primary Agreement"]').attr("selected", true);
+                },
+                error:
+                    function (data) {
+                    }
+            });
+        }
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        function getAPIKey(AccountID) {
+            var aKey = "";
+            $.ajax({
+                url: '/Accounts/getAccountDetails?accountid=' + AccountID,
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                async: false,
+                error: function () {
+
+                },
+                success: function (data) {
+                    aKey = data.ApiKey;
+                }
+            });
+
+            return aKey;
+        }
+
+        function onchangetemplate(ddlDocumentTemplate) {
+            
+            if (ddlDocumentTemplate.value != "0") {
+                var vTemplate = ddlDocumentTemplate.value.split('~');
+                getContentControlsFromTemplate(vTemplate[0], 'tblContentControls');
+                if (vTemplate[1] != '') {
+                    $("#ddlDocumentTemplate option").filter(function (index) { return $(this).text() === vTemplate[1] }).prop('selected', true);
+                }
+
+            } else {
+                $('#tblContentControls').empty();
+            }
+
+        }
+
+        function getContentControlsFromTemplate(templatename, tblCtrl) {
+            $("#loadingPage").fadeIn();
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + vAccountID + '/documents/template?templatename=' + templatename,
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': vApiKey },
+                success: function (contractfields) {
+                    $("#" + tblCtrl).empty();
+                    $("#tdContentControls").css('display', '');
+                    var datalenght = contractfields.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = contractfields[i];
+                        var vUserList = '';
+                      
+                            var vControls = '<li>';
+                            var vDate = "";
+                           
+                            vControls += '<p><b>' + item.FieldDisplayName;
+                            vControls += '</b>';
+                            vControls += '</p><div>';
+                            if (item.FieldType == "Multi Line Text") {
+                                vControls += "<textarea name=" + item.FieldName + " id=" + item.FieldName + " cols='40' rows='3' class='f_inpt width90'></textarea>";
+                            }
+                            else if (item.FieldType == "Date") {
+                                vControls += "<input type='text' id=" + item.FieldName + " name=" + item.FieldName + " class='f_date width90 validdate'/>";
+                                vDate = item.FieldName;
+                            }
+                            else {
+                                
+                                if (item.FieldName == "Counterparty") {
+                                    vControls += "<input type='text' id=" + item.FieldName + " name=" + item.FieldName + " value='" + vCounterparty + "' class='f_inpt width90' />";
+                                }
+                                else if (item.FieldName == "CounterpartyContact") {
+                                    vControls += "<input type='text' id=" + item.FieldName + " name=" + item.FieldName + " value='" + vContactName + "' class='f_inpt width90' />";
+                                }
+                                else {
+                                    vControls += "<input type='text' id=" + item.FieldName + " name=" + item.FieldName + " class='f_inpt width90' />";
+                                }
+                            }
+                            vControls += '</div></li>';
+                            $("#" + tblCtrl).append(vControls);
+                            
+                            if (vDate != "") {
+                                $("#" + vDate + "").datepicker({
+                                    changeMonth: true,
+                                    changeYear: true
+                                });
+                                vDate = "";
+                            }
+                            
+                        }
+
+                    $("#loadingPage").fadeOut();
+                    
+                },
+                error:
+                    function (contractfields) {
+                        $('#tblContentControls').empty();
+                        $("#loadingPage").fadeOut();
+                    }
+            });
+        }
+
+        function newDocument() {
+           
+            if (requiredValidator('NewDocument')) {
+                $("#loadingPage").fadeIn();
+                var tblContentControls = $("#formtblContentControls *").serializeArray();
+                var formData = new FormData();
+
+                formData.append("TenantID", vAccountID);
+                formData.append("DocumentType", $("#ddlDocumentType").val());
+                formData.append("TemplateName", $("#ddlDocumentTemplate").find('option:selected').text());
+                formData.append("DocumentName", $("#txtDocumentName").val()); 
+                formData.append("Description", $("#txtDescription").val());
+                formData.append("OpportunityId", vOpportunityId);
+
+                if (tblContentControls != null) {
+                    var tblContentControlslength = tblContentControls.length;
+                    for (var i = 0; i < tblContentControlslength; i++)
+                        formData.append(tblContentControls[i].name, tblContentControls[i].value);
+                }
+                $.ajax({
+                    url: vApiBaseSiteUrl +'/api/accounts/' + vAccountID + '/documents/template',
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    headers: { 'eContracts-ApiKey': vApiKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                    processData: false,
+                    success: function (person) {
+                        //alert('​​New document generation from template in progress. Please check in a few minutes.');
+                        swal("", "New document generation from template in progress. Please check in a few minutes.");
+                        $("#loadingPage").fadeOut();
+                    },
+                    error: function (person) {
+                        $("#loadingPage").fadeOut();
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <table id="NewDocument" width="100%">
+        <tr>
+            <td colspan="2" class="pop_up_Content_Right poPup_Form" style="width:100% !important;">
+                <h1 id="formTitle">Create Document</h1>
+                <ul class="poPup_Form_Field">
+                    <li>
+                        <p><b>Select Template</b></p>
+                        <div>
+                            <select id="ddlDocumentTemplate" title="Document Template" class="validelement width90" onchange="onchangetemplate(this);">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Document Name</b></p>
+                        <div>
+                            <input id="txtDocumentName" name="DocumentName" title="Document Name" type="text" class="validelement width90 specialchar" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Document Type</b></p>
+                        <div>
+                            <select id="ddlDocumentType" title="Document Type" class="width90 validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Description</b></p>
+                        <div>
+                            <textarea id="txtDescription" rows="4" name="Description" title="Description" class="width90"></textarea>
+                        </div>
+                    </li>
+                </ul>
+
+                <span id="spInProgress" style="display:none; padding-left:30%;">
+                    <img src="../Content/Images/loading.gif" /> 
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td id="tdContentControls" colspan="2" class="pop_up_Content_Right poPup_Form" style="width:100% !important;display:none;">
+                <h1 id="formTitle">Template Metadata</h1>
+                <div id="formtblContentControls" class="clear_both width100">
+                    <ul id="tblContentControls" class="poPup_Form_Field"></ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="pop_up_Content_Right poPup_Form" style="width:100% !important;">
+                <div>
+                    <a href="javascript:void(0);" id="btnCreate" class="pop_up_Content_Green" onclick="newDocument();">Create</a>
+                    <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_Green pop_up_Content_White" onclick="window.close()">Cancel</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+</body>
+</html>

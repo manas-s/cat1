@@ -1,0 +1,912 @@
+﻿@model Corevo.eContracts365.TableEntities.CounterpartyEntity
+@{
+    ViewBag.Title = "CounterpartyDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+
+
+
+@*<section class="contractHead">
+        <a href="javascript:void(0);" id="backButton" title="Back" onclick="BackToList();">
+            <img src="/Content/Images/arrow-goback.png" /><small>Go Back</small>
+        </a>
+        <div>
+            <a href="javascript:void(0);" id="editCPindetails" style="margin-left:270px !important;" class="margin-left-200 pad-left-6px group-wit-btn" onclick="EditCounterparty();">Edit</a>
+
+            <div class="status-btn-body m12 col3 text-right m-off"></div>
+
+            <span id="lblCounterpartyStatus" style="padding: 5px 10px; float:right;" title="Counterparty Status"></span>
+
+        </div>
+    </section>*@
+
+<div class="content-wraper">
+    <div class="content-wraper-in">
+        <div class="contract-info-body">
+            <section class="top-action-info">
+                <div class="row-group">
+                    <div class="action-content m12 col9">
+                        <div class="col2 m4 no-pad manage_term-Tab">
+                            <a href="javascript:void(0);" id="backButton" class="back-btn" onclick="BackToList();"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>
+
+                        </div>
+                        <div class="m-status-btn m-on text-right m12"></div>
+                        <div class="col-10 m12 no-pad text-right">
+                            <div class="refr-Butt" style="float: right;">
+                                <a href="javascript:void(0);" title="Edit" id="editCPindetails" class="wit-btn openmenuContractSettings" onclick="EditCounterparty();">Edit</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="status-btn-body m12 col3 text-right m-off">
+                        <div>
+                            <span id="lblCounterpartyStatus" title="Counterparty Status"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+            <section class="content-body">
+                <div class="content-body-left">
+                    <div class="row-group">
+                        <div class="col12">
+                            <div class="contract_Left" style=" width:100%;">
+                                <div class="agreement">
+                                    <div class="agreement1">
+                                        <div class="agreementLeft">
+                                            <b><span id="lblCounterpartyName" title="Counterparty Name"></span></b>
+                                            <i>@*<span id="lblCounterpartyStatus" title="Counterparty Status"></span>|*@    <span id="lblCounterpartyType" title="Counterparty Type"></span>&nbsp;|&nbsp;<span id="lblCounterpartyGlobal" title="Global or Regional"></span></i>
+                                        </div>
+                                        <div class="agreementRight">
+                                            @*<ul>
+                                                    <li><a href="javascript:void(0)" class="openmenuDetails"><img src="/Content/Images/dropmenu-cont.png" alt="Counterparty Actions" title="Contract Record Actions" /></a></li>
+                                                </ul>*@
+                                        </div>
+                                    </div>
+
+                                    <label style="display:none;" id="hdnCounterpartyID"></label>
+                                    <label style="display:none;" id="hdnCounterpartyName"></label>
+
+                                </div>
+
+                                <div class="documents">
+                                    <div class="documents-1">
+                                        <div class="documents-Head">
+                                            <span class="documentsLeft">
+                                                <img src="/Content/Images/icon/contacts.png" />
+                                                <b title="Displays the Contacts linked with the Counterparty.">Contacts<span id="lblContactCount"></span></b>
+                                                <a href="javascript:void(0);" class="contributeCounterparty" id="btnAddCounterpartyContacts" onclick="javascript: addContact();"><img src="/Content/Images/plus_green.png" />New</a>
+                                            </span>
+                                            <span class="documentsRight">
+                                                @*<a href="javascript:void(0);" onclick="javascript: togglediv('listContacts', 'paginationContact', 'ImgContacts');">
+                                                        <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgContacts" />
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="add-btn close1 Contribute" id="btnAddContractDocument" style="display:none;"><img src="/Content/Images/add-icon.png">Add</a>
+                                                    <label class="details-label Contribute" id="lblAddContractDocument" style="display:none;">or Drag & Drop documents here &#x25BC;</label>*@
+                                            </span>
+
+                                            <ul id="contactInline" class="inline_add" style="display:none;">
+                                                <li>
+                                                    <input type="text" id="txtCounterpartyContactInline" maxlength="70" placeholder="Counterparty Contact Name" class="f_inpt validelement" style="width:200px; margin-top:10px;" />
+                                                    <span class="button-green" id="btnAddCounterpartyContactInline"> <a href="javascript:void(0)"><img src="../Content/Images/menu-icon.png" class="img-padd" />Add</a></span>
+                                                    <span class="button-grey" id="btnAddCounterpartyContact"> <a href="javascript:void(0)">Add More</a></span>
+                                                    <span class="button-blue" onclick="javascript: addContact();"> <a href="javascript:void(0)">Cancel</a></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                                            <ul id="listContacts"></ul>
+                                        </div>
+                                    </div>
+                                    <div id="paginationContact" class="pagination-holder clearfix margin-left-m20">
+                                        <article id="compact-pagination"></article>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="documents ">
+                                    <div class="documents-1">
+                                        <div class="documents-Head">
+                                            <span class="documentsLeft">
+                                                <img src="/Content/Images/icon/contracts.png" />
+                                                <b title="Displays the Contract Records linked with the Counterparty.">Contract Records</b>
+                                            </span>
+                                            <span class="documentsRight">
+                                                <a href="javascript:void(0);" onclick="javascript: togglediv('listContracts', 'paginationCon', 'ImgContracts');">
+                                                    <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgContracts" />
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                                            <ul id="listContracts"></ul>
+                                        </div>
+                                    </div>
+
+                                    <div id="paginationCon" class="pagination-holder clearfix margin-left-m20">
+                                        <article id="compact-pagination2"></article>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="documents ">
+                                    <div class="documents-1">
+                                        <div class="documents-Head">
+                                            <span class="documentsLeft">
+                                                <img src="/Content/Images/documents.png" />
+                                                <b title="Displays the Documents linked with the Counterparty.">Documents</b>
+                                            </span>
+                                            <span class="documentsRight">
+                                                <a href="javascript:void(0);" onclick="javascript: togglediv('listDocuments', 'paginationDoc', 'ImgDocuments');">
+                                                    <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgDocuments" />
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                                            <ul id="listDocuments"></ul>
+                                        </div>
+                                    </div>
+
+                                    <div id="paginationDoc" class="pagination-holder clearfix margin-left-m20">
+                                        <article id="compact-paginationDoc"></article>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-body-right">
+                    <div class="row-group">
+                        <div class="col12">
+                            <div class="row-group left-pan-box">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col13 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Summary of major details of the Counterparty record."> <img src="/Content/Images/Contract_detail.png"> Counterparty Metadata</h3>
+                                        </div>
+                                        <div class="col14 no-pad">
+                                            <!---manoj-->
+                                            <div class="wreqmessage creqmessage toolRequestmetadata  clearfix clpendingaction" style="display:none;">
+                                                @*<img src="/Content/Images/icon/warning-icon.png" alt="">*@
+                                                <table id="tblRequiredMissing" style="margin-top: -31%;margin-left: 207px;"></table>
+                                                @*<a href="javascript:void(0);" class="close1" onclick="GetRequestPendingAction(true, 'Required')" title="View All"><img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>*@
+                                            </div>
+                                            <!---manoj-->
+                                        </div>
+                                        <div class="col15 no-pad text-right">
+                                            <span style="float: right; margin-top: 3px;">
+                                                <a href="javascript:void(0);" title="Edit" class="close1 Contribute contributeCounterparty" onclick="EditCounterparty();"> <img src="/Content/Images/edit.png"></a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+                                            <!---manoj-->
+                                            @*<div class="warning-msg clearfix clpendingaction" style="display:none">
+                                                    <img src="/Content/Images/icon/warning-icon.png" alt="">
+
+                                                     <a href="javascript:void(0);" class="close1" onclick="EditCounterparty()" title="View All"><img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>
+                                                </div>*@
+                                            @*<div class="wreqmessage toolRequestmetadata clearfix clpendingaction" style="display:none">
+                                                    <table id="tblRequiredMissing"></table>
+                                                </div>*@
+                                            <!---manoj-->
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody id="Counterpartymatadata"></tbody>
+                                            </table>
+                                            @*<ul id="Counterpartymatadata" class="doc-contUl "></ul>*@
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-group left-pan-box">
+                                    <div class="col12 no-pad">
+                                        <div class="row-group">
+                                            <div class="col9 no-pad">
+                                                <h3 title="Shows list of Counterparties linked with this Counterparty." class="left-pan-box-heading">
+                                                    <img src="/Content/Images/related-contracts.png" /> Related Counterparties
+                                                </h3>
+                                            </div>
+                                            <div class="col3 no-pad text-right">
+                                                <span style="float: right; margin-top: 3px;">
+                                                    <a style="color: transparent;" title="Edit" href="javascript:void(0);" class="close1 Manage contributeCounterparty" onclick="AddRelatedCounterparties();"> <img src="/Content/Images/edit.png"></a>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-group pad-top">
+                                            <div class="col12 no-pad">
+                                                <p class="content-text clr999" id="ulRelatedCounterparties"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@*<section class="wraper">
+
+        <section class="box2">
+            <div class="contract_Left">
+                <div class="agreement">
+                    <div class="agreement1">
+                        <div class="agreementLeft">
+                            <b><span id="lblCounterpartyName" title="Counterparty Name"></span></b>
+                            <i>
+                             <span id="lblCounterpartyType" title="Counterparty Type"></span>
+                        </i>
+                    </div>
+                    <div class="agreementRight">
+
+                    </div>
+                </div>
+
+                <label style="display:none;" id="hdnCounterpartyID"></label>
+                <label style="display:none;" id="hdnCounterpartyName"></label>
+
+            </div>
+
+            <div class="documents">
+                <div class="documents-1">
+                    <div class="documents-Head">
+                        <span class="documentsLeft">
+                            <img src="/Content/Images/icon/contacts.png" />
+                            <b>Contacts<span id="lblContactCount"></span></b>
+                            <a href="javascript:void(0);" class="contributeCounterparty" id="btnAddCounterpartyContacts"
+                               onclick="javascript: addContact();"><img src="/Content/Images/plus_green.png" />New</a>
+                        </span>
+                        <span class="documentsRight">
+                            <a href="javascript:void(0);" onclick="javascript: togglediv('listContacts', 'paginationContact',
+
+    'ImgContacts');">
+                                <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgContacts" />
+                            </a>
+                            <a href="javascript:void(0);" class="add-btn close1 Contribute" id="btnAddContractDocument"
+                               style="display:none;"><img src="/Content/Images/add-icon.png">Add</a>
+                            <label class="details-label Contribute" id="lblAddContractDocument" style="display:none;">
+                                or Drag
+
+                                & Drop documents here &#x25BC;
+                            </label>
+                        </span>
+
+                        <ul id="contactInline" class="inline_add" style="display:none;">
+                            <li>
+                                <input type="text" id="txtCounterpartyContactInline" maxlength="70" placeholder="Counterparty
+
+    Contact Name" class="f_inpt validelement" style="width:200px; margin-top:10px;" />
+                                <span class="button-green" id="btnAddCounterpartyContactInline">
+                                    <a href="javascript:void
+
+    (0)"><img src="../Content/Images/menu-icon.png" class="img-padd" />Add</a>
+                                </span>
+                                <span class="button-grey" id="btnAddCounterpartyContact">
+                                    <a href="javascript:void(0)">
+                                        Add
+
+                                        More
+                                    </a>
+                                </span>
+                                <span class="button-blue" onclick="javascript: addContact();">
+                                    <a href="javascript:void
+
+    (0)">Cancel</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                        <ul id="listContacts"></ul>
+                    </div>
+                </div>
+                <div id="paginationContact" class="pagination-holder clearfix margin-left-m20">
+                    <article id="compact-pagination"></article>
+                </div>
+
+            </div>
+
+
+            <div class="documents ">
+                <div class="documents-1">
+                    <div class="documents-Head">
+                        <span class="documentsLeft">
+                            <img src="/Content/Images/icon/contracts.png" />
+                            <b>Contracts</b>
+                        </span>
+                        <span class="documentsRight">
+                            <a href="javascript:void(0);" onclick="javascript: togglediv('listContracts', 'paginationCon',
+
+    'ImgContracts');">
+                                <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgContracts" />
+                            </a>
+                        </span>
+                    </div>
+                    <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                        <ul id="listContracts"></ul>
+                    </div>
+                </div>
+
+                <div id="paginationCon" class="pagination-holder clearfix margin-left-m20">
+                    <article id="compact-pagination2"></article>
+                </div>
+
+            </div>
+
+
+            <div class="documents ">
+                <div class="documents-1">
+                    <div class="documents-Head">
+                        <span class="documentsLeft">
+                            <img src="/Content/Images/documents.png" />
+                            <b>Documents</b>
+                        </span>
+                        <span class="documentsRight">
+                            <a href="javascript:void(0);" onclick="javascript: togglediv('listDocuments', 'paginationDoc',
+
+    'ImgDocuments');">
+                                <img src="/Content/Images/dp-dup.png" title="Collapse" id="ImgDocuments" />
+                            </a>
+                        </span>
+                    </div>
+                    <div class="alertbox_status alertbox_status_Contss alertbox_status_counterp">
+                        <ul id="listDocuments"></ul>
+                    </div>
+                </div>
+
+                <div id="paginationDoc" class="pagination-holder clearfix margin-left-m20">
+                    <article id="compact-paginationDoc"></article>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="box2_Right-new">
+            <div class="row-group left-pan-box">
+                <div class="col12 no-pad">
+
+
+                    <div class="row-group">
+                        <div class="col9 no-pad">
+                            <h3 class="left-pan-box-heading">
+                                <img src="/Content/Images/Contract_detail.png">Counterparty Metadata
+
+                            </h3>
+                        </div>
+                        <div class="col3 no-pad text-right">
+                            <span style="float: right; margin-top: 3px;">
+                                <a href="javascript:void(0);" class="close1 Contribute contributeCounterparty"
+                                   onclick="EditCounterparty();"><img src="/Content/Images/edit.png"></a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row-group pad-top">
+                        <div class="col12 no-pad">
+                            <ul id="Counterpartymatadata" class="doc-contUl "></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-group left-pan-box">
+                <div class="col12 no-pad">
+
+
+                    <div class="row-group">
+                        <div class="col9 no-pad">
+                            <h3 class="left-pan-box-heading">
+                                <img src="/Content/Images/related-contracts.png" />Related Counterparties
+                            </h3>
+                        </div>
+                        <div class="col3 no-pad text-right">
+                            <span style="float: right; margin-top: 3px;">
+                                <a style="color: transparent;" href="javascript:void(0);" class="close1 Manage
+
+    contributeCounterparty" onclick="AddRelatedCounterparties();"><img src="/Content/Images/edit.png"></a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row-group pad-top">
+                        <div class="col12 no-pad">
+                            <p class="content-text clr999" id="ulRelatedCounterparties"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    </section>*@
+
+<ul id="myMenu" class="contextMenu manageCounterpartyMenu contributeCounterparty">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="myMenuContract" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator"></li>
+    <li class="share"><a href="#share">Share Contract Record</a></li>
+    <li class="review"><a href="#review">Send for Review</a></li>
+    <li class="approve"><a href="#approve">Send for Approval</a></li>
+    <li class="separator"></li>
+    <li class="cmalerts"><a href="#alerts">View Alerts</a></li>
+    <li class="status"><a href="#status">Change Status</a></li>
+    <li class="people"><a href="#people">People & Permissions</a></li>
+    <li class="separator"></li>
+    @*<li class="template"><a href="#template">Save as Template</a></li>*@
+    <li class="duplicate"><a href="#duplicate">Duplicate Record</a></li>
+    <li class="delete"><a href="#delete">Delete Contract Record</a></li>
+</ul>
+
+<div id="addEditCounterparty" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <div id="counterpartyForm" class="width100">
+                <ul class="poPup_Form_Field pop-up-space" id="counterpartyItems">
+                    <li>
+                        <p></p>
+                        <div>
+                            <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Counterparty Name</b><small>*</small></p>
+                        <div>
+                            <input id="txtCounterpartyName" name="CounterpartyName" maxlength="70" type="text" title="Counterparty Name" onchange="ReplaceSpecialCharacters(this);" class="validelement validtitle" />
+                        </div>
+                    </li>
+                    <li id="trcp-type">
+                        <p><b>Counterparty Type</b><small>*</small></p><div>
+                            <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li id="trcp-gbl">
+                        <p><b>Global or Regional</b><small>*</small></p><div>
+                            <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                        </div>
+                    </li>
+                    <li id="trcp-RgBusi" style="display:none">
+                        <p><b>Business Area</b><small>*</small></p><div>
+                            <input type="hidden" id="hdnOwnerofBusinessArea" /><input type="hidden" id="hdnLocOwnerofBusinessArea" /><input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="">
+                            <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Status</b><small>*</small></p><div>
+                            <select id="ddlStatus" name="Status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---manoj--->
+<div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div class="bg-warning">
+            <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+        </article>
+        <div>
+            <label>Relationship Type</label>
+            <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                <option value="0">--Select--</option>
+                <option value="Parent">Parent - Subsidiary</option>
+                <option value="Supplier">Supplier - Customer</option>
+                <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                <option value="Other">Other</option>
+            </select>
+            <div>
+                <div>
+                    <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                    <select id="ddlRelationshipTypeParentcounterparties" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <div id="page-wrap" class="f_list">
+                <table id="tblPopupCounterparties"></table>
+            </div>
+        </div>
+        <div id="loadCounterparties"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liRelatedCounterparties">
+            </div>
+            <div id="liSelectedCounterparties">
+            </div>
+        </div>
+    </div>
+</div>
+<!---manoj--->
+@*<div id="addEditCounterparty" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div id="addNewEntityFields">
+
+                <ul class="poPup_Form_Field">
+
+                    <li>
+                        <p></p>
+                        <div>
+                            <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                        </div>
+                    </li>
+
+                    <li>
+                        <p><b>Counterparty Name</b><small>*</small></p>
+                        <div>
+                            <input id="txtCounterpartyName" name="CounterpartyName" type="text" title="Counterparty Name" class="validelement" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-type">
+                        <p><b>Counterparty Type</b><small>*</small></p><div>
+                            <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+
+                    <li id="trcp-add1">
+                        <p><b>Address</b></p>
+                        <div>
+                            <input id="txtAddressLine1" name="AddressLine1" type="text" />
+                        </div>
+                    </li>
+                    <li id="trcp-add2">
+                        <p><b></b></p>
+                        <div>
+                            <input id="txtAddressLine2" name="AddressLine2" type="text" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-city">
+                        <p><b>City</b></p>
+                        <div>
+                            <input id="txtCity" name="City" type="text" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-state">
+                        <p><b>State</b></p>
+                        <div>
+                            <input id="txtState" name="State" type="text" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-country">
+                        <p><b>Country</b></p><div>
+                            <select id="ddlCountry" name="Country">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+
+                    <li id="trcp-zip">
+                        <p><b>Zip/Postal Code</b></p>
+                        <div>
+                            <input id="txtZip" name="Zip" type="text" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-cnumb">
+                        <p><b>Contact Number</b></p>
+                        <div>
+                            <input id="txtContactNo" name="ContactNo" type="text" title="Contact Number" />
+                        </div>
+                    </li>
+
+                    <li id="trcp-email">
+                        <p><b>Email ID</b><img src="/Content/Images/input-help.png" /></p>
+                        <div>
+                            <input id="txtEmailID" name="EmailID" type="text" title="Email ID" class="validemail" />
+                        </div>
+                    </li>
+
+                    <li>
+                        <p><b>Status</b></p><div>
+                            <select id="ddlStatus" name="Status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>*@
+
+<div id="addEditContact" style="display:none;">
+    <div id="dvPopupHeadingContact" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewContactFields">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContactID" name="ContactID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Counterparty</td>
+                    <td class="labelright">
+                        <span id="spnCounterpartyName" title="Counterparty Name" class="title"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Internal or External<small style="color: red;display: inline;">*</small></td>
+                    <td class="labelright">
+                        <input type="radio" checked style="width: 10% !important;height: 13px !important;float: none !important;" name="InternalOrExternal" value="External">External<input type="radio" style="width: 10%;height: 13px !important;float: none !important;" name="InternalOrExternal" value="Internal">Internal
+                    </td>
+                </tr>
+                <tr class="InContact" id="InternalUser" style="display:none;">
+                    <td class="f_head">Internal User<small style="color: red;display: inline;">&nbsp;*</small></td>
+                    <td class="labelright">
+                        <select id="ddlInternalUser"></select>
+                    </td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Contact Name<small style="color:red;">*</small></td>
+                    <td class="labelright"><input id="txtContactName" name="ContactName" title="Contract Name" maxlength="70" type="text" class="f_inpt width90 validelement" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Role</td>
+                    <td class="labelright"><input id="txtRole" name="Role" title="Role" maxlength="50" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Address</td>
+                    <td class="labelright"><input id="txtAddressLine1C" name="AddressLine1" maxlength="300" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td>&nbsp;</td>
+                    <td class="labelright"><input id="txtAddressLine2C" name="AddressLine2" maxlength="300" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">City</td>
+                    <td class="labelright"><input id="txtCityC" name="City" maxlength="50" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">State</td>
+                    <td class="labelright"><input id="txtStateC" maxlength="50" name="State" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Country</td>
+                    <td class="labelright">
+                        <select id="ddlCountryC" name="Country" class="f_inpt width91">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Zip/Postal Code</td>
+                    <td class="labelright"><input id="txtZipC" name="Zip" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Contact Number</td>
+                    <td class="labelright">
+                        <input id="txtContactNoC" name="ContactNo" type="text" title="Contact Number" class="f_inpt width90" />
+                    </td>
+                </tr>
+                <tr class="ExContact" style="display:none;">
+                    <td class="f_head">Email ID</td>
+                    <td class="labelright"><input id="txtEmailIDC" maxlength="150" name="EmailID" type="text" title="Email ID" class="f_inpt width90 validemail" /></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div id="viewContact" style="display:none;">
+    <div id="dvPopupHeadingContact" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewContactFields">
+                <table id="CounterpartyContactMetadata" style="background-color: #fdfdfd;margin: 0px 0px 0px 0px;border: solid 1px #3099e4;" class="width100" cellpadding="1" cellspacing="1">
+
+                </table>
+
+
+        </div>
+    </div>
+</div>
+
+@*<div id="browseGeneric" style="height:auto !important; display: none; overflow-y: auto;">
+        <div id="dvPopupHeadingPeopleedit" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="bg-warning">
+                <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+            </div>
+            <article id="rightedit">
+                <input id="txtSearchBoxGeneric" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxGeneric').val(''); ViewCounterparties();">Clear</a>
+            </article>
+            <div>
+                <label>Relationship Type</label>
+                <select id="ddlRelationshipTypeCounterpartiesedit" class="f_inpt width50 validelement margin-l0px">
+                    <option value="0">--Select--</option>
+                    <option value="Parent">Parent - Subsidiary</option>
+                    <option value="Supplier">Supplier - Customer</option>
+                    <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                    <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div>
+                    <div>
+                        <span><label id="lblRelatedPopup_Counterpartiesedit" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                        <select id="ddlRelationshipTypeParentedit" class="f_inpt width30 validelement"></select>
+                    </div>
+                </div>
+                <div id="page-wrap" class="f_list">
+                    <table id="tblGeneric"></table>
+                </div>
+            </div>
+            <div id="loadGen"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationGeneric"></article>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedCounterpartiesedit">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+
+
+
+@*<!-- Related Counterparties Start -->
+    <div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+        <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="bg-warning">
+                <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+            </div>
+            <article id="right">
+                <input id="txtSearchBoxCounterparty" class="f_inpt cl width70" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparty').val(''); ViewCounterparties();">Clear</a>
+            </article>
+            <div>
+                <label>Relationship Type</label>
+                <select id="ddlRelationshipType" class="f_inpt width50 validelement margin-l0px">
+                    <option value="0">--Select--</option>
+                    <option value="Parent">Parent - Subsidiary</option>
+                    <option value="Supplier">Supplier - Customer</option>
+                    <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                    <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div>
+                    <label id="lblRelatedPopup_CounterpartyTitle" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"></label>
+                    <select id="ddlRelationshipTypeParent" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <div id="page-wrap" class="f_list">
+                <table id="tblPopupCounterparties"></table>
+            </div>
+        </div>
+        <div id="loadCounterparty"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelected">
+            </div>
+        </div>
+    </div>
+    <!-- Related Counterparties End -->*@
+
+
+<!---manoj--->
+<div id="browseGeneric" style="display:none;overflow: hidden;">
+    <div id="page-wrap" style="margin-bottom: 10px;">
+        <table id="tblGenericheader"></table>
+        <div class="f_list">
+            <table id="tblGeneric"></table>
+        </div>
+    </div>
+    <div id="loadGen"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationGeneric"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedRU">
+        </div>
+    </div>
+</div>
+<!---manoj--->
+
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+<input type="hidden" id="txtSortBy" value="" />
+<input type="hidden" id="hdContractID" value="" />
+<input type="hidden" id="hdContractTitle" value="" />
+<input type="hidden" id="hdContractStatus" value="" />
+<input type="hidden" id="hdnIsRenewable" value="" />
+<input type="hidden" id="hdnIsExtendable" value="" />
+<input type="hidden" id="hdnBusinessAreasPath" value="" />
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+    <link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <link href="~/Content/css/intlTelInput.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+    <link rel="stylesheet" href="/Content/css/jquery_002.css">
+    <link rel="stylesheet" href="~/Content/css/wizard.css">
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+
+    @*<script src="~/Scripts/Contract365/Counterparty_CounterpartyDetails.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/Counterparty_CounterpartyDetails.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/intlTelInput.js")
+}
+
+<style>
+    a.hover:hover {
+        text-decoration: underline;
+    }
+
+    .content-wraper a:hover, .content-wraper a:focus, .form-wraper a:hover, .form-wraper a:focus {
+        outline: medium none;
+        text-decoration: underline;
+    }
+</style>

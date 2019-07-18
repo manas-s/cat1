@@ -1,0 +1,511 @@
+﻿@{
+    ViewBag.Title = "TaskDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<label style="display:none;" id="hdnTaskFor"></label>
+<label style="display:none;" id="hdnContractID"></label>
+
+<!--*Harshitha-->
+<script type="text/javascript" src="~/Scripts/nicEdit-latest.js"></script>
+<!---->
+<section class="contractHead">
+    <div class="navigation_div">
+        <a id="backButton" href="javascript:void(0)" onclick="BackToList();"><img src="/Content/images/arrow-goback.png" /><small>Go Back</small></a>
+        <a href="javascript:void(0)" onclick="PrintToList()">
+            <img src="/Content/images/print1.png" style="float: right;margin: 0px 20px 0px 0px;">
+        </a>
+    </div>
+</section>
+
+
+<section class="wraper">
+
+    <section class="box2">
+        <div class="contract_Left width99" id="printTaskDetails">
+            <div class="agreement1 no-print" id="toDo_msg">
+                <div class="toDo_popup" style="width: 100%;background-color:#FF06;">
+                    <small class="toDoSmall" style="color:#000000;">
+                        <img id="toDo_msg_help" style="padding-right: 8px; padding-left: 8px;" title="Do not Approve this Contract Record,if the contract document(s) are not reviewed." src="/Content/Images/exc.png">
+                        Approve this Contract Record, only if Contract Documents have been Reviewed.
+
+                    </small>
+                </div>
+
+
+            </div>
+            <div class="agreement">
+
+                <div class="agreement1">
+                    <div class="agreementLeft">
+                        <img src="/Content/Images/workflow.png" style="cursor:default" class="task_head">
+                        <b id="workflowTitle"></b>
+                        <i>
+                            Started by <span id="createdBy"></span> on <span id="startDate"></span><span id="dueOn"></span>
+                        </i>
+                    </div>
+                    <div class="agreementRight">
+                        <div id="dvTaskComplete" class="cbp-hrmenu cbp-hrmenu5 ">
+                            <ul id="ulWorkflowStatus" style="display:none;">
+                                <li class="newCont1">
+                                    <a class="Wating_renewal" href="javascript:void(0);"><small id="dvWorkflowStatus"></small></a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulWorkflowStatusMenu" style="display:none;">
+                                <li class="newCont1">
+                                    <a class="drop_a4 Wating_renewal" href="javascript:void(0);"><small id="dvWorkflowStatusMenu"></small><img src="/Content/images/down_arrow.png" /></a>
+                                    <!-- /cbp-hrsub -->
+                                    <div class="cbp-hrsub nEw_ContRact5 hhide4">
+                                        <div class="meaan">
+                                            <div class="">
+                                                <div class="mean-width3 ">
+                                                    <ul class="waitingRenival">
+                                                        <li id="liActionChange" style="display:none;"><a href="javascript:void(0);" onclick="ChangeParticipants();">Change Participants</a></li>
+                                                        <li id="liActionStop" style="display:none;"><a href="javascript:void(0);" onclick="WorkflowAction('Stop');">Stop Workflow</a></li>
+                                                        <li id="liActionCancel" style="display:none;"><a href="javascript:void(0);" onclick="WorkflowAction('Cancel');">Cancel Workflow</a></li>
+                                                        <li id="liActionRestart" style="display:none;"><a href="javascript:void(0);" onclick="WorkflowAction('Restart');">Restart Workflow</a></li>
+                                                        <li id="liActionRemind" style="display:none;"><a href="javascript:void(0);" onclick="WorkflowAction('Remind');">Remind User</a></li>
+                                                        <li id="liPostComment"><a href="javascript:void(0);" onclick="WorkflowAction('Comment');">Post Comment</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    <!-- /cbp-hrsub-inner -->
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="agreement1">
+                <div class="toDo_popup" id="toDo_btn" style="display:none;">
+                    <small class="toDoSmall" id="todoText">
+                        You've been added as a participant for this workflow.
+                        <img id="toDo_btn_help" title="Reassign task to other user&#013;Request changes from other user" src="/Content/Images/input-help.png">
+                    </small>
+                    @*<span id="btnActions" class="float_right1 margin-right-5">
+                            <img src="../Content/Images/dropmenu-cont.png" alt="Actions" title="Actions" class="openmenuDetails" />
+                        </span>
+                        <span id="btnActions" class="toDoReviewed margin-right-5">
+                            <img src="../Content/Images/dropmenu-cont.png" alt="Actions" title="Actions" class="openmenuDetails" />
+                        </span> openmenuDetails*@
+                    @*/*Added from 2.4final to 2.4*/*@
+                    <span id="btnActions" style="display:none;">
+                        <span id="btnReassign" class="toDoReviewed toDoTask rejectTask margin-right-5" title="Reassign task to other user">
+                            <a href="javascript:void(0)"><small class="smallToDo">Reassign a Task</small></a>
+                        </span>
+                        <span id="btnChange" class="toDoReviewed toDoTask margin-right-5" title="Request changes from other user">
+                            <a href="javascript:void(0)"><small class="smallToDo">Request for Change</small></a>
+                        </span>
+                    </span>
+                    <span id="btnReject" class="toDoReviewed toDoReject margin-right-5" style="display:none;" title="Mark this task as Rejected">
+                        <a href="javascript:void(0)"><small id="btnRejectText">Reject</small></a>
+                    </span>
+                    <span id="btnApprove" class="toDoReviewed margin-right-5" title="Mark this task as Approved">
+                        <a href="javascript:void(0)"><small id="btnApproveText">Approve</small></a>
+                    </span>
+                    <span id="btnComplete" class="toDoReviewed margin-right-5" title="Once you have made the requested changes, click on Complete. If you have not made the requested changes add additional comments and click on Complete">
+                        <a href="javascript:void(0)"><small>Complete</small></a>
+                    </span>
+                </div>
+
+
+            </div>
+
+            <div class="documents" id="dvcontractdefaultsummary">
+                <div class="documents-1" id="contractdefaultsummary">
+                    <div class="documents-Head" style="display:none"><span class="documentsLeft"><b id="bTaskSummary"></b></span><span class="documentsRight"><a href="javascript:void(0);" onclick="javascript: togglediv('ulMetadata', 'imgMetadata');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgMetadata" /></a></span></div>
+                    <ul id="ulMetadata" class="margin-top-10"></ul>
+                </div>
+            </div>
+            <div class="documents" id="dvapprovalsheetsummary">
+                <div class="documents-1" id="approvalsheetsummary">
+                </div>
+            </div>
+            <div class="documents" id="dvAdditionalInformation" style="display:none">
+                <div class="documents-1">
+                    <div class="documents-Head"><span class="documentsLeft"><b>Summary sheet & Supporting document(s)&nbsp;</b></span><span class="documentsRight"><a href="javascript:void(0);" onclick="javascript: togglediv('dvAdditionalInformationActivities', 'imgAdditionalInformationActivities');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgAdditionalInformationActivities"></a></span></div>
+                    <div id="dvAdditionalInformationActivities" class="width100">
+                        <ul class="margin-top-10">
+                            <li class="contraRigght">
+                                <span class="toDoContenLeft width20">Summary / Approval Sheet </span>
+                                <span class="toDoContenRight" id="spnapprovaltempdoc"></span>
+                            </li>
+                            <li class="contraRigght">
+                                <span class="toDoContenLeft width20">Supporting Document(s) </span>
+                                <span class="toDoContenRight" id="spnapprovaladditionaldocs"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="documents" id="dvparticipantstasks">
+                <div class="documents-1">
+                    <div class="documents-Head"><span class="documentsLeft"><b>Participants &amp; Tasks</b></span><span class="documentsRight"><a href="javascript:void(0);" onclick="javascript: togglediv('dvParticipants', 'imgParticipants');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgParticipants" /></a></span></div>
+                    <div id="dvParticipants" class="toDoConten1"></div>
+                </div>
+            </div>
+
+            <div class="documents" id="dvcomments">
+                <div class="documents-1">
+                    <div class="documents-Head"><span class="documentsLeft"><b>Comments &amp; Activities&nbsp;<span id="totComments">(0)</span></b></span><span class="documentsRight"><a href="javascript:void(0);" onclick="javascript: togglediv('dvActivities', 'imgActivities');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgActivities" /></a></span></div>
+                    <div id="dvActivities" class="width100">
+                        <ul class="toDoContenList" id="listTaskComments"></ul>
+                        <span class="toDoContenPost">
+                            <a href="javascript:void(0);" onclick="WorkflowAction('Comment');" style="display:none" id="postCommentLink">Post a Comment</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*<div class="box2_Right-new">
+                <div class="contract-Right">
+                    <h1 class="contrRightMa"><img src="/Content/images/save_views.png" />Recent Tasks</h1>
+                    <ul id="todoList"></ul>
+
+                </div>
+
+                <div class="contract-Right">
+                    <h1 class="contrRightMa"><img src="/Content/images/mile_stone.png" /><b>Upcoming Milestones</b></h1>
+                    <ul class="doc-contUl" id="milestoneList"></ul>
+                </div>
+            </div>*@
+
+    </section>
+</section>
+
+<div id="viewMetadataDetail" style="display:none;" class="width90">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+<div id="postComment" style="display:none;">
+    <input type="hidden" autofocus="autofocus" />
+    <div class="width100">
+        <input id="txtCommentID" type="hidden" value="" />
+        <table class="width100" cellpadding="2" cellspacing="2">
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc;vertical-align:top">
+                    Comment<small class="required">*</small>
+                </td>
+
+                <td class="labelright width70">
+                    <textarea id="txtComment" rows="4" cols="50" style="width:auto;height: 200px;" name="Comment" title="Comment" class="validNicEdit" autofocus="autofocus"></textarea>
+                    @* <textarea id="txtComment" name="Comment" rows="2" class="validelement"></textarea>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc">
+                    Send To
+                </td>
+                <td class="labelright width70">
+                    <select id="ddlSendTo" name="SendTo" multiple="multiple" data-placeholder="Select" class="width97 "></select>
+                    @*<select id="ddlSendTo" name="SendTo" multiple="multiple" data-placeholder="Select" class="width97 validmultiselect"></select>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="remindUser" style="display:none;">
+    <input type="hidden" autofocus="autofocus" />
+    <div class="width100">
+        <input id="txtCommentID" type="hidden" value="" />
+        <table class="width100" cellpadding="2" cellspacing="2">
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc;vertical-align:top">
+                    Comment<small class="required">*</small>
+                </td>
+
+                <td class="labelright width70">
+                    <textarea id="txtCommentRemind" name="Notes" rows="4" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" class="validNicEdit" autofocus="autofocus"></textarea>
+                    @* <textarea id="txtCommentRemind" name="Comment" rows="2" class=""></textarea>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc">
+                    Send To<small class="required">*</small>
+                </td>
+                <td class="labelright width70">
+                    <select id="ddlSendToRemind" name="SendToRemind" multiple="multiple" data-placeholder="Select" class="width97 validmultiselect"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@*<div id="remindUser" style="display:none;">
+        <input type="hidden" autofocus="autofocus" />
+        <ul class="poPup_Form_Field">
+            <li>
+                <p>Add a Comment</p>
+                <div>
+                    <textarea id="txtCommentRemind" name="Notes" rows="4" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" class="validNicEdit" autofocus="autofocus"></textarea>
+
+                </div>
+            </li>
+            <li>
+                <p>Send To</p>
+                <div>
+                    <select id="ddlSendToRemind" name="SendToRemind" multiple="multiple" data-placeholder="Select" class="width97 validmultiselect"></select>
+                </div>
+            </li>
+        </ul>
+    </div>*@
+
+<div id="changeRequest" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li style="overflow:visible;">
+            You've selected 'Change Requested' as the task outcome.
+        </li>
+        <li>
+            <p>Change Request To</p>
+            <div><select id="ddlChangeRequestTo" title="Change Request To" class="width90 validelement"></select></div>
+        </li>
+        <li>
+            <p>Add a Comment<small class="commReq">*</small></p>
+            <textarea id="txtChangeComment" name="Notes" rows="4" cols="50" title="Comments" class="" style="width:auto !important;height: 200px;margin-top:0px !important;" autofocus="autofocus"></textarea>
+            @*<div><textarea id="txtChangeComment" name="Comment" rows="2" class="validelement"></textarea></div>*@
+        </li>
+    </ul>
+</div>
+
+<div id="reassignTask" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li style="overflow:visible;">
+            You've selected 'Task Reassigned' as the task outcome.
+        </li>
+        <li>
+            <p>Reassign To</p>
+            <div><select id="ddlReassignTo" title="Reassign To" class="width90 validelement"></select></div>
+        </li>
+        <li>
+            <p>Recieve Workflow Notification ?</p>
+            <div class="poPup_Form_radio">
+                <input type="radio" id="rdYes" name="notification" class="check poPup_Form_Field_RadioBorder" value="Yes" /><small>Yes</small>
+                <input type="radio" id="rdNo" name="notification" class="check poPup_Form_Field_RadioBorder" value="No" checked="checked" /><small>No</small>
+            </div>
+        </li>
+        <li>
+            <p>Add a Comment<small class="commReq">*</small></p>
+            <textarea id="txtReassignComment" name="Notes" rows="4" cols="50" title="Comments" class="" style="width:auto !important;height: 200px;margin-top:0px !important;" autofocus="autofocus"></textarea>
+            @*<div><textarea id="txtReassignComment" name="Comment" rows="2" class="validelement"></textarea></div>*@
+        </li>
+    </ul>
+</div>
+
+<div id="completeTask" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li id="CompletePlaceHolder" style="overflow:visible;">
+
+        </li>
+        <li>
+            <p>Add a Comment<small class="commReq">*</small></p>
+            <textarea id="txtCompleteComment" name="Notes" title="Comments" rows="4" cols="50" class="" style="width:auto !important;height: 200px;margin-top:0px !important;" autofocus="autofocus"></textarea>
+            @* <div><textarea id="txtCompleteComment" name="Comment" rows="2" class="validelement"></textarea></div>*@
+        </li>
+    </ul>
+</div>
+
+<div id="cancelWorkflow" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li style="overflow:visible;">
+            You've selected 'Cancel' as the task outcome.
+        </li>
+        <li>
+            <p>Add a Comment</p>
+            <textarea id="txtCommentCancelWorkflow" name="Notes" title="Comments" rows="4" cols="50" style="width:auto;height: 200px;margin-top:0px !important;" class="" autofocus="autofocus"></textarea>
+            @*<div><textarea id="txtCommentCancelWorkflow" name="Comment" rows="2" class="validelement"></textarea></div>*@
+        </li>
+    </ul>
+</div>
+
+<div id="stopWorkflow" style="display:none;overflow-y: auto;">
+    @*<table class="width100" cellpadding="2" cellspacing="2">
+            <tr>
+                <td>
+                    You've selected 'Stopped Workflow' as the task outcome.
+                </td>
+            </tr>
+            <tr>
+                <td class="labelleft width20" style="color: #3f91cc">
+                   Add Comments
+                </td>
+                <td class="width50">
+                    <textarea id="txtCommentStopWorkflow" name="Notes" rows="4" title="Comments" cols="50" style="height: 200px;" class="validNicEdit" autofocus="autofocus"></textarea>
+                </td>
+            </tr>
+
+        </table>*@
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li style="overflow:visible;">
+            You've selected 'Stopped Workflow' as the task outcome.
+        </li>
+        <li>
+            <p>Add a Comment</p>
+            <textarea id="txtCommentStopWorkflow" name="Notes" rows="4" title="Comments" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" class="" autofocus="autofocus"></textarea>
+        </li>
+    </ul>
+</div>
+
+<div id="restartWorkflow" style="display:none;overflow-y: auto;">
+    <ul class="poPup_Form_Field poPup_Form_Field-A">
+        <li style="overflow:visible;">
+            You've selected 'Restarted Workflow' as the task outcome.
+        </li>
+        <li>
+            <p>Add a Comment</p>
+            <textarea id="txtCommentRestartWorkflow" name="Notes" rows="4" title="Comments" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" class="validNicEdit" autofocus="autofocus"></textarea>
+            @*<div><textarea id="txtCommentRestartWorkflow" name="Comment" rows="2" class="validelement"></textarea></div>*@
+        </li>
+    </ul>
+</div>
+
+
+<div id="dialogAddUser" style="display:none;">
+    <input type="hidden" autofocus="autofocus" />
+    <ul class="poPup_Form_Field">
+        <li>
+            <table id="tblStage" class="width100">
+                <tr id="trStage1">
+                    <td class="width30 wf_approval padding_top_5px table_Vertical-Width">
+                        <input id="txtStage1" name="Stage1" title="Stage" placeholder="Stage Name" type="text" class="f_inpt width97 change-participant-input validelement" value="Stage 1" />
+                    </td>
+                    <td class="width40 wf_approval1 table_Vertical-Width">
+                        <select id="ddlAssignTo1" name="AssignTo1" multiple="multiple" data-placeholder="Select" class="width97 validuser "></select>
+                    </td>
+                    <td class="width20 padding_top_3px table_Vertical-Width" style="vertical-align: top;">
+                        <select id="ddlOrder1" name="Order1" class="f_inpt width97"><option selected="selected">Serial</option><option>Parallel</option></select>
+                    </td>
+                    <td class="width10">
+                        <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" class="margin-top-10" onclick="DeleteStage(this)" />
+                    </td>
+                </tr>
+            </table>
+            <span class='right-float' id="spAddStage"><a href='javascript:void(0)' onclick='AddStage()'>Add Stage</a></span>
+        </li>
+    </ul>
+</div>
+
+<input id="hdTaskStatus" type="hidden" value="" />
+<input id="hdSummaryStatus" type="hidden" value="" />
+
+<label id="lblContractValueAmendment" style="display:none"></label>
+
+<ul id="dropdownMenu" class="contextMenu">
+    <li class="reassign"><a href="#reassign">Reassign Task</a></li>
+    <li class="change"><a href="#change">Request for Change</a></li>
+</ul>
+<div id="showMSWordPopup" style="display:none;overflow: hidden;">
+    <div class="pop-inner">
+        <h1>We're opening your document in Microsoft Word...</h1>
+        <h5>Did you run into issues?</h5>
+        <div class="file-edit clearfix">
+            <a id="linkEditInWordOnline" href="javascript:void(0);" target="_blank"><p><img src="../Content/Images/wordonline.png" alt=""></p><p>Edit in Word Online</p></a>
+        </div>
+        <a style="color:#4b9ef7" href="javascript:void(0);" onclick="req();">Learn more about the requirements</a>
+    </div>
+</div>
+
+<!-- HIDDEN / POP-UP DIV -->
+@*ENH485  Featured Metadata Hover display*@
+<div id="pop-up" class="pop_up">
+    <p id="pContractTitle">Contract title</p>
+    <div style="border-bottom: 1px solid #ccc;padding-top: 20px;padding-top: 10px;"></div>
+    <table style="margin-top:10px">
+        <tr>
+            <td width="40%" class="content-text clr999">Business Areas :</td>
+            <td id="tdbusinessAreas" class="content-text">-</td>
+        </tr>
+        <tr>
+            <td width="40%" class="content-text clr999">Contract Type :</td>
+            <td id="tdcontracttype" class="content-text">-</td>
+        </tr>
+        <tr>
+            <td width="40%" class="content-text clr999">Counterparty :</td>
+            <td id="tdcounterparty" class="content-text">-</td>
+        </tr>
+        <tr>
+            <td width="40%" class="content-text clr999">Created On :</td>
+            <td id="tdcreatedON" class="content-text">-</td>
+        </tr>
+        <tr>
+            <td width="40%" class="content-text clr999">Created By :</td>
+            <td id="tdcreatedBY" class="content-text">-</td>
+        </tr>
+        <tr>
+            <td width="40%" class="content-text clr999">Legal Entity :</td>
+            <td id="tdlegalentity" class="content-text">-</td>
+        </tr>
+    </table>
+</div>
+
+<div id="pntOption" style="display:none;">
+    <span style="background-color:#44a6d8;"><label style="width: 100%;text-align: left;color: #fff;margin-left: 5px;">Select the sections to print.</label></span>
+    <input type="hidden" autofocus="autofocus" />
+    <div class="width100">
+        <table class="tblgrid width100" id="tblprintOption">
+            <tr id="trContractSummary">
+                <td class="labelleft f_list">
+                    <input id="pntContractSummary" name="PrintOption" type="checkbox" class="css1-checkbox" value="​Contract Summary​">
+                    <label for="pntContractSummary" id="lblpntContractSummary" class="css1-label">&nbsp;&nbsp;Contract Summary</label>
+                </td>
+            </tr>
+            <tr id="trSummarySheet">
+                <td class="labelleft f_list">
+                    <input id="pntSummarySheet" name="PrintOption" type="checkbox" class="css1-checkbox" value="​Summary sheet & Supporting document(s)​">
+                    <label for="pntSummarySheet" class="css1-label">&nbsp;&nbsp;Summary sheet & Supporting documenet(s)</label>
+                </td>
+            </tr>
+            <tr id="trParticipants">
+                <td class="labelleft f_list">
+                    <input id="pntParticipants" name="PrintOption" type="checkbox" class="css1-checkbox" value="​Participants & Tasks​">
+                    <label for="pntParticipants" class="css1-label">&nbsp;&nbsp;​Participants & Tasks</label>
+                </td>
+            </tr>
+            <tr id="trComments">
+                <td class="labelleft f_list">
+                    <input id="pntComments" name="PrintOption" type="checkbox" class="css1-checkbox" value="Comments & Activities">
+                    <label for="pntComments" class="css1-label">&nbsp;&nbsp;Comments & Activities</label>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<style>
+    /* HOVER STYLES */
+    div#pop-up {
+        display: none;
+        width: 300px;
+        padding: 10px;
+        background: #FFFFFF;
+        color: #000000;
+        border: 1px solid #1a1a1a;
+        /*font-size: 90%;*/
+        position: absolute;
+    }
+</style>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/Contract365/Activity_TaskDetails.js"></script>*@
+    @*<script src="~/Scripts/dropdown_menu.js"></script>*@
+    <link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/stylesheet1.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/Scripts/printThis.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Activity_TaskDetails.js?" + DateTime.Now.GetHashCode())
+}
+

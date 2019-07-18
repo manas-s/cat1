@@ -1,0 +1,1017 @@
+﻿@{
+    ViewBag.Title = "Documents";
+}
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<style>
+    ::-ms-clear {
+        display: none;
+    }
+</style>
+<style>
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 200px;
+    }
+</style>
+
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Contract Documents</b>
+        <aside class="new_deatile">
+            <!-- Create Document Button Start -->
+            <div class="cbp-hrmenu cbp-hrmenu5 ">
+                <ul>
+                    <li>
+                        <a class="fiLTer_color1 drop_a" style="height: 16px !important;" href="javascript:void(0);">New Document</a>
+                        <div class="cbp-hrsub nEw_ContRact3 hhide">
+                            <div class="meaan">
+                                <div class="doc_new-Doc">
+                                    <div class="mean-width3 ">
+                                        <ul>
+                                            <li><a href="javascript:void(0);" id="btnAddDocument">Upload/Create Document</a></li>
+                                            <li><a href="@Url.Action("BulkDocumentUpload", "Documents")" id="bulkUpload" style="display:none;">Bulk Upload</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Create Document Button End -->
+        </aside>
+    </div>
+</section>
+<section class="wraper">
+    <section class="box2">
+        <div class="my-Alerts_contDeat">
+            <div class="my-Alerts_Act1">
+                <div class="inserch1">
+                    <input placeholder="Search" type="text" id="txtSearchBox" />
+                    <a href="javascript:void(0);"><img src="../Content/Images/search1.png" onclick="javascript:search();" /></a>
+                </div>
+
+                <aside class="filTer_Ri" id="btnFilter">
+                    <div class="cbp-hrmenu cbp-hrmenu5">
+                        <ul>
+                            <li>
+                                <a id="" class="drop_a2" href="javascript:void(0);"><img src="/Content/Images/filter_icon.png"> <img src="../Content/Images/dp-ddown.png" /></a>
+                                <div class="cbp-hrsub fIlter1 hhide2 dvfilter width60_imp">
+                                    <div class="meaan">
+                                        <div class="">
+                                            <b>Filter</b>
+                                            <div class="cbp-hrsub-inner">
+                                                <div class=" mEAnwidth1">
+                                                    <h4>Document Type</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterDocumentType" name="FilDocumentType" size="7" multiple style="width: 100%;">
+                                                            <option value="All" selected="selected">All</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth1">
+                                                    <h4>Creation Mode</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterCreationMode" name="CreationMode" size="7" multiple style="width: 100%;">
+                                                            <option value="All" selected="selected">All</option>
+                                                            <option value="Uploaded">Uploaded</option>
+                                                            <option value="Template">Template</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth1">
+                                                    <h4>Sort By</h4>
+                                                    <ul class="line-h">
+                                                        <li><a id="aRecentlyUpdated" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                        <li><a id="aRecentlyCreated" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Created</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pop_up_Content_Bottom3 float_right1">
+                                            <a id="btnApplyFilter" onclick="javascript: applyFilter();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                            <a id="btnCancel" onclick="javascript:clearSelection();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            <div class="selectFIlterItem">
+                <h3 id="showAll" class="box-title" style="display: inline; width: auto; float: none; margin-left: 10px;"></h3>@*Showing All Documents*@
+                <div id="liFiltersSearchText">
+                </div>
+                <div id="liFiltersDocumentType">
+                </div>
+                <div id="liFiltersLibraryName">
+                </div>
+                <div id="liFiltersCreationMode">
+                </div>
+            </div>
+            <div class="saveView"><a href="javascript:void(0)" id="btnAddView" style="display:none;">Save this View</a></div>
+            @*<section id="listDocuments" class="box-table paginated"></section>
+                <section id="footerPage" class="box-table">
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-pagination"></article>
+                    </div>
+                </section>*@
+
+            <section>
+                <div class="alertbox_status alertbox_status_contDeat">
+                    <ul id="listDocuments" class="border-left"></ul>
+                </div>
+                <div id="footerPage" class="pagination-holder clearfix">
+                    <article id="compact-pagination"></article>
+                </div>
+            </section>
+
+        </div>
+        <div class="box2_Right">
+            @*<div class="contract-Right">
+                                    <h1><img src="../Content/Images/quick-vission.png" />Quick View</h1>
+                                    <ul id="liQuickView">
+                                        <li id="qvAllDocuments">
+                                            <p>
+                                                <a href='javascript:void(0)' onclick='javascript: showalldocuments();' id='aAllDocuments' name='All Documents'>
+                                                    <span id="spnAllDocuments">All Documents</span>
+                                                </a>
+                                            </p>
+                </li>
+                                        <li id="qvFinalizedDocuments">
+                                            <p>
+                                                <a href='javascript:void(0)' onclick='javascript: quickViewDisplay("Finalized")' id='aFinalizedDocuments' name='Finalized Documents'>
+                                                    <span id="spnFinalizedDocuments">Finalized Documents</span>
+                                                </a>
+                                            </p>
+                </li>
+                                        <li id="qvDraftDocuments">
+                                            <p>
+                                                <a href='javascript:void(0)' onclick='javascript: quickViewDisplay("Draft")' id='aDraftDocuments' name='Draft Documents'>
+                                                    <span id="spnDraftDocuments">Draft Documents</span>
+                                                </a>
+                                            </p>
+                </li>
+                                    </ul>
+                                </div>*@
+            <div class="contract-Right">
+                <h1><img src="../Content/Images/save_views.png" title="Saved Views" style="cursor:default;"  />Saved Views </h1>
+                <ul id="liDocumentViews"></ul>
+            </div>
+        </div>
+    </section>
+</section>
+
+<div id="loading"></div>
+
+<!-- Right Click Menu -->
+<ul id="myMenuFolder" class="contextMenu">
+    <li class="openfolder Contribute"><a href="#open">Open</a></li>
+    <li class="newdoc Contribute"><a href="#addnew">Add New</a></li>
+    @*<li class="delete Manage"><a href="#delete">Delete</a></li>*@
+</ul>
+<ul id="myMenu" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="viewdetails"><a href="#viewdetails">View Metadata</a></li>
+    <li class="history"><a href="#version">Version History</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Collaborate"></li>
+    <li class="sharelink Collaborate"><a href="#sharelink">Share a Link</a></li>
+    <li class="review Contribute"><a href="#review">Send for Review</a></li>
+    <li class="approve Contribute"><a href="#approve">Send for Approval</a></li>
+    <li class="final Contribute"><a href="#final">Mark as Final</a></li>
+    <li class="separator"></li>
+    <li class="replace Contribute"><a href="#replace">Replace Document</a></li>
+    <li class="duplicate Manage"><a href="#duplicate">Duplicate Document</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuFinal" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="viewdetails"><a href="#viewdetails">View Metadata</a></li>
+    <li class="history"><a href="#version">Version History</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Collaborate"></li>
+    <li class="sharelink Collaborate"><a href="#sharelink">Share a Link</a></li>
+    <li class="review Contribute"><a href="#review">Send for Review</a></li>
+    <li class="approve Contribute"><a href="#approve">Send for Approval</a></li>
+    <li class="separator Contribute"></li>
+    <li class="replace Manage"><a href="#replace">Replace Document</a></li>
+    <li class="duplicate Contribute"><a href="#duplicate">Duplicate Document</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuSignature" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="viewdetails"><a href="#viewdetails">View Metadata</a></li>
+    <li class="history"><a href="#version">Version History</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Collaborate"></li>
+    <li class="sharelink Collaborate"><a href="#sharelink">Share a Link</a></li>
+    <li class="review Contribute"><a href="#review">Send for Review</a></li>
+    <li class="approve Contribute"><a href="#approve">Send for Approval</a></li>
+    <li class="signature Contribute"><a href="#signature">Send for Signature</a></li>
+    <li class="final Contribute"><a href="#final">Mark as Final</a></li>
+    <li class="separator"></li>
+    <li class="replace Contribute"><a href="#replace">Replace Document</a></li>
+    <li class="duplicate Manage"><a href="#duplicate">Duplicate Document</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuFinalSignature" class="contextMenu">
+    <li class="viewO365 Contribute"><a href="#editO365">View Document</a></li>
+    <li class="viewdetails"><a href="#viewdetails">View Metadata</a></li>
+    <li class="history"><a href="#version">Version History</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Collaborate"></li>
+    <li class="sharelink Collaborate"><a href="#sharelink">Share a Link</a></li>
+    <li class="review Contribute"><a href="#review">Send for Review</a></li>
+    <li class="approve Contribute"><a href="#approve">Send for Approval</a></li>
+    <li class="signature Contribute"><a href="#signature">Send for Signature</a></li>
+    <li class="separator Contribute"></li>
+    <li class="replace Manage"><a href="#replace">Replace Document</a></li>
+    <li class="duplicate Contribute"><a href="#duplicate">Duplicate Document</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuFolder" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit Properties</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Save View Popup Start -->
+<div id="addNewView" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <ul class="poPup_Form_Field">
+                <li>
+                    <p></p>
+                    <div>
+                        <input id="txtViewID" name="ViewID" type="hidden" />
+                    </div>
+                </li>
+                <li>
+                    <p><b>View Name</b></p>
+                    <div>
+                        <input id="txtViewName" name="ViewName" type="text" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Save View Popup End -->
+<!-- Manage Document Context Menu Popup Start -->
+<div id="EditDocument" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewDocument">
+                <ul class="poPup_Form_Field">
+
+                    <li>
+                        <p></p>
+                        <div>
+                            <input id="txtDocumentID" name="DocumentID" type="hidden" />
+                        </div>
+                    </li>
+                    <li id="trContractTitle">
+                        <p><b>Contract Record Title</b></p>
+                        <div>
+                            <span id="lblCTitleDoc"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b><label id="lblDocumentName">Document Name</label></b><small>*</small><img src="/Content/Images/input-help.png"></p>
+                        <div>
+                            <input id="txtDocumentName" maxlength="100" name="DocumentName" type="text" title="Document Name" class="validelement width70 specialchar" /><span id="spExt"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b><label id="lblDescription">Description</label></b></p>
+                        <div>
+                            <textarea id="textDescription" name="Description" rows="4" title="Description"></textarea>
+                        </div>
+                    </li>
+                    <li id="trDocumentTypeEdit">
+                        <p><b>Document Type</b><small>*</small><img src="/Content/Images/input-help.png"></p>
+                        <div>
+                            <select id="ddlDocumentType" name="DocumentType" title="Document Type" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Author</b></p>
+                        <div>
+                            <input id="txtAuthorEdit" name="Author" title="Author" type="text" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Document Language</b></p>
+                        <div>
+                            <input id="txtDocumentLanguageEdit" maxlength="100" name="DocumentLanguage" title="DocumentLanguage" type="text" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Hard-copy Physical Location</b></p>
+                        <div>
+                            <input id="txtHardCopyPhysicalLocationEdit" name="HardCopyPhysicalLocation" title="Hard-copy Physical Location" type="text" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Finalized ?</b></p>
+                        <div class="poPup_Form_radio">
+                            <input id="rdioYes" class="check poPup_Form_Field_RadioBorder" type="radio" value="Yes" name="IsFinalizedEdit"><small>Yes</small>
+                            <input id="rdioNo" type="radio" class="poPup_Form_Field_RadioBorder" value="No" name="IsFinalizedEdit" checked><small>No</small>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Select Contract Record</b></p>
+                        <div>
+                            <select id="ddlContractsEdit">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="viewMetadataDetail" style="display:none;">
+
+    @*<ul class="form-tabmenu">
+           <li><a href="javascript:void(0)" id="docMetadata" class="active_tab" onclick="ShowMetadata();">Metadata</a></li>
+           <li><a href="javascript:void(0)" id="docActivities" onclick="ShowActivities();">Activities</a></li>
+        </ul>*@
+
+    <ul class="pop_up_Harizondal">
+        <li><a href="javascript:void(0)" id="docMetadata" class="pop_up__Acti" onclick="ShowMetadata();">Metadata</a></li>
+        <li><a href="javascript:void(0)" id="docActivities" onclick="ShowActivities();">Activities</a></li>
+    </ul>
+
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+    <div id="documentLogs" style="display:none;">
+
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-documentLogs" style="display:none;"></article>
+    </div>
+</div>
+
+
+<!-- Manage Document Context Menu Popup End-->
+<!-- Add Document Popup Start -->
+<div id="addEditDocument" class="pop_up" style="display:none;">
+    <div id="dvPopupHeadingDocument" class="pop_up_Head">
+        <h1></h1>
+    </div>
+    <div id="addNewDocument" class="pop_up_Content">
+        <div id="leftTab" class="pop_up_Content_Left">
+            <ul>
+                <li><a href="javascript:void(0)" id="tabUpload" onclick="tabchange(this);">Upload From Computer</a></li>
+                <li><a href="javascript:void(0)" id="tabTemplate" onclick="tabchange(this);">Create From Template</a></li>
+            </ul>
+        </div>
+        <div class="pop_up_Content_Right poPup_Form">
+                <h1 id="formTitle">Upload From Computer</h1>
+                <ul class="poPup_Form_Field">
+                    <li>
+                        <input id="txtDocumentID" name="DocumentID" type="hidden" />
+                    </li>
+                    <li id="trTemplate" style="display:none;">
+                        <p><b>Select Template</b></p>
+                        <div>
+                            <select id="ddlDocumentTemplate" class="" title="Document Template" onchange="onchangetemplate(this);">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+
+                    <li id="trTemplate1" style="display:none;">
+                        <p><b>Document Name</b></p>
+                        <div>
+                            <input id="txtDocumentNameCreate" name="DocumentName" maxlength="100" title="Document Name" type="text" class="specialchar" />
+                        </div>
+                    </li>
+                    <li id="Type" style="display:none;">
+                        <p><b>Document Type</b><small>*</small><img src="/Content/Images/input-help.png"></p>
+                        <div>
+                            <select id="ddlDocumentTypeCreate" title="Document Type" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li id="trContracts">
+                        <p><b>Select Contract Record</b></p>
+                        <div>
+                            <input id="txtContractRecElement" class="width80 PreserveSpace" name="ContractRecElement" readonly="readonly" type="text" />
+                            <a href="javascript:void(0)" id="contractRec" onclick="ContractRec();" class="linkText">Browse</a>
+                            <input id="txtContractRecElementID" name="ContractRecElementID" type="hidden" />
+                        </div>
+                    </li>
+                    <li id="trCounterpartyCreate">
+                        <p><b>Select Counterparty</b></p>
+                        <div>
+                            <input id="txtCounterpartyCreate" class="width80" name="CounterpartyCreatet" readonly="readonly" type="text" />
+                            <a href="javascript:void(0)" id="spCounterpartyCreate" onclick="CounterpartyCreate();" class="linkText">Browse</a>
+                        </div>
+                    </li>
+
+                    <li id="trFileUpload">
+                        <p><b>Browse File</b><small>*</small><img src="/Content/Images/input-help.png"></p>
+                        <div class="poPup_Form_Upload">
+                            <input type="file" id="docContract" name="file" title="Document" class="validelement" onchange="javascript:changeinupload(this);" />
+                        </div>
+                    </li>
+
+                    <li id="trDuplicate" style="display:none;">
+                        <p><b>Duplicate Document Name</b></p>
+                        <div><input type="text" id="txtDuplicateDocumentName" name="DocumentName" title="Document Name" class="specialchar width80" /><i id="spDuplicateDocumentExt"></i></div>
+                    </li>
+                    <li id="trdesc">
+                        <p><b>Description</b></p>
+                        <div class="f_list" style="padding-bottom: 15px;">
+                            <textarea id="txtDescription" rows="4" name="Description" title="Description"></textarea>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Author</b></p>
+                        <div><input id="txtAuthor" name="Author" title="Author" type="text" /></div>
+                    </li>
+                    <li>
+                        <p><b>Document Language</b></p>
+                        <div><input id="txtDocumentLanguage" name="DocumentLanguage" title="DocumentLanguage" type="text" /></div>
+                    </li>
+                    <li>
+                        <p><b>Hard-copy Physical Location</b></p>
+                        <div><input id="txtHardCopyPhysicalLocation" name="HardCopyPhysicalLocation" title="Hard-copy Physical Location" type="text" /></div>
+                    </li>
+                    <li id="trfinal">
+                        <p><b>Is Finalized/Ready for Signature?</b></p>
+                        <div class="poPup_Form_radio">
+                            <input id="radioYes" class="check poPup_Form_Field_RadioBorder" type="radio" value="Yes" name="IsFinalized" /><small>Yes</small>
+                            <input id="radioNo" class="check poPup_Form_Field_RadioBorder" type="radio" value="No" name="IsFinalized" checked /><small>No</small>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pop_up_Content_Middle">
+                    <h1>Save to Location</h1>
+                </div>
+                <div class="pop_up_Content_Middle_Content">
+                    <ul class="poPup_Form_Field">
+                        <li>
+                            <b>Folder<img title="Select Folder" src="/Content/Images/input-help.png"></b>
+                            <div class="saveLoca">
+                                <a class='linkText' href='javascript:void(0)' id="lblFolderUrl" style="cursor: pointer; " title="Click to change folder location">
+                                    /Draft Documents/
+                                </a>
+                                <input id="txtNewFolderName" name="NewFolderName" title="New Folder Name" placeholder="New Folder Name" type="text" class="f_inpt width40 specialchar" />
+                                <span class='right-float'><a href='javascript:void(0)' id="btnNewFolder" style="display:none;">New Folder</a></span>
+                                <i id="trcopy">
+
+                                </i>
+                            </div>
+                            <div id="AllowSaveDraftCloud" style="display:none;">
+                                <div class=" popup_form_radio width100">
+
+                                    <input id="rad_CopyLibrary" class="check poPup_Form_Field_RadioBorder" type="radio" value="Library" name="rad_Copy" checked><small>Save in Office 365 Document Library</small>
+                                </div>
+                                <div class="poPup_Form_radio width100">
+                                    <input id="rad_CopyLibraryAndAzure" class="check poPup_Form_Field_RadioBorder" type="radio" value="Both" name="rad_Copy"><small>Save in Office 365 Document Library & eContracts Cloud</small>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            <span id="idDocUploadInProgress" class="text" style="display: none; padding-left: 35%; padding-bottom:10px;">
+                <img src="../Content/Images/loading.gif" /> Uploading Document...
+            </span>
+            <span id="spInProgress" class="text" style="display:none; padding-left:30%;">
+                <img src="../Content/Images/loading.gif" /> 
+            </span>
+            <div id="formtblContentControls" class="width100">
+                <table class="width100" cellpadding="2" cellspacing="2" id="tblContentControls"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dvContractRec" style="display:none;">
+    <div class="modalbody">
+        <article id="right">
+            <input id="txtSearchBoxTodoForm" class="f_inpt width80 cl" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchContractRec();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxTodoForm').val(''); SearchContractRec();">Clear</a>
+        </article>
+        <div id="dvLoading">
+            <img src="../Content/Images/icon/loading.gif" /> 
+        </div>
+        <div id="page-wrap">
+            <ul class="f_list" id="tblContractsTodo"></ul>
+            <ul class="f_list" id="tblDocumentsTodo"></ul>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationContractsTodo"></article>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationDocumentsTodo"></article>
+        </div>
+    </div>
+</div>
+
+<div id="divReplaceDocument" style="display:none;">
+    <div class="modalbody">
+        <div>
+                <div style="padding:0px 30px 30px; overflow:hidden;">
+                    <ul class="poPup_Form_Field" id="tblReplaceDocument">
+                        <li>
+                            <p><b></b></p>
+                            <div class="poPup_Form_radio">
+                                <input id="rad_ReplaceComputer" class="check" type="radio" value="Computer" name="rad_Replace" checked><small>Replace From Computer</small>
+                            </div>
+                        </li>
+                        <li>
+                            <p><b></b></p>
+                            <div class="poPup_Form_radio">
+                                <input id="rad_ReplaceTemplate" class="check" type="radio" value="Template" name="rad_Replace"><small>Replace From Template</small>
+                            </div>
+                        </li>
+                        <li id="trFileUploadBrowse">
+                            <p><b>Browse File</b><small>*</small><img src="/Content/Images/input-help.png"></p>
+                            <div class="poPup_Form_Upload">
+                                <input type="file" id="docToReplace" name="file" title="Document" class="validelement" onchange="javascript:changeinupload(this);" />
+                            </div>
+                        </li>
+                        <li id="trTemplateBrowse" style="display:none;">
+                            <p><b>Template</b></p>
+                            <div>
+                                <select id="ddlReplaceTemplate" title="Document Template" onchange="ReplaceTemplateChange(this);">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            <div id="formtblReplaceControls" class="width100">
+                <table class="width100" cellpadding="2" cellspacing="2" id="tblReplaceControls" style="display:none;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="browseFolder" style="display:none;">
+    <div class="modalbody">
+        <div id="load"></div>
+        <div id="browseFolder" class="k-content">
+            <div id="treeviewFolderOption" class="demo-section"></div>
+            <input id="txtFolder" type="hidden" /><input id="txtFolderURL" type="hidden" />
+        </div>
+        <script id="treeviewFolderOption-template" type="text/kendo-ui-template">
+            #: item.Folder #
+        </script>
+    </div>
+</div>
+
+<div id="sendForSignature" style="display: none;">
+    <input id="hdDocumentID" type="hidden" />
+    <input id="hdDocumentURL" type="hidden" />
+    <table class="width100">
+        <tr>
+            <td class="f_head">Document</td>
+            <td class="labelleft" id="tdDocument"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Select External Signee(s)</td>
+            <td class="labelleft">
+                <div id="frmSignees" class="width100">
+                    <table id="tblSignees" class="width100">
+                        <tr>
+                            <td class="width40">
+                                <input id="txtSignee1" name="SigneeName1" title="Signee" placeholder="Signee Name" type="text" class="f_inpt width90" />
+                            </td>
+                            <td class="width40">
+                                <input id="txtEmail1" name="SigneeEmail1" title="Email" placeholder="Signee Email" type="text" class="f_inpt width90 validemail" />
+                            </td>
+                            <td class="width20">
+                                <select id="ddlSigneeOrder1" name="SigneeOrder1" onchange="SelectedOrder(this);" onclick="ClickedOrder(this);" class="f_inpt width100 SigneeOrder">
+                                    <option value="1">1</option>
+                                    <option value="2" selected="selected">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td style="width:20px">
+                                <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class='right-float' id="spAddSignee"><a href='javascript:void(0)' onclick='AddSignee()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Select Internal Signee(s)</td>
+            <td class="labelleft">
+                <div id="frmInternalSignees" class="width100">
+                    <table id="tblInternalSignees" class="width100">
+                        <tr>
+                            <td class="width80">
+                                <input id="txtInternalSignee1" name="InternalSigneeName1" title="Signee" placeholder="Signee Name" type="text" class="f_inpt width80" />
+                                <span class="right-float"><a href="javascript:void(0)" onclick="BrowseInternalSignee('txtInternalSignee1', 'txtInternalEmail1')">Browse</a></span>
+
+                                <input id="txtInternalEmail1" name="InternalSigneeEmail1" style="display:none;" title="Email" placeholder="Signee Email" type="text" class="f_inpt width90 validemail" />
+                            </td>
+                            <td class="width20">
+                                <select id="ddlInternalSigneeOrder1" name="InternalSigneeOrder1" onchange="SelectedOrder(this);" onclick="ClickedOrder(this);" class="f_inpt width100 SigneeOrder">
+                                    <option value="1">1</option>
+                                    <option value="2" selected="selected">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td style="width:20px">
+                                <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class='right-float' id="spAddInternalSignee"><a href='javascript:void(0)' onclick='AddInternalSignee()'>Add More</a></span>
+            </td>
+        </tr>
+        @*<tr>
+                <td class="f_head">Select Internal Signee(s)</td>
+                <td class="labelleft"><select id="ddlInternalSignee" multiple="multiple" name="InternalSignee" class="f_inpt width68" data-placeholder="Select Internal Signee(s)"></select></td>
+            </tr>
+            <tr>
+                <td class="f_head"></td>
+                <td class="f_list">
+                    <input type="checkbox" name="SelfSign" id="chkSelfSign" class="css1-checkbox" value="SelfSign" />
+                    <label for="chkSelfSign" class="css1-label">I need to add signature to this document.</label>
+                </td>
+            </tr>
+            <tr style="display:none">
+                <td class="f_head">Subject</td>
+                <td class="labelleft"><input id="txtSubject" name="Subject" type="text" class="f_inpt width70 validelement" /></td>
+            </tr>*@
+        <tr>
+            <td class="f_head">Message to Signee(s)</td>
+            <td class="labelleft"><textarea id="txtSigneeMsg" name="SigneeMsg" rows="3" class="f_inpt width70"></textarea></td>
+        </tr>
+        <tr>
+            <td class="f_head">Select CC(s)</td>
+            <td class="labelleft"><select id="ddlCC" multiple="multiple" name="CC" class="f_inpt width68" data-placeholder="Select CC"></select></td>
+        </tr>
+        <tr id="RightSignDropDown" style="display:none;">
+            <td class="labelleft width30">Sign Link Expires in&nbsp;<small class="required">*</small></td>
+            <td class="labelleft width70">
+                <select id="ddltxtExpIn" name="ExpIn" class="f_inpt width20 validelement">
+                    <option value="2" selected>2</option>
+                    <option value="5">5</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                </select>
+                <small class="dayslink"> day(s)</small>
+            </td>
+        </tr>
+        <tr id="SignDocExptxt">
+            <td class="labelleft width30">Sign Link Expires in&nbsp;<small class="required">*</small></td>
+            <td class="labelleft width70"><input id="txtExpIn" name="ExpIn" type="text" value="3" maxlength="3" class="f_inpt width20 validelement validnumber" /><small class="dayslink"> day(s)</small></td>
+        </tr>
+
+    </table>
+</div>
+
+<div id="shareDocument" style="display: none;">
+    @*<ul class="poPup_Form_Field">
+        <li>
+            <p>Document</p>
+            <span id="tdShareDocument">
+
+            </span>
+        </li>
+        <li>
+            <p><b>Share with</b></p>
+            <form id="frmShareDocument">
+                <ul id="tblShareDocument" class="poPup_Form_Field">
+                    <li id="trShareDocument1">
+                        <p></p>
+                        <span>
+                            <input id="txtShareDocument1" name="ShareDocumentName1" title="Name" placeholder="Name" type="text" class="validelement" />
+                            <input id="txtShareDocumentEmail1" name="ShareDocumentEmail1" title="Email ID" placeholder="Email ID" type="text" class="validelement validemail" />
+                        </span>
+                    </li>
+                </ul>
+                <span class='right-float'><a href='javascript:void(0)' onclick='AddShareDocument()'>Add More</a></span>
+            </form>
+        </li>
+        <li>
+            <p><b>Note to Recipients</b></p>
+            <span>
+                <textarea id="txtShareNotes" name="ShareNotes" rows="3">Please take a look at this document and let me know if you have any comments.</textarea>
+            </span>
+        </li>
+        <li>
+            <p><b>Link Expires in</b></p>
+            <span>
+                <input id="txtShareExpIn" name="ShareExpIn" title="Number" type="text" class="validelement validnumber" value="3" /> day(s)
+            </span>
+        </li>
+
+    </ul>*@
+
+    <table class="width100">
+        <tr>
+            <td class="f_head">Document</td>
+            <td class="labelleft" id="tdShareDocument"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share with</td>
+            <td class="labelleft">
+                <div id="frmShareDocument" class="width100">
+                    <table id="tblShareDocument" class="width100">
+                        <tr id="trShareDocument1">
+                            <td>
+                                <input id="txtShareDocument1" name="ShareDocumentName1" maxlength="42" title="Name" placeholder="Name" type="text" class="f_inpt width90 validelement" />
+                            </td>
+                            <td>
+                                <input id="txtShareDocumentEmail1" name="ShareDocumentEmail1" maxlength="50" title="Email ID" placeholder="Email ID" type="text" class="f_inpt width90 validelement validemail" />
+                            </td>
+                            <td style="width:20px">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddShareDocument()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">eContracts User(s)</td>
+            <td class="labelleft verticalalign-top width70">
+                <select id="ddlDocumentShareInternal" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select User(s)"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Note to Recipients</td>
+            <td class="labelleft"><textarea id="txtShareNotes" name="ShareNotes" rows="3" class="f_text-box width70">Please take a look at this document and let me know if you have any comments.</textarea></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share Link Expires in</td>
+
+            <td class="labelleft"><input id="txtShareExpIn" name="ShareExpIn"  type="text" class="f_inpt width20 validelement" value="3" /> day(s)</td>
+        </tr>
+        @*<tr>
+                <td class="f_head"></td>
+                <td class="f_list">
+                    <input type="checkbox" name="AllowComment" id="chkAllowComment" class="css1-checkbox" value="AllowComment" checked />
+                    <label for="chkAllowComment" class="css1-label">Allow recipients to comment.</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head"></td>
+                <td class="f_list">
+                    <input type="checkbox" name="AllowUpload" id="chkAllowUpload" class="css1-checkbox" value="AllowUpload" />
+                    <label for="chkAllowUpload" class="css1-label">Allow recipients to upload a New Version of this Document.</label>
+                </td>
+            </tr>*@
+    </table>
+</div>
+
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left;">
+    <div id="loadBA"></div>
+    <div id="treeviewBA" class="demo-section"></div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+</div>
+<div id="browseCounterparty" style="display:none;">
+    <div class="bg-warning">
+        <p>You can select one or more counterparty from below and link to this Contract Record.</p>
+    </div>
+    <article id="right">
+        <input id="txtSearchBoxCounterparty" class="f_inpt width80 cl" type="text" style="text-wrap:none" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparty').val(''); SearchCounterparty();">Clear</a>
+    </article>
+    <div id="loadCP"></div>
+    <div id="page-wrap" class="">
+        <table id="tblCounterparties"></table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationCounterparties"></article>
+    </div>
+    <p id="pCounterpartyNotInList" class="f_list margin-bottom-25">
+        <input type="checkbox" id="chkCounterpartyNotInList" class="css1-checkbox" />
+        <label for="chkCounterpartyNotInList" class="css1-label">Counterparty not in the list</label>
+        <span class='right-float'><a href="javascript:void(0)" style="float:right;" onclick="CounterpartyPopup()">Add New Counterparty</a></span>
+    </p>
+
+</div>
+
+<div id="browseMasterAgreements" style="display:none;">
+    <div id="loadMA"></div>
+    <div id="page-wrap">
+        <ul class="f_list" id="tblMasterAgreements"></ul>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationMasterAgreements"></article>
+    </div>
+</div>
+<div id="browseOriginatingParty" style="display:none;">
+    <div id="loadOP"></div>
+    <div id="page-wrap">
+        <ul class="f_list" id="tblOriginatingParties"></ul>
+    </div>
+    <div>
+        <ul class="form-tabmenu">
+            <li><a href="javascript:void(0)" id="OPLeagalEntities" class="form-active" onclick="SelectLegalEntities();">Company Legal Entities</a></li>
+            <li><a href="javascript:void(0)" id="OPCounterparties" onclick="SelectCounterparties();">Counterparties</a></li>
+        </ul>
+        <div id="page-wrap">
+            <ul class="f_list" id="tblOPLegalEntities"></ul>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationOPLegalEntities"></article>
+        </div>
+
+        <div id="page-wrap">
+            <ul class="f_list" id="tblOPCounterparties" style="display:none;"></ul>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationOPCounterparties" style="display:none;"></article>
+        </div>
+    </div>
+</div>
+<div id="addEditCounterparty" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <ul class="poPup_Form_Field">
+                <li>
+                    <p></p>
+                    <div>
+                        <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                    </div>
+                </li>
+                <li>
+                    <p><b>Counterparty Name</b><small>*</small></p>
+                    <div>
+
+                        <input id="txtCounterpartyName" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" class="validelement validtitle" />
+                    </div>
+                </li>
+                <li id="trcp-type">
+                    <p><b>Counterparty Type</b><small>*</small></p><div>
+                                                                       <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="">
+                                                                           <option value="0">--Select--</option>
+                                                                       </select>
+                    </div>
+                </li>
+                <li class="CP_Det1" id="trcp-gbl">
+                    <p><b>Global or Regional</b><small>*</small></p><div>
+                        <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                    </div>
+                </li>
+                <li class="" id="trcp-RgBusi" style="display:none">
+                    <p><b>Business Area</b><small>*</small></p><div>
+                        <input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="">
+                        <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                    </div>
+                </li>
+                <li id="trcp-add1">
+                    <p><b>Address</b></p>
+                    <span>
+                        <input id="txtAddressLine1" name="AddressLine1" type="text" />
+                    </span>
+                </li>
+                <li id="trcp-add2">
+                    <p><b></b></p>
+                    <div>
+                        <input id="txtAddressLine2" name="AddressLine2" type="text" />
+                    </div>
+                </li>
+                <li id="trcp-city">
+                    <p><b>City</b></p>
+                    <div>
+                        <input id="txtCity" name="City" type="text" />
+                    </div>
+                </li>
+                <li id="trcp-state">
+                    <p><b>State</b></p>
+                    <div>
+                        <input id="txtState" name="State" type="text" />
+                    </div>
+                </li>
+                <li id="trcp-country">
+                    <p><b>Country</b></p><div>
+                        <select id="ddlCountry" name="Country">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </div>
+                </li>
+                <li id="trcp-zip">
+                    <p><b>Zip/Postal Code</b></p>
+                    <div>
+                        <input id="txtZip" name="Zip" type="text" />
+                    </div>
+                </li>
+                <li id="trcp-cnumb">
+                    <p><b>Contact Number</b></p>
+                    <div>
+                        <input id="txtContactNo" name="ContactNo" type="text" title="Contact Number" />
+                    </div>
+                </li>
+                <li id="trcp-email">
+                    <p><b>Email ID</b><small>*</small><img src="/Content/Images/input-help.png" /></p>
+                    <div>
+                        <input id="txtEmailID" name="EmailID" type="text" title="Email ID" class="validemail" />
+                    </div>
+                </li>
+                <li>
+                    <p><b>Status</b></p><div>
+                        <select id="ddlStatus" name="Status">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+<div id="browseSigneeUser" style="display:none;">
+    <div id="loadMA"></div>
+    <div id="page-wrap">
+        <ul class="f_list" id="tblSigneeUser"></ul>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationSigneeUser"></article>
+    </div>
+    <div id="ClearResetSignee">
+        <a href="javascript:void(0);" onclick="ClearResetSignee();" class="width20" id="ClearResetSignee" style="color:#44a6d8;font-size:13px;">
+            Clear
+        </a>
+    </div>
+    <input type="hidden" id="hdUserEmail" />
+    <input type="hidden" id="hdUserName" />
+</div>
+<div id="dvVersionHistory" style="display:none;">
+    <div id="page-wrap" class="f_list">
+        <table>
+            <thead><tr><th style="width:30%;">Version Number</th><th style="width:30%;">Modified On</th><th style="width:30%;">Modified By</th></tr></thead>
+            <tbody id="tblVersionHistory"></tbody>
+        </table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationVersionHistory"></article>
+    </div>
+</div>
+
+<input type="hidden" id="hdnDocumentAction" />
+<input id="txtContractID" type="hidden" />
+<input id="txtContractTitle" type="hidden" />
+<input id="txtIsFolder" type="hidden" />
+<!-- Add Document Popup End-->
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/Contract365/Documents_Index.js?" + DateTime.Now.GetHashCode())
+
+    @*<script src="~/Scripts/jquery.window.min.js" type="text/javascript"></script>*@
+    <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+    <link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+    @*<script src="~/Scripts/Contract365/Documents_Index.js?Math.random()" type="text/javascript"></script>*@
+}
+
+

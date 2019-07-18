@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "BulkCounterpartyCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Create Bulk Counterparties</b>
+    </div>
+</section>
+<section class="main">
+    <section class="wraper">
+        <div class="box_Summery">
+            <div id="divFileUpload" class="width100">
+                <ul>
+                    <li>
+                        @*<input type="file" id="docContract" name="file" title="Document" class="validelement" />*@
+                        <input type="file" id="docCounterparty" name="file" title="excel file" class="validelement" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    </li>
+                    <li id="trcp-gbl">
+                        <div>
+                            <b>
+                                Global or Regional<small style="color: red;display: inline;">&nbsp;*</small>
+                            </b>
+                            <input type="radio" checked="" style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;float: none !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;float: none !important;" name="IsGlobal" value="No">Regional
+                        </div>
+                    </li>
+                    <li id="trcp-RgBusi" style="display:none;">
+                        <div>
+                            <b>Business Area</b><small style="color: red;display: inline;">&nbsp;*</small>
+                            <input type="hidden" id="hdnOwnerofBusinessArea"><input type="hidden" id="hdnLocOwnerofBusinessArea"><input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="validelement" style="float: none !important;margin-left: 46px !important;">
+                            <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)" style="float: none !important;">Browse</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="javascript:void(0);" id="btnImport" onclick="readexcelfile()" style="margin-top:10px;">Import From Excel</a>
+                        <a href="javascript:void(0);" id="btnImportCancel" style="margin-top:10px;">Clear</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div id="page-wrap" style="margin-bottom: 10px; float: left;">
+                <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px; max-height: 365px; display: block; overflow-x: auto; overflow-y: auto; " class="paginated width100"></table>
+             
+            </div>
+            <div id="btns" style="display: none; float: right;">
+                <span id="imgCreating" style="display:none;">
+                    <img src="../Content/Images/icon/loading.gif"> Creating Contract(s)...
+                </span>
+                <a href="javascript:void(0);" id="btnCreateBulkCounterparty" onclick="bulkcounterpartycreate()">Create</a>
+                <a id="btnCancel" href="javascript:void(0);">Cancel</a>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+@*<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1" style="width: 50% !important;">Create Bulk Counterparty Wizard</b>
+    </div>
+</section>
+
+<section class="main">
+    <section class="wraper">
+        <div class="box_Summery">
+            <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated table table-striped width100"></table>
+            <div id="divFileUpload">
+                <input type="file" id="docCounterparty" name="file" title="excel file" class="validelement" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                <input id="btnImport" type="submit" value="Import From Excel" class="f_button_green" onclick="readexcelfile();" style="margin-top:10px;" />
+            </div>
+            <div id="btns" style="display: none; float: left;">
+                <input id="btnCreateBulkCounterparty" type="submit" value="Create" class="f_button_green" onclick="bulkcounterpartycreate();" />
+                <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" style="margin-left:10px;" />
+            </div>
+        </div>
+    </section>
+</section>*@
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+@section Scripts {
+@*<link rel="stylesheet" href="/resources/demos/style.css">*@
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+<script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+@Scripts.Render("~/Scripts/Contract365/Counterparty_BulkCounterpartyCreate.js?" + DateTime.Now.GetHashCode())
+}
+

@@ -1,0 +1,1420 @@
+﻿@{
+    ViewBag.Title = "Requests";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+<script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/chosen.jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="~/Scripts/cbpHorizontalMenu.js"></script>
+
+
+<style>
+    ::-ms-clear {
+        display: none;
+    }
+
+    .chosen-container {
+        width: 98.5% !important;
+    }
+
+    .chosen-choices {
+        margin: 6px 0px 0 0 !important;
+    }
+
+    #tblfilterConditions td {
+        padding: 4px;
+    }
+
+    /*.box1:hover {
+        background-color: #cae6fa;
+    }*/
+
+    .ui-autocomplete {
+        font-size: 13px !important;
+        max-height: 200px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding: 8px;
+        line-height: 17px;
+        font-size: 13px;
+        color: #808080;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 200px;
+    }
+    /*.search-field input {
+            width: auto !important;
+        }*/
+    .search-field input[type=text] ::-ms-clear {
+        /*min-width:200px !important;*/
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .search-field input[type=text] ::-ms-reveal {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .AdvanceViewlnk {
+        border-bottom: 1px solid #dcdcdc;
+        color: #777777;
+        float: left;
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        padding: 0 0 6px 0;
+    }
+
+    .disablelink {
+        pointer-events: none;
+        cursor: default;
+    }
+
+    .new_view_table td {
+        font-size: 13px;
+    }
+
+    .filter_text {
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        padding: 20px 0;
+    }
+
+    .filter_list {
+        width: 100%;
+        margin: 20px 0 10px 0;
+    }
+
+        .filter_list th {
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            padding: 3px;
+            color: #666;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .filter_list td {
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            padding: 6px 3px;
+            color: #444444;
+            text-align: left;
+        }
+
+        .filter_list select {
+            width: 100%;
+            padding: 5px;
+            border: solid 1px #ccc;
+        }
+
+        .filter_list input {
+            width: 96%;
+            padding: 6px;
+            border: solid 1px #ccc;
+        }
+</style>
+<style>
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 200px;
+    }
+</style>
+@*<style>
+    /*font size small in niceSelect*/
+    .nice-select.small {
+        font-size: 11px !important;
+        height: 36px !important;
+        line-height: 34px !important;
+    }
+
+        .nice-select.small .option {
+            line-height: 25px !important;
+            min-height: 21px !important;
+        }
+</style>*@
+<section class="activity margin-bottom-m15 ">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b id="heading_requests" class="welcome1">Requests</b>
+        </div>
+        <aside class="new_deatile">
+            <!-- Before New Contract Start -->
+            <div class="cbp-hrmenu cbp-hrmenu5">
+                <ul class="margin-left-m20">
+                    <li class="newCont1 margin-0px">
+                        <a class="contract_STatus_A drop_a" href="javascript:void(0);" id="btnMultipleRequestAction" style="display:none;background-color: #FFF !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                        <div class="cbp-hrsub nEw_ContRact3 hhide">
+                            <div class="meaan">
+                                <div class="">
+                                    <div class="mean-width3 ">
+                                        <ul>
+                                            <li id="btnMultipleAction_Status" style="display:none;"><a href="javascript:void(0);" onclick="javascript: showStatusMultiple();">Change Status</a></li>
+                                            <li id="btnMultipleAction_People" style="display:none;"><a href="javascript:void(0);" onclick="javascript: showPeopleMultiple();">Change People</a></li>
+                                            <li id="btnMultipleAction_Counparty" style="display:none;"><a href="javascript:void(0);" onclick="javascript: ViewCounterparty();">Change Counterparty</a></li>
+                                            <li id="btnMultipleAction_BusnArea" style="display:none;"><a href="javascript:void(0);" onclick="javascript: BindBusinessArea();">Change Business Area</a></li>
+                                            <li id="btnMultipleAction_Delete" class="GlobalManage" style="display:none;"><a href="javascript:void(0);" onclick="javascript: multipleDelete();">Delete</a></li>
+                                            <li id="btnMultipleAction_NoPermission" style="display:none;">Don't have permission</li>
+                                            <li id="btnMultipleAction_NoActions" style="display:none;">No actions available</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Before New Contract End -->
+            <!-- Create Contract Button Start-->
+            <div class="cbp-hrmenu cbp-hrmenu5 ">
+                <ul>
+                    <li class="newCont">
+                        <a class="fiLTer_color1" href="/Pipeline/CreateRequest" id="newContract">New Request</a>
+                        <a class="fiLTer_color1 drop_a1" href="javascript:void(0);" id="newContract1" style="display:none;">New Request</a>
+                        <div id="divToAppendCreateContract" class="cbp-hrsub nEw_ContRact2 hhide1">
+                            <div class="meaan">
+                                <div class="meaan1">
+                                    <b>Create a new Requests</b>
+                                    <div class="cbp-hrsub-inner cbp-hrsub-INNer">
+                                        <div class="mean-width" style="width:100%;border:none">
+                                            <h4>Pick from one of these standard Request Types</h4>
+                                            <ul class="line-h1" id="menu3"></ul>
+                                            <div class="reg">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0);" id="btnRequestTypeViewAll">View All</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @*<div class="bottomupload" id="bulkUpload" style="display:none;">
+                                        <small>Need to create multiple request records?</small> <a href="@Url.Action("BulkContractCreate", "Contracts", new { Stage = "pipeline" })">Click Here</a>
+                                    </div>*@
+                                <div class="reg">
+                                    <ul>
+                                        <li class="reG_Right float_right1"> <a id="btnNewContractCancel" class="pop_up_Content_White2" href="javascript:void(0)">Cancel</a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Create Contract Button End-->
+        </aside>
+    </div>
+</section>
+
+<section class="wraper">
+    <section class="box2">
+        <div class="my-Alerts_contDeat" style="padding-top:0 !important;overflow: visible !important">
+            <div class="my_contract_search_block">
+                <div id="dvSrhBox" class="inserch1" style="margin-top:0 !important">
+                    <a href="javascript:void(0);"><img src="../Content/Images/con_search.png" onclick="javascript: applyFilter();" /></a>
+                    <input placeholder="Search" type="text" id="txtSearchBox" />
+
+                </div>
+                <span class="sort_filter_block">
+                    <span style="float:left;display: inline-block;margin-right: 26px;">
+                        <select id="conSortByOptions" class="wide" style="border:none; color:#666; float:left;">
+                            <option value="Recently Updated">Recently Updated</option>
+                            <option value="Recently Submitted">Recently Submitted</option>
+                            <option value="Title(A-Z)">Title(A-Z)</option>
+                            <option value="Title(Z-A)">Title(Z-A)</option>
+                        </select>
+                    </span>
+                    <div id="liFiltersforQuickViews">
+                        <aside class="filTe r_Ri" style="margin-top: -13px !important;margin-right:-7px;width: 0% !important;float: right;display: inline-block;" id="btnFilter">
+                            <div class="cbp-hrmenu cbp-hrmenu5">
+                                <ul>
+                                    <li>
+                                        <a id="buttonfltr" class="drop_a2 pad7px" style="background:#fff !important;" href="javascript:void(0);"> <img src="/Content/Images/filter_icon.png"></a>
+                                        <div id="dvfilter" class="cbp-hrsub fIlter1 hhide2 width60_imp" style="top:60px !important; display:none;">
+                                            <div class="meaan">
+                                                <div class="">
+                                                    <b>Filter</b>
+                                                    <div class="cbp-hrsub-inner">
+                                                        <div class="mEAnwidth1" id="filteroption1">
+                                                            <h4>I'm</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterUserType" name="Iam" size="7" multiple style="width:100%;">
+                                                                    <option value="Any">Any</option>
+                                                                    <option value="ContractManagers">Contract Owner</option>
+                                                                    <option value="BusinessOwners">Business Owner</option>
+                                                                    <option value="CreatedBy">Creator</option>
+                                                                    <option value="Approvers">Approver</option>
+                                                                    <option value="Reviewers">Reviewer</option>
+                                                                    <option value="Signees">Signee</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mEAnwidth1" id="filteroptionstatus">
+                                                            <h4>Status</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterStatus" name="Status" size="7" multiple style="width:100%; height:139px;">
+                                                                    <option value="All" selected>All</option>
+                                                                    <option value="NotAvailable">Not Available</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mEAnwidth1" id="filteroptiondates">
+                                                            <h4>Expiration Date</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterDates" name="filterdates" size="7" multiple style="width:100%;">
+                                                                    <option value="Any">Any</option>
+                                                                    <option value="7">&lt;7 days</option>
+                                                                    <option value="15">&lt;15 days</option>
+                                                                    <option value="30">&lt;30 days</option>
+                                                                    <option value="60">&lt;60 days</option>
+                                                                    <option value="90">&lt;90 days</option>
+                                                                    <option value="90 daysgt">&gt;90 days</option>
+                                                                    <option value="Overdue">Overdue / Expired</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mEAnwidth1" id="filteroptionrenewdates">
+                                                            <h4>Renewal Date</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterRenewDates" name="filterrenewdates" size="7" multiple style="width:100%;">
+                                                                    <option value="Any">Any</option>
+                                                                    <option value="7">&lt;7 days</option>
+                                                                    <option value="15">&lt;15 days</option>
+                                                                    <option value="30">&lt;30 days</option>
+                                                                    <option value="60">&lt;60 days</option>
+                                                                    <option value="90">&lt;90 days</option>
+                                                                    <option value="90 daysgt">&gt;90 days</option>
+                                                                    <option value="Overdue">Overdue</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mEAnwidth1" id="filteroptiontype">
+                                                            <h4>Request Type</h4>
+                                                            <div class="line-h filter_doCu">
+                                                                <select id="filterRequestType" name="RequestType" size="7" multiple style="width:100%;height:139px;">
+                                                                    <option value="All" selected>All</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="mEAnwidth3">
+                                                                <h4>Sort By</h4>
+                                                                <ul class="line-h" id="tdSort">
+                                                                    <li><a id="aRecently" href="javascript:void(0)" style="background-color:#cccccc;" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                                    <li><a id="aRecentlySubmited" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Submited</a></li>
+                                                                    <li><a id="aTitle" href="javascript:void(0)" onclick="javascript: highlight(this);">Title(A-Z)</a></li>
+                                                                </ul>
+                                                            </div>*@
+                                                    </div>
+                                                </div>
+                                                <div class="pop_up_Content_Bottom3 float_right1">
+
+                                                    <a id="btnApplyFilter" onclick="javascript: applyFilter();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                                    <a id="btnCancel" onclick="javascript:clearSelection();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+
+                        @*<div class="selectFIlterItem">
+
+                            <div id="liFiltersforQuickViews">
+                                <aside class="filter_RightNew pipe_Filter" style="margin-top: -21px !important;width: 0% !important;display: inline-flex !important;" id="btnFilter">
+                                    <div class="cbp-hrmenu cbp-hrmenu5">
+                                        <ul>
+                                            <li>
+                                                <a id="" class=" drop_a2" style="background:#fff !important;padding: 0px !important;" href="javascript:void(0);"><img src="../Content/Images/filter_icon.png" /></a>
+                                                <div id="dvfilter" class="cbp-hrsub fIlter1 hhide2 width60_imp" style="top: 66px !important;">
+                                                    <div class="meaan">
+                                                        <div class="">
+                                                            <b>Filter</b>
+                                                            <div class="cbp-hrsub-inner">
+                                                                <div class="mEAnwidth1" id="filteroption1">
+                                                                    <h4>I'm</h4>
+                                                                    <div class="line-h filter_doCu">
+                                                                        <select id="filterUserType" name="Iam" size="7" multiple style="width:100%; height:139px;">
+                                                                            <option value="Any">Any</option>
+                                                                            <option value="ContractManagers">Contract Owner</option>
+                                                                            <option value="BusinessAreaOwners">Business Owner</option>
+                                                                            <option value="CreatedBy">Creator</option>
+                                                                            <option value="Approvers">Approver</option>
+                                                                            <option value="Reviewers">Reviewer</option>
+                                                                            <option value="Signees">Signee</option>
+                                                                            <option value="RenewalConfirmParticipants">Authorizer</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mEAnwidth1" id="filteroptionstatus">
+                                                                    <h4>Status</h4>
+                                                                    <div class="line-h filter_doCu">
+                                                                        <select id="filterStatus" name="Status" size="7" multiple style="width:100%;height:139px;">
+                                                                            <option value="All" selected>All</option>
+                                                                            <option value="NotAvailable">Not Available</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mEAnwidth1" id="filteroptiondates">
+                                                                    <h4>Expiration Date</h4>
+                                                                    <div class="line-h filter_doCu">
+                                                                        <select id="filterDates" name="filterdates" size="7" multiple style="width:100%;height:139px;">
+                                                                            <option value="Any">Any</option>
+                                                                            <option value="7">&lt;7 days</option>
+                                                                            <option value="15">&lt;15 days</option>
+                                                                            <option value="30">&lt;30 days</option>
+                                                                            <option value="60">&lt;60 days</option>
+                                                                            <option value="90">&lt;90 days</option>
+                                                                            <option value="90 daysgt">&gt;90 days</option>
+                                                                            <option value="Overdue">Overdue / Expired</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mEAnwidth1" id="filteroptionrenewdates">
+                                                                    <h4>Renewal Date</h4>
+                                                                    <div class="line-h filter_doCu">
+                                                                        <select id="filterRenewDates" name="filterrenewdates" size="7" multiple style="width:100%;height:139px;">
+                                                                            <option value="Any">Any</option>
+                                                                            <option value="7">&lt;7 days</option>
+                                                                            <option value="15">&lt;15 days</option>
+                                                                            <option value="30">&lt;30 days</option>
+                                                                            <option value="60">&lt;60 days</option>
+                                                                            <option value="90">&lt;90 days</option>
+                                                                            <option value="90 daysgt">&gt;90 days</option>
+                                                                            <option value="Overdue">Overdue</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="mEAnwidth1" id="filteroptiontype">
+                                                                    <h4>Contract Record Type</h4>
+                                                                    <div class="line-h filter_doCu">
+                                                                        <select id="filterContractType" name="ContractType" size="7" multiple style="width:100%;height:139px;">
+                                                                            <option value="All" selected>All</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pop_up_Content_Bottom3 float_right1">
+                                                            <a id="btnApplyFilter" onclick="javascript: applyFilter();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                                            <a id="btnCancel" onclick="javascript:clearSelection();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </aside>*@
+                    </div>
+                </span>
+
+                <div class="selectFIlterItem" style="margin-bottom: -1%;">
+
+
+                    <div id="liFiltersQuickView">
+                    </div>
+                    <div id="liFiltersSearchText">
+                    </div>
+                    <div id="liFiltersStatus">
+                    </div>
+                    <div id="liFiltersType">
+                    </div>
+                    <div id="liFiltersUserType">
+                    </div>
+                    <div id="liFiltersRenewal">
+                    </div>
+                    <div id="liFiltersExpiration">
+                    </div>
+                    <div id="liAdvanceViewFilter">
+                    </div>
+                </div>
+            </div>
+            @*<div class="saveView"><a href="javascript:void(0)" id="btnAddViewRequest" style="cursor:pointer;display:none">Save this View</a></div>*@
+            <section>
+                <div class="request_select-top" id="divChkSelectAll">
+                    <input class=" margin-right" id="SelectAll" multiple="multiple" onclick="SelectAllItems(this);" type="checkbox">
+                    <span id="SelectAllSpan">  Select All</span>
+                </div>
+                <div class="alertbox_status alertbox_status_contDeat conTract_Rec">
+                    <ul class="border-left lineheight16" id="listContracts"></ul>
+                </div>
+                <div class="pagination-holder clearfix width76">
+                    <article id="compact-pagination"></article>
+                </div>
+                <div class="width20 float_right1 result_count">
+                    <span id="spResult"></span>
+                </div>
+            </section>
+        </div>
+
+        <div class="box2_Right">
+            <div class="contract-Right">
+                <h1 style="width:80% !important;"><img src="../Content/Images/quick-vission.png" title="Quick Views" style="cursor:default;" />Quick Views</h1>
+                <div id="idAdvanceViewlnk" class="AdvanceViewlnk"><a href="javascript:void(0)" onclick="CreateAdvanceView()">Create View</a></div>
+                <ul id="liQuickView">
+                    <li id="qvAllRequests">
+                        <p>
+
+                            <a href='javascript:void(0)' onclick='javascript: GetAllRequests();' style="width: auto;" id='aAllRequests' name='All' title="All Requests">
+                                <span id="spnAllRequests">All Requests</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvDraft">
+                        <p>
+
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aDraft' name='Draft' title="Saved Draft(s)">
+                                <span id="spnDraft">Saved Draft(s)</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvPending">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aPending' name='Pending' title="Pending">
+                                <span id="spnPending">Pending</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvUnassigned">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aUnassigned' name='Unassigned' title="Unassigned">
+                                <span id="spnUnassigned">Unassigned</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvDelayed">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aDelayed' name='Delayed' title="Delayed">
+                                <span id="spnDelayed">Delayed</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvSubmittedMyRequests">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aSubmittedMyRequests' name='Submitted' title="Submitted By Me">
+                                <span id="spnSubmittedMyRequests">Submitted By Me</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvAssigned">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aASSigned' name='Assigned' title="Assigned To Me">
+                                <span id="spnASSigned">Assigned To Me</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvCompleted">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aCompleted' name='Completed' title="Completed">
+                                <span id="spnCompletedRequests">Completed</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvCancelled">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript:quickViewDisplay(this)' style="width: auto;" id='aCancelled' name='Cancelled' title="Cancelled">
+                                <span id="spnCancelledRequests">Cancelled</span>
+                            </a>
+                        </p>
+                    </li>
+                    <li id="qvInRecycleBin">
+                        <p>
+                            <a href='javascript:void(0)' onclick='javascript: quickViewDisplay(this);' style="width: auto;" id='aInRecycleBin' name='In Recycle Bin' title="In Recycle Bin">
+                                <span id="spnInRecycleBin">In Recycle Bin</span>
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="contract-Right">
+                <h1><img src="../Content/Images/save_views.png" title="Saved Views" style="cursor:default;" />Saved Views </h1>
+                <ul id="liRequestViews"></ul>
+            </div>
+        </div>
+    </section>
+</section>
+
+<input id="hdChangeStatusClick" type="hidden" value="" />
+<div id="loading"></div>
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit Request</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator"></li>
+    <li class="approve"><a href="#approve">Start Approval</a></li>
+    <li class="separator"></li>
+    <li class="status"><a href="#status">Change Status</a></li>
+    <li class="people"><a href="#people">People</a></li>
+    <li class="separator"></li>
+    <li class="delete GlobalManage" style="display:none;"><a href="#delete">Delete Request</a></li>
+</ul>
+<ul id="myMenuWoDel" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit Request</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator"></li>
+    <li class="approve"><a href="#approve">Start Approval</a></li>
+    <li class="separator"></li>
+    <li class="status"><a href="#status">Change Status</a></li>
+    <li class="people"><a href="#people">People</a></li>
+    @* <li class="separator"></li>
+        <li class="delete GlobalManage" style="display:none;"><a href="#delete">Delete Request</a></li>*@
+</ul>
+<ul id="myMenuContribute" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit Request</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator"></li>
+
+    <li class="approve"><a href="#approve">Send for Approval</a></li>
+    <li class="separator"></li>
+    <li class="status"><a href="#status">Change Status</a></li>
+    @*<li class="people"><a href="#people">People</a></li>*@
+</ul>
+<ul id="myMenuView" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+</ul>
+
+
+<ul id="myMenuDraft" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="status ManageCancelled" style="display:none"><a href="#status">Change Status</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator"></li>
+    @* <li class="cmalerts"><a href="#alerts">View Alerts</a></li>*@
+    <li class="delete GlobalManage DeleteRecord"><a href="#delete">Delete Request</a></li>
+</ul>
+<ul id="myMenuDraftWoDel" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    @* <li class="separator"></li>
+         <li class="cmalerts"><a href="#alerts">View Alerts</a></li>
+        <li class="delete GlobalManage"><a href="#delete">Delete Request</a></li>*@
+</ul>
+<ul id="myMenuRecycle" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="delete GlobalManage"><a href="#delete">Delete Request</a></li>
+</ul>
+<ul id="myMenuDraftContribute" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="status ManageCancelled" style="display:none"><a href="#status">Change Status</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    @* <li class="separator"></li>*@
+    @* <li class="cmalerts"><a href="#alerts">View Alerts</a></li>*@
+</ul>
+
+<ul id="myMenuPastRequests" class="contextMenu">
+    <li class="viewdetails"><a href="#viewdetails">View Details</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="delete GlobalManage" style="display:none;"><a href="#delete">Delete Request</a></li>
+</ul>
+
+<div id="addNewView" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtViewID" name="ViewID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name</td>
+                    <td class="labelright"><input id="txtViewName" name="ViewName" type="text" class="f_textinput width70" maxlength="50" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="popupAllRequestTypes" style="display:none;">
+    <div class="modalbody12">
+        <ul id="ulAllRequestTypes" class="line-h"></ul>
+        <section class="box-table">
+            <div class="pagination-holder clearfix ">
+                <article id="compact-pagination-ContractTypes" class="pagination_margin"></article>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="popupAllContractTemplates" style="display:none;">
+    <div class="modalbody">
+        <ul id="ulAllContractTemplates" class="line-h"></ul>
+        <section class="box-table">
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination-ContractTemplates"></article>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div id="contractLogsPopup" style="display:none;">
+    <div id="page-wrap">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="logHisheader">Date and Time</th>
+                        <th class="logHisheader">Item</th>
+                        <th class="logHisheader">Activity</th>
+                        <th class="logHisheader">User</th>
+                    </tr>
+                </thead>
+                <tbody id="contractLogs"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Activity"></article>
+    </div>
+</div>
+
+<div id="shareContract" style="display: none;">
+    <table class="width100">
+        <tr>
+            <td class="f_head">Contract Record Title</td>
+            <td class="labelleft" id="tdShareContract"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share with&nbsp;<small class="required">*</small></td>
+            <td class="labelleft">
+                <div id="frmShareContract" class="width100">
+                    <table id="tblShareContract" class="width100">
+                        <tr id="trShareContract1">
+                            <td>
+                                <input id="txtShareContract1" name="ShareContractName1" maxlength="42" title="Name" placeholder="Name" type="text" class="f_inpt width90 validelement" />
+                            </td>
+                            <td>
+                                <input id="txtShareContractEmail1" name="ShareContractEmail1" maxlength="50" title="Email" placeholder="Email ID" type="text" class="f_inpt width90 validelement validemail" />
+                            </td>
+                            <td style="width:20px">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddShareContract()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Note to Recipients</td>
+            <td class="labelleft"><textarea id="txtShareNotesContract" name="ShareNotesContract" rows="3" class="f_text-box width70">Please take a look at this contract and let me know if you have any comments.</textarea></td>
+        </tr>
+        <tr>
+            <td class="f_head">Link Expires in&nbsp;<small class="required">*</small></td>
+
+            <td class="labelleft"><input id="txtShareExpInContract" name="ShareExpInContract" type="text" class="f_inpt width20 validelement" value="3" /> day(s)</td>
+
+        </tr>
+
+        <tr>
+            <td class="f_head" colspan="2">
+                <input type="checkbox" name="AutoUpdateStatusShare" id="chkAutoUpdateStatusShare" class="summary_Check" />
+                <label for="chkAutoUpdateStatusShare" class="workflow_Check_Right">Auto update request status based on this workflow.</label>
+            </td>
+        </tr>
+
+        @*<tr>
+                <td class="f_head"></td>
+                <td class="f_list">
+                    <input type="checkbox" name="AllowCommentContract" id="chkAllowCommentContract" class="css1-checkbox" value="AllowComment" checked />
+                    <label for="chkAllowCommentContract" class="css1-label">Allow recipients to comment.</label>
+                </td>
+            </tr>*@
+
+    </table>
+    <p id="inprocessShareContract" class="popup_save_progress" style="visibility:hidden;">
+        <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+    </p>
+</div>
+
+<div id="allAlerts" style="display:none;">
+    <section id="alertsListAll" class="d-box-table padding_left"></section>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Alerts"></article>
+    </div>
+</div>
+
+<div id="addEditStatus" style="display:none;">
+    <div id="dvPopupHeadingStatus" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewStatus">
+            <ul id="menu34" class="f_list"></ul>
+        </div>
+    </div>
+</div>
+
+<div id="addEditStatusMultiple" style="display:none;">
+    <div id="dvPopupHeadingStatusM" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewStatusMultiple">
+            <ul id="menuSMultiple" class="f_list"></ul>
+        </div>
+    </div>
+</div>
+
+<div id="addEditPeople" style="display: none;">
+    <input type="hidden" autofocus="autofocus" />
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewPeople">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                @*eO39900 - Anand*@
+                <tr>
+                    <td class="f_head">Request Approver(s)</td>
+                    <td class="labelleft width60">
+                        <select id="ddlApproversNew" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Request Assigned To</td>
+                    <td class="labelleft width60">
+                        <select id="ddlAssignedTo" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Request Collaborators(s)</td>
+                    <td class="labelleft width60">
+                        <select id="ddlCollaboratorsNew" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Request Requestor(s) <small class="required">*</small></td>
+                    <td class="labelleft width60">
+                        <div class="invite-Peop-mul-sel">
+                            @*eO310250 - Anand*@
+                            <select id="ddlRequestorsNew" multiple="multiple" title="Request Requestor(s)" class="f_inpt width90 chosenmulti validmultiselect" data-placeholder="Select User(s)"></select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft font_12" colspan="2">
+                        <span>Contract Area Admin </span>: <label id="liContractAreaAdmin"></label><br />
+                        <span>Business Area Owner </span>: <label id="liBusinessAreaOwner"></label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="addEditPeopleMultiple" style="display:none;">
+    <input type="hidden" autofocus="autofocus" />
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewPeopleM">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head">Collaborator(s)</td>
+                    <td class="labelleft width60">
+                        <select id="ddlCollaboratorsM" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Approver(s)</td>
+                    <td class="labelleft width60">
+                        <select id="ddlApproversM" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Assigned To(s)</td>
+                    <td class="labelleft width60">
+                        <select id="ddlAssignedToM" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select Assign To(s)"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Contract Renewal Popup Start-->
+<div id="contractRenewal" style="display:none;">
+    <div id="dvPopupHeadingContractRenewal" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewContractRenewal">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr style="display:none;">
+                    <td><label id="lblRenewSettingsID"></label></td>
+                    <td></td>
+                </tr>
+                <tr style="border-bottom:1px solid #CCCCCC;">
+                    <td width="35%" class="labelleft" style="color: #3f91cc">Dates</td>
+                    <td class="labelright">
+                        <ul id="renewalDates" class="f_list">
+                            <li>
+                                Next Renewal Date
+                                <label style="font-weight:bold;" id="lblNextRenewalDate">
+                                </label>
+                            </li>
+                            <li>
+                                Contract Term End Date
+                                <label style="font-weight:bold;" id="lblTermEndDate">
+                                </label>
+                            </li>
+                            <li>
+                                Last Renewed
+                                <label style="font-weight:bold;" id="lblLastRenewed">
+                                </label>
+                            </li>
+                            <li>
+                                Renewals Remaining
+                                <label style="font-weight:bold;" id="lblRenewalRemaining">
+                                    Not Available
+                                </label>
+                            </li>
+                            <li>
+                                Final Expiration Date
+                                <label style="font-weight:bold;" id="lblContractEndDate">
+                                    Not Available
+                                </label>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px solid #CCCCCC;">
+                    <td class="labelleft" style="color: #3f91cc">Contract Renewal Settings</td>
+                    <td class="labelright">
+                        <ul id="renewalSetting" class="f_list">
+                            <li>
+                                <input id='settingNonRenewable' type='radio' checked name='rdsettings' onclick="RenewSettingRadiobutton('Non-Renewable');" value='Non-Renewable' class='css-checkbox' /><label for='settingNonRenewable' class='css-label'>Non-Renewable </label>
+                                <img src='../Content/Images/help_training.png' title="Non-Renewable" />
+                            </li>
+                            <li>
+                                <input id='settingManual' type='radio' name='rdsettings' value='Manual-Renewable' onclick="RenewSettingRadiobutton('Manual-Renewable');" class='css-checkbox' /><label for='settingManual' class='css-label'>Manual-Renewable </label>
+                                <img src='../Content/Images/help_training.png' title="Manual-Renewable" />
+
+                                <span class="button-green" id="btnRenewNow"> <a href="javascript:void(0)"><img src="../Content/Images/menu-icon.png" class="img-padd" />Renew Now</a></span>
+
+                            </li>
+                            <li>
+                                <input id='settingAuto' type='radio' name='rdsettings' value='Auto-Renewable' onclick="RenewSettingRadiobutton('Auto-Renewable');" class='css-checkbox' /><label for='settingAuto' class='css-label'>Auto-Renewable </label>
+                                <img src='../Content/Images/help_training.png' title="Auto-Renewable" />
+                            </li>
+                            <li id="liAutoRenew1" style="display:none;">
+                                Standard renewal term
+                                <input id="txtStandardRenewalTerm" name="" type="text" maxlength="4" title="Term" class="f_inpt width20" />
+
+                                <select id="ddlStandardRenewalTerm" name="StandardRenewalTerm" title="Standard Renewal Term" class="f_inpt width20">
+                                    <option value="Years">Year(s)</option>
+                                    <option value="Months">Month(s)</option>
+                                    <option value="Days">Day(s)</option>
+                                </select>
+                            </li>
+                            <li id="liAutoRenew2" style="display:none;">
+                                Number of times renewable
+
+                                <input id='settingRenewEvergreen' type='radio' name='rdRenewTime' value='Evergreen' class='css-checkbox' /><label for='settingRenewEvergreen' class='css-label'>Evergreen</label><img src='../Content/Images/help_training.png' title="Evergreen" />
+                                <input id='settingRenewableFor' type='radio' checked name='rdRenewTime' value='RenewableFor' class='css-checkbox' /><label for='settingRenewableFor' class='css-label'>Renewable For</label>
+
+                                <input id="txtRenewableFor" name="" type="text" maxlength="4" title="Term" class="f_inpt width20" />
+                                terms.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px solid #CCCCCC;">
+                    <td class="labelleft">
+                        <label style="color: #3f91cc">Workflow Approval Required?</label> <br />
+                        <label style="color:#808080; font-size:12px;">Workflow routes a contract for its renewal to extend its active status with valid duration.</label>
+                    </td>
+                    <td class="labelright f_list">
+                        <input id='settingWorkflowYes' type='radio' name='rdWorkflow' value='Yes' class='css-checkbox' onclick="approvaltaskyes();" /><label for='settingWorkflowYes' class='css-label'>Yes</label>
+                        <input id='settingWorkflowNo' type='radio' checked name='rdWorkflow' value='No' class='css-checkbox' onclick="approvaltaskno();" /><label for='settingWorkflowNo' class='css-label'>No</label>
+                        <div id="divWorkflowYes" class="divWorkflow" style="display:none;">
+                            <br /><br />
+                            Select Approver(s)
+                            <select id="ddlApproversRenewSettings" multiple="multiple" title="Approver(s)" class="f_inpt width90 validelement" style="margin-top:10px;"></select>
+                            <br /><br />
+                            Notes for the Approver(s)
+                            <textarea name="NotesForApprovers" cols='40' rows='3' title="Notes for Approver" class='f_inpt width90 validelement' style="margin-top:10px;"></textarea>
+                            <br /><br />
+                            <label style="padding-bottom:10px;">Create approval tasks</label>
+                            <div class="">
+                                <input id="checkboxApprovalTask" name="checkboxApprovalTask" value="Yes" type="checkbox" />
+                                <label for="checkboxApprovalTask" class="css1-label">
+                                </label>
+                                <input id="txtApprovalTask" name="ApprovalTask" type="text" readonly maxlength="4" class="f_inpt f_inpt1  width20" />
+                                days prior to renewal date.
+                            </div><br /><br />
+                        </div>
+                    </td>
+                </tr>
+                @*<tr style="border-bottom:1px solid #CCCCCC;">
+                            <td class="labelleft" style="color: #3f91cc">
+                                Reminders &amp; Alerts
+                                <label style="color:#808080; font-size:12px;">Reminders can be used to remind users of these dates and alert can be triggered based on tasks accomplished.</label>
+                            </td>
+                            <td class="labelright">
+                                Remind User(s)
+                                <select id="ddlRemindUsersRenewSettings" multiple="multiple" class="f_inpt width90" style="margin-top:10px;"></select>
+                                <div class="f_list">
+                                    <input id="checkboxRemindUsers" name="checkboxRemindUsers" value="Yes" type="checkbox" class="css1-checkbox" />
+                                    <label for="checkboxRemindUsers" class="css1-label">
+                                        Remind user(s)
+                                        <input id="txtRemindUserDays" name="RemindUserDays" type="text" style="border:1px solid #CCCCCC;" class="width20" />
+                                        days prior to renewal date.
+                                    </label>
+                                </div>
+
+                                <div class="f_list">
+                                    <input id="checkboxNotify" name="checkboxNotify" value="Yes" type="checkbox" class="css1-checkbox" style="margin-top: 15px;" />
+                                    <label for="checkboxNotify" class="css1-label">
+                                        notify when contract is renewed.
+                                    </label>
+                                </div>
+                            </td>
+                    </tr>*@
+                <tr id="trRenwalHistory">
+                    <td class="labelleft" style="color: #3f91cc">
+                        Renewal History
+                        <label style="color:#808080; font-size:12px;">History of Contract Record renewal activities that was run on each Contract Record. This track approvers activities such as, renewal type, status, date and timestamp.</label>
+                    </td>
+                    <td class="labelright" id="page-report">
+                        <table class="paginated table table-striped width100" id="tblRenewalHistory">
+                            <thead>
+                                <tr>
+                                    <th>Renewal Type</th>
+                                    <th>Renewed For</th>
+                                    <th>Renewed By</th>
+                                    <th>Approved By</th>
+                                    <th>Renewed Date</th>
+                                    <th>Status</th>
+                                    <th>Notified</th>
+                                </tr>
+                            </thead>
+                            <tbody id="renewalHistory"></tbody>
+                        </table>
+                        <label id="lblrenewalerror" class="f_p-error" style="display:none;">No renewal history found.</label>
+                        <div class="pagination-holder clearfix">
+                            <article id="compact-pagination"></article>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!-- Contract Renewal Popup End-->
+<!-- Manual Renewable Popup-->
+<div id="manualRenewal" style="display:none;">
+    <div class="modalbody">
+        <div id="divManualRenewal">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="labelleft" style="color: #3f91cc">
+                        Updated End (Renewed) Date
+                    </td>
+                    <td class="labelright">
+                        <input id="txtNewEndDate" name="" type="text" title="Updated End (Renewed) Date" class="f_inpt width90 validelement validdate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft" style="color: #3f91cc">
+                        Next Renewal Date
+                    </td>
+                    <td class="labelright">
+                        <input id="txtNextRenewalDate" name="" type="text" title="Next Renewal Date" class="f_inpt width90 validelement validdate" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--manoj-->
+<div id="dialogSummary" title="Request Summary" class="pop_up" style="display:none">
+
+    <div class="pop_up_Content" style="height:350px;overflow-y:auto">
+        <ul class="pop_up_Harizondal">
+            <li><a href="javascript:void(0)" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+            <li><a href="javascript:void(0)" id="Details" onclick="MetadataDetails();">Details</a></li>
+        </ul>
+        <table id="tblSummary" class="width100 marginbottom12px" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="f_head">Request Title</td>
+                <td class="labelleft" id="tdSumRequestTitle"></td>
+            </tr>
+            <tr>
+                <td class="f_head">Request Type</td>
+                <td class="labelleft" id="tdSumRequestType"></td>
+            </tr>
+            <tbody id="tblSummaryMetadata"></tbody>
+        </table>
+        <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+    </div>
+</div>
+<!--manoj-->
+
+
+<div id="dvWorkflow" style="display:none;height:auto;">
+    <div class="modalbody" style="">
+        <input id="hdWorkflowContractArea" type="hidden" value="" />
+        <input id="hdWorkflowBusinessArea" type="hidden" value="" />
+        <input id="hdWorkflowBusinessAreaPath" type="hidden" value="" />
+        <input id="hdWorkflowType" type="hidden" value="" />
+        <input id="hdWorkflowObject" type="hidden" value="" />
+        <input id="hdWorkflowObjectID" type="hidden" value="" />
+        <input id="hdWorkflowObjectTitle" type="hidden" value="" />
+        <ul id="ulStartWorkflow" class="poPup_Form_Field pop-up-space">
+            <li>
+                <p><b>Workflow Title</b><small>*</small><img src="/Content/Images/input-help.png" title="Workflow title for the rule." /></p><div>
+                    <input type="text" maxlength="150" id="txtWorkflowTitle" name="WorkflowTitle" class="validelement validtitle" />
+                </div>
+            </li>
+
+            <li>
+                <p><b id="ddlAssigne">Workflow Routing Rule</b><small>*</small><img src="/Content/Images/input-help.png" title="Workflow routing rule satisfied by the request." /></p>
+                <div>
+                    <label id="lblddlRule" class="width99" style="display:none"></label><select id="ddlRule" name="Rule" class="width99"></select>
+                </div>
+            </li>
+            <li>
+                <p><b id="ddlAssigne">Participants</b><small>*</small><img src="/Content/Images/input-help.png" title="Participants for the workflow stages." /></p>
+
+                <div>
+
+                </div>
+            </li>
+            <li>
+                <table id="tblStage" class="width100 clear_both">
+                    <tr id="trStage1">
+                        <td class="width30 wf_approval">
+                            <input id="txtStage1" name="Stage1" placeholder="Stage Name" type="text" class="f_inpt width97" value="Stage 1" />
+                        </td>
+                        <td class="width40 wf_approval1">
+                            <select id="ddlAssignTo1" name="AssignTo1" multiple="multiple" data-placeholder="Select" class="width97 validuser"></select>
+                        </td>
+                        <td class="width20 " style="vertical-align: top;">
+                            <select id="ddlOrder1" name="Order1" class="f_inpt width97"><option selected="selected">Serial</option><option>Parallel</option></select>
+                        </td>
+                        <td class="width10">
+                            <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" onclick="DeleteStage(this)" />
+                        </td>
+                    </tr>
+                </table>
+                <span class='right-float' id="spAddStage"><a href='javascript:void(0)' onclick='AddStage()'>Add Stage</a></span>
+            </li>
+            <li>
+                <p><b>Duration per Task (days)</b><small>*</small></p><div>
+                    @*Added from 2.4final to 2.4*@
+                    <input id="txtDuration" name="DueDate" type="text" maxlength="3" class="f_inpt width20  validnumber  validelement" onchange="change_date(this, 'lblDurationDate')" onkeyup=" change_date(this, 'lblDurationDate' )" />
+                    <small> day(s)</small>
+                    <small id="lblDurationDate" style="padding-left:7px;color:#6c9539;"></small>
+                </div>
+            </li>
+            <li>
+                <p><b>Notes to Participants</b><small>*</small></p>
+            </li>
+            <li>
+                <div class="NotesNicedit width97">
+                    <textarea id="txtComment" class="validNicEdit" name="Notes" title="Notes" rows="2" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" autofocus="autofocus"></textarea>
+                </div>
+            </li>
+            <li>
+                <p><b>Send Workflow Notification</b><img src="/Content/Images/input-help.png" title="Send the workflow notification to the selected people." /></p><div>
+                    <select id="ddlWorkflowCC" name="CC" multiple="multiple" data-placeholder="Select" class="width97"></select>
+                </div>
+            </li>
+            <li>
+                <div class="poPup_Form_radio width100">
+                    <input type="checkbox" name="AutoUpdateStatus" id="chkAutoUpdateStatus" class="summary_Check" />
+                    <label for="chkAutoUpdateStatus" class="workflow_Check_Right">Auto update request status based on this workflow.</label>
+                </div>
+
+            </li>
+            <li style="margin-bottom: 15px; font-style: italic; font-weight: 500;">Note: Alerts will be sent to 'Participants' and/or 'Initiator'.</li>
+        </ul>
+        <p id="inprocessStartWorkflow" class="popup_save_progress" style="display:none;">
+            <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+        </p>
+    </div>
+</div>
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+    <div id="loadBA"></div>
+    @*<div id="treeviewBA" class="demo-section"></div>*@
+    <div style="overflow-y: auto; height: 350px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+    <input id="txtBusinessAreaDescription" type="hidden" />
+</div>
+
+<div id="browseCounterparty" style="display:none;">
+    <p class="text1" style="padding: 0px 10px 10px 10px;">You can select one or more Counterparty from below and link to this Contract Record.</p>
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBoxCP" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCP').val(''); SearchCounterparty();">Clear</a>
+    </article>
+    <div id="loadCP"></div>
+    <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+        <table id="tblCounterparties"></table>
+        @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+            <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').prop('checked', false);">Unselect All</a>
+        </span>*@
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationCounterparties"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedCounterParty">
+        </div>
+    </div>
+</div>
+
+<!-- Manual Renewable Popup-->
+<div id="dvAlertDetails1" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <ul class="poPup_Form_Field">
+            <li>
+                <div id="alertText1" class="width95 margin-0px"></div>
+            </li>
+            <li id="textingdetails" style="margin-top:25px !important">
+
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+
+<div id="addNewAdvanceView" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewViewFields">
+            <div style="width: 100%;float: left;display: block;margin-bottom: 5px;">
+                <table cellpadding="2" cellspacing="2" class="width60 new_view_table">
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelright"><input id="txtViewID" name="ViewID" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px;color:#666">View Name<span style="color:red">*</span> </td>
+                        <td class="labelright"><input id="txtAdvanceViewName" name="ViewName" type="text" class="f_textinput validelement" maxlength="50" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: 100%;float: left;display: block;margin-bottom: 15px;">
+                <table cellpadding="2" cellspacing="2" class="width60 new_view_table">
+                    <tr>
+                        <td style="color:#666; width:100px">Default Sort</td>
+                        <td class="labelright">
+                            <span>
+                                <select id="conAdvanceViewSortBy" style="width:400px;">
+                                    <option value="Recently Updated">Recently Updated</option>
+                                    <option value="Recently Submitted">Recently Submitted</option>
+                                    <option value="Title(A-Z)">Title(A-Z)</option>
+                                    <option value="Title(Z-A)">Title(Z-A)</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td>
+                            <img id="advanceViewSortDirection" src="~/Content/Images/down-arrow_1.png" data-direction="ASC" />
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+            @*<table cellpadding="2" cellspacing="2" class="width80" style="margin-top:20px;">
+                    <thead>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+
+                            </th>
+                            <th>
+                                And/Or
+                            </th>
+                            <th>
+                                Metadata
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Operator
+                            </th>
+                            <th>
+                                Value
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblfilterConditions">
+                        <tr id="tr_0">
+                            <td>
+                                <span><a id="insertNewfilter_0" onclick="insertNewfilterCondition(this)" href="javascript:void(0)"><img src="~/Content/Images/plus_green.png" /></a></span>
+                            </td>
+                            <td>
+                                <span><input style="display:none" checked="checked" id="chkNewfilter_0" disabled type="checkbox" /></span>
+                            </td>
+                            <td>
+                                <span>
+                                    @*<select id="condition_0" class="width70" ><option value="">Select</option><option value="and">AND</option><option value="or">OR</option></select>
+
+                                    <p style="font-size:12px;">
+                                    <a id="insertNewfilter_0" onclick="insertNewfilterCondition(this)" href="javascript:void(0)">Add more..</a>
+                                </p>
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <input id="metadata_label_0" type="text" class="f_textinput width90 validelement" />
+                                    <input id="metadata_value_0" type="hidden" />
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <input id="metadata_type_0" type="text" readonly class="f_textinput width90" />
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <select id="operator_0" type="text" class="width100 validelement">
+                                        <option value="">--Select--</option>
+                                        <option value="eq">Equals</option>
+                                        <option value="gt">Is Greater than</option>
+                                        <option value="ge">Is Greater than or Equal to</option>
+                                        <option value="lt">Is Less than</option>
+                                        <option value="le">Is Less than or Equal to</option>
+                                        <option value="ne">Does not Equal</option>
+                                        <option value="like">Contains</option>
+                                        <option value="empty">Empty</option>
+                                        <option value="any">Not Empty / Any</option>
+                                    </select>
+                                </span>
+                            </td>
+                            <td>
+                                <span><input id="value_0" type="text" class="f_textinput width80" /></span>
+                            </td>
+                            <td>
+                                <span><a href="javascript:void(0)" onclick="removefilterCondition(this)" ><img src="~/Content/Images/close_red.png"/></a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>*@
+            <div style="width:100%;float:left;display:block;font-size: 18px;margin-bottom: 20px;color: #383838;border-bottom: solid 1px #ccc;padding-bottom: 5px;">Filters</div>
+            <table width="100%" class="filter_list">
+                <thead>
+                    <tr>
+                        <th style="width: 200px">And / Or </th>
+                        <th style="width: 300px">Metadata</th>
+                        <th style="width: 200px">Operator</th>
+                        <th>Value</th>
+                        <th style="width: 20px"></th>
+                    </tr>
+                </thead>
+                <tbody id="tblfilterConditions">
+                    <tr id="tr_0">
+                        <td></td>
+                        <td>
+                            <input id="metadata_label_0" type="text" class="validelement width90" />
+                            <input id="metadata_value_0" type="hidden" />
+                            <input id="metadata_type_0" type="hidden" />
+                        </td>
+                        <td>
+                            <span>
+                                <select id="operator_0" class="validelement" onchange="validateFilterValue(this)">
+                                    <option value="">--Select--</option>
+
+                                </select>
+                            </span>
+                        </td>
+                        <td>
+                            @*<input id="value_0" class="validelement width90" type="text">*@
+                        </td>
+
+                        <td style="text-align: center!important;">
+                            @*<span>
+                                    <a href="javascript:void(0)" onclick="removefilterCondition(this)">
+                                        <img src="~/Content/Images/close_red.png" />
+                                    </a>
+                                </span>*@
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div id="btnAddNewAdFilter" style="width:100%;float:left;display:block;font-size:13px;"><a href="javascript:void(0);" onclick="insertNewfilterCondition(this)" id="insertNewfilter_0" href="#" style="font-size:13px; color:#3f91cc"><img src="~/Content/Images/add_view.png" style="width:10px" /> Add More</a></div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="txtSortBy" value="" />
+<input type="hidden" id="hdContractID" value="" />
+<input type="hidden" id="hdContractTitle" value="" />
+<input type="hidden" id="hdContractStatus" value="" />
+@*<input type="hidden" id="hdnIsRenewable" value="" />
+    <input type="hidden" id="hdnIsExtendable" value="" />*@
+@*<input type="hidden" id="hdnOldEndDate" value="" />
+    <input type="hidden" id="hdnStartDate" value="" />*@
+<input type="hidden" id="hdRequestID" value="" />
+<input type="hidden" id="hdRequestTitle" value="" />
+
+@section Scripts {
+    @*<script src="~/Scripts/jquery.window.min.js" type="text/javascript"></script>*@
+
+    @*<script type="text/javascript" src="~/Scripts/jquery.nice-select.min.js"></script>*@
+    @Scripts.Render("~/Scripts/jquery.nice-select.min.js")
+    @Scripts.Render("~/Scripts/Contract365/Pipeline_Requests.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
+
+
+    @*@Scripts.Render("~/Pipeline_Index_JS")*@
+
+    @*<script>
+            $(function () {
+                //cbpHorizontalMenu.init();
+            });
+        </script>*@
+}
+
+
+

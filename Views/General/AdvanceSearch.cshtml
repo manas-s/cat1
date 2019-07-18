@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Advance Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<link href="~/Content/css/intlTelInput.css" rel="stylesheet" />
+<link href="~/Content/daterangepicker.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .checkbox15 input[type="checkbox"]:first-child {
+        margin-left: 0;
+    }
+
+    .checkbox15 input[type="checkbox"] {
+        margin: 0 3px 0 15px;
+    }
+
+    .my-Alerts_Act1.clearr {
+        margin: 0;
+        padding: 0 20px 12px;
+    }
+
+        .my-Alerts_Act1.clearr .inserch2, .my-Alerts_Act1.clearr .insearch_Right1 {
+            margin: 0;
+        }
+
+    .checkbox15 {
+        width: 100%;
+        float: left;
+        margin-top: 12px;
+    }
+
+    .ui-autocomplete {
+        max-height: 200px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding: 8px;
+        line-height: 17px;
+        font-size: 13px;
+        color: #808080;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 200px;
+    }
+</style>
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="search_heading">
+            <b class="welcome1">Advanced Search</b>
+        </div>
+        <div class="search_view_switch">
+
+            <a id="aNavContracts" href="javascript:void(0);" style="color:#44a6d8" onclick="NavigateToSearch()"><b id="bNavContracts">Go to Keyword Search &nbsp;<img src="../Content/Images/arrow_right_new.png" /></b></a>
+        </div>
+    </div>
+</section>
+
+<section class="wraper">
+    <section class="box2">
+        <div class="my-Alerts_contDeat">
+            <div class="my-Alerts_Act1 clearr">
+                <!--manoj-->
+                <!--manoj new div-->
+                <div id="addNewViewFields">
+                    <div style="width:100%;float:left;display:block;font-size: 18px;margin-bottom: 20px;color: #383838;">Filters</div>
+                    <table width="100%" class="filter_list">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px">And / Or </th>
+                                <th style="width: 200px">Metadata</th>
+                                <th style="width: 150px">Operator</th>
+                                <th style="width: 200px">Value</th>
+                                <th style="width: 20px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblfilterConditions">
+                            <tr id="tr_0">
+                                <td></td>
+                                <td>
+                                    <input id="metadata_label_0" type="text" class="validelement" />
+                                    <input id="metadata_value_0" type="hidden" />
+                                    <input id="metadata_type_0" type="hidden" />
+                                </td>
+                                <td id="tdoperator_0">
+                                    <select id="operator_0" onchange="changefieldVlaidate(this);" class="validelement">
+                                        <option value="0">--Select--</option>
+                                    </select>
+                                </td>
+                                <td id="tdtype_0"><span id="spnvalue_0"><input id="value_0" class="f_textinput actfocusout validelement" type="text"></span></td>
+                                <td style="text-align: center!important;">
+                                    @*<span>
+                                            <a href="javascript:void(0)" onclick="removefilterCondition(this)">
+                                                <img src="~/Content/Images/close_red.png" />
+                                            </a>
+                                        </span>*@
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div style="width:100%;float:left;display:block;font-size:13px;" id="dvaddmore"><a onclick="insertNewfilterCondition(this)" id="insertNewfilter_0" href="#" style="font-size:13px; color:#3f91cc"><img src="~/Content/Images/add_view.png" /> Add More</a></div>
+                    <div style="float:left;display:none;font-size:13px;margin-top: 17px;" id="dvviewmore"><a onclick="ViewHideCondition(this)" id="ViewHideMore" href="#" style="font-size:13px; color:#3f91cc"> View More </a></div>
+                    <div style="display:none">
+                        <select id="ddlUsers"></select>
+                    </div>
+                </div>
+                <!--manoj new div-->
+                <!--manoj-->
+                <div class="">
+                    <a id="btnCancel" onclick="javascript:clearSelection();" href="javascript:void(0)" class="pop_up_Content_White" style="float: right;margin-top: 6px;margin-left: 5px;padding: 8px !important;border-radius: 5px !important;">Reset</a>
+                    <div class="search_btn" style=" margin-left: 20px;">
+                        <a href="javascript:void(0)" onclick="NewSearch();">Search</a>
+                    </div>
+                </div>
+            </div>
+            <div class="alertbox_status alertbox_status_contDeat">
+                <ul class="border-left seArchLi" id="listSearchResult">
+                    <li class="seArchLi"><p class="notify_text_msg">Please select search criteria to view results</p></li>
+                </ul>
+            </div>
+            <div id="loading" class="border-left seArchLi alertbox_status"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+            <div class="width20 float_right1 result_count">
+                <span id="spResult"></span>
+            </div>
+        </div>
+
+
+    </section>
+</section>
+<b id="bSearchIn" style="display:none;">Contracts</b>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    @*<script src="~/Scripts/chosen.jquery.js" type="text/javascript"></script>*@
+    @*<script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>*@
+    @*<script src="~/Scripts/Contract365/General_SearchResult.js" type="text/javascript"></script>*@
+    @* <script src="~/Scripts/Contract365/General_SearchResult.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/General_AdvanceSearch.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/intlTelInput.js");
+}

@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "TodoDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<label style="display:none;" id="hdnTodoFor"></label>
+<label style="display:none;" id="hdnContractID"></label>
+
+
+<section class="contractHead">
+    <a id="backButton" href="javascript:void(0)" onclick="BackToList();"><img src="/Content/images/arrow-goback.png" /></a><small>Go Back</small>
+</section>
+
+
+<section class="wraper">
+
+    <section class="box2">
+        <div class="contract_Left">
+            <div class="agreement">
+                <div class="agreement1">
+                    <div class="agreementLeft">
+                        <b id="todoTitle"></b>
+                        <i>
+                            <span id="createdBy" title="Assign By"></span> | <span id="dueDate" title="Due Date"></span> | <span id="taskStatus" title="Task Status">Not Complete</span><br />
+                            <span id="todoNote" title="Note"></span>
+                        </i>
+                    </div>
+                    <div class="agreementRight">
+                        <div id="dvTodoComplete" class="cbp-hrmenu cbp-hrmenu5 " style="display:none;">
+                            <ul>
+                                <li class="newCont1">
+                                    <a class="drop_a4 Wating_renewal" href="javascript:void(0);"><small id="dvTodoCompleteText">Not Complete</small><img src="/Content/images/dp-ddown.png" /></a>
+                                    <!-- /cbp-hrsub -->
+                                    <div class="cbp-hrsub nEw_ContRact5 hhide4">
+                                        <div class="meaan">
+
+
+                                            <div class="">
+
+                                                <div class="mean-width3 ">
+                                                    <ul class="waitingRenival">
+                                                        <li><a href="javascript:void(0);" onclick="CompleteTodo();">Complete</a></li>
+                                                        <li><a href="javascript:void(0);" onclick="CancelTask();">Cancel Task</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- /cbp-hrsub-inner -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="documents">
+                <div class="documents-1">
+
+                    <div class="toDo_popup" id="toDo_btn" style="display:none;">
+                        <small class="toDoSmall">Click to complete this Task.</small>
+                        @*<span class="toDoReviewed"><a href="javascript:void(0);"><img src="/Content/images/reviewed.png" /><small>Reviewed</small></a></span>*@
+
+                        <span id="btnReject" class="toDoReviewed rejectTodo" style="display:none;">
+                            <a href="javascript:void(0)"><img class="img-padd" src="/Content/images/rejected.png" /><small id="btnRejectText">Rejected</small></a>
+                        </span>
+                        <span id="btnApprove" class="toDoReviewed">
+                            <a href="javascript:void(0)"><img class="img-padd" src="/Content/images/reviewed.png" /><small id="btnApproveText">Approved</small></a>
+                        </span>
+                    </div>
+
+                    <div id="dvMetadata" class="toDoConten" style="display:none;">
+                        <ul id="ulMetadata">
+                           
+                        </ul>
+                    </div>
+                    <span style="display:none;" id="approvers"></span>
+                    <div class="toDoConten1">
+                        <div class="documents-Head"><span class="documentsLeft"><b>Assigned To</b></span></div>
+                        <ul id="userStatus">
+                           
+                        </ul>
+
+                        <span class="toDoContenPost"><a href="javascript:void(0);" id="addUserLink" style="display:none;">Add User</a></span>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+
+
+            <div class="documents">
+                <div class="documents-1">
+                    <div class="documents-Head"><span class="documentsLeft"><b>Comments &amp; History</b></span></div>
+                    <ul class="toDoContenList" id="listTodoComments">
+                    </ul>
+                    <div class="toDoText" id="postComment" style="display:none;">
+                        <label class="toDoTextText">
+                            <textarea id="txtPost" name="Post" rows="2" class="validelement"></textarea>
+                        </label>
+                        <div class="toDoTextRight">
+                            <a href="javascript:void(0)" id="btnPost">Save</a>
+                            <a class="pop_up_Content_White" href="javascript:void(0)" onclick="HideComment()">Cancel</a>
+
+                        </div>
+                    </div>
+                    <span class="toDoContenPost"><a href="javascript:void(0);" onclick="ShowComment()" id="postCommentLink" style="display:none;">Post a Comment</a> 
+                        </span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="box2_Right-new">
+            <div class="contract-Right">
+                <h1 class="contrRightMa"><img src="/Content/images/save_views.png" />Recent Tasks</h1>
+                <ul id="todoList">
+                    
+                </ul>
+
+            </div>
+
+            <div class="contract-Right">
+                <h1 class="contrRightMa"><img src="/Content/images/mile_stone.png" /><b>Upcoming Milestones</b></h1>
+                <ul class="doc-contUl" id="milestoneList">
+                    
+                </ul>
+            </div>
+        </div>
+
+
+
+
+        <!---prabhakar-->
+        <div id="dialogAddUser" style="display:none;overflow-y: auto;">
+            <ul class="poPup_Form_Field">
+               
+                <li>
+                    <p>User</p>
+                    <div><select id="ddlUser" title="User" multiple="multiple" class="width90 validuser"></select></div>
+                </li>
+            </ul>
+        </div>
+        <!----prabhakar-->
+    </section>
+</section>
+
+<div id="viewMetadataDetail" style="display:none;" class="width90">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+
+<input id="hdTaskStatus" type="hidden" value="" />
+
+
+
+
+@section scripts{
+<script type="text/javascript" src="~/Scripts/moment.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+<script src="~/Scripts/dropdown_menu.js"></script>
+<link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/stylesheet1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/Scripts/Contract365/Activity_TodoDetails.js?" + DateTime.Now.GetHashCode())
+}

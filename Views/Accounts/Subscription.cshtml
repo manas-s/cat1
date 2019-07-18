@@ -1,0 +1,125 @@
+﻿@model Corevo.eContracts365.TableEntities.AccountSettingEntity
+@{
+    ViewBag.Title = "Subscription";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+<script type="text/javascript">
+    function fnChangePlan() {
+        $("#txtDescription").val("");
+        $(".validelement").each(function (index, element) {
+            $(element).removeClass("error");
+            $("#errormsg_" + element.id).remove();
+        });
+        $("#dvChangePlan").dialog("option", "title", "Change Plan");
+        $("#dvChangePlan").dialog("open");
+    }
+
+    function modalOnOpenChangePlan() {
+        $('.ui-button-text').parent().attr('disabled', 'disabled');
+        var isformvalid = false;
+        if (requiredValidator('addEditChangePlan')) {
+            isformvalid = true;
+            if ($("#txtDescription").val() == "") {
+                // alert("Enter Description.")
+                swal("", "Enter Description.");
+                $('.ui-button-text').parent().removeAttr('disabled', 'disabled');
+            }
+            else {
+                var formData = new FormData();
+                formData.append("AccountID", localStorage.AccountID);
+                formData.append("username", localStorage.UserName);
+                formData.append("description", $("#txtDescription").val());
+                formData.append("companyName", $("#hdnCompanyName").val());
+                $.ajax({
+                    url: '@Url.Action("SubscriptionChangePlan", "Accounts")',
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    headers: { 'eContracts-ApiKey': localStorage.APIKey, 'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                    processData: false,
+                    success: function (person) {
+                        // alert(person.Message);
+                        swal("", person.Message);
+
+                        location = "/Accounts/Subscription/";
+                        $('.ui-button-text').parent().removeAttr('disabled', 'disabled');
+                    },
+                    error: function () {
+                        $('.ui-button-text').parent().removeAttr('disabled', 'disabled');
+                    }
+                });
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $("#dvChangePlan").dialog({
+            autoOpen: false, closeText: "",
+            width: "50%",
+            title: "Change Plan",
+            modal: true,
+            buttons: {
+                "Send Mail": function () { if (modalOnOpenChangePlan()) { } },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+</script>
+
+
+
+<table>
+    <tr>
+        <td colspan="2" class="pageheading">
+            Subscriptions
+        </td>
+    </tr>
+    <tr>
+        <td class="grey_background_light" style="width: 75%;">
+            @Model.SubscriptionPlan SUBSCRIPTION PLAN
+        </td>
+        <td align="right" style="width:25%">
+            <span id="spnChangePlan" class="f_button_green_small" style="display: block; text-align: center;" onclick="fnChangePlan()">
+                CHANGE PLAN
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td align="right">
+            <table class="width100" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="grey_background_dark">LICENSED VERSION</td>
+                </tr>
+                <tr>
+                    <td class="grey_background_light">
+                        Your license for eContracts was activated on @Model.ActiveDate.ToShortDateString() is valid till @Model.ValidTillDate.ToShortDateString()
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<!-- Change Plan Popup Start -->
+<div id="dvChangePlan" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingChangePlan" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addEditChangePlan">
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright">
+                        <input type="hidden" id="hdnCompanyName" value="@Model.CompanyName" />
+                        <textarea id="txtDescription" name="Description" rows="5" title="Description" class="f_inpt width90 validelement" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

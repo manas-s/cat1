@@ -1,0 +1,1945 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Request Details";
+}
+
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+<link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<!---->
+<div class="content-wraper">
+    <div class="content-wraper-in">
+        <div class="contract-info-body">
+            <section class="top-action-info">
+                <div id="dvRecyclebinMessage" class="bg-warning" style="display:none;">
+                    This request has been deleted.
+                    <a id="lnkRecycleRequestToUpdate" href="javascript:void(0);" class="GlobalManage" onclick="RestoreRequest();">Restore Request</a>
+                </div>
+                <div id="dvDraftMessage" class="bg-warning" style="display:none;">
+                    This request is saved as a draft. To update and submit,
+                    <a id="lnkDraftToUpdate" href="javascript:void(0);">edit request.</a>
+                </div>
+                <div class="row-group">
+                    <div class="action-content m12 col9">
+                        <div class="col2 m4 no-pad">
+                            <a href="javascript:void(0);" class="back-btn" onclick="BackToList();"><img src="../Content/Images/go-back.png"> <span class="">Go Back</span></a>
+                        </div>
+                        <div class="m-status-btn m-on text-right m12"></div>
+                        <div class="col-10 m12 no-pad text-right">
+
+                            <a href="javascript:void(0);" class="wit-btn" onclick="ReloadRequest();" style="margin-right: 5px ! important;" title="Refresh">
+                                <img src="/Content/Images/refresh.png">
+                            </a>
+                            <a href="javascript:void(0);" class="group-wit-btn" style="display:none;" id="btnCreateContractFromRequest">Create Contract Record</a>
+                            @*<a href="javascript:void(0);" class="group-wit-btn">Renew Contract</a>
+                                <a href="javascript:void(0);" class="group-wit-btn">New Amendment</a>*@
+                            <a id="btnmorefeature" href="javascript:void(0);" class="wit-btn">More <img src="../Content/Images/card.png"></a>
+                        </div>
+                    </div>
+                    <div class="status-btn-body m12 col3 text-right m-off">
+                        @*<div class="constatus">*@
+                        <div>
+                            <span id="idNewStatus"></span>
+                            <span id="spanstatus" style="display:none;"></span>
+                            @*<img id="btnEditStatus" src="/Content/Images/w-edit.png">*@
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <ul id="dropdownMenuFinal" class="contextMenu">
+                <li class="viewdetails"><a href="#view">View Metadata</a></li>
+                <li class="history"><a href="#version">Version History</a></li>
+                <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+                <li class="separator"></li>
+                <li class="sharelink Contribute"><a href="#sharelink">Share as Link</a></li>
+                <li class="download"><a href="#download">Download Document</a></li>
+                <li class="separator Contribute"></li>
+                <li class="review Contribute"><a href="#review">Send for Review</a></li>
+                <li class="signature Contribute"><a href="#signature">Send for Signature</a></li>
+                <li class="separator Manage"></li>
+                <li class="remove Manage"><a href="#remove">Remove from Contract</a></li>
+                <li class="delete Manage"><a href="#delete">Delete</a></li>
+            </ul>
+
+            <section class="content-body">
+                <div class="content-body-left">
+                    <div class="row-group">
+                        <div class="col12">
+                            <section class="heading-section row-group" style="position: relative; height: 85px !important;">
+                                <div class="col10 m10 pad-top pad-bot cA-left-width">
+                                    <div class="row-group">
+                                        <div class="col1 no-pad">
+                                            <img src="../Content/Images/contract-boxnew.png" class="heading-icon img-responsive">
+                                        </div>
+                                        <div class="col11">
+                                            <div class="contract-heading WrapText_h2 Alignment" data-maxlength="100" id="lblRequestTitle" title="Request Title"></div>
+                                            <div class="content-text Alignment WrapText_h2" data-maxlength="250" id="lblRequestDescription" title="Request Description" style="display:none"></div>
+                                            <!---manoj-->
+                                            <div class="wmessage toolRequestDescMinor clearfix clpendingaction" style="display:none">
+                                                @*<img src="/Content/Images/icon/warning-icon.png" alt="">*@
+                                                <table id="tblDescriptionMissing"></table>
+                                                @* <a href="javascript:void(0);" class="close1" onclick="GetRequestPendingAction(true, 'Required')" title="View Missing Required Metadata for this Request"><img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>*@
+                                            </div>
+                                            <!---manoj-->
+                                            @*<p class="content-text"><span id="lblRequestType" title="Request Type"></span></p>*@
+                                            <input type="text" id="txtRequestTitle" title="Request Title" maxlength="100" class="f_inpt width90 validatebracket" style="display: none;" />
+                                            <textarea id="txtRequestDescription" title="Request Description" maxlength="500" rows="2" class="f_text-box width90" style="display: none;"></textarea>
+                                            @*<textarea id="txtRequestTitle" name="Request Title" maxlength="100" class="contract-heading WrapText_h2 Alignment" style="display: none; line-height: 20px; border-color: rgb(162, 162, 162); border-width: 1px; border-style: solid; overflow: hidden; min-height: 25px !important; "></textarea>
+                                                <textarea id="txtRequestDescription" class="content-text Alignment WrapText_h2" maxlength="250" style="display: none; line-height: 17px; border-color: rgb(162, 162, 162); border-width: 1px; border-style: solid; overflow: hidden; min-height: 50px !important; " name="Request Description" title="Request Description"></textarea>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col2 m2 text-right pad-top pad-bot cA-Rightt-width">
+                                    <!---manoj--->
+                                    <i id="iStandardIreq">
+                                        @*<img src="/Content/Images/status/pending-action.png" id="iPendingAction" class="draft" title="Contract Record delayed tasks/missing information" onclick="GetRequestPendingAction(true)">*@
+                                    </i>
+                                    <!---manoj--->
+                                    <a id="aTitleEdit" href="javascript:void(0);" class="title-edit-btn close1 Contribute" onclick="MakeTitleEditable()" title="Edit request title & description."><img src="../Content/Images/edit.png"></a>
+                                    @*<a id="aTitleSave" href="javascript:void(0);" style="display:none" class="title-edit-btn close1" onclick="MakeTitleSave()" title="Save"><img src="../Content/Images/save.png"></a>
+                                        <a id="aTitleCancel" href="javascript:void(0);" style="display:none" class="title-edit-btn close1" onclick="MakeTitleCancel()" title="Cancel"><img src="../Content/Images/Cancel_Task.png"></a>*@
+                                </div>
+                                <div class="cnt-det-Btns" style="bottom: 0px !important;z-index: 1;">
+                                    <span class="cnt-det-Btn-span" id="aTitleSave" style="display:none">
+                                        <button class="cnt-det-Btn-span-save" onclick="MakeTitleSave()">
+                                            Save
+                                        </button>
+                                    </span>
+                                    <span class="cnt-det-Btn-span margin-right-0" id="aTitleCancel" style="display:none">
+                                        <button class="cnt-det-Btn-span-Cancel" onclick="MakeTitleCancel()">
+                                            Cancel
+                                        </button>
+                                    </span>
+                                </div>
+                            </section>
+                            <section class="tab-menu-and-tab-info row-group">
+                                <div class="tab-menu col12 no-pad">
+                                    <ul>
+                                        <li><a href="javascript:void(0);" id="tabSummary" class="contracttab active" onclick="ShowTabDetail('Summary')" title="Summarizes details of the request."><img src="../Content/Images/summary.png"> <span class="m-off">Summary</span></a></li>
+                                        <li><a href="javascript:void(0);" id="tabActivity" class="contracttab" onclick="ShowTabDetail('Activity')" title="Shows workflow activities related to this request."><img src="../Content/Images/activity.png"> <span class="m-off">Activities (<span id="lblActivityCount"></span>)</span></a></li>
+                                        @*<li><a href="javascript:void(0);" id="tabTerms" class="contracttab"><img src="../Content/Images/terms.png"> <span class="m-off">Terms</span></a></li>
+                                            <li><a href="javascript:void(0);" id="tabCatalog" class="contracttab" onclick="ShowTabDetail('Catalog')"><img src="../Content/Images/catalog.png"> <span class="m-off">Catalog (<span id="lblCatalogsCount"></span>)</span></a></li>*@
+                                        @*<li><a href="javascript:void(0);" id="tabTransactions" class="contracttab" onclick="ShowTabDetail('Transactions')"><img src="../Content/Images/transactions.png"> <span class="m-off">Transactions (12)</span></a></li>*@
+                                        @*<li><a href="javascript:void(0);"><span class="m-off">More</span> <img src="../Content/Images/more-icon.png"></a></li>*@
+                                    </ul>
+                                </div>
+                                <div class="tab-info col12">
+                                    <div id="tabSummaryDetail" class="info-box-main-body row-group">
+                                        <div class="col12 info-box ">
+                                            <div class="row-group">
+                                                <div class="col4 no-pad">
+
+                                                    <img src="../Content/Images/documents.png"> <a href="javascript:void(0);" class="link-head" title="Displays documents associated with the request.">Documents (<i id="lblDocumentsCount"></i>)</a>
+                                                    <a href="javascript:void(0);" class="add-btn close1 Contribute RecycleBin" id="btnAddRequestDocument"><img src="../Content/Images/add-icon.png"> Add</a><label class="details-label Contribute RecycleBin" id="lblAddRequestDocument">or Drag & Drop</label>
+                                                    <a href="javascript:void(0);" class="add-btn close1" id="btnDocumentReview" style="display:none;"><img src="../Content/Images/Review.png"> Send for Review</a>
+                                                </div>
+                                                <div class="col6 no-pad">
+                                                    <div class="wmessage toolMinor clearfix clpendingaction" style="display:none;">
+                                                        @*<img src="~/Content/Images/icon/warning-icon.png" alt="">*@
+                                                        <table id="tblDocumentMissing"></table>
+                                                        @*<a href="javascript:void(0);" class="close1" onclick="GetRequestPendingAction(true, 'Document')" title="View All">
+                                                                <img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;
+                                                            </a>*@
+                                                    </div>
+                                                </div>
+                                                <div class="col2 text-right no-pad">
+                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulDocument', 'dvDocument', 'imgdoc');"><img id="imgdoc" src="../Content/Images/e-open.png"></a>
+                                                </div>
+                                            </div>
+                                            <div class="row-group pad-top">
+                                                <div class="col12">
+                                                    <!--manoj-->
+                                                    <div id="holder" style="width:100%;">
+                                                        <div id="iddropfile" class="dropfiles" style="display:none;">Drop files here.</div>
+
+
+                                                        @*<div class="warning-msg clearfix" style="">
+                                                            <img src="/Content/Images/icon/warning-icon.png" alt="">
+                                                            <table id="tblDocumentMissing"><tbody><tr><td class="f_head">
+                                                                <label>Not Finalized Document(s): General Service - keerthi.docx </label>
+                                                                </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                </table>
+                                                            <a href="javascript:void(0);" class="close1" onclick="GetContractPendingAction(true,'Missing')" title="View All">
+                                                                <img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>
+                                                            </div>*@
+
+                                                        <ul class="ul-data" id="ulDocument"></ul>
+                                                        <span id="uploaddocumentprocess" style="font-size:12px; display:none;">
+                                                            <img src="../Content/Images/loading.gif" /> Uploading...
+                                                        </span>
+                                                    </div>
+                                                    <!--manoj-->
+                                                </div>
+                                                <div id="dvDocument" class="col12 pad-top">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col12 info-box ">
+                                            <div class="row-group">
+                                                <div class="col10 no-pad">
+
+                                                    <img src="../Content/Images/notes.png"> <a href="javascript:void(0);" class="link-head" title="Displays details of information shared with users.">Notes (<i id="lblNotesCount"></i>)</a>
+                                                    <a id="btnNewNotes" href="javascript:void(0);" class="add-btn close1 Contribute RecycleBin"><img src="../Content/Images/add-icon.png"> Add</a>
+                                                </div>
+                                                <div class="col2 text-right no-pad">
+                                                    <a href="javascript:void(0);" class="close1" onclick="javascript: togglediv('ulNotesBody', 'dvNotes', 'imgNotes');"><img id="imgNotes" src="../Content/Images/e-open.png"></a>
+                                                </div>
+                                            </div>
+                                            <div class="row-group pad-top">
+                                                <div class="col12">
+                                                    <ul class="toDoContenList" id="ulNotesBody"></ul>
+                                                </div>
+                                                <div id="dvNotes" class="col12 pad-top">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div id="tabActivityDetail" class="info-box-main-body row-group" style="display:none;">
+                                        <div class="col12 no-pad pad-top pad-bot">
+                                            <div class="row-group pad-top pad-bot">
+                                                <div class="col12 no-pad">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dvRequestWorkflows" class="width97">
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-body-right">
+                    <div class="row-group">
+                        <div class="col12">
+                            <div class="row-group left-pan-box">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col6 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Summary of metadata details of the request."> <img src="../Content/Images/contract-metadata.png" style="cursor:default"> Request Metadata</h3>
+                                        </div>
+                                        <div class="col2 no-pad">
+                                            <!---manoj-->
+                                            <div class="wreqmessage toolRequestmetadata  clearfix clpendingaction" style="display:none">
+                                                @*<img src="/Content/Images/icon/warning-icon.png" alt="">*@
+                                                <table id="tblRequiredMissing"></table>
+                                                @*<a href="javascript:void(0);" class="close1" onclick="GetRequestPendingAction(true, 'Required')" title="View All"><img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>*@
+                                            </div>
+                                            <!---manoj-->
+                                        </div>
+                                        <div class="col4 no-pad text-right">
+
+                                            <a href="javascript:void(0);" class="close1" onclick="contextMenuRequestSettings('view', '', '')" title="View all"> <img src="../Content/Images/view-all.png">&nbsp;</a>
+                                            <a href="javascript:void(0);" class="close1 Contribute RecycleBin EditBtnMenu" onclick="contextMenuRequestSettings('edit', '', '')" title="Edit"> <img src="../Content/Images/edit.png">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Counterparty</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" style="text-transform:none !important;" id="summCounterparty"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Business Area</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCBusArea"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Created on</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCreated"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999  width40">Created by</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="summCreatedBy"></td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-group left-pan-box FL_Project" style="display:none;">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col9 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Shows list of projects linked with this request."> <img src="/Content/Images/related-projects.png" style="width: 15px;cursor:default"> Related Project(s)</h3>
+                                        </div>
+                                        <div class="col3 no-pad text-right">
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tblRelatedProjects"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-group left-pan-box FL_RelatedContract">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col9 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Shows list of Contract Record(s) linked with this Request."> <img src="/Content/Images/Related_contracts_icon.png" style="cursor:default"> Related Contract Record(s)</h3>
+                                        </div>
+                                        <div class="col3 no-pad text-right">
+                                            <a href="javascript:void(0);" class="close1 Manage" onclick="AddRelatedContracts(false);"> <img src="/Content/Images/edit.png">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+                                            <p class="content-text clr999" id="ulRelatedContracts"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---manoj--->
+                            <div class="row-group left-pan-box FL_RelatedContract">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col9 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Shows list of Contract Record(s) created from this Request."> <img src="/Content/Images/Related_contracts_icon.png" style="cursor:default"> Contract Record(s) Created</h3>
+                                        </div>
+                                        @*<div class="col3 no-pad text-right">
+                                                <a href="javascript:void(0);" class="close1 Manage" onclick="AddRelatedContracts();"> <img src="/Content/Images/edit.png">&nbsp;</a>
+                                            </div>*@
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+                                            <p class="content-text clr999" id="ulRelatedContractsList"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---manoj--->
+                            <div class="row-group left-pan-box">
+                                <div class="col12 no-pad">
+                                    <div class="row-group">
+                                        <div class="col3 no-pad">
+                                            <h3 class="left-pan-box-heading" title="Displays the owners and collaborators of the request."> <img src="../Content/Images/people.png" style="cursor:default;"> People</h3>
+                                        </div>
+                                        <div class="col5 no-pad">
+                                            <!---manoj--->
+                                            <div class="wmessage toolpeople  clearfix clpendingaction" style="display:none">
+                                                @*<img src="/Content/Images/icon/warning-icon.png" alt="">*@
+                                                <table id="tblPeopleMissing"></table>
+                                                @*<a href="javascript:void(0);" class="close1" onclick="GetRequestPendingAction(true, 'People')" title="View All"><img src="/Content/Images/view-all-new.png" style="cursor:pointer;">&nbsp;</a>*@
+                                            </div>
+                                            <!---manoj--->
+                                        </div>
+                                        <div class="col4 no-pad text-right">
+
+                                            <a href="javascript:void(0);" class="close1 Manage RecycleBin" onclick="MangePeople()" title="Edit"> <img src="../Content/Images/edit.png">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                    <div class="row-group pad-top">
+                                        <div class="col12 no-pad">
+
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40" style="text-transform:none !important;">Collaborator(s)</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="spCollaborators"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Requestor</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="spRequestor"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40" style="text-transform:none !important;">Approver(s)</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="spApprovers"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999 width40">Approved By</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="spApproveBy"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="10" align="left" valign="top" class="content-text clr999  width40">Assigned To</td>
+                                                    <td height="10" align="left" valign="top" class="content-text width58" id="spAssignedTo"></td>
+                                                </tr>
+                                            </table>
+                                            @*<p class="content-text clr999">
+                                                    <span id="spApprovers"></span> (Approvers)<br />
+                                                    <span id="spApproveBy"></span> (Approved By)<br />
+                                                    <span id="spAssignedTo"></span> (Assigned To)
+                                                </p>*@
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<ul id="dropdownMenuZippedDocument" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="separator"></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Manage"></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+
+<div id="dvAddNotes" style="display:none;">
+    <div id="addNewComment" class="width100">
+        <input id="txtNoteID" name="CommentID" type="hidden" />
+        <input id="txtBusinessArea" type="hidden" />
+        <table class="width100" cellpadding="2" cellspacing="2">
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc;vertical-align: top;">
+                    Notes <small class="required">*</small><img title="Enter message to notify users." src="/Content/Images/input-help.png">
+                </td>
+                @**Harshitha*@
+
+                <td class="labelright width70">
+
+                    <textarea id="txtNotes" rows="4" cols="50" style="width:auto;height:200px" name="notes" title="Notes" class="validNicEdit" autofocus="autofocus"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="labelleft width30" style="color: #3f91cc">
+                    Send Notification to<img title="Select one or more users from the list to be notified." src="/Content/Images/input-help.png">
+                </td>
+                <td class="labelright width70">
+                    <select id="ddlSendTo" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--manoj-->
+<div id="bulkuploaddoc" style="display:none;">
+    <div id="holderbulk" style="width:100%;">
+        <div id="formBulkControls" enctype="multipart/form-data" class="width100">
+            <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated table table-striped width100 bulk-up"></table>
+        </div>
+    </div>
+    <br />
+    <label id="lblFilesCount" style="font-style:italic;"></label><br /><br />
+    <input type="file" id="files" name="files" multiple style="display:none;" />
+    <div class="ui-dialog-buttonset float_right1 margin-bottom-10">
+        <button aria-disabled="false" id="btnBulkUploadSave" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" onclick="bulkdocumentupload();"><span class="pop_up_Content_Green">Upload</span></button>
+        <button aria-disabled="false" id="btnBulkUploadCancel" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" onclick='bulkdocumentuploadCancel();'><span class="pop_up_Content_Green pop_up_Content_White">Close</span></button>
+    </div>
+</div>
+
+<div id="dialogDelay" title="Request Pending Tasks" class="pop_up" style="display:none">
+    <div class="pop_up_Content" style="height:350px;overflow-y:auto">
+        <ul class="pop_up_Harizondal con_Sum" id="ulrequestmisssingdata">
+            <li><a href="javascript:void(0)" id="liRequired" class="cltabrequired pop_up__Acti" onclick="DisplayRequiredTab('Required');">Required Metadata</a></li>
+            <li><a href="javascript:void(0)" id="liPeople" class="cltabrequired" onclick="DisplayRequiredTab('People');">People</a></li>
+            <li><a href="javascript:void(0)" id="liDocument" class="cltabrequired" onclick=" DisplayRequiredTab('Document');">Document(s)</a></li>
+            <li><a href="javascript:void(0)" id="liActivity" class="cltabrequired" onclick="DisplayRequiredTab('Activity');">Task(s)</a></li>
+            @*<li><a href="javascript:void(0)" id="liDescription" class="cltabrequired" onclick="DisplayRequiredTab('Description');">Description</a></li>*@
+
+        </ul>
+        <table id="tblRequired" class="cltblrequired width100 marginbottom12px cont_color" border="0" cellpadding="0" cellspacing="0"></table>
+        <table id="tblPeople" class="cltblrequired width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+        <table id="tblDocument" class="cltblrequired dwidth100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+        @*<table id="tblDescription" class="cltblrequired width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>*@
+        <table id="tblActivity" class="cltblrequired width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+    </div>
+</div>
+
+<!--manoj-->
+
+<div id="viewMetadataDetail" style="display:none;">
+    <table id="tblMetadataDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+<div id="viewMetadataDetailDocument" style="display:none;">
+    @*<ul class="pop_up_Harizondal">
+            <li><a href="javascript:void(0)" id="docMetadata" class="active_tab" onclick="ShowMetadata();">Metadata</a></li>
+            <li><a href="javascript:void(0)" id="docActivities" onclick="ShowActivities();">Activities</a></li>
+        </ul>*@
+    <table id="tblMetadataDetailDocument" class="width100" cellpadding="1" cellspacing="1"></table>
+    <div id="documentLogs" style="display:none;">
+
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-documentLogs" style="display:none;"></article>
+    </div>
+</div>
+
+<div id="EditDocument" style="display:none;">
+    <div class="modalbody">
+        <div id="editNewDocument">
+            @*<form enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <table class="width100" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td width="40%" align="right" valign="top"></td>
+                    <td width="73%">
+                        <input id="txtDocumentID" name="DocumentID" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%"><label>Request Title </label></td>
+                    <td height="30px"><span id="lblCTitleDoc"></span></td>
+                </tr>
+                <tr>
+
+                    <td width="40%"><label>Document Name&nbsp;<small class="required">*</small></label></td>
+                    <td><input id="txtDocumentName" maxlength="100" name="DocumentName" title="Document Name" type="text" class="f_inpt width80 validelement filecorevo validtitle" /><span id="spExt"></span></td>
+                </tr>
+                <tr>
+                    <td width="40%"><label>Document Description </label></td>
+                    <td><textarea id="txtDocumentDescriptionEdit" name="DocumentDescription" title="Document Description" rows="4" class="f_text-box width80"></textarea></td>
+                </tr>
+                <tr>
+                    <td width="40%"><label>Document Type&nbsp; </label></td>
+                    <td class="f_list">
+                        <select id="ddlDocumentType" class="f_inpt width80">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+
+
+
+            </table>
+            <p id="inprocessDocumentMetadata" class="popup_save_progress" style="visibility:hidden;">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+@*<div id="addEditDocument" style="display:none; height:600px; overflow-y:auto;">
+        <div id="addNewDocument" class="pop_up_Content" style="height: 325px;border:none">
+            <div class="pop_up_Content_Right poPup_Form pop-up-space" style="border:none">
+                <form enctype="multipart/form-data">
+                    <ul id="tblNewDocument" class="poPup_Form_Field" style="border:none;margin:0 0 0 0;padding:0 0;">
+                        <li>
+                            <input id="txtDocumentID" name="DocumentID" type="hidden" />
+                            <input id="txtBusinessArea" type="hidden" />
+                        </li>
+                        <li id="trTemplate" style="display:none;">
+                            <p><b>Select Template</b></p>
+                            <div>
+                                <select id="ddlDocumentTemplate" class="" title="Document Template" onchange="onchangetemplate(this);">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+
+                        <li id="trTemplate1" style="display:none;">
+                            <p><b>Document Name</b><small style="color:red;">*</small><img src="/Content/Images/input-help.png"></p>
+                            <div>
+                                <input id="txtDocumentNameCreate" name="DocumentName" title="Document Name" type="text" class="validelement specialchar" />
+                            </div>
+                        </li>
+                        <li id="trDocumentType" style="display:none;">
+                            <p><b>Document Type</b>&nbsp;<small class="required">*</small></p>
+                            <div>
+                                <select id="ddlDocumentTypeCreate" title="Document Type" class="validelement">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li id="trFileUpload">
+                            <p><b>Browse File</b>&nbsp;<small class="required">*</small></p>
+                            <div class="poPup_Form_Upload">
+                                <input type="file" id="docContract" name="file" title="Document" class="validelement" />
+                            </div>
+                        </li>
+                        <li>
+                            <p><b>Document Name</b><small style="color:red;">*</small><img src="/Content/Images/input-help.png"></p>
+                            <div>
+                                <input id="txtRequestDocumentNameCreate" name="DocumentName" title="Document Name" type="text" class="validelement specialchar" />
+                            </div>
+                        </li>
+
+                        <li id="trdesc">
+                            <p><b>Description</b></p>
+                            <div class="f_list" style="padding-bottom: 15px;">
+                                <textarea id="txtDescriptionDoc" rows="4" name="Description" title="Description"></textarea>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+
+                <table class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td class="labelleft">
+                            <div class="f_list width100 clear_none alertbox_status">
+                                <article id="tblExistingDocumentSearch" style="display:none;">
+                                    <input id="txtSearchDocument" class="f_inpt width80 cl" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                                    <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: BindDocumentNotTagToContract();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                                    <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchDocument').val(''); BindDocumentNotTagToContract();">Clear</a>
+                                </article>
+                                <table id="tblExistingDocument" class="width100" cellpadding="2" cellspacing="2" style="display:none;"></table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="tblExistingDocumentPaging" class="pagination-holder clearfix" style="display:none;">
+                    <article id="compact-paginationDocument"></article>
+                </div>
+                <span id="idDocUploadInProgress" style="display: none; padding-left: 35%;">
+                    <img src="../Content/Images/loading.gif" /> Uploading Document...
+                </span>
+                <span id="spInProgress" style="display:none; padding-left:30%;">
+                    <img src="../Content/Images/loading.gif" /> 
+                </span>
+                <form id="formtblContentControls">
+                    <table class="width100" cellpadding="2" cellspacing="2" id="tblContentControls"></table>
+                </form>
+            </div>
+        </div>
+    </div>*@
+
+<div id="addEditDocument" style="display:none; height:600px; overflow-y:auto;">
+    <div id="dvPopupHeadingDocument" class="pop_up_Head">
+        <h1></h1>
+    </div>
+    <div id="addNewDocument" class="pop_up_Content" style="overflow-y: auto; height: 415px;">
+        <div class="pop_up_Content_Left">
+            <ul id="leftTab">
+                <li><a href="javascript:void(0)" id="tabUpload" onclick="tabchange(this);" class="document_active">Upload from Computer</a></li>
+                <li class="FL_Automation" style="display:none;"><a href="javascript:void(0)" id="tabTemplate" onclick="tabchange(this);">Create from Document Template</a></li>
+                @*<li><a href="javascript:void(0)" id="tabExistingDocument" onclick="tabchange(this);">Add from Office 365 Library</a></li>*@
+            </ul>
+        </div>
+        <div class="pop_up_Content_Right poPup_Form pop-up-space" style="overflow:visible;min-height: 424px !important;">
+            @*<form enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <h1 id="formTitle">Upload from Computer</h1>
+            <ul id="tblNewDocument" class="poPup_Form_Field">
+                <li style="display:none;">
+                    <input id="txtDocumentID" name="DocumentID" type="hidden" />
+                    <input id="txtBusinessArea" type="hidden" />
+                </li>
+                <li id="trTemplate" style="display:none;">
+                    <p><b>Select Template</b></p>
+                    <div>
+                        <select id="ddlDocumentTemplate" class="" title="Document Template" onchange="onchangetemplate(this);">
+                            <option value="0">--Select--</option>
+                        </select>
+                        <label class="p-text text-left help" style="width:100%" id="lblTemplateDescription"></label>
+                    </div>
+                </li>
+                <li id="trTemplate1" style="display:none;">
+                    <p><b>Document Name</b><small style="color:red;">*</small><img src="/Content/Images/input-help.png"></p>
+                    <div>
+                        <input id="txtDocumentNameCreate" name="DocumentName" maxlength="100" title="Document Name" type="text" class="validelement filecorevo validtitle" />
+                    </div>
+                </li>
+                <li id="trFileUpload">
+                    <p><b>Browse File</b>&nbsp;<small class="required">*</small></p>
+                    <div class="poPup_Form_Upload">
+                        <input type="file" id="docContract" name="file" title="Document" class="validelement" onchange='javascript:changeinupload(this);' />
+                    </div>
+                </li>
+                <li id="trDocumentType" style="display:none;">
+                    <p><b>Document Type</b>&nbsp;</p>
+                    <div>
+                        <select id="ddlDocumentTypeCreate" title="Document Type">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </div>
+                </li>
+                <li id="trDuplicate" style="display:none;">
+                    <p><b>Duplicate Document Name</b></p>
+                    <div><input type="text" id="txtDuplicateDocumentName" name="DocumentName" title="Document Name" class="specialchar" /><span id="spDuplicateDocumentExt"></span></div>
+                </li>
+                <li id="trdesc">
+                    <p><b>Description</b></p>
+                    <div class="f_list" style="padding-bottom: 15px;">
+                        <textarea id="txtDescriptionDoc" rows="4" name="Description" title="Description" class="f_text-box"></textarea>
+                    </div>
+                </li>
+
+                @*<li>
+                        <p><b>Document Status</b><small style="color:red;">*</small><img src="/Content/Images/input-help.png"></p>
+                        <div>
+                            <select id="ddlDocumentStatus" title="Document Status" class="validelement">
+                                <option value="0">--Select--</option>
+                                <option value="New" selected="selected">New</option>
+                                <option value="Awaiting Review">Awaiting Review</option>
+                                <option value="Reviewed">Reviewed</option>
+                                <option value="In Negotiation">In Negotiation</option>
+                                <option value="Negotiation Complete">Negotiation Complete</option>
+                                <option value="Awaiting Signatures">Awaiting Signatures</option>
+                                <option value="Signed">Signed</option>
+                                <option value="Active">Active</option>
+                                <option value="Expired">Expired</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li id="trAuthor">
+                        <p><b>Author</b></p>
+                        <span>
+                            <select id="ddlAuthorCreate" class="f_inpt width90 chosenmulti" multiple="multiple" data-placeholder="Author"></select>
+                        </span>
+                    </li>
+                    <li id="trDocumentLanguage">
+                        <p><b>Document Language</b></p>
+                        <div><input id="txtDocumentLanguageCreate" name="DocumentLanguage" title="Document Language" type="text" class="specialchar" /></div>
+                    </li>
+                    <li id="trHardCopyPhysicalLocation">
+                        <p><b>Hard-copy Physical Location</b></p>
+                        <div><input id="txtHardCopyPhysicalLocationCreate" name="HardCopyPhysicalLocation" title="Hard-copy Physical Location" type="text" class="specialchar" /></div>
+                    </li>
+                    <li id="trfinal">
+                        <p><b>Is Finalized/Ready for Signature?</b></p>
+                        <div class="poPup_Form_radio">
+                            <input id="radioYes" class="check poPup_Form_Field_RadioBorder" type="radio" value="Yes" name="IsFinalized" /><small>Yes</small>
+                            <input id="radioNo" class="check poPup_Form_Field_RadioBorder" type="radio" value="No" name="IsFinalized" checked /><small>No</small>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Is Standard?</b></p>
+                        <div class="poPup_Form_radio">
+                            <input id="radioStandardYes" class="check poPup_Form_Field_RadioBorder" type="radio" value="Yes" name="IsStandard" /><small>Yes</small>
+                            <input id="radioStandardNo" class="check poPup_Form_Field_RadioBorder" type="radio" value="No" name="IsStandard" checked /><small>No</small>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Folder</b><img title="Select Folder" src="/Content/Images/input-help.png"></p>
+                        <div class="saveLoca">
+
+                            <a class='linkText' href='javascript:void(0)' id="lblFolderUrl">
+                                /Contract Documents/
+                            </a>
+                            <input id="txtNewFolderName" name="NewFolderName" title="New Folder Name" placeholder="New Folder Name" type="text" class="f_inpt width40 specialchar" />
+                            <span class='right-float'><a href='javascript:void(0)' id="btnBrowseSubFolders">Browse Folder</a></span>
+                            <span class='right-float'><a href='javascript:void(0)' id="btnNewFolder" style="display:none;">Create Sub Folder</a></span>
+                            <br />
+                        </div>
+
+
+
+                        <div class="float_right1 margin-right-4p">
+                            <div class="poPup_Form_radio width100">
+
+                                <input id="rad_CopyLibrary" class="check poPup_Form_Field_RadioBorder" type="radio" value="Library"
+                                       name="rad_Copy" checked="checked"><small class="width90">Save in Office 365 Document Library</small>
+                            </div>
+                            <div class="poPup_Form_radio width100">
+                                <input id="rad_CopyLibraryAndAzure" class="check poPup_Form_Field_RadioBorder" type="radio" value="Both"
+                                       name="rad_Copy"><small class="width90">Save in Office 365 Document Library &amp; eContracts Cloud</small>
+                            </div>
+                        </div>
+
+                    </li>*@
+            </ul>
+            @*</form>*@
+
+            @*<table class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td class="labelleft">
+                            <div class="f_list width100 clear_none" style="">
+                                <article id="tblExistingDocumentSearch" style="display:none;">
+                                    <input id="txtSearchDocument" class="f_inpt width80 cl" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                                    <img title="Search" style="cursor: pointer; position: relative; left: -42px; top:-1px; " onclick="javascript: BindDocumentNotTagToContract();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                                </article>
+                                <table id="tblExistingDocument" class="width100" cellpadding="2" cellspacing="2" style="display:none;"></table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="tblExistingDocumentPaging" class="pagination-holder clearfix" style="display:none;">
+                    <article id="compact-paginationDocument"></article>
+                </div>*@
+            <span id="idDocUploadInProgress" style="display: none; padding-left: 35%;">
+                <img src="/Content/Images/loading.gif" /> Uploading Document...
+            </span>
+            @*<span id="spInProgress" style="display:none; padding-left:30%;">
+                    <img src="/Content/Images/loading.gif" /> 
+                </span>*@
+            <div id="formtblContentControls" class="clear_both width100">
+                <table class="width100" cellpadding="2" cellspacing="2" id="tblContentControls"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divReplaceDocument" style="display:none;">
+    <div class="modalbody">
+        <div>
+            @*<form enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <div style="padding:0px 30px 30px; overflow:hidden;">
+                <table id="tblReplaceDocument" class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td class="labelleft"></td>
+                        <td class="labelright"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <ul class="f_list" style="margin-top:15px;">
+                                <li>
+                                    <input type="radio" name="rad_Replace" id="rad_ReplaceComputer" value="Computer" class="css-checkbox" checked>
+                                    <label for="rad_ReplaceComputer" class="css-label">Replace From Computer</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="rad_Replace" id="rad_ReplaceTemplate" value="Template" class="css-checkbox">
+                                    <label for="rad_ReplaceTemplate" class="css-label">Replace From Template</label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr id="trFileUploadBrowse">
+                        <td class="f_head" style="vertical-align: top; display: table-cell;">Browse File&nbsp;<small class="required">*</small></td>
+                        <td class="f_list"><input type="file" id="docToReplace" name="file" title="Document" class="f_inpt width80 validelement" onchange='javascript:changeinupload(this);' /></td>
+                    </tr>
+                    <tr id="trTemplateBrowse" style="display:none;">
+                        <td class="f_head" style="vertical-align: top; display: table-cell;">Template</td>
+                        <td class="f_list">
+                            <select id="ddlReplaceTemplate" title="Document Template" class="f_inpt width80" onchange="ReplaceTemplateChange(this);">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            @*</form>*@
+            <div id="formtblReplaceControls" class="width100">
+                <table class="width100" cellpadding="2" cellspacing="2" id="tblReplaceControls" style="display:none;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sendForSignature" style="display: none;">
+    <input id="hdDocumentID" type="hidden" />
+    <input id="hdDocumentURL" type="hidden" />
+    <table class="width100">
+        <tr>
+            <td class="f_head">Document</td>
+            <td class="labelleft" id="tdDocument"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Select External Signee(s)</td>
+            <td class="labelleft">
+                <div id="frmSignees" class="width100">
+                    <table id="tblSignees" class="width100">
+                        <tr>
+                            <td class="width40">
+                                <input id="txtSignee1" name="SigneeName1" title="Signee" placeholder="Signee Name" type="text" class="f_inpt width90" />
+                            </td>
+                            <td class="width40">
+                                <input id="txtEmail1" name="SigneeEmail1" title="Email" placeholder="Signee Email" type="text" class="f_inpt width90 validemail" />
+                            </td>
+                            <td class="width20">
+                                <select id="ddlSigneeOrder1" name="SigneeOrder1" onchange="SelectedOrder(this);" onclick="ClickedOrder(this);" class="f_inpt width100 SigneeOrder validelement">
+                                    <option value="1">1</option>
+                                    <option value="2" selected="selected">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td style="width:20px">
+                                <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class='right-float' id="spAddSignee"><a href='javascript:void(0)' onclick='AddSignee()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Select Internal Signee(s)</td>
+            <td class="labelleft">
+                <div id="frmInternalSignees" class="width100">
+                    <table id="tblInternalSignees" class="width100">
+                        <tr>
+                            <td class="width80">
+                                <input id="txtInternalSignee1" name="InternalSigneeName1" title="Signee" readonly="readonly" placeholder="Signee Name" type="text" class="f_inpt width80" readonly="readonly" />
+                                <span class="right-float"><a href="javascript:void(0)" onclick="BrowseInternalSignee('txtInternalSignee1', 'txtInternalEmail1')">Browse</a></span>
+
+                                <input id="txtInternalEmail1" name="InternalSigneeEmail1" style="display:none;" title="Email" placeholder="Signee Email" type="text" class="f_inpt width90 validemail" />
+                            </td>
+                            <td class="width20">
+                                <select id="ddlInternalSigneeOrder1" name="InternalSigneeOrder1" onchange="SelectedOrder(this);" onclick="ClickedOrder(this);" class="f_inpt width100 SigneeOrder">
+                                    <option value="1">1</option>
+                                    <option value="2" selected="selected">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td style="width:20px">
+                                <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class='right-float' id="spAddInternalSignee"><a href='javascript:void(0)' onclick='AddInternalSignee()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Message to Signee(s)</td>
+            <td class="labelleft"><textarea id="txtSigneeMsg" name="SigneeMsg" rows="3" class="f_inpt width96_5"></textarea></td>
+        </tr>
+        <tr>
+            <td class="f_head">Select CC(s)</td>
+            <td class="labelleft"><select id="ddlCC" multiple="multiple" name="CC" class="f_inpt width96_5 chosenmulti" data-placeholder="Select CC"></select></td>
+        </tr>
+        <tr id="RightSignDropDown" style="display:none;">
+            <td class="labelleft width30">Sign Link Expires in&nbsp;<small class="required">*</small></td>
+            <td class="labelleft width70">
+                <select id="ddltxtExpIn" name="ExpIn" class="f_inpt width20 validelement">
+                    <option value="2" selected>2</option>
+                    <option value="5">5</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                </select>
+                <small class="dayslink"> day(s)</small>
+            </td>
+        </tr>
+        <tr id="SignDocExptxt">
+            <td class="labelleft width30">Sign Link Expires in&nbsp;<small class="required">*</small></td>
+            <td class="labelleft width70"><input id="txtExpIn" name="ExpIn" type="text" value="3" maxlength="3" class="f_inpt width20 validelement validnumber" /><small class="dayslink"> day(s)</small></td>
+        </tr>
+        <tr>
+            <td class="f_head" colspan="2">
+                <input type="checkbox" name="AutoUpdateStatusSignDoc" id="chkAutoUpdateStatusSignDoc" class="summary_Check" checked="checked"/>
+                <label for="chkAutoUpdateStatusSignDoc" class="workflow_Check_Right margin-top-min5">Auto update Contract Record status based on this Workflow.</label>
+            </td>
+        </tr>
+
+    </table>
+    <p id="inprocessSendForSignature" class="popup_save_progress" style="visibility:hidden;">
+        <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+    </p>
+</div>
+
+<div id="docSignatureDetail" style="display:none;">
+    <div id="page-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th class="logHisheader">Name</th>
+                    <th class="logHisheader">Email</th>
+                    <th class="logHisheader">Status</th>
+                </tr>
+            </thead>
+            <tbody id="tblDocSignatureDetail"></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="shareDocument" style="display: none;">
+    <input type="hidden" autofocus="autofocus" />
+    <table class="width100">
+        <tr>
+            <td class="f_head">Document</td>
+            <td class="labelleft" id="tdShareDocument"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share with&nbsp;<small class="required">*</small></td>
+            <td class="labelleft">
+                <div id="frmShareDocument" class="width100">
+                    <table id="tblShareDocument" class="width100">
+                        <tr>
+                            <td>
+                                <input id="txtShareDocument1" name="ShareDocumentName1" title="Name" placeholder="Name" type="text" maxlength="50" class="f_inpt width90 validelement" />
+                            </td>
+                            <td>
+                                <input id="txtShareDocumentEmail1" name="ShareDocumentEmail1" title="Email ID" placeholder="Email ID" maxlength="100" type="text" class="f_inpt width90 validelement validemail" />
+                            </td>
+                            <td style="width:20px">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddShareDocument()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">eContracts User(s)</td>
+            <td class="labelleft verticalalign-top width70">
+                <select id="ddlDocumentShareInternal" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select User(s)"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Note to Recipients</td>
+            <td class="labelleft"><textarea id="txtShareNotes" name="ShareNotes" rows="3" class="f_text-box width70">Please take a look at this document and let me know if you have any comments.</textarea></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share Link Expires in&nbsp;<small class="required">*</small></td>
+
+            <td class="labelleft"><input id="txtShareExpIn" name="ShareExpIn" type="text" class="f_inpt width20 validelement" maxlength="3" value="3" /> <small class="dayslink"> day(s)</small></td>
+        </tr>
+        <tr>
+            <td class="f_head" colspan="2">
+                <input type="checkbox" name="AutoUpdateStatusShareDoc" id="chkAutoUpdateStatusShareDoc" class="summary_Check" />
+                <label for="chkAutoUpdateStatusShareDoc" class="summary_Check_Right margin-top-min5">Auto update Contract Record status based on this Workflow.</label>
+            </td>
+        </tr>
+    </table>
+    <p id="inprocessShareDocument" class="popup_save_progress" style="visibility:hidden;">
+        <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+    </p>
+</div>
+
+<div id="dvVersionHistory" style="display:none;">
+    <div id="page-wrap" class="f_list">
+        <table>
+            <thead><tr><th style="width:30%;">Version Number</th><th style="width:30%;">Modified On</th><th style="width:30%;">Modified By</th></tr></thead>
+            <tbody id="tblVersionHistory"></tbody>
+        </table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationVersionHistory"></article>
+    </div>
+</div>
+
+<!-- Related Contract Records Start -->
+<div id="popupContracts" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div class="bg-warning">
+            <p style="text-align: left;">Select one or more existing Contract Records and relate to this Contract Record.</p>
+        </div>
+        <div>
+            <label>Relationship Type</label>
+            <select id="ddlRelationshipType" class="f_inpt width50 validelement margin-l0px">
+                <option value="0">--Select--</option>
+                @*<option value="Master Agreement">Master Agreement - Sub-Agreement/SOW</option>
+                    <option value="Prime Contractor Agreement">Prime Contractor Agreement - Sub Contractor Agreement</option>
+                    <option value="Blanket Agreement">Blanket Agreement - Order/Invoice</option>
+                    <option value="Original">Original - Duplicate/Copy</option>
+                    <option value="Past Contract">Past Contract - Renegotiated Contract</option>
+                    <option value="Primary Contract">Primary Contract - Amendment/Modification</option>
+                    <option value="Other">Other</option>*@
+            </select>
+            <div>
+                <label id="lblRelatedPopup_ContractTitle" style="float:left;padding-top: 10px;" class="margin-l0px PreserveSpace"></label>
+                <select id="ddlRelationshipTypeParent" class="f_inpt width30 validelement"></select>
+            </div>
+        </div>
+        <article id="right">
+            <input id="txtSearchBoxContract" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewContracts();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxContract').val(''); ViewContracts();">Clear</a>
+        </article>
+        <div id="page-wrap" class="f_list">
+            <table id="tblPopupContracts"></table>
+        </div>
+    </div>
+    @*<article id="right">
+        <input id="txtSearchBoxContract" class="f_inpt cl width70" type="text" style="text-wrap:none" placeholder="Type to SearchCollaborator(S)" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -35px; top:-2px; " onclick="javascript: ViewContracts();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        </article>
+        <div id="page-wrap" class="f_list">
+            <table id="tblPopupContracts"></table>
+        </div>*@
+    <div id="loadContract"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationRelatedContracts"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelected">
+        </div>
+    </div>
+</div>
+<!-- Related Contract Records End -->
+<!-- Manage People Context Menu Popup Start -->
+<div id="addEditPeople" style="height:auto !important; display: none; overflow: inherit !important;">
+    <input type="hidden" autofocus="autofocus" />
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewPeople">
+            <div id="formaddNewPeople" class="width100">
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    @*eO39900 - Anand*@
+                    <tr>
+                        <td class="f_head">Request Approver(s)</td>
+                        <td class="labelleft width60">
+                            <select id="ddlApproversNew" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Assigned To</td>
+                        <td class="labelleft width60">
+                            <select id="ddlAssignedTo" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Collaborators(s)</td>
+                        <td class="labelleft width60">
+                            <select id="ddlCollaboratorsNew" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select User(s)"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Requestor(s) <small class="required">*</small></td>
+                        <td class="labelleft width60">
+                            <div class="invite-Peop-mul-sel">
+                                <select id="ddlRequestorsNew" multiple="multiple" title="Request Requestor(s)" class="f_inpt width90 chosenmulti validuser" data-placeholder="Select User(s)"></select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelleft font_12" colspan="2">
+                            <span>Contract Area Admin </span>: <span id="liContractAreaAdminNA" style="display:none;">Not Available</span><label id="liContractAreaAdmin"></label><br />
+                            <span>Business Area Owner </span>: <span id="liBusinessAreaOwnerNA" style="display:none;">Not Available</span><label id="liBusinessAreaOwner"></label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Manage People Context Menu Popup End-->
+<!-- Status Popup Start-->
+<div id="addEditStatus" style="display:none;">
+    <div id="dvPopupHeadingStatus" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <input type="hidden" autofocus="autofocus" />
+        <div id="addNewStatus">
+            <ul id="menu34" class="f_list requeSt_StaTus"></ul>
+        </div>
+    </div>
+</div>
+<!-- Status Popup End-->
+
+<div id="contractLogsPopup" style="display:none;">
+    <div id="page-wrap">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="logHisheader">Date and Time</th>
+                        <th class="logHisheader">Item</th>
+                        <th class="logHisheader">Activity</th>
+                        <th class="logHisheader">User</th>
+                    </tr>
+                </thead>
+                <tbody id="contractLogs"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Activity"></article>
+    </div>
+</div>
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left;">
+    <div id="loadBA"></div>
+    <div id="treeviewBA" class="demo-section"></div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+</div>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+<div id="dialogSummary" title="Request Summary" class="pop_up" style="display:none">
+
+    <div class="pop_up_Content" style="height:350px;">
+        <ul class="pop_up_Harizondal">
+            <li><a href="javascript:void(0)" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+            <li><a href="javascript:void(0)" id="Details" onclick="MetadataDetails();">Details</a></li>
+        </ul>
+        <div style="height:329px;overflow-y:auto;">
+            <table id="tblSummary" class="width100 marginbottom12px" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="f_head">Request Title</td>
+                    <td class="labelleft" id="tdSumRequestTitle"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Request Type</td>
+                    <td class="labelleft" id="tdSumRequestType"></td>
+                </tr>
+                <tbody id="tblSummaryMetadata"></tbody>
+            </table>
+            <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+        </div>
+    </div>
+</div>
+
+<div id="dvWorkflow" style="display:none;height:auto;">
+    <div class="modalbody" style="">
+        <input id="hdWorkflowType" type="hidden" value="" />
+        <input id="hdWorkflowObject" type="hidden" value="" />
+        <input id="hdWorkflowObjectID" type="hidden" value="" />
+        <input id="hdWorkflowObjectTitle" type="hidden" value="" />
+        <ul id="ulStartWorkflow" class="poPup_Form_Field pop-up-space">
+
+            <li>
+
+                <p><b>Workflow Title</b><small class="required">*</small><img src="/Content/Images/input-help.png" title="Workflow title for the rule." /></p><div>
+                    <input type="text" id="txtWorkflowTitle" maxlength="150" name="WorkflowTitle" class="validelement validtitle" />
+                </div>
+            </li>
+            <li>
+                <p><b id="ddlAssigne">Workflow Routing Rule</b><small class="required">*</small><img src="/Content/Images/input-help.png" title="Workflow routing rule satisfied by the request." /></p>
+                <div>
+                    <label id="lblddlRule" class="width99" style="display:none"></label><select id="ddlRule" name="Rule" class="width99"></select>
+                </div>
+            </li>
+
+            <li>
+                <p><b id="ddlAssigne">Participants</b><small class="required">*</small><img src="/Content/Images/input-help.png" title="Participants for the workflow stages." /></p>
+                <div>
+
+                </div>
+            </li>
+
+            <li>
+                <table id="tblStage" class="width100 clear_both">
+                    <tr id="trStage1">
+                        <td class="width30 wf_approval">
+                            <input id="txtStage1" name="Stage1" title="Stage" placeholder="Stage Name" type="text" class="f_inpt width97" value="Stage 1" />
+                        </td>
+                        <td class="width46 wf_approval1">
+                            <select id="ddlAssignTo1" name="AssignTo1" multiple="multiple" data-placeholder="Select" class="width97 validuser chosenmulti"></select>
+                        </td>
+                        <td class="width20" style="vertical-align: top;">
+                            <select id="ddlOrder1" name="Order1" class="f_inpt width97"><option selected="selected">Serial</option><option>Parallel</option></select>
+                        </td>
+                        <td class="width4">
+                            <img src="../Content/Images/icon/delete.png" style="visibility: hidden; width: 20px" onclick="DeleteStage(this)" />
+                        </td>
+                    </tr>
+                </table>
+                <span class='right-float' id="spAddStage"><a href='javascript:void(0)' onclick='AddStage()'>Add Stage</a></span>
+            </li>
+
+            <li>
+                <p><b>Duration Per Task (Days)</b><small>*</small></p><div>
+                    @*Added from 2.4final to 2.4*@
+                    <input id="txtDuration" name="DueDate" type="text" maxlength="3" class="f_inpt width20  validnumber validelement" onchange="change_date(this, 'lblDurationDate')" onkeyup=" change_date(this, 'lblDurationDate' )" />
+                    <small> day(s)</small>
+                    <small id="lblDurationDate" style="padding-left:7px;color:#6c9539;"></small>
+                </div>
+            </li>
+
+
+            <li>
+
+                <p><b>Notes to Participants</b><small class="required">*</small></p><div>
+                    @*<textarea id="txtComment" rows="4" cols="50" style="width:100px;height: 200px;" name="Notes" title="Notes" class="validNicEdit" autofocus="autofocus"></textarea>*@
+                </div>
+            </li>
+
+            <li>
+                <div class="NotesNicedit width97">
+                    <textarea id="txtComment" class="validNicEdit" name="Notes" title="Notes" rows="2" cols="50" style="width:auto !important;height: 200px;margin-top:0px !important;" autofocus="autofocus"></textarea>
+                </div>
+            </li>
+
+
+            <li>
+                <p><b>Send Workflow Notification</b><img src="/Content/Images/input-help.png" title="Send the workflow notification to the selected people." /></p><div>
+                    <select id="ddlWorkflowCC" name="CC" multiple="multiple" data-placeholder="Select" class="chosenmulti" style="width:49.5%;"></select>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="poPup_Form_radio width100">
+                    <input type="checkbox" name="AutoUpdateStatus" id="chkAutoUpdateStatus" class="summary_Check" />
+                    <label for="chkAutoUpdateStatus" class="workflow_Check_Right">Auto update request status based on this workflow.</label>
+                </div>
+
+            </li>
+            <li style="margin-bottom: 15px; font-style: italic; font-weight: 500;">Note: Alerts will be sent to 'Participants' and/or 'Initiator'.</li>
+
+
+        </ul>
+        <p id="inprocessStartWorkflow" class="popup_save_progress" style="display:none;">
+            <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+        </p>
+
+
+    </div>
+
+</div>
+
+<!---Add Related Contract Popup--->
+<!---manoj--->
+<div id="browseContracts" style="display:none;overflow: hidden;">
+    <p class="text1" style="padding: 0px 10px 10px 10px;">Select one or more existing Contract Records and relate to this Request.</p>
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBoxContracts" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchContracts();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxContracts').val(''); SearchContracts();">Clear</a>
+    </article>
+
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <!---manoj--->
+        <table>
+            <thead>
+                <tr>
+                    <th class="width65">Related Contract Record</th>
+                    <th>Type</th>
+                    <th>Counterparty</th>
+                    <th>Number</th>
+                    <th>Status</th>
+                    <th id="relatedrole"></th>
+                </tr>
+            </thead>
+            <tbody id="tblContracts"></tbody>
+        </table>
+        <div id="loadProContracts"></div>
+        <!---manoj--->
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationContracts"></article>
+    </div>
+    <!---manoj--->
+    <div style="display:none"><label id="lblselectedrelatedcontracts"></label></div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div style="display:inline-block">
+            <div id="liSelected">
+            </div>
+            <div id="liSelectedRelatedContract"></div>
+        </div>
+    </div>
+    <!---manoj--->
+</div>
+<!---manoj--->
+<!---Add Related Contract Popup--->
+<!---manoj--->
+<div id="dvAlertDetails1" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <ul class="poPup_Form_Field">
+            <li>
+                <div id="alertText1" class="width95 margin-0px"></div>
+            </li>
+            <li id="textingdetails" style="margin-top:25px !important">
+
+            </li>
+        </ul>
+
+    </div>
+</div>
+<!---manoj--->
+@*<input t*@
+
+@*<div id="dialogDelay" title="Request Pending Tasks" class="pop_up" style="display:none">
+
+    <div class="pop_up_Content" style="height:350px;overflow-y:auto">
+        <ul class="pop_up_Harizondal con_Sum">
+            @*<li><a href="javascript:void(0)" id="ContractSetting" class="pop_up__Acti Contribute" onclick="ContractSettingPending();">Contract Settings</a></li>
+                <li><a href="javascript:void(0)" id="StartApproval" onclick="StartApprovalPending();">Signees</a></li>
+                <li><a href="javascript:void(0)" id="Editcontract" onclick="EditcontractPending();">Contract Fields</a></li>
+                <li><a href="javascript:void(0)" id="Activities" onclick="ActivitiesPending();">Tasks</a></li>*@
+@*<li><a href="javascript:void(0)" id="JustInfo" class="pop_up__Acti" onclick="JustInfoPending();">Missing</a></li>
+    </ul>*@
+@*<table id="tblContractSettingMetadata" class="width100 marginbottom12px cont_color" border="0" cellpadding="0" cellspacing="0"></table>
+    <table id="tblStartApprovalMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+    <table id="tblEditcontractMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+    <table id="tblActivitiesMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>*@
+@*<table id="tblJustInfoMetadata" class="width100 marginbottom12px cont_color" border="0" cellpadding="0" cellspacing="0"></table>
+    </div>
+    </div*@
+
+<input type="hidden" id="hdnPermission" />
+<input id="hdChangeStatusClick" type="hidden" value="" />
+<input id="txtBusinessArea" type="hidden" />
+<label style="display:none;" id="hdnRequestID"></label>
+<label style="display:none;" id="hdnIsDocumentTag"></label>
+<label style="display:none;" id="hdnRelatedContracts"></label>
+<label style="display:none;" id="hdnDocumentID"></label>
+<label style="display:none;" id="hdnContractCreated"></label>
+
+<span id="lblCounterparty" style="display:none"></span>
+<span id="lblBusinessArea" style="display:none"></span>
+<span id="lblBusinessAreaPath" style="display:none"></span>
+<span id="lblContractArea" style="display:none"></span>
+<span id="lblApprovalWorkflow" style="display:none"></span>
+<span id="lblReviewWorkflow" style="display:none"></span>
+<span id="lblContractAreaAdmins" style="display:none"></span>
+<span id="lblBusinessAreaOwners" style="display:none"></span>
+<label id="lireviewers" style="display:none"></label>
+<label id="liapprovers" style="display:none"></label>
+<label id="lirequestor" style="display:none"></label>
+<span id="liassignto" style="display:none"></span>
+<span id="lblRequestType" style="display:none"></span>
+<label id="licollaborators" style="display:none"></label>
+<label style="display:none;" id="hdnBaseContractCurrency"></label>
+<label style="display:none;" id="hdnContractCurrency"></label>
+
+<ul id="dropdownMenuAmendment" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="dropdownMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="dropdownMenuDocument" class="contextMenu">
+    <li class="viewO365"><a href="#viewdoc">View Document</a></li>
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="edit Contribute"><a href="#edit">Edit Metadata</a></li>
+    <li class="separator"></li>
+    <li class="download"><a href="#download">Download Document</a></li>
+    <li class="separator Manage"></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="dropdownMenuEdit" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+
+<ul id="dropdownMenuRequestSettings" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="separator Contribute"></li>
+    <li class="approve Contribute"><a href="#approve">Start Approval</a></li>
+    <li class="separator Contribute"></li>
+    <li class="missinginformation"><a href="#missinginfo">Missing Info</a></li>
+    <li id="liRequeststatus" class="status Contribute"><a href="#status">Change Status</a></li>
+    <li class="separator Contribute"></li>
+    <li class="edit Contribute"><a href="#edit">Edit Request</a></li>
+    <li class="separator Contribute"></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator Manage"></li>
+    <li class="delete GlobalManage DeleteRecord" style="display:none;"><a href="#delete">Delete Request</a></li>
+</ul>
+
+
+<ul id="dropdownMenuRequestSettingsdraft" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    @*<li class="separator Contribute"></li>*@
+    @*<li class="approve Contribute"><a href="#approve">Start Approval</a></li>*@
+    @*<li class="status Contribute ManageCancelled" style="display:none"><a href="#status">Change Status</a></li>*@
+    <li class="separator Contribute"></li>
+    <li class="edit Contribute RecycleBin EditBtnMenu"><a href="#edit">Edit Request</a></li>
+    <li class="separator Contribute RecycleBin"></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="separator Manage RecycleBin"></li>
+    <li class="delete GlobalManage DeleteRecord" style="display:none;"><a href="#delete">Delete Request</a></li>
+</ul>
+
+
+<ul id="dropdownMenuRequestSettingsRecycleBin" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View Metadata</a></li>
+    <li class="history"><a href="#history">View History</a></li>
+    <li class="delete GlobalManage" style="display:none;"><a href="#delete">Delete Request</a></li>
+</ul>
+
+
+<ul id="dropdownMenuCorrespondence" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="delete Manage"><a href="#delete">Delete</a></li>
+</ul>
+
+<div id="dvViewProject" style="display:none;">
+    <ul class="poPup_Form_Field overflow_hidden my-profile projectpop">
+        <li>
+            <p><b>Project ID</b></p>
+            <div id="dvProjectID">
+            </div>
+        </li>
+        <li>
+            <p><b>Project Name</b></p>
+            <div id="dvProjectName">
+            </div>
+        </li>
+        <li>
+            <p><b>Description</b></p>
+            <div id="dvDescription">
+            </div>
+        </li>
+        <li>
+            <p><b>Status</b></p>
+            <div id="dvStatus">
+            </div>
+        </li>
+        <li>
+            <p><b>Start Date</b></p>
+            <div id="dvStartDate">
+            </div>
+        </li>
+        <li>
+            <p><b>End Date</b></p>
+            <div id="dvEndDate">
+            </div>
+        </li>
+        <li>
+            <p><b>Sub Account</b></p>
+            <div id="dvSubAccount">
+            </div>
+        </li>
+        <li>
+            <p><b>Project Manager</b></p>
+            <div id="dvProjectManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Business Manager</b></p>
+            <div id="dvBusinessManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Customer ID</b></p>
+            <div id="dvCustomerID">
+            </div>
+        </li>
+        <li>
+            <p><b>Country</b></p>
+            <div id="dvCountry">
+            </div>
+        </li>
+        <li>
+            <p><b>Division</b></p>
+            <div id="dvDivision">
+            </div>
+        </li>
+        <li>
+            <p><b>PracticeArea</b></p>
+            <div id="dvPracticeArea">
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="dvViewProjectTask" style="display:none;">
+    <ul class="poPup_Form_Field overflow_hidden my-profile projectpop">
+        <li>
+            <p><b>Task ID</b></p>
+            <div id="dvTaskID">
+            </div>
+        </li>
+        <li>
+            <p><b>Description</b></p>
+            <div id="dvTaskDescription">
+            </div>
+        </li>
+        <li>
+            <p><b>Manager</b></p>
+            <div id="dvManager">
+            </div>
+        </li>
+        <li>
+            <p><b>Start Date</b></p>
+            <div id="dvTaskStartDate">
+            </div>
+        </li>
+        <li>
+            <p><b>End Date</b></p>
+            <div id="dvTaskEndDate">
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="browseCounterparty" style="display:none;">
+    @*<div class="bg-warning">
+            <p>You can select one or more counterparty from below and link to this contract.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBox" class="f_inpt cl padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+        </article>*@
+    <ul id="menuSMultiple" class="f_list">
+        <li id="Upcoming">
+            <input id="rdCPExistingCounterparty" type="radio" checked name="PickCounterparty" onclick="SelectExistingCounterparty()" value="Existing" class="css-checkbox" />
+            <label for="rdCPExistingCounterparty" class="css-label">Select from eContract existing Counterparty Database</label>
+        </li>
+        <li id="Delayed">
+            <input id="rdCPAddCounterparty" type="radio" name="PickCounterparty" onclick="SelectAddCounterparty()" value="New" class="css-checkbox" />
+            <label for="rdCPAddCounterparty" class="css-label">Create / Add Counterparty</label>
+        </li>
+    </ul>
+    <div id="loadCP"></div>
+    @*<div id="page-wrap" class="">
+            <table id="tblCounterparties"></table>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationCounterparties"></article>
+        </div>
+        <p class="margin-bottom-25" style="display:none;">
+            <input type="checkbox" id="chkCounterpartyNotInList" class="css1-checkbox" />
+            <label for="chkCounterpartyNotInList" class="css1-label">Counterparty not in the list</label>
+            <span class='right-float'><a href="javascript:void(0)" style="float:right;" onclick="CounterpartyPopup()">Add New Counterparty</a></span>
+
+        </p>*@
+    <div id="dvCPExistingCounterparty" class="width100">
+        @*<p class="text1" style="padding: 0px 10px 10px 10px;">You can select one or more Counterparty from below and link to this Contract Record.</p>
+            <article style="width:100%; text-align:center;">
+                <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+            </article>*@
+        <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+            <div id="listWrapper">
+                @*<table id="tblCounterparties"></table>*@
+            </div>
+        </div>
+        <div id="loadGenCounterParty"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationCounterparties"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelectedCounterParty">
+            </div>
+        </div>
+    </div>
+    <div id="dvCPAddCounterparty" class="width100" style="display:none;">
+        <div id="addNewEntityFieldsTest">
+            <div id="counterpartyForm" class="width100">
+                <ul class="poPup_Form_Field pop-up-space" id="counterpartyItems">
+                    <li>
+                        <p></p>
+                        <div>
+                            <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Counterparty Name</b><small>*</small></p>
+                        <div>
+                            <input id="txtCounterpartyName" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" onchange="ReplaceSpecialCharacters(this);" class="validelement validtitle" />
+                        </div>
+                    </li>
+                    <li id="spAddCounterparty">
+                        <div style="display: block; clear: both;width: 100%;">
+                            <input type="checkbox" id="chkCounterpartyNotInList" class="css1-checkbox cp-check">
+                            <label for="chkCounterpartyNotInList" class="css1-label">Add to eContracts Counterparty Database</label>
+                        </div>
+                    </li>
+                    <li class="CP_Det1" id="trcp-type" style="display:none">
+                        <p><b>Counterparty Type</b><small>*</small></p><div>
+                            <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="CP_Det1" id="trcp-gbl" style="display:none">
+                        <p><b>Global or Regional</b><small>*</small></p><div>
+                            <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                        </div>
+                    </li>
+                    <li class="" id="trcp-RgBusi" style="display:none">
+                        <p><b>Business Area</b><small>*</small></p><div>
+                            <input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="">
+                            <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                        </div>
+                    </li>
+                    <li class="CP_Det1" style="display:none">
+                        <p><b>Status</b><small>*</small></p><div>
+                            <select id="ddlStatus" name="Status" style="pointer-events:none">
+                                <option value="Active">Active</option>
+                                @*<option value="Inactive">Inactive</option>*@
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="poPup_Form_Field pop-up-space" id="counterpartyDynamicItems"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div class="bg-warning">
+            <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+        </article>
+        <div>
+            <label>Relationship Type</label>
+            <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                <option value="0">--Select--</option>
+                <option value="Parent">Parent - Subsidiary</option>
+                <option value="Supplier">Supplier - Customer</option>
+                <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                <option value="Other">Other</option>
+            </select>
+            <div>
+                <div>
+                    <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                    <select id="ddlRelationshipTypeParentcounterparties" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <div id="page-wrap" class="f_list">
+                <table id="tblPopupCounterparties"></table>
+            </div>
+        </div>
+        <div id="loadCounterparties"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelectedCounterparties">
+            </div>
+        </div>
+    </div>
+</div>
+<!---manoj--->
+<!---Orginating Party--->
+<div id="browseOriginatingParty" style="display:none;">
+    <div id="loadOP"></div>
+    <div id="page-wrap">
+        <ul class="f_list" id="tblOriginatingParties"></ul>
+    </div>
+    <div class="pop_up_Content MetadataDetailDocument" style="min-height:550px;width:100%;">
+        <ul class="pop_up_Harizondal">
+            <li><a href="javascript:void(0)" id="OPLeagalEntities" class="pop_up_Harizondal_meta_active" onclick="SelectLegalEntities();">Company Legal Entities</a></li>
+            <li><a href="javascript:void(0)" id="OPCounterparties" onclick="SelectCounterparties();">Counterparties</a></li>
+        </ul>
+        <div id="page-wrap">
+            <ul class="f_list" id="tblOPLegalEntities" style="padding: 10px;"></ul>
+        </div>
+
+
+        <div id="page-wrap">
+            <ul class="f_list" id="tblOPCounterparties" style="padding: 10px;display:none;"></ul>
+        </div>
+
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationOPLegalEntities"></article>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationOPCounterparties" style="display:none;"></article>
+    </div>
+</div>
+<!---Orginating Party--->
+<!--Legal Entity-->
+<div id="browseLegalEntity">
+
+    <div id="dvCPExistingLegalEntity" class="width100">
+        @*<article style="width:100%; text-align:center;">
+                <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+            </article>*@
+        <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+            <div id="listLEWrapper">
+                @*<table id="tblCounterparties"></table>*@
+            </div>
+            @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+                    <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').attr('checked', false);">Unselect All</a>
+                </span>*@
+            <div id="loadGenLegalEntity"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationLegalEntity"></article>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedLegalEntity">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--Legal Entity-->
+<!---Browse Project & Project Task--->
+<div id="browseProjects" style="display:none;overflow: hidden;">
+    <p class="text1" style="padding: 0px 10px 10px 10px;">You can select a Project from below and link to this Request.</p>
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBoxProjects" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchProjects();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxProjects').val(''); SearchProjects();">Clear</a>
+    </article>
+    <div id="loadPro"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tblProjects"></table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationProjects"></article>
+    </div>
+</div>
+
+<div id="browseProjectTasks" style="display:none;overflow: auto;">
+    <div id="loadProTask"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tblProjectTasks"></table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationProjectTasks"></article>
+    </div>
+</div>
+<!---Browse Project & Project Task--->
+<!---Browse Generic--->
+<div id="browseGeneric" style="display:none;overflow: hidden;">
+    <div id="page-wrap" class="" style="margin-bottom: 10px;">
+        <table id="tblGenericheader"></table>
+        <div style="margin-bottom: 10px;margin:0px !important;width:100% !important">
+            <div class="f_list">
+                <table id="tblGeneric"></table>
+            </div>
+        </div>
+    </div>
+    <div id="loadGen"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationGeneric" class="compact-theme simple-pagination"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedRU">
+        </div>
+    </div>
+</div>
+<!---Browse Generic--->
+<!---manoj--->
+
+<div id="dvRequestNotAvail" style="display:none;">
+    Request not available.It is likely that you do not have permission or it may have been deleted.
+</div>
+<div id="addEditCounterparty" style="display:none; overflow-y:auto;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <div id="counterpartyFormadd" class="width100">
+                <table class="width100" cellpadding="2" cellspacing="2" id="counterpartyItemsadd">
+                    <tr>
+                        <td class="f_head"></td>
+                        <td class="labelright"><input id="txtCounterpartyIDadd" name="CounterpartyID" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Counterparty Name<small class="required">*</small></td>
+                        <td class="labelright"><input id="txtCounterpartyNameadd" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width90 validelement validtitle" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Counterparty Type<small class="required">*</small></td>
+                        <td class="labelright">
+                            <select id="ddlCounterpartyTypeadd" name="CounterpartyType" title="Counterparty Type" class="f_inpt width91_4 validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Global or Regional<small class="required">*</small></td>
+                        <td class="labelright">
+                            <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobalN" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobalN" value="No" />Regional
+
+                        </td>
+                    </tr>
+                    <tr id="trcp-RgBusi" style="display:none">
+                        <td class="f_head">Business Area<small class="required">*</small></td>
+                        <td class="labelright">
+                            <input type="hidden" id="hdnOwnerofBusinessArea" />
+                            <input type="hidden" id="hdnLocOwnerofBusinessArea" />
+                            <input id="txtNewCpBusinessArea" name="BusinessAreas" readonly="readonly" type="text" maxlength="70" title="Business Area" class=" f_inpt width90 validelement validtitle">
+                            <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+
+                        </td>
+                    </tr>
+
+                    @*<tr>
+                        <td class="f_head">Address</td>
+                        <td class="labelright"><input id="txtAddressLine1add" name="AddressLine1" type="text" class="f_inpt width90" /></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td class="labelright"><input id="txtAddressLine2add" name="AddressLine2" type="text" class="f_inpt width90" /></td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">City</td>
+                        <td class="labelright"><input id="txtCityadd" name="City" type="text" class="f_inpt width90" /></td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">State</td>
+                        <td class="labelright"><input id="txtStateadd" name="State" type="text" class="f_inpt width90" /></td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">Country</td>
+                        <td class="labelright">
+                        <select id="ddlCountryadd" name="Country" class="f_inpt width91_4">
+                        <option value="0">--Select--</option>
+                        </select>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">Zip/Postal Code</td>
+                        <td class="labelright"><input id="txtZipadd" name="Zip" type="text" class="f_inpt width90" /></td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">Contact Number</td>
+                        <td class="labelright">
+                        <input id="txtContactNoadd" name="ContactNo" type="text" title="Contact Number" class="f_inpt width90" />
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="f_head">Email ID</td>
+                        <td class="labelright"><input id="txtEmailIDadd" name="EmailID" type="text" title="Email id" class="f_inpt width90 validemail" /></td>
+                        </tr>*@
+                    <tr>
+                        <td class="f_head">Status</td>
+                        <td class="labelright">
+                            <select id="ddlStatusadd" name="Status" class="f_inpt width91_4" style="pointer-events:none">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /*.search-field input {
+            width: auto !important;
+        }*/
+    .search-field input[type=text] ::-ms-clear {
+        /*min-width:200px !important;*/
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .search-field input[type=text] ::-ms-reveal {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .search-choice span {
+        width: auto !important;
+        line-height: 14px !important;
+    }
+</style>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var vnow = '@DateTime.UtcNow';
+    </script>
+    <!--*Harshitha-->
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/nicEdit-latest.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+    @Scripts.Render("~/Scripts/jquery-priceformat.js")
+    @Scripts.Render("~/Scripts/intlTelInput.js")
+    @Scripts.Render("~/Scripts/Contract365/Pipeline_RequestDetails.js?" + DateTime.Now.GetHashCode())
+}

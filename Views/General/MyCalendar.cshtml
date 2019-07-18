@@ -1,0 +1,259 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MyCalendar</title>
+</head>
+<body>
+    <div class="width100">
+        <div id="fullcal">
+        </div>
+        <div id="scheduler"></div>
+    </div>   
+    <style>
+        body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #939393;
+    font-weight: normal;
+}
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/jquery.popup.js"></script>*@
+    @*<script type="text/javascript" src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+
+    <script type="text/javascript" src="~/Scripts/dropdown-menu.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+
+    <script src="~/Scripts/fullcalendar.js" type="text/javascript"></script>
+    <link href="~/Content/fullcalendar.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        var vApiBaseSiteUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiBaseSiteUrl"]';
+        if ('@Session["UserName"]' != '') {
+        localStorage.UserName = decodeURI(unescape('@Session["UserName"]'));
+        localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+        localStorage.APIKey = '@Session["APIKey"]';
+        localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+        localStorage.UserTitle = '@Session["UserTitle"]';
+        localStorage.OEmail = decodeURI(unescape('@Session["OEmail"]'));
+        localStorage.UserID = '@Session["UserID"]';
+        localStorage.LoginTime = new Date();
+        localStorage.RefreshToken = '@Session["RefreshToken"]';
+        localStorage.Permission = '';
+        localStorage.GlobalBusinessArea = 'All';
+        localStorage.GlobalBusinessAreaLocation = 'All';
+        localStorage.BusinessAreaAccess = '';
+    }
+
+        $(function () {
+            if (typeof localStorage.eContractFeatures === "undefined")
+                GetFeatures();
+            if (typeof localStorage.AppAccountStatus === "undefined")
+                GetAccountStatus();
+            if (typeof localStorage.AppDateFormat === "undefined")
+                GetApplicationDateFormat();
+            CreateCalender();
+        });
+        function CreateCalender() {
+            var today = new Date();
+            var exec_start = moment(new Date());
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/Reports/calender?assignto=' + localStorage.UserName,
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'eContracts-ApiKey': localStorage.APIKey, 'UserID': localStorage.UserID, 'UserName': localStorage.UserName
+                },
+                cache: false,
+                success: function (data) {
+                    if (data.length == 0) {
+                        $("#fullcal").append('<p class="f_p-error">No items found.</p>');
+                    }
+                    else {
+
+                        $('div[id*=fullcal]').fullCalendar({
+
+                            header: {
+                                left: '',
+                                center: 'title',
+                                right: 'prev,next',
+                            },
+                            eventLimit: 2,
+                            aspectRatio: 1.95,
+                            contentHeight: 510,
+                            firstDay: 1,
+                            firstWeek: 2,
+                            weekMode: 'variable',
+                            editable: false,
+                            height: 'auto',
+                            disableDragging: false,
+                            disableResizing: false,
+                            displayEventTime: false,
+                            time: false,
+                            events: $.map(data, function (item, i) {
+                                vTitle = item.ItemTitle + ' [' + item.ContractTitle + ']';
+                                vSubTitle = vTitle;
+                                if (vTitle.length > 41)
+                                { vSubTitle = vTitle.substring(0, 40) + '...'; }
+                                var event = new Object();
+                                event.id = item.ItemID;
+                                event.start = new Date(item.ItemDate);
+                                event.end = new Date(item.ItemDate);
+                                event.title = vSubTitle;
+                                event.alttitle = vTitle;
+                                event.url = 'javascript:void(0);';
+                                event.ImageType = 0;
+                                event.Type = item.ItemType;
+                                if (new Date(item.ItemDate).setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0)) {
+                                    event.backgroundColor = '#9dc456';
+                                }
+                                else if (new Date(item.ItemDate) < today) {
+                                    event.backgroundColor = '#cc6766';
+                                }
+                                else if (new Date(item.ItemDate) > today) {
+                                    event.backgroundColor = '#f0ad4e';
+                                }
+                                return event;
+                            }), eventRender: function (event, eventElement) {
+                                if (event.ImageType) {
+                                    if (eventElement.find('span.fc-event-time').length) {
+                                        eventElement.find('span.fc-event-time').before($(GetImage(event.ImageType)));
+                                    } else {
+                                        eventElement.find('span.fc-event-title').before($(GetImage(event.ImageType)));
+                                    }
+                                }
+                                eventElement.attr('title', event.alttitle);
+                                eventElement.attr('href', 'javascript:void(0);');
+                                if (event.Type == "Obligation") {
+                                    eventElement.attr('onclick', 'ViewObligationDetail("' + event.id + '");');
+                                }
+                                else if (event.Type == "Contract") {
+                                    eventElement.attr('onclick', 'ViewContractDetail("' + event.id + '");');
+                                }
+                                else {
+                                    eventElement.attr('onclick', 'ViewMilestoneDetail("' + event.id + '");');
+                                }
+                            },
+                            loading: function (bool) {
+                                if (bool) $('#loading').show();
+                                else {
+                                    $('#loading').hide();
+                                }
+                            }
+                        });
+                        $('#loading').hide();
+                        $('div[id*=fullcal]').show();
+
+
+
+
+                    }
+                },
+                error: function (data) {
+                    $("#fullcal").empty();
+                    $("#fullcal").append('<p class="f_p-error">No items found.</p>');
+                }
+            });
+        }
+
+
+        function GetAccountStatus() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/LicenseLimit',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                async: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (entity) {
+                    localStorage.AppAccountStatus = entity.Status;
+                }
+            });
+        }
+
+        function GetApplicationDateFormat() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/AccountSetting',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                //async: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    localStorage.AppDateFormat = data.DateFormat;
+                },
+                error: function (data) {
+                    localStorage.AppDateFormat = "MM/DD/YYYY";
+                }
+            });
+        }
+
+        function GetFeatures() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                //async: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    localStorage.setItem("eContractFeatures", JSON.stringify(data));
+                    var vAccFeat = $.grep(data, function (n, i) {
+                        return (n.RowKey == "29" && n.Status == "ON");
+                    });
+                    if (vAccFeat.length > 0) {
+                        if (typeof localStorage.CompanyBrandingLogo === "undefined") {
+                            $.ajax({
+                                url: '/Accounts/GetAccountSetting?accountid=' + localStorage.AccountID,
+                                type: 'GET',
+                                dataType: 'json',
+                                cache: false,
+                                success: function (AccountSetting) {
+                                    if (AccountSetting.CompanyLogo != "") {
+                                        localStorage.setItem("CompanyBrandingLogo", AccountSetting.CompanyLogo);
+                                        $(".FL_CompanyBrandingLogo").attr("src", AccountSetting.CompanyLogo);
+                                        $(".FL_CompanyBrandingLogo").css('display', '');
+                                    }
+                                    else {
+                                        $(".FL_CompanyBrandingLogo").css('display', '');
+                                        localStorage.setItem("CompanyBrandingLogo", '/Content/Images/logo.png');
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            if (localStorage.CompanyBrandingLogo != "/Content/Images/logo.png") {
+                                $(".FL_CompanyBrandingLogo").attr("src", localStorage.CompanyBrandingLogo);
+                                $(".FL_CompanyBrandingLogo").css('display', '');
+                            }
+                            else {
+                                $(".FL_CompanyBrandingLogo").css('display', '');
+                            }
+
+                        }
+                    }
+                    else {
+                        $(".FL_CompanyBrandingLogo").css('display', '');
+                    }
+                },
+                error: function (data) {
+                    var vvvv = "";
+                }
+            });
+        }
+    </script>
+    @*@Scripts.Render("~/Scripts/Contract365/General_MyAlerts.js?" + DateTime.Now.GetHashCode())*@
+</body>
+</html>

@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "LogHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<link href="~/Content/css/styesheet.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/Content/css/inboxstyle.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="~/Content/css/resposive.css" rel="stylesheet" type="text/css" media="screen" />
+<title>econtract-365</title>
+<link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+<script src="~/Scripts/NewChanges/modernizr.custom.js"></script>
+<script src="~/Scripts/NewChanges/jquery.color.js"></script>
+<script src="~/Scripts/NewChanges/script.js"></script>
+<script src="~/Scripts/NewChanges/notifi.js"></script>
+<link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />*@
+
+
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Log History</b>
+
+    </div>
+    @*<aside>
+        <select>
+            <option>create to do</option>
+        </select>
+    </aside>*@
+</section>
+
+
+
+<section class="main">
+    <section class="wraper">
+        <div class="box_Summery">
+            <div id="logFiltersForm" class="width100">
+                <ul>
+                    <li>
+                        <small>Date</small>
+                        <input id="txtDateFrom" type="text" name="DateFrom" class="width40 validdate">
+                        &nbsp;&nbsp;<span class="log_date1">to</span>&nbsp;&nbsp;<input id="txtDateTo" type="text" name="DateTo" class="width40 validdate">
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <small>Type</small>
+                        <select id="ddlLogType" name="LogType" class="width70">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option value="Create">Create</option>
+                            <option value="Update">Update</option>
+                            <option value="Delete">Delete</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="logreportbtn"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()">Apply</a> <a id="btnClearFilter" href="javascript:void(0);">Clear</a></div>
+
+
+                @*<table class="width100" id="tblLogFilters">
+                <tbody>
+                    <tr>
+                        <td class="text log_date1">
+                            Date
+                        </td>
+                        <td class="labelleft">
+
+                        </td>
+                        <td class="text log_date1">
+                            Type
+                        </td>
+                        <td class="labelleft">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>*@
+            </div>
+            @*<table>
+                <tr>
+                    <td class="labelleft">
+                        <input id="btnAddNew" type="submit" value="Apply" class="f_button_report" onclick="ApplyFilter()" />
+                        <input id="btnClearFilter" type="submit" value="Clear" class="f_button_reportgrey" />
+                    </td>
+                </tr>
+            </table>*@
+        </div>
+
+        
+        <section class="box2">
+            <div id="page-wrap">
+
+                <div>                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="logHisheader">Date and Time</th>
+                                <th class="logHisheader">Item</th>
+                                <th class="logHisheader">Activity</th>
+                                <th class="logHisheader">User</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentLogs">
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-pagination" class="margin-left-m20"></article>
+                </div>
+                <div class="width20 float_right1 result_count">
+                    <span id="spResult"></span>
+                </div>
+
+                @*<section class="d-numb text">
+                <section class="box-table paginated padding_left" id="recentLogs"></section>
+                <section class="box-table">
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-pagination"></article>
+                    </div>
+                </section>
+            </section>*@
+
+
+
+            </div>
+
+        </section>
+
+
+
+    </section>
+</section>
+
+
+@*<script src="~/Scripts/NewChanges/popModal.js"></script>
+<script>
+    $(function () {
+        $('#popModal_profile').click(function () {
+            $('#popModal_profile').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomLeft',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_profilearr').click(function () {
+            $('#popModal_profilearr').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomLeft',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_settings').click(function () {
+            $('#popModal_settings').popModal({
+                html: $('#contentsettings'),
+                placement: 'bottomLeft',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_alert').click(function () {
+            $('#popModal_alert').popModal({
+                html: $('#contentalert'),
+                placement: 'bottomLeft',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_task').click(function () {
+            $('#popModal_task').popModal({
+                html: $('#contenttasks'),
+                placement: 'bottomLeft',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+    });
+</script>
+
+<script src="~/Scripts/NewChanges/jquery.dlmenu.js"></script>
+<script>
+    $(function () {
+        $('#dl-menu').dlmenu();
+    });
+</script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<section id="mid-section">
+            <aside id="left">
+                <h1 class="title">Log History</h1>
+            </aside>
+            <article id="right">
+                <div id="dvAddTodo" class="createTodo" style="display:none;">
+                    <input type="button" class="f_button_green_small" onclick="CreateTodo()" value="Create Todo" />
+                </div>
+            </article>
+        </section>
+        <section class="d-report">
+            <form id="logFiltersForm">
+                <table class="width100" id="tblLogFilters">
+                    <tbody>
+                        <tr>
+                            <td class="text log_date1">
+                                Date
+                            </td>
+                            <td class="labelleft">
+                                <input id="txtDateFrom" type="text" name="DateFrom" class="f_inpt width40 validdate">
+                                &nbsp;&nbsp;<span class="log_date1">to</span>&nbsp;&nbsp;<input id="txtDateTo" type="text" name="DateTo" class="f_inpt width40 validdate">
+        </td>
+                            <td class="text log_date1">
+                                Type
+                            </td>
+                            <td class="labelleft">
+                                <select id="ddlLogType" name="LogType" class="f_inpt width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="Create">Create</option>
+                                    <option value="Update">Update</option>
+                                    <option value="Delete">Delete</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <table>
+                <tr>
+                    <td class="labelleft">
+                        <input id="btnAddNew" type="submit" value="Apply" class="f_button_report" onclick="ApplyFilter()" />
+                        <input id="btnClearFilter" type="submit" value="Clear" class="f_button_reportgrey" />
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="d-numb text">
+            <section class="box-table paginated padding_left" id="recentLogs"></section>
+                <section class="box-table">
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-pagination"></article>
+                    </div>
+                </section>
+            </section>*@
+
+    @section Scripts {
+        <script src="~/Scripts/jquery.validate.js"></script>
+        @Scripts.Render("~/Scripts/Contract365/Activity_LogHistory.js?" + DateTime.Now.GetHashCode())
+    }
+

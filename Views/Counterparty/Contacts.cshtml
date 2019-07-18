@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "Contacts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1">Contacts</b>
+        </div>
+        </div>
+</section>
+
+
+<section class="wraper">
+
+    <section class="box2">
+        <div class="my-Alerts_contDeat">
+            <div class="my-Alerts_Act1">
+                <div class="documents-Head">
+                    <span class="documentsLeft">
+                        <img src="/Content/Images/icon/contacts.png">
+                        <b title="Displays the Contacts linked with the Counterparty.">Contacts<span id="lblContactCount"></span></b>
+                        <a href="javascript:void(0);" class="manageCounterpartyMenu contributeCounterparty " id="AddCounterpartyContact" onclick="javascript: ContactPopup();"><img src="/Content/Images/plus_green.png">New</a>
+                    </span>
+                    <span class="documentsRight">
+
+                    </span>
+                </div>
+            </div>
+            <div class="alertbox_status alertbox_status_Contss">
+
+                <ul id="listContacts"></ul>
+
+
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+
+        </div>
+        <div class="box2_Right">
+
+
+            <div class="contract-Right">
+                <h1><img src="/Content/Images/quick-vission.png" title="Quick View" style="cursor:default" />Quick View</h1>
+                <ul id="left-nav">
+
+                   @* <li id="AddCounterpartyContact"><p><a href="javascript:void(0)" onclick="ContactPopup()">Add Contact</a></p></li>*@
+
+                    <li><p><a href="@Url.Action("Index", "Counterparty")">Counterparty</a></p></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </section>
+</section>
+
+
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit manageCounterpartyMenu"><a href="#edit">Edit</a></li>
+    <li class="delete manageCounterpartyMenu"><a href="#delete">Delete</a></li>
+</ul>
+
+<div id="addEditContact" style="display:none;">
+    <div id="dvPopupHeadingContact" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewContactFields">
+
+
+            <ul class="poPup_Form_Field">
+
+                <li>
+                    <p></p>
+                    <div>
+                        <input id="txtContactID" name="ContactID" type="hidden" />
+                    </div>
+                </li>
+                <li>
+                    <p><b>Counterparty</b><small>*</small><img src="/Content/Images/input-help.png" /></p>
+                    <div>
+                        <span id="spnCounterpartyName" title="Counterparty Name" style="display:none;" class="title"></span>
+                        <select id="ddlCounterparty" name="Counterparty" title="Counterparty" class="validelement">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+
+                    <p>
+                        <b>
+                            Internal or External
+                        </b>
+                        <small>*</small>
+                    </p>
+
+                    <div>
+                        <input type="radio" checked style="width: 10% !important;height: 13px !important;float: none !important;" name="InternalOrExternal" value="External">External<input type="radio" style="width: 10%;height: 13px !important;float: none !important;" name="InternalOrExternal" value="Internal">Internal
+                    </div>
+
+                </li>
+                <li class="InContact" id="InternalUser" style="display:none;">
+
+                    <p>
+                        <b>Internal User</b><small style="color: red;display: inline;">&nbsp;*</small>
+                    </p>
+                    <div>
+                        <select id="ddlInternalUser"></select>
+                    </div>
+                </li>
+                <li class="ExContact" style="display:none;">
+                    <p><b>Contact Name</b><small>*</small><img src="/Content/Images/input-help.png" /></p>
+                    <div>
+                        <input id="txtContactName" name="ContactName" maxlength="70" type="text" title="Contact Name" class="validelement" />
+                    </div>
+                </li>
+
+                
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Role</b></p>
+                    <div>
+                        <input id="txtRole" name="Role" maxlength="50" type="text" title="Role" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Address</b></p>
+                    <div>
+                        <input id="txtAddressLine1C" name="AddressLine1" maxlength="300" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b></b></p>
+                    <div>
+                        <input id="txtAddressLine2C" name="AddressLine2" maxlength="300" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>City</b></p>
+                    <div>
+                        <input id="txtCityC" name="City" maxlength="50" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>State</b></p>
+                    <div>
+                        <input id="txtStateC" name="State" maxlength="50" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Country</b></p>
+                    <div>
+                        <select id="ddlCountryC" name="Country">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Zip/Postal Code</b></p>
+                    <div>
+                        <input id="txtZipC" name="Zip" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Phone</b></p>
+                    <div>
+                        <input id="txtContactNoC" name="ContactNo" type="text" title="Contact Number" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Email ID</b></p>
+                    <div>
+                        <input id="txtEmailIDC" name="EmailID" maxlength="150" type="text" title="Email ID" class="validemail" />
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Counterparty_Contract.js?" + DateTime.Now.GetHashCode())
+}

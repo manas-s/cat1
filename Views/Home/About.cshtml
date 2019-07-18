@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3><br />
+<div style="margin:0px 20px">
+    <hr />
+    @foreach (var item in ViewBag.Cache)
+    {
+        @item<br />
+        <hr />
+    }
+</div>
+
+<ul id="contacts"></ul>
+<div id="saveContactForm" class="width100">
+    <p>
+        <label for="contactName">Metadata 1:</label>
+        <input type="text" id="Metadata1" />
+    </p>
+    <p>
+        <label for="contactName">Metadata 2:</label>
+        <input type="text" id="Metadata2" />
+    </p>
+    <input type="button" id="saveContact" value="Save" />
+</div>
+
+<input type="button" value="Test" onclick="Test()" />
+
+@section scripts{
+    
+<script src="~/Scripts/Contract365/Home_About.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function Test() {
+        $.ajax({
+            url: 'https://api.echosign.com/oauth/token',
+            type: 'POST',
+            "Content-Type": "application/x-www-form-urlencoded",
+            'Access-Control-Allow-Origin': "https://api.echosign.com",
+            data: {
+                code: "HELAPAYO650H75DCPOVNNVI9",
+                client_id: "DN68NX2A6Y6G3I",
+                client_secret: "OGefaA5aN1rwUevj6N7sDSlPf-K11KAC",
+                redirect_uri: "https://localhost:44351/Home/About",
+                grant_type: "authorization_code"
+            },
+            cache: false,
+            success: function (person) {
+               // alert(person);
+                swal("", person);
+               // alert('s');
+                swal("", "s");
+            },
+            error: function (person) {
+               // alert(person);
+                swal("", person);
+               // alert('e');
+                swal("", "e");
+
+            }
+        });
+    }
+    function Loading_View_trigger() {
+    }
+    </script>
+}

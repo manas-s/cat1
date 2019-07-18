@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ContractSummary</title>
+</head>
+<body>
+
+    <div id="InvalidDocument" style="display:none" class="bg-warning">
+        <p>This is not a valid Document.</p>
+    </div>
+    <div class="container" id="ContractNotTagged" style="display:none">
+        <div class="bg-warning">
+            <p>This document is not linked to a Contract Record in eContracts. You can select from one of the existing contracts records from below or Create a new one and link to this document.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBox" class="f_inpt width70 padding_right_20px" type="text" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewContracts();" src="@Url.Content("~/Content/Images/search_over.png")" />           
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); ViewContracts();">Clear</a>
+        </article>
+        <div id="page-wrap">
+            <div id="loadMA" style="display:none"><img src="~/Content/Images/icon/loading.gif"></div>
+            <ul class="f_list" id="listContracts"></ul>
+        </div>
+        <table  class="width100">
+            <tr>
+                <td align="left">
+                    <div class="pagination-holder clearfix">
+                        <article id="compact-paginationContracts"></article>
+                    </div>
+                </td>
+                <td align="right"><input type="button" class="f_button_green_small" id="btnTag" onclick="TagContract()" value="Tag" />@*<span class="f_button_green_small" id="btnTag" onclick="TagContract()"> <a href="javascript:void(0)">Tag</a>*@</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    
+                </td>
+                <td align="right" class="padding_top_10px">
+                    <label for="rs1" class="css-label">Contract Record not available? </label>&nbsp;<span class="right-float"><a href="javascript:void(0)" onclick="CreateNew()">Create New</a></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="ContractTagged" title="Contract Record Summary" style="background-color: #f9f9f9;">
+
+        <div style="height:570px;overflow-y:auto">
+            <ul class="pop_up_Harizondal">
+                <li><a href="javascript:void(0)" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+                <li><a href="javascript:void(0)" id="Details" onclick="MetadataDetails();">Details</a></li>
+            </ul>
+            <table id="tblSummary" class="width100 marginbottom12px" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="f_head">Contract Record Title</td>
+                    <td class="labelleft PreserveSpace" id="tdSumContractTitle"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Record Number</td>
+                    <td class="labelleft" id="tdSumContractNumber"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Record Type</td>
+                    <td class="labelleft" id="tdSumContractType"></td>
+                </tr>
+                <tbody id="tblSummaryMetadata"></tbody>
+            </table>
+            <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none; overflow:scroll;"></table>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/econtractscss")
+    <script type="text/javascript">
+        var vSIteURL = '@System.Web.Configuration.WebConfigurationManager.AppSettings.Get("SiteUrl")';
+        //var vSIteURL = 'https://localhost:44351/';
+        
+    </script>
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+    <style>
+        .ms-dlgContent {
+            width: 800px;
+            height: 500px;
+        }
+
+        .ms-dlgFrame {
+            height: 425px;
+        }
+    </style>
+
+    
+    @Scripts.Render("~/Scripts/Contract365/Contract_ContractSummary.js?" + DateTime.Now.GetHashCode())
+</body>
+</html>

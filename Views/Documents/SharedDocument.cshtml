@@ -1,0 +1,232 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Shared Document</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <section class="main">
+        <header>
+            <div class="logo">
+                <div class="logoTop">
+                    <small>
+                        &nbsp;
+                    </small>
+                    <b>
+                        <a href="javascript:void(0);"><img src="~/Content/images/logo-mob.png" style="pointer-events:none;" /></a>
+                    </b>
+                </div>
+
+                <img src="~/Content/images/logo.png" class="margin-bottom-10 FL_CompanyBrandingLogo" style="pointer-events:none;max-height:40px;display:none" />
+
+            </div>
+            <ul class="logoRight" style="display:none;">
+                <li id="nvAccLogo" style="display:none;">
+                    <img id="accountLogo" alt="logo" src="~/Content/images/logo.png" height="20" style="margin-bottom: 6px; padding-left:3px;pointer-events:none;">
+                </li>
+            </ul>
+        </header>
+        <section class="wraper">
+            <div id="dvTask" class="share_doc_Aleart" style="display:none;">
+                <small id="hComplete" style="width: 75%;">
+                    <i id="spSender" style="display:none;"></i>
+                    * You can review, download, modify and upload a new version of the document. <br />
+                </small>
+                <span class="toDoReviewed" style="display:none"><a href="javascript:void(0);" onclick='CompleteReview()'><img src="~/Content/images/reviewed.png" /><small> Mark as Completed</small></a></span>@*Negotiation Complete*@
+
+            </div>
+            <div id="dvExpired" class="share_doc_Aleart bg-failure" style="display:none;">
+                <small> This link has expired. Contact the person who shared this link with you for a new link.</small>
+            </div>
+            <div id="dvStopped" class="share_doc_Aleart bg-failure" style="display:none;width:93%;">
+                <small style="color:green;">This link has expired. Contact the person who shared this link with you for a new link.</small>
+            </div>
+            <div id="dvShare" class="share_doc_Aleart" style="display:none;width:93%;">
+                <small style="width: 75%;">
+                    This document has been updated to version 5.0 based on changes received from the external party. To notify internal and external users and share link of the new version, click <a href="javascript:void(0);" onclick="ReplaceNew()" style="color: blue;text-decoration: underline;font-weight: bold;">Share Updated Version.</a>
+                </small>
+            </div>
+            <section id="mid-section1" style="display:none;" class="box2">
+                <div class="share_doc_Left">
+                    <div class="activity_left share_doc_TOp">
+
+                        <b class="welcome1 contraCTDeat" id="DocumentNameTitle" style="height:25px !important">View Document</b>@*Shared Document*@
+                        <div id="divSharedDocument" class="" style="float: right;margin-top: 15px;text-align: right; display:inline-flex;">
+                            @*<a id="docURL" href="javascript:void(0);">
+                                    <img src="~/Content/images/CM_download.png" />
+                                </a>*@
+                            <a class="linkText bordernone float_none" title="Download document to your computer" id="lnkDownload" href="javascript:void(0);" onclick="javascript: downloadAction();"><img src="~/Content/Images/downlaod.jpg" /></a><span id="pipelinetext">&nbsp;|&nbsp;</span><a class="linkText bordernone float_none" href="javascript:void(0);" title="Upload your new or modified version of this document here" onclick="ShowUpload()" id="UploadLink"><img src="~/Content/Images/upload-version.jpg" /></a>
+                            <span id="pApprove" style="display:none;"><a class="linkText bordernone float_none" title="Accept to replace current version with this new (modified) version" href="javascript:void(0);" onclick="javascript: replace();"><img src="~/Content/Images/accept.jpg" /></a>@*<span>&nbsp;|&nbsp;</span><a class="linkText bordernone float_none" href="javascript:void(0);" onclick="javascript:reject();">Reject</a>*@</span>
+                            <span id="pReject" style="display:none;"><a class="linkText bordernone float_none" title="Reject to ignore this new (modified) version.  The rejected version will be discarded, and not stored in eContracts." href="javascript:void(0);" onclick="javascript: reject();"><img src="~/Content/Images/versionreject.png" /></a>@*<span>&nbsp;|&nbsp;</span><a class="linkText bordernone float_none" href="javascript:void(0);" onclick="javascript:reject();">Reject</a>*@</span>
+                            <input type="hidden" id="docURL" />
+                            <div class="cct-sec">
+                                <span style="cursor:pointer;"><b id="idDocumentStatus" style="line-height: 23px; padding: 6px 15px; margin-left: 5px; color:#fff"></b></span>
+                                <div class="cct" style="display:none;">
+                                    <ul>
+                                        <li><a href="javascript:void(0);" onclick="javascript: downloadAction();">Edit</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @*<aside class="new_deatile">
+                                <a class="postCommentA" href="javascript:void(0);" onclick="ShowUpload()" id="UploadLink">Upload a New version</a>
+                            </aside>*@
+                    </div>
+                    <div class="contract_Left share_doc_Left1">
+
+                        <div class="shareDocument">
+                            <iframe id="fileDisplay" width="100%" height="480" frameborder="1" style="border: solid 1px lightslategray;" src=""></iframe>
+                            <img id="fileDisplayimg" width="100%" height="480" frameborder="1" style="border: solid 1px lightslategray;" src="" />
+                            <div id="noPreview" style="display:none; width:100%;">
+                                Document Preview is not available. To download, <a class="linkText" href="javascript:void(0);" id="docURLPrev">Click here.</a>.
+                            </div>
+                        </div>
+
+                    </div>
+                    <p class="text1" style="padding: 10px 10px 10px 10px; ">
+                        Shared by <span id="spSenderName"></span> on <span id="spSendDate"></span>. This link is valid till <span id="spValidTill"></span>.
+                    </p>
+                </div>
+                <div class="box2_Right-new">
+                    <div class="contract-Right">
+                        <h1 class="contrRightMa"><img src="~/Content/images/deatiles.png" style="cursor:default;" /><b>Document Information</b><a class="shareDocumentRight" href="javascript:void(0);" onclick="javascript: togglediv('ulDetails', '', 'imgDetails');"><img id="imgDetails" src="~/Content/images/dp-ddown.png" /></a></h1>
+                        <ul id="ulDetails" class="doc-contUl "></ul>
+                    </div>
+                    <div class="contract-Right" id="people-Right">
+                        <h1 class="contrRightMa"><img src="~/Content/Images/people.png" style="cursor:default;" /><b>People</b><a class="shareDocumentRight" href="javascript:void(0);" onclick="javascript: togglediv('ulPeople', '', 'imgPeople');"><img id="imgPeople" src="~/Content/images/dp-ddown.png" /></a></h1>
+                        <ul id="ulPeople" class="doc-contUl "></ul>
+                    </div>
+                    <div class="contract-Right" id="activities-Right">
+                        <h1 class="contrRightMa"><img src="~/Content/images/chat.png" style="pointer-events:none;" /><b>Comments &amp; Activities</b><a class="shareDocumentRight" href="javascript:void(0);" onclick="javascript: togglediv('dvComments', '', 'imgComments');"><img id="imgComments" src="~/Content/images/dp-ddown.png" /></a></h1>
+                        <div id="postComment" style="display:none;" class="postComment">
+                            <div id="dvPostComment" style="display:none;">
+                                <div class="divpostcommentsec">
+                                    <label class="toDoTextText">
+                                        <textarea id="txtComment" name="Comment" rows="2" class="validelement"></textarea>
+                                    </label>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div class="divpostcommentsecbtn">
+                                    <p>
+                                        <a class="pop_up_Content_Green" href="javascript:void(0)" id="btnPost">Post</a>
+                                        <a class="pop_up_Content_Green pop_up_Content_White" href="javascript:void(0)" onclick="HideComment()">Cancel</a>
+                                        <div style="clear:both"></div>
+                                    </p>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div id="dvUpload" style="display:none;">
+                                @*<span style="background-color:yellow;font-size:small;" class="smalltext">You cannot set the status as Editing for this document, while it is checked out for editing by another user. <br /><br />*@
+                                <div>
+                                    <div id="dvWarning" class="width98 bg-warning margin-top-5 " style="">
+                                        <p id="dvWarningText" class="margin-bottom-0">Note: Upload a new (modified) version of this document here.  The sender will be notified about your modified version.  You do not need to separately email/call them.</p>
+                                    </div>
+                                </div>
+                                <div class="toDoTextText width100">
+                                    <input type="file" id="docToReplace" onchange="javascript:changeinupload(this);" name="file" title="document" class="width90 validelement" /><br />
+                                    <textarea id="txtCommentReplace" name="comment" rows="2" title="comment" placeholder="Enter comment" class="width90 validelement margin-top-10"></textarea>
+                                </div>
+                                <br />
+                            </div>
+                            <div id="dvReject" style="display:none;">
+                                <div>
+                                    @*<div id="dvWarning" class="width98 bg-warning margin-top-5 " style=""><p id="dvWarningText" class="margin-bottom-0">Note: Make sure you upload your edited/commented version of the same document that was downloaded from this page. The initiator will receive an email with your document and comment.</p></div>*@
+                                </div>
+                                <div class="toDoTextText width100">
+                                    <textarea id="txtcommentReject" name="comment" rows="2" title="comment" placeholder="Enter comment" class="width90 validelement margin-top-10"></textarea>
+                                </div>
+                                <br />
+                            </div>
+                            <div id="dvUploadStatus" style="display:none; float:left; padding:1% 5%; width:90%;">
+                                <label class="toDoTextText width100">
+                                    @*<input type="file" id="docToReplace" onchange="javascript:changeinupload(this);" name="file" title="document" class="width90 validelement" />*@<br />
+                                    <textarea id="txtStatusReplace" name="Status" maxlength="25" title="Status" placeholder="Enter Status" class="width100 margin-top-10"></textarea>
+                                </label>
+                                <input type="hidden" id="hdncurrentstatus" />
+                                <input type="hidden" id="hdnuserid" />
+                            </div>
+                            <br />
+                            <div style="width:100%; overflow:hidden;">
+                                <a class="postCommentA" href="javascript:void(0);" onclick="ShowComment()" id="postCommentLink">Post comment</a>
+                            </div>
+                        </div>
+                        <div id="dvComments">
+                            <ul id="tblComments" class="doc-contUl"></ul>
+                            <a id="aCommentsMore" class="alertbox_status1A" href="javascript:void(0);" style="display:none;" onclick="ShowAllComment()">Show more</a>
+                            <a id="aCommentsLess" style="display:none;" class="alertbox_status1A" href="javascript:void(0);" onclick="ShowLessComment()">Show less</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <input type="hidden" id="hdnExpiry" />
+    <section id="mid-section1" style="display:none;">
+        <section id="d-right"></section>
+    </section>
+
+    <div id="downloadAction" style="display:none; overflow-y: auto;">
+        <div id="editmsg" class="share_doc_Aleart" style="margin-top: -10px !important;">
+            You cannot set the status as Editing for this document, while it is checked out for editing by another user. <br /><br />
+            Though you can download.
+        </div>
+        <table class="width100" id="tblchkupdate">
+            <tr>
+                <td class="labelleft width30">
+                    <input id="chkAutoUpdate" type="checkbox" /> Auto update status to editing.
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <script>
+        @functions{
+ public string GetAntiForgeryToken()
+ {
+ string cookieToken, formToken;
+ AntiForgery.GetTokens(null, out cookieToken, out formToken);
+ return cookieToken + "," + formToken;
+ }
+ }
+
+    </script>
+    <input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+    @Styles.Render("~/Content/econtractscss")
+    @Scripts.Render("~/bundles/econtracts")
+    @Styles.Render("~/Content/econtractscss")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/bowser.js"></script>*@
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Document_SharedDocument.js?" + DateTime.Now.GetHashCode())
+    <style>
+        .ewa-embed-footer {
+            display: none;
+        }
+
+        #mid-section {
+            margin-top: 10px;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,260 @@
+﻿@{
+    ViewBag.Title = "CreateCounterparty";
+}
+
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+<link href="~/Content/css/intlTelInput.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link href="~/Content/css/jquery_002.css" rel="stylesheet" />
+<link href="~/Content/css/component1.css" rel="stylesheet" />
+<link href="~/Content/jquery.jui_dropdown.css" rel="stylesheet" />
+
+
+<div class="form-wraper">
+    <div class="form-wraper-in">
+        <div class="form-body">
+            <div class="form-body-in">
+
+                <div class="form-headding-bdy">
+                    <div class="form-headding-bdy">
+                        <div class="row-group">
+                            <div class="col10 m12">
+                                <h2 class="h2-head">Create Counterparty</h2>
+                                <p class="p-text help">Fill in and submit this form to make a counterparty.</p>
+                            </div>
+                            <div class="col2 m12">
+                                <div class="head-help text-right">
+                                    <a href="javascript:void(0);" id="btnHelp" class="btn1 btn-blue btn-help"> <img src="~/Content/Images/input-help-white.png"> Hide Help</a>
+                                    <a class="btn1 p-text btn-required"><span class="text-red font-16">*</span> Required fields.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="counterpartyForm" class="width100">
+                    <div class="form-boddy-content ">
+                        <div class="form-boddy-content-in">
+                            <div class="form-boddy-content-bdr">
+
+
+
+                                <div class="form-tab-content">
+                                    <div class="form-tab-content-in">
+                                        @*<div class="row-group tab-title">
+                                                <div class="col12">
+                                                    <div class="pad-all no-paa-bot padding_left_none">
+                                                        <h2 class="h2-head text-blue">Summary</h2>
+                                                        <p class="p-text help">This summary form gathers essential information (which may change with each Request Type) for processing the request.</p>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        <div class="form-wraper">
+                                            <div>
+                                                @*class="form-wraper-in"*@
+                                                <div class="form-section">
+                                                    <div class="form-section-in" id="mainRequestForm">
+
+                                                        <div class="row-group">
+                                                            <div class="col12 no-pad">
+                                                                <div class="collapse-heading">
+
+                                                                    @*<div class="col2 text-right">
+                                                                            <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('dvPrimaryField', 'primefirst', 'newdivforcheck');"><img id="primefirst" src="~/Content/Images/e-close.png" title="Collapse" /></a>
+                                                                        </div>*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row-group pad-top" id="dvPrimaryField">
+                                                            <div class="form-input-group">
+                                                                <div class="row-group">
+                                                                    <label class="col3 m12 margin-top-8">
+                                                                        Counterparty Name<span class="text-red margin-top-8">*</span><img title="Select appropriate business area from the list." src="/Content/Images/input-help.png">
+                                                                    </label>
+                                                                    <div class="col6 m11">
+
+                                                                        <input id="txtCounterpartyName" class="form-contro validelement validtitle" onchange="ReplaceSpecialCharacters(this);" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" />
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-input-group">
+                                                                <div class="row-group">
+                                                                    <label class="col3 m12 margin-top-8">
+                                                                        Counterparty Type<span class="text-red">*</span><img title="Select the type of Request to be created from the list of Request Types." src="/Content/Images/input-help.png">
+                                                                    </label>
+                                                                    <div class="col6 m12">
+                                                                        <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="form-contro validelement">
+                                                                            <option value="0">--Select--</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-input-group">
+                                                                <div class="row-group">
+                                                                    <label class="col3 m12 margin-top-8">
+                                                                        Global or Regional<span class="text-red">*</span><img title="Select the type of Request to be created from the list of Request Types." src="/Content/Images/input-help.png">
+                                                                    </label>
+                                                                    <div class="col6 m12" style="margin-top: 8px !important; margin-left: -18px;">
+                                                                        <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-input-group" id="trcp-RgBusi">
+                                                                <div class="row-group">
+                                                                    <label class="col3 m12 margin-top-8">
+                                                                        Business Area<span class="text-red">*</span><img title="Select the type of Request to be created from the list of Request Types." src="/Content/Images/input-help.png">
+                                                                    </label>
+                                                                    <div class="col6 m12">
+                                                                        <input type="hidden" id="hdnOwnerofBusinessArea" /><input type="hidden" id="hdnLocOwnerofBusinessArea" /><input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="form-contro">
+                                                                    </div>
+                                                                    <div class="col3 m1">
+                                                                        <div class="success-input-msg margin-top-8">
+                                                                            <a href="javascript:void(0)" class="linkText" id="BusinessAreaMultiChoice" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-input-group">
+                                                                <div class="row-group">
+                                                                    <label class="col3 m12 margin-top-8">
+                                                                        Status<span class="text-red">*</span><img title="Enter a name for the Request to be created." src="/Content/Images/input-help.png">
+                                                                    </label>
+                                                                    <div class="col6 m12">
+                                                                        <select id="ddlStatus" name="Status" class="form-contro validelement">
+                                                                            <option value="Active">Active</option>
+                                                                            <option value="Inactive">Inactive</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="newdivforcheck">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row-group btn-body">
+                                            <div class="col12">
+                                                <div class="pad-all text-right">
+                                                    <a href="javascript:void(0);" class="btn1 btn-blue" id="btnCreateCounterparty"> Create</a>
+
+                                                    <a href="javascript:void(0);" class="btn1" id="btnClearFilterCounterparty" onclick="location.href='@Url.Action("Index", "Home")'"> Cancel</a>
+                                                </div>
+                                            </div>
+                                            <div class="col12">
+                                                <div class="pad-all text-right pad-top-none help">
+                                                    <p class="p-text"><strong>Create</strong> will submit this counterparty in the counterparty database.</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+<!---manoj--->
+<!---For Related Counterparty--->
+<div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div class="bg-warning">
+            <p>You can select one or more existing Counterparty from below and link to this Counterparty.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+        </article>
+        <div>
+            <label>Relationship Type</label>
+            <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                <option value="0">--Select--</option>
+                <option value="Parent">Parent - Subsidiary</option>
+                <option value="Supplier">Supplier - Customer</option>
+                <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                <option value="Other">Other</option>
+            </select>
+            <div>
+                <div>
+                    <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                    <select id="ddlRelationshipTypeParentcounterparties" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <div id="page-wrap" class="f_list">
+                <table id="tblPopupCounterparties"></table>
+            </div>
+        </div>
+        <div id="loadCounterparties"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelectedCounterparties">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="browseGeneric" style="display:none;overflow: hidden;">
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tblGenericheader"></table>
+        <table id="tblGeneric"></table>
+    </div>
+    <div id="loadGen"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationGeneric"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedRU">
+        </div>
+    </div>
+</div>
+<!---For Related Counterparty--->
+<!---manoj--->
+<div id="loadingPage">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            <img src="../../Content/Images/loading.gif" />&nbsp;&nbsp;
+        </p>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+    <script src="~/Scripts/chosen.jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    @Scripts.Render("~/Create_Contract_JS")
+    @Scripts.Render("~/Scripts/Contract365/Counterparty_CreateCounterparty.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/intlTelInput.js")
+    @Scripts.Render("~/Scripts/jquery.treetable.js")
+}

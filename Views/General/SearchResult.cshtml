@@ -1,0 +1,324 @@
+﻿@{
+    ViewBag.Title = "Search Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+<link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/popup.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<link href="~/Content/jquery.multiselect.css" rel="stylesheet" />
+<link href="~/Content/daterangepicker.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .checkbox15 input[type="checkbox"]:first-child {
+        margin-left: 0;
+    }
+
+    .checkbox15 input[type="checkbox"] {
+        margin: 0 3px 0 15px;
+    }
+
+    .my-Alerts_Act1.clearr {
+        margin: 0;
+        padding: 0 20px 12px;
+    }
+
+        .my-Alerts_Act1.clearr .inserch2, .my-Alerts_Act1.clearr .insearch_Right1 {
+            margin: 0;
+        }
+
+    .checkbox15 {
+        width: 100%;
+        float: left;
+        margin-top: 12px;
+    }
+
+    .search-found {
+        text-decoration: underline;
+    }
+
+    .generalsearchDivParent {
+        top: 10px;
+    }
+</style>
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="search_heading">
+            <b class="welcome1">Keyword Search</b>
+        </div>
+        <div class="search_view_switch">
+            <a id="aNavContracts" href="javascript:void(0);" style="color:#44a6d8" onclick="NavigateToAdvance()"><b id="bNavContracts">Go to Advanced Search &nbsp;<img src="../Content/Images/arrow_right_new.png" /></b></a>
+        </div>
+    </div>
+</section>
+
+
+<section class="wraper">
+
+    <section class="box2">
+        <div class="my-Alerts_contDeat">
+            <div class="my-Alerts_Act1 clearr">
+                <div class="tab_holder">
+                    <div style="float:left;margin-right: 10px;margin-top: 10px;">
+                        Search For
+                    </div><div class="insearch_Right1">
+                        <ul>
+                            <li><a id="aSearchContract" href="javascript:void(0);" onclick="SearchIn('Contracts')" style="background-color: rgb(247, 247, 247);">Contracts</a></li>
+                            <li><a id="aSearchDocument" href="javascript:void(0);" onclick="SearchIn('Documents')">Documents</a></li>
+                            <li><a id="aSearchCounterparty" href="javascript:void(0);" onclick="SearchIn('Counterparty')">Counterparty</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="inserch2">
+                    @*<select id="ddlScope" title="Scope" class="">
+                            <option value="All">All</option>
+                            <option value="ContractTitle">Contract Title</option>
+                            <option value="ContractNumber">Contract Number</option>
+                            <option value="Counterparty">Counterparty</option>
+                            <option value="Signees">Signee</option>
+                            <option value="Project">Project Name</option>
+                            <option value="Labels">Label</option>
+                        </select>*@
+                    <div style="float: left;margin-top:10px;">Keyword<br><input placeholder="Search" type="text" id="txtSearchBox" style="margin-top:5px;"></div>
+                    <div style="float: left;margin-top: 28px; width:240px;">
+                        @*Scope<br> <a class="inserch2_DropDow" id="inserch2_Filter" href="javascript:void(0)" style="margin-top:5px;"><span id="spScope">All</span> <img style="" src="/Content/Images/dp-ddown.png" /></a>*@
+                        <select id="scopeOptions" multiple>
+                            <option value="ContractTitle">Contract Title</option>
+                            <option value="ContractNumber">Contract Record Number</option>
+                            <option value="Counterparty">Counterparty</option>
+                            <option value="ContractManagers">Contract Owners</option>
+                            <option value="Project">Project Name</option>
+                            <option value="Amendments">Amendments</option>
+                        </select>
+                    </div>
+                    <div class="inserch2">
+                        <div style="float: left; margin-left: 20px;margin-top: 10px;">
+                            Match<br>
+                            <select style="width: 150px;padding:3px 8px 4px 10px !important;" class="f_input_small" id="ddlKeywordMatch">
+                                <option value="Any Keyword">Any Keyword</option>
+                                <option value="All Keyword">All Keywords</option>
+                                <option value="Exact Keyword">Exact Keywords</option>
+                            </select>
+                            <img id="imgbusinessarea" title="Search for Any match." src="/Content/Images/input-help.png"><a id="viewbusinessarea" href="javascript:void(0)" onclick="ViewBusinessArea()" style="display: none;"> Browse</a>
+
+                        </div>
+                        <div class="search_btn" style="margin-top: 29px; margin-left: 20px;">
+                            <a href="javascript:void(0)" onclick="NewSearch();">Search</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:none">
+                    <div id="inserch2_Filterss">
+                        <ul id="ulSearchScope" class="inserch2_filter">
+                            <li class="Scope Scope_Cont Scope_DoFilterDiv"><a href=" javascript:void(0)" onclick="ChangeScope('Contract Record Title')">Contract Record Title</a></li>
+                            <li class="Scope Scope_Cont"><a href="javascript:void(0)" onclick="ChangeScope('Contract Record Number')">Contract Record Number</a></li>
+                            <li class="Scope Scope_Cont Scope_Doc"><a href="javascript:void(0)" onclick="ChangeScope('Counterparty')">Counterparty</a></li>
+                            <li class="Scope Scope_Cont"><a href="javascript:void(0)" onclick="ChangeScope('Contract Owner')">Contract Owners</a></li>
+
+                            @*<li class="Scope Scope_Cont"><a href="javascript:void(0)" onclick="ChangeScope('Project Name')">Project Name</a></li>*@
+                            <li class="Scope Scope_Doc"><a href="javascript:void(0)" onclick="ChangeScope('Document Name')">Document Name</a></li>
+                            <li class="Scope Scope_Doc"><a href="javascript:void(0)" onclick="ChangeScope('Document Content / Full-text')">Document Content / Full-text</a></li>
+                            <li class="Scope Scope_Doc"><a href="javascript:void(0)" onclick="ChangeScope('Template Name')">Template Name</a></li>
+                            <li class="Scope Scope_Cntpy"><a href="javascript:void(0)" onclick="ChangeScope('Counterparty Name')">Counterparty Name</a></li>
+                            <li class="Scope Scope_Cntpy"><a href="javascript:void(0)" onclick="ChangeScope('Location')">Location</a></li>
+                            <li class="Scope Scope_Cntpy"><a href="javascript:void(0)" onclick="ChangeScope('Contact Name')">Contact Name</a></li>
+                            <li id="liAll"><a href="javascript:void(0)" onclick="ChangeScope('All')">All</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                @*<div class="checkbox15">
+                        <input id="chkMatchExactPhrase" type="checkbox" checked="checked"><label id="lblMatchExactPhrase" for="chkMatchExactPhrase">Match exact phrase</label><input id="chkDocumentContent" type="checkbox"><label id="lblDocumentContent" for="chkDocumentContent">Document Content / Full-text</label>
+                    </div>*@
+                @*<div class="float-left width100">
+                        <div class="float-left width44">
+                            <input type="checkbox" id="chkMa​tchExactPhrase" />
+                            <label for="chkMa​tchExactPhrase">Ma​tch exact phrase</label>
+                        </div>
+                        <div class="float-left width44">
+                            <input type="checkbox" id="chkDocumentContent" />
+                            <label for="chkDocumentContent">​Document Content / Full-text</label>
+                        </div>
+                    </div>*@
+            </div>
+
+            <div class="alertbox_status alertbox_status_contDeat">
+                <ul class="border-left seArchLi" id="listSearchResult"></ul>
+            </div>
+            <div id="loading" class="border-left seArchLi alertbox_status"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+            <div class="width20 float_right1 result_count">
+                <span id="spResult"></span>
+            </div>
+        </div>
+        <div class="box2_Right" style="overflow: visible;">
+            <div class="contract-Right margin-bottom-5">
+                <h1><img src="/Content/Images/filter.png" />Filters</h1>
+                <a style="float: right ! important; margin-right: 23px; margin-top: -40px; border-radius: 5px ! important;" class="upgrd_Report-le drop_a2" id="add_Filter" href="javascript:void(0)" data-popmodal_id="722">Add Metadata &nbsp;<img src="/Content/images/new_arrow.png"></a>
+                <div style="display: none; width: auto !important;" id="add_Filterss" class="cbp-hrsub hhide2 generalsearchDivParent">
+                    <div class="meaan generalsearchDiv ">
+                        <div class="">
+                            <div style="width: 100% ! important;" class="cbp-hrsub-inner">
+                                <div style="width: 100% ! important;" class="mEAnwidth1">
+                                    <ul class="line-h" id="add_filterList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="FilterDiv" style="display:none;">
+                <div id="contractFilter" class="contract-Right12 ToClose">
+                    @*<div id="txtStartDateS" style="display:none;">
+                            <div class="filter">
+                                <h2 class="width90">Start Date</h2>
+                            </div>
+                            <input id="txtStartDate" name="Start Date" title="Start Date" type="text" class="f_inpt width90 OnlyBackDel" />
+                        </div>
+                        <div id="txtEndDateS" style="display:none;">
+                            <div class="filter">
+                                <h2 class="width90">End Date</h2>
+                            </div>
+                            <input id="txtEndDate" name="End Date" title="End Date" type="text" class="f_inpt width90 OnlyBackDel" />
+                        </div>
+                        <div id="txtLastRenewedDateS" style="display:none;">
+                            <div class="filter">
+                                <h2 class="width90">Last Renewed Date</h2>
+                            </div>
+                            <input id="txtLastRenewedDate" name="Last Renewed Date" title="Last Renewed Date" type="text" class="f_inpt width90 OnlyBackDel" />
+                        </div>
+                        <div id="txtContractValueS" style="display:none;">
+                            <div class="filter">
+                                <h2 class="width90">Base Contract Value</h2>
+                            </div>
+                            <div id="txtContractValue">
+                                <input id="txtContractValue1" type="text" name="Contract Value1" class=" f_inpt width40 NoCopyPaste" />to&nbsp;
+                                <input id="txtContractValue2" type="text" name="Contract Value2" class=" f_inpt width40 NoCopyPaste" />
+                            </div>
+                        </div>
+                        <div id="ddlLabelsS" style="display:none;">
+                            <div class="filter">
+                                <h2 class="width90">Labels</h2>
+                            </div>
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Labels" multiple="multiple" id="ddlLabels"></select>
+                        </div>*@
+                    @*<div class="filter">
+                            <h2>Status</h2>
+                            <ul>
+                                <li><a href="javascript:void(0);" onclick="ClearStatus()">Clear</a></li>
+                                <li><a href="javascript:void(0);" onclick="SelectStatus()">Select All</a></li>
+                            </ul>
+                        </div>
+                        <ul id="liStatus"></ul>
+                        <a id="aStatusMore" class="filter_a" href="javascript:void(0);" onclick="ShowAllStatus()" style="display:none;">Show More</a>
+                        <a id="aStatusLess" class="filter_a" href="javascript:void(0);" onclick="ShowLessStatus()" style="display:none;">Show Less</a>
+                        <div class="filter">
+                            <h2>Contract Type</h2>
+                            <ul>
+                                <li><a href="javascript:void(0);" onclick="ClearType()">Clear</a></li>
+                                <li><a href="javascript:void(0);" onclick="SelectType()">Select All</a></li>
+                            </ul>
+                        </div>
+                        <ul id="liContType"></ul>
+                        <a id="aTypeMore" class="filter_a" href="javascript:void(0);" onclick="ShowAllType()" style="display:none;">Show More</a>
+                        <a id="aTypeLess" class="filter_a" href="javascript:void(0);" onclick="ShowLessType()" style="display:none;">Show Less</a>*@
+                </div>
+                <div class="contract-Right12 ToClose" id="counterpartyFilter" style="display:none;">
+                    <div id="ddlCounterpartyTypeS" style="display:none;">
+                        <div class="filter">
+                            <h2>Counterparty Type</h2>
+                            @*<ul>
+                                    <li><a href="javascript:void(0);" onclick="ClearCounterpartyType()">Clear</a></li>
+                                    <li><a href="javascript:void(0);" onclick="SelectCounterpartyType()">Select All</a></li>
+                                </ul>*@
+                        </div>
+                        <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Counterparty Type" multiple="multiple" id="ddlCounterpartyType"></select>
+                        @*<ul id="liCountpartyType"></ul>
+                            <a id="aCounterpartyMore" class="filter_a" href="javascript:void(0);" onclick="ShowAllCounterpartyType()" style="display:none;">Show More</a>
+                            <a id="aCounterpartyLess" class="filter_a" href="javascript:void(0);" onclick="ShowLessCounterpartyType()" style="display:none;">Show Less</a>*@
+                    </div>
+                    <div id="ddlCountpartyStatusS" style="display:none;">
+                        <div class="filter">
+                            <h2 class="width90">Counterparty Status</h2>
+                        </div>
+                        <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Counterparty Status" multiple="multiple" id="ddlCountpartyStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        @*<ul id="liCountpartyStatus">
+                                <li><p><input class="filter_Check" name="CountpartyStatus" id="CPS1" title="Active" type="checkbox">Active</p></li>
+                                <li><p><input class="filter_Check" name="CountpartyStatus" id="CPS2" title="Inactive" type="checkbox">Inactive</p></li>
+                            </ul>*@
+                    </div>
+                </div>
+                <div class="contract-Right12 ToClose" id="documentFilter" style="display:none;">
+                    <div id="txtValidFromS" style="display:none;">
+                        <div class="filter">
+                            <h2 class="width90">Valid From</h2>
+                        </div>
+                        <input id="txtValidFrom" readonly name="Valid From" title="Valid From" type="text" class="f_inpt width90 OnlyBackDel" />
+                    </div>
+                    <div id="txtValidTillS" style="display:none;">
+                        <div class="filter">
+                            <h2 class="width90">Valid Till</h2>
+                        </div>
+
+                        <input id="txtValidTill" readonly name="Valid Till" title="Valid Till" type="text" class="f_inpt width90 OnlyBackDel" />
+                    </div>
+                    <div id="txtCreatedDateS" style="display:none;">
+                        <div class="filter">
+                            <h2 class="width90">Created / Uploaded Date</h2>
+                        </div>
+
+                        <input id="txtCreatedDate" readonly name="Created / Uploaded Date" title="Created / Uploaded Date" type="text" class="f_inpt width90 OnlyBackDel NoCopyPaste" />
+                    </div>
+                    <div id="ddlDocumentTypeS" style="display:none;">
+                        <div class="filter">
+                            <h2>Document Type</h2>
+                            @*<ul>
+                                    <li><a href="javascript:void(0);" onclick="ClearDocumentType()">Clear</a></li>
+                                    <li><a href="javascript:void(0);" onclick="SelectDocumentType()">Select All</a></li>
+                                </ul>*@
+                        </div>
+                        <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Document Type" multiple="multiple" id="ddlDocumentType"></select>
+                        @*<ul id="liDocumentType"></ul>
+                            <a id="aDocumentMore" class="filter_a" href="javascript:void(0);" onclick="ShowAllDocumentType()" style="display:none;">Show More</a>
+                            <a id="aDocumentLess" class="filter_a" href="javascript:void(0);" onclick="ShowLessDocumentType()" style="display:none;">Show Less</a>*@
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <input type="button" class="f_button_green_small" onclick="NewSearch();" value="Apply" />
+                    <input type="button" class="f_button_green_small" onclick="ClearSelectedFilters();" value="Clear" />
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    @*<div style="display:none">
+            <div id="add_Filterss">
+                <ul id="add_filterList"></ul>
+            </div>
+        </div>*@
+
+</section>
+<b id="bSearchIn" style="display:none;">Contracts</b>
+
+@section Scripts {
+
+    <script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    @*<script src="~/Scripts/chosen.jquery.js" type="text/javascript"></script>*@
+    @*<script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>*@
+    @*<script src="~/Scripts/Contract365/General_SearchResult.js" type="text/javascript"></script>*@
+    @* <script src="~/Scripts/Contract365/General_SearchResult.js" type="text/javascript"></script>*@
+    <script type="text/javascript" src="~/Scripts/jquery.multiselect.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/General_SearchResult.js?" + DateTime.Now.GetHashCode())
+}

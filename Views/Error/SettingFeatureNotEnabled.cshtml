@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Feature not enable/available";
+    Layout = "~/Views/Shared/_Layout_Error.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Feature not enabled / available</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/unknown_user/css/user_style.css">
+</head>
+<body>
+    <div id="unknown-user-page">
+        @*<div class="header">
+            <div class="wrapper">
+                <div class="eContract-logo"><a href="/"><img src="/Content/unknown_user/images/e-logo.png" alt=""></a></div>
+            </div>
+        </div>*@
+        <div class="body_content">
+            <div class="wrapper">
+                <img src="/Content/unknown_user/images/unknown_user.png" alt="">
+                <h2>Feature not enabled / available</h2>
+                <h5>Please contact Account Owner to enable or add the feature in eContracts.</h5>
+                <input type="button" value="Go Back" onclick="ClickToGoBack();">
+            </div>
+        </div>
+        @*<div class="footer_content">
+            <div class="footer-content-text">
+                <div class="right_content">
+                    <ul>
+                        <li>© 2016 Optimus BT</li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>*@
+    </div>
+    <script language="javascript">
+        function autoResizeDiv() {
+            document.getElementById('unknown-user-page').style.height = window.innerHeight + 'px';
+        }
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+        function BackToList() {
+            if (document.referrer.indexOf(window.location.hostname) != -1) {
+                var referrer = document.referrer;
+                if (referrer.indexOf('Contracts/CreateContract') >= 0 || referrer.indexOf('Contracts/EditContract') >= 0) {
+                    var Stage = "";
+                    Stage = getParameterByName("Stage");
+                    if (Stage == "pipeline")
+                        if (getParameterByName("View") != '') {
+                            window.location = '/Pipeline?View=' + getParameterByName("View")
+                        } else {
+                            window.location = '/Pipeline'
+                        }
+                    else {
+                        if (getParameterByName("View") != '') {
+                            window.location = '/Contracts?View=' + getParameterByName("View")
+                        } else {
+                            window.location = '/Contracts'
+                        }
+                    }
+                }
+                else {
+                    //window.location = document.referrer + '?date=' + new Date().valueOf();
+                   parent.history.back();
+
+                }
+            }
+            else {
+                location = "/Home?SPHostUrl=" + localStorage.SPHostUrl;
+            }
+            return false;
+        }
+        function ClickToGoBack() {
+            if ((parent.history.length > 1 && document.referrer!="")) {
+                BackToList();
+            }
+            else {
+                location = "/Home?SPHostUrl=" + localStorage.SPHostUrl;
+            }
+        }
+    </script>
+
+</body>
+</html>
+

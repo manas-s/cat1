@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "SessionExpired";
+    Layout = "~/Views/Shared/_Layout_Error.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/unknown_user/css/user_style.css">
+
+<div id="unknown-user-page">
+    <div class="header">
+        <div class="wrapper">
+            <div class="eContract-logo"><a href="/"><img src="/Content/unknown_user/images/e-logo.png" alt=""></a></div>
+        </div>
+    </div>
+    <div class="body_content">
+        <div class="wrapper">
+            <img src="/Content/unknown_user/images/unknown_user.png" alt="">
+            <h2>Unknown User</h2>
+            <h5>Unable to determine your identity. Please click the below button and go to home page.</h5>
+            <input type="button" value="Click to Login" onclick="ClickToLogin();">
+        </div>
+    </div>
+    <div class="footer_content">
+        <div class="footer-content-text">
+            <div class="right_content">
+                <ul>
+                    <li>© 2016 Optimus BT</li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<script language="javascript">
+        function autoResizeDiv() {
+            document.getElementById('unknown-user-page').style.height = window.innerHeight + 'px';
+        }
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+        function ClickToLogin() {
+            location = "/Home?SPHostUrl=" + localStorage.SPHostUrl;
+        }
+</script>
+@*<div class="container">
+    <div class="jumbotron">
+        <h2>Session Expired</h2>
+        <p>Unable to determine your identity. Please try again by launching the app installed on your site.</p>
+    </div>
+</div>*@

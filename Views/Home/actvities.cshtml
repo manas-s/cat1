@@ -1,0 +1,408 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Content/css/styesheet.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/css/inboxstyle.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/css/resposive.css" rel="stylesheet" type="text/css" media="screen" />
+    <title>econtract-365</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+    
+    <script src="~/Scripts/NewChanges/modernizr.custom.js"></script>
+    <script src="~/Scripts/NewChanges/jquery.color.js"></script>
+    <script src="~/Scripts/NewChanges/script.js"></script>
+    <script src="~/Scripts/NewChanges/notifi.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+
+
+
+</head>
+<body>
+    <section class="main">
+        <header>
+            <div class="logo">
+                <div class="logoTop">
+                    <small>
+                        <a href="javascript:void(0);">Switch To Office 365</a>
+                        <a href="javascript:void(0);"><img src="/Content/Images/switch.png" /></a>
+                    </small>
+                    <b>
+                        <a href="index.html"><img src="/Content/Images/logo-mob.png" /></a>
+                    </b>
+                </div>
+                <a class="clearr" href="index.html">
+                    <img class="FL_CompanyBrandingLogo" style="max-height:40px;display:none" src="/Content/Images/logo.png" />
+                </a>
+            </div>
+            <ul class="logoRight">
+                <li>
+                    <a href="javascript:void(0)" id="popModal_profile"><b class="profile_1">&nbsp;</b><i>.</i></a><small>Ajith</small>
+                    <a href="javascript:void(0)" id="popModal_profilearr"><img src="/Content/Images/pro-arrow.png" /></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="popModal_settings"><b class="pop_Setting_1"></b><i>.</i></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="popModal_alert"><b class="alert_1">&nbsp;</b><i>.</i></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="popModal_task"><b class="task_1">&nbsp;</b><i>.</i></a>
+                </li>
+                <!--<li><a href="javascript:void(0)"><img src="/Content/Images/search.png"/></a></li>-->
+                <li>
+                    <!-- <form id="searchForm">
+                        <fieldset>
+                            <div class="input">
+                                <input type="text" name="s" id="s" value="Enter your search" />
+                            </div>
+                            <input type="submit" id="searchSubmit" value="" />
+                        </fieldset>
+                    </form>-->
+                    <div class="search">
+                        <input class="search_box" type="checkbox" id="search_box">
+                        <label class="icon-search" for="search_box"><b class="search_1">&nbsp;</b></label>
+                        <div class="search_form">
+                            
+                                <input type="text"><input type="submit" value="search">
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+
+        </header>
+
+
+        <!----menu---->
+        <div class="container">
+            <div class="demo-1">
+
+                <div id="dl-menu" class="dl-menuwrapper">
+                    <a class="dl-trigger" href="javascript:void(0);"><img src="/Content/Images/dpmenu.png" /></a>
+                    <!--<button class="dl-trigger">Open Menu</button>-->
+                    <ul class="dl-menu">
+                        <li>
+                            <a href="index.html"><img src="/Content/Images/mdashboard.png" />Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="actvities.html"><img src="/Content/Images/mactivites.png" />Activities </a>
+                            <ul class="dl-submenu">
+                                <li><a href="contracts_summery.html">Summary</a></li>
+                                <li><a href="actvities.html">Activities</a></li>
+                                <li><a href="javascript:void(0);">Log History</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="contractrecord.html"><img src="/Content/Images/mcontract.png" />Contracts</a>
+                        </li>
+                        <li>
+                            <a href="contractdocuments.html"><img src="/Content/Images/mdocuments.png" />Documents</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="/Content/Images/mcounterparty.png" />Counterparties</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><img src="/Content/Images/minsight.png" />Insights</a>
+                            <ul class="dl-submenu">
+                                <li><a href="contractsummary.html">Contract Summary</a></li>
+                                <li><a href="contractsummary.html">Upcoming renewal</a></li>
+                                <li><a href="javascript:void(0);">Contract Financial</a></li>
+                                <li>
+                                    <a href="javascript:void(0);">Contract Activity</a>
+                                    <!--	<ul class="dl-submenu">
+                                            <li><a href="javascript:void(0);">Engagement Rings</a></li>
+                                            <li><a href="javascript:void(0);">Bridal Sets</a></li>
+                                            <li><a href="javascript:void(0);">Women's Wedding Bands</a></li>
+                                            <li><a href="javascript:void(0);">Men's Wedding Bands</a></li>
+                                        </ul>-->
+                                </li>
+                                <li><a href="javascript:void(0);">Contract Ownership</a></li>
+                                <li><a href="javascript:void(0);">Expirations & Terminations</a></li>
+                                <li><a href="javascript:void(0);">Contract Milestone</a></li>
+                                <li><a href="javascript:void(0);">Counterparty</a></li>
+                            </ul>
+                        </li>
+                    </ul><div class="newCont1"><a href="javascript:void(0);">New Contract</a></div>
+                </div><!-- /dl-menuwrapper --> <div style="clear:both;"></div>
+            </div>
+
+        </div>
+
+        <nav id="navigation">
+            <ul id="nav">
+                <li><a href="index.html"><b class="dashBoard">&nbsp;</b>Dashboard</a></li>
+                <li>
+                    <a href="actvities.html"><b class="activit_1">&nbsp;</b>Activities<img class="dropArr" src="/Content/Images/dp-ddown.png" /> </a>
+                    <ul>
+                        <li><a href="contracts_summery.html">Summary</a></li>
+                        <li><a href="actvities.html">Activities</a></li>
+                        <li><a href="javascript:void(0);">Log History</a></li>
+                    </ul>
+
+
+                </li>
+                <li><a href="contractrecord.html"><b class="contrac_1">&nbsp;</b>Contracts  </a></li>
+                <li><a href="contractdocuments.html"><b class="document">&nbsp;</b>Documents  </a></li>
+                <li><a href="javascript:void(0)"><b class="counterP">&nbsp;</b>Counterparties </a></li>
+                <li>
+                    <a href="javascript:void(0)"><b class="insighT">&nbsp;</b>Insights <img class="dropArr" src="/Content/Images/dp-ddown.png" /></a>
+                    <ul>
+                        <li><a href="contractsummary.html">Contract Summary</a></li>
+                        <li><a href="contractsummary.html">Upcoming renewal</a></li>
+                        <li><a href="javascript:void(0);">Contract Financial</a></li>
+                        <li><a href="javascript:void(0);">Contract Activity</a></li>
+                        <li><a href="javascript:void(0);">Contract Ownership</a></li>
+                        <li><a href="javascript:void(0);">Expirations & Terminations</a></li>
+                        <li><a href="javascript:void(0);">Contract Milestone</a></li>
+                        <li><a href="javascript:void(0);">Counterparty</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+
+
+
+            <div class="newCont"><a href="javascript:void(0);">New Contract</a></div>
+
+        </nav>
+
+        <!----menu--compleated-->
+
+        <section class="activity">
+            <div class="activity_left">
+                <b class="welcome1">Activities</b>
+                <div class="inserch">
+                    <input placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" /></a>
+                </div>
+            </div>
+            <aside>
+                <select>
+                    <option>create to do</option>
+                </select>
+            </aside>
+        </section>
+
+
+        <section class="wraper">
+
+            <section class="box2">
+                <div class="my-Alerts_Act">
+                    <div class="my-Alerts_Act1">
+                        <select>
+                            <option>All</option>
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+
+                    <div class="alertbox_status alertbox_status_Act">
+                        <ul>
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /> <i>
+                                        Review for Employees Benefit Plan Services Agreement for Alpies Research
+                                        <small>Contract Review    |    Ajith Kumar    |    23rd Sep 2014</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        Approval for General IT Service Agreement with Adobert Services
+                                        <small>Contract Approval    |    Ajith Kumar    |    Not Available</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        Employee benefit Agreement with [Not Available] has been created.
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        Rental Agreement for recaliinhg with [Not Available] has been created
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        Rental agreement for corevo softwares​​ has been extended till 9/25/2014​.
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        Rental agreement for corevo softwares​​ has been extended till 9/2/2014
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        The status of the contract MSA for Optimusbt is now Approved
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+
+                            <li>
+                                <span>&nbsp;</span>
+                                <p>
+                                    <input name="" type="checkbox" value="" /><i>
+                                        The Status of IT Service Agreement for WCIRB has changed.
+                                        <small>3rd Sep</small>
+                                    </i>
+                                </p>
+                            </li>
+                        </ul>
+
+
+                        <ul class="pagination">
+                            <li><a href="javascript:void(0);"><img src="/Content/Images/arrowl-page.jpg" /></a></li>
+                            <li><a href="javascript:void(0);">1</a></li>
+                            <li><a id="aact" href="javascript:void(0);">2</a></li>
+                            <li><a href="javascript:void(0);">3</a></li>
+                            <li><a href="javascript:void(0);"><img src="/Content/Images/arrowr-page.jpg" /></a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="box2_Right">
+                    <div class="contract-Right">
+                        <h1><img src="/Content/Images/quick-vission.png" title="Quick View" style="cursor:default" />Quick View</h1>
+                        <ul>
+                            <li><p>All Contracts</p></li>
+                            <li><p>Approval for MSA for Optimusbt</p></li>
+                            <li><p>Review for General IT Service Agreement for olymphora</p></li>
+                            <li><p>Review for Employee benefit Agreement</p></li>
+                            <li><p>Review for Plan Agreement Document</p></li>
+                        </ul>
+                    </div>
+                    <div class="contract-Right">
+                        <h1><img src="/Content/Images/save-views.png" title="Saved Views" style="cursor:default;"/>Saved Views </h1>
+                        <ul>
+                            <li><p>Expired with recently updated</p><a href="javascript:void(0);"><img src="/Content/Images/close-quick.png" /></a></li>
+                            <li><p>up for renewal date</p><a href="javascript:void(0);"><img src="/Content/Images/close-quick.png" /></a></li>
+                            <li><p>Active Employee</p><a href="javascript:void(0);"><img src="/Content/Images/close-quick.png" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+
+
+        </section>
+    </section>
+
+    <script src="~/Scripts/NewChanges/popModal.js"></script>
+
+    <script>
+        $(function () {
+            $('#popModal_profile').click(function () {
+                $('#popModal_profile').popModal({
+                    html: $('#contentprofile'),
+                    placement: 'bottomLeft',
+                    showCloseBut: true,
+                    onDocumentClickClose: true,
+                    onDocumentClickClosePrevent: '',
+                    inline: true,
+                    overflowContent: false
+                });
+            });
+
+            $('#popModal_profilearr').click(function () {
+                $('#popModal_profilearr').popModal({
+                    html: $('#contentprofile'),
+                    placement: 'bottomLeft',
+                    showCloseBut: true,
+                    onDocumentClickClose: true,
+                    onDocumentClickClosePrevent: '',
+                    inline: true,
+                    overflowContent: false
+                });
+            });
+
+            $('#popModal_settings').click(function () {
+                $('#popModal_settings').popModal({
+                    html: $('#contentsettings'),
+                    placement: 'bottomLeft',
+                    showCloseBut: true,
+                    onDocumentClickClose: true,
+                    onDocumentClickClosePrevent: '',
+                    inline: true,
+                    overflowContent: false
+                });
+            });
+
+            $('#popModal_alert').click(function () {
+                $('#popModal_alert').popModal({
+                    html: $('#contentalert'),
+                    placement: 'bottomLeft',
+                    showCloseBut: true,
+                    onDocumentClickClose: true,
+                    onDocumentClickClosePrevent: '',
+                    inline: true,
+                    overflowContent: false
+                });
+            });
+
+            $('#popModal_task').click(function () {
+                $('#popModal_task').popModal({
+                    html: $('#contenttasks'),
+                    placement: 'bottomLeft',
+                    showCloseBut: true,
+                    onDocumentClickClose: true,
+                    onDocumentClickClosePrevent: '',
+                    inline: true,
+                    overflowContent: false
+                });
+            });
+
+        });
+    </script>
+
+
+ 
+
+    <script src="~/Scripts/NewChanges/jquery.dlmenu.js"></script>
+
+    <script>
+        $(function () {
+            $('#dl-menu').dlmenu();
+        });
+    </script>
+</body>
+</html>
+

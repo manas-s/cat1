@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewDocument</title>
+   
+</head>
+<body>
+    <div>
+        
+        <section id="mid-section1">
+            <section id="d-left_multiple">
+                <div class="components">
+                    <section id="myAlerts" class="d-box-table">
+                        <iframe id="fileDisplay" width="800" height="780" style="border: none;"></iframe>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </div>
+    <script type="text/javascript">
+        //$(document).ready(function () {
+            var vDocumentURL = "http://econtracts365.blob.core.windows.net/documents-collaboration/pwd_7JfTSec4.txt";
+            document.getElementById("fileDisplay").src = "http://docs.google.com/viewer?url=" + vDocumentURL + "&embedded=true";
+        //});
+    </script>
+</body>
+</html>

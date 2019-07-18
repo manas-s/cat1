@@ -1,0 +1,67 @@
+﻿@*@model Corevo.eContracts365.TableEntities.LicenseLimit*@
+
+@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+<table class="width95_a" id="addAccount">
+    <tr>
+        <td colspan="4" class="labelleft">
+            <div style="width:150px; height:138px;float: left;">
+
+                <img id="imgOfCompanyLogo" style="max-width: 100%; max-height: 100%;cursor:default" />
+
+
+                <b>  <a style="display:none;" id="btnimgEdit" href="javascript:void(0)" onclick="$('#imgCompanylogo').click();"> Browse </a></b>
+
+            </div>
+            <div style="width: 80%; height: 138px; float: left;">
+                <label class="acc_heading" style="float: left;" id="headingCompanyName"></label>
+                <label class="acc_heading" id="headingStatus"></label>
+                <label class="acc_heading" style="float: left;" id="headingActivationDate"></label>
+                <label class="acc_heading" id="headingExpireDate"></label>
+                <label class="f_head1" style="float: left;" id="headingRenewalDate"></label>
+                <label class="f_head1" style="float: left;">
+                    <span class="button-green" style="float: left;" id="headingRenewbtn" onclick="RenewNow()"><a style="font-size:13px !important;">Renew Resources</a></span>
+                </label>
+            </div>
+            <div style="clear: both ! important;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="4">Resources</td>
+    </tr>
+    <tr>
+        <td class="labelleft" colspan="4">
+            <div id="page-wrap">
+                <table class="tblgrid width100">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Limit</th>
+                            <th>Used</th>
+                            <th>Available</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblResources"></tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="browserenew" style="display:none;">
+    <div>
+        <input type="file" id="docTextfile" name="file" title="'eContractsResourcesUpdate' Text file" class="validelement" style="cursor:pointer" accept="text/plain" />
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/_Layout_JS_One")
+    @Scripts.Render("~/_Layout_JS_Two")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Account_Resources.js?" + DateTime.Now.GetHashCode())
+}

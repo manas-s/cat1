@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "BulkContractCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="activity_left">
+            <b class="welcome1">Create Bulk Contract Records</b>
+            <span id="spTime"></span>
+        </div>
+    </div>
+</section>
+<section class="main">
+    <section class="wraper">
+        <div class="box_Summery" id="bulkall">
+            <div id="divFileUpload">
+                <ul>
+                    <li>
+                        <span style="float: left; width:30%; margin: 25px 10px 0px 0px ! important;">Select Excelsheet<img title="Browse and select the excel file containing multiple Contract Records." src="/Content/Images/input-help.png"></span>
+                        <input type="file" id="docContract" name="file" title="excel file" class="validelement" style="cursor:pointer" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    </li>
+                    <li>
+                        <span style="float: left; width:30%; margin: 25px 10px 0px 0px ! important;">Business Area</span>
+                        <input id="txtBusinessArea" title="Business Area" class='validelement' readonly='readonly' type='text' />
+                        <a style="margin: 17px 0px 0px 10px;" id="viewbusinessarea" href="javascript:void(0)" onclick="ViewBusinessAreaBulk()"> Browse</a>
+                    </li>
+                    <li>
+                        <span style="float: left; width:30%; margin: 25px 10px 0px 0px ! important;"></span>
+                        <a href="javascript:void(0);" id="btnImport" onclick="readexcelfile()" style="margin-top:10px;">Import From Excel</a>
+                        <a href="javascript:void(0);" id="btnImportCancel" style="margin-top:10px;">Clear</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="page-wrap" style="margin-bottom: 10px; float: left; overflow-x:auto;">
+                <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated width100"></table>
+            </div>
+            <div id="btns" style="display: none; float: right;">
+                <span id="imgCreating" style="display:none;">
+                    <img src="../Content/Images/icon/loading.gif"> Creating Contract(s)...
+                </span>
+                <a href="javascript:void(0);" id="btnCreateBulkContract" onclick="bulkcontractcreate()">Create</a>
+                <a id="btnCancel" href="javascript:void(0);">Cancel</a>
+            </div>
+        </div>
+
+        @*<section class="box2">
+            <div class="my-Alerts_Cont my-Log_histroy ">
+
+                
+            </div>
+
+        </section>*@
+
+    </section>
+    <div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+        <div id="loadBA"></div>
+        <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+            <table id="example-basic-12" class="treetable">
+                <tbody id="tbodyBusinessArea12"></tbody>
+            </table>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liSelectedBA">
+            </div>
+        </div>
+        <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+        <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+        <input id="txtBusinessAreaDescription" type="hidden" />
+    </div>
+</section>
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/Contract365/Contract_BulkContractCreate.js?" + DateTime.Now.GetHashCode())
+}
