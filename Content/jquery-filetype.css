@@ -1,0 +1,193 @@
+span.file-text
+{
+    display: inline-block;
+    line-height: 19px;
+    margin-top: 0px;
+}
+span.file-text:hover 
+{
+    text-decoration: underline;    
+}
+span.file-icon { 
+    background-image: url(Images/sprite-file-icons.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    margin: 0 5px 0 0;
+    position: relative;
+    top: 3px;
+    width: 16px;
+}
+.none span.file-icon {
+	background-position: 0 0px;
+}
+.pdf span.file-icon {
+	background-position: 0 -21px;
+}
+.files span{
+    background-color:none;
+}
+.file-icon span{
+    background-color:none;
+}
+.png span.file-icon,
+.jpg span.file-icon,
+.png span.file-icon,
+.bmp span.file-icon {
+	background-position: 0 -86px;
+}
+.doc span.file-icon {
+	background-position: 0 -105px;
+}
+.xls span.file-icon{
+	background-position: 0 -126px;
+}
+.ppt span.file-icon{
+	background-position: 0 -147px;
+}
+.docx span.file-icon{
+	background-position: 0 -168px;
+}
+.xlsx span.file-icon{
+	background-position: 0 -189px;
+}
+.txt span.file-icon{
+	background-position: 0 -210px;
+    background-color:none;
+}
+.pptx span.file-icon{
+	background-position: 0 -231px;
+}
+.zip span.file-icon,
+.rar span.file-icon,
+.gzip span.file-icon,
+.arj span.file-icon{
+	background-position: 0 -253px;
+}
+.wav span.file-icon,
+.mp3 span.file-icon,
+.aif span.file-icon,
+.aiff span.file-icon,
+.m4a span.file-icon,
+.ogg span.file-icon,
+.wma span.file-icon {
+	background-position: 0 -273px;
+}
+/*.psd span.file-icon,
+.ai span.file-icon,
+.swf span.file-icon,
+.fla span.file-icon,
+.css span.file-icon,
+.js span.file-icon {
+	background-position: 0 0px;
+}*/
+.avi span.file-icon,
+.mov span.file-icon,
+.wmv span.file-icon {
+	background-position: 0 -294px;
+}
+.dotx span.file-icon{
+	background-position: 0 -315px;
+}
+
+
+dd.file-icon { 
+    background-image: url(/Content/Images/sprite-file-icons.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 18px;
+    margin: 0 5px 0 0;
+    position: relative;
+    top: 3px;
+    width: 18px;
+}dd.pdf  {
+	background-position: 0 -21px;
+}
+dd.png,
+dd.jpg,
+dd.png,
+dd.bmp  {
+	background-position: 0 -86px;
+}
+dd.doc {
+	background-position: 0 -105px;
+}
+dd.xls{
+	background-position: 0 -126px;
+}
+dd.ppt{
+	background-position: 0 -147px;
+}
+dd.docx{
+	background-position: 0 -168px;
+}
+dd.xlsx{
+	background-position: 0 -189px;
+}
+dd.txt{
+	background-position: 0 -210px;
+    background-color:none;
+}
+dd.pptx{
+	background-position: 0 -231px;
+}
+dd.zip,
+dd.rar,
+dd.gzip,
+dd.arj{
+	background-position: 0 -253px;
+}
+dd.wav,
+dd.mp3,
+dd.aif,
+dd.aiff,
+dd.m4a,
+dd.ogg,
+dd.wma {
+	background-position: 0 -273px;
+}
+
+
+i.file-icon { 
+    background-image: url(Images/sprite-file-icons.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    margin: 0 5px 0 0;
+    position: relative;
+    top: 3px;
+    width: 16px;
+}
+i.docx{
+	background-position: 0 -168px;
+}i.pdf  {
+	background-position: 0 -21px;
+}
+i.png,
+i.jpg,
+i.png,
+i.bmp  {
+	background-position: 0 -86px;
+}
+i.doc {
+	background-position: 0 -105px;
+}
+i.xls{
+	background-position: 0 -126px;
+}
+i.ppt{
+	background-position: 0 -147px;
+}
+i.docx{
+	background-position: 0 -168px;
+}
+i.xlsx{
+	background-position: 0 -189px;
+}
+i.txt{
+	background-position: 0 -210px;
+    background-color:none;
+}
+i.pptx{
+	background-position: 0 -231px;
+}

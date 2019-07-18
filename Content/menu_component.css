@@ -1,0 +1,189 @@
+.cbp-hrmenu {
+	width: 100%;
+	margin: 0px;
+	z-index:1000;
+}
+/* general ul style */
+.cbp-hrmenu ul {
+	margin: 0;
+	padding: 0 0 20px;
+	list-style-type: none;
+	margin:0 0 0 10px;
+}
+.line-h{min-height:80px;}
+/* first level ul style */
+.cbp-hrmenu > ul,
+.cbp-hrmenu .cbp-hrsub-inner {
+	max-width: 100%;
+	margin: 0 auto;
+	z-index:1003;
+	padding:10px 0px 10px 20px;
+	/*float:right;*/
+}
+.cbp-hrmenu > ul > li {
+	display: inline-block;
+	text-transform:none;
+	float:right;
+}
+
+.cbp-hrmenu > ul > li > a,.cbp-hrmenu > ul > li > span > a {
+	font-weight:normal;
+	color: #fff !important;
+	display: inline-block;
+	font-size:14px;
+	margin:0 0px 0 0;
+	padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.cbp-hrmenu > ul > li > a:hover,.cbp-hrmenu > ul > li > span > a:hover {
+	color: #fff;background-color:#24992c;
+}
+
+.cbp-hrmenu > ul > li
+.cbp-hrmenu > ul > li.cbp-hropen > a:hover {
+	color: #126fb1;
+	z-index:1011;
+}
+
+/* sub-menu */
+.cbp-hrmenu .cbp-hrsub {
+	display: none;
+	position: absolute;
+	background: #fff;
+	width: 60%;
+	right: 30px;
+	z-index:1012;
+	border: 1px solid #DDDDDD;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.47);
+    margin: 0 1px;
+    top: 145px;
+}
+/*--on click--*/
+.cbp-hrmenu > ul > li.cbp-hropen a
+ {
+	color: #848484;
+    z-index: 1011;
+    text-transform: none;
+}
+
+.cbp-hrmenu > ul > li.cbp-hropen .hi a {
+    color: #000;
+    text-transform: none;
+    z-index: 1011;
+}
+
+.cbp-hrmenu > ul > li.cbp-hropen > a:hover
+{
+	color: #fff;
+	z-index:1011;
+	text-transform:none;
+	}
+
+.cbp-hropen .cbp-hrsub {
+	display: block;
+	padding-bottom: 0;
+}
+
+.cbp-hrmenu .cbp-hrsub-inner > div {
+	float: left;
+}
+
+.cbp-hrmenu .cbp-hrsub-inner:before,
+.cbp-hrmenu .cbp-hrsub-inner:after {
+	content: " ";
+	display: table;
+}
+
+.cbp-hrmenu .cbp-hrsub-inner:after {
+	clear: both;
+}
+
+.cbp-hrmenu .cbp-hrsub-inner > div a {
+	line-height: 22px;
+	font-size:14px;
+	color:#fff;
+	 padding:0;
+}
+.cbp-hrsub-inner a{color:#fff;}
+.cbp-hrmenu .cbp-hrsub-inner > div a:hover {
+	line-height: 22px;
+    font-size: 14px;
+    color: #126FB1;
+}
+
+.cbp-hrsub h4 {
+	color: #126fb1;
+    font-size: 18px;
+    font-weight: normal;
+}
+.cbp-hrsub h2 {
+	 color: #343f5c;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.cbp-hrsub img{padding:30px 0 20px; width:100%;}
+
+/* Examples for media queries */
+.infosize{width:40% !important; overflow:hidden; display:block;}
+
+@media screen and (max-width: 52.75em) { 
+	.cbp-hrmenu {
+		font-size: 80%;background:none;
+	}
+}
+
+@media screen and (max-width: 43em) { 
+
+	.cbp-hrmenu {
+		border: none;background:none;
+	}
+	.cbp-hrmenu .cbp-hrsub-inner {
+		width: 100%;
+		padding: 0;
+		background-color:#fff;
+	}
+	.cbp-hrmenu .cbp-hrsub-inner {
+		font-size: 75%;
+	}
+	.cbp-hrmenu > ul > li {
+		display: block;
+	}
+	.cbp-hrmenu > ul > li > a { 
+		display: block;
+	}
+	.cbp-hrsub h4 {
+		padding-top: 0.4em;
+	}
+.cbp-hrsub img{padding:30px 0 20px; width:50%; display:none;}
+.cbp-hrmenu .cbp-hrsub {
+   
+    top: 250px;
+}
+}
+
+@media screen and (max-width: 36em) { 
+	.cbp-hrmenu .cbp-hrsub-inner > div {
+		width: 100%;
+		float: none;
+		background: #fff;
+	}
+	.cbp-hrsub img{padding:30px 0 20px; width:50%; display:none;}
+}
+
+.line-h li a{
+line-height: 22px;
+color: #126FB1;
+z-index: 2011;
+text-transform: none;
+}
+
+.line-h li a:hover {
+    line-height: 22px;
+    font-size: 14px;
+    color: #62bc68;
+}
+.line-h li{margin:0 0 8px 0;}
+
+
+

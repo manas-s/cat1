@@ -1,0 +1,31 @@
+/*
+DO NOT CHANGE this file, as it will be overwritten in next update.
+Write your own classes in other css file.
+*/
+
+.launcherContainerClass {
+    padding-bottom: 1px;
+    width:100%;
+}
+
+.launcherClass {
+    padding: 2px;
+    width:100%;
+    text-align:left;
+}
+
+.menuClass {
+    position: absolute;
+    width: 150px;
+    margin-top: 3px !important;
+}
+.container1 {
+  margin: 20px 30px 10px 30px ;
+  display: inline-block;
+}
+  
+.menu1 {
+  position: absolute;
+  width: 240px !important;
+  margin-top: 3px !important;
+}

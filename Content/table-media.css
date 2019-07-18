@@ -1,0 +1,111 @@
+/* 
+	Max width before this PARTICULAR table gets nasty
+	This query will take effect for any screen smaller than 760px
+	and also iPads specifically.
+	*/
+	@media 
+	only screen and (max-width: 36em)  {
+	
+		/* Force table to not be like tables anymore */
+page-wrap table, thead, tbody, th, td, tr { 
+			display: block; 
+		}
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+#page-wrap thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+#page-wrap tr { border: 2px solid #d1ecff; }
+		
+#page-wrap td { 
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #fff; 
+			position: relative;
+			padding-left: 50%; 
+		}
+		
+#page-wrap td:before { 
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap; color:#20acd5;
+		}
+		
+		/*
+		Label the data
+		*/
+#page-wrap td:nth-of-type(1):before { content: "Keyword"; }
+#page-wrap td:nth-of-type(2):before { content: "Description"; }
+#page-wrap td:nth-of-type(3):before { content: "Content"; }
+#page-wrap td:nth-of-type(4):before { content: "Date"; }
+	
+		/* Force table to not be like tables anymore */
+page-report table, thead, tbody, th, td, tr { 
+			display: block; 
+            width: 100% !important;
+		}
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+#page-report thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+#page-report tr { border: 2px solid #d1ecff; }
+		
+#page-report td { 
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #fff; 
+			position: relative;
+			padding-left: 50%; 
+		}
+		
+#page-report td:before { 
+			/* Now like a table header */
+			/*position: absolute;*/
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap; color:#20acd5;
+		}
+		
+		/*
+		Label the data
+		*/
+#page-report td:nth-of-type(1):before { content: "Keyword"; }
+#page-report td:nth-of-type(2):before { content: "Description"; }
+#page-report td:nth-of-type(3):before { content: "Content"; }
+#page-report td:nth-of-type(4):before { content: "Date"; }
+	}
+	
+	/* Smartphones (portrait and landscape) ----------- */
+	@media only screen
+	and (min-device-width : 320px)
+	and (max-device-width : 480px) {
+		body { 
+			padding: 0; 
+			margin: 0; 
+			 }
+		}
+	
+	/* iPads (portrait and landscape) ----------- */
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		body { 
+            
+		}         
+	}
+	
+
+   

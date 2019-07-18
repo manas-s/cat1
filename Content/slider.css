@@ -1,0 +1,96 @@
+/* Main block */
+.switch_options{
+	display: inline-block;
+	font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+	margin-bottom: 10px;
+    margin-top: 4px;
+}
+/* Main block clearfix */
+.switch_options:before,
+.switch_options:after{
+	content:'.';
+	display:block;
+	overflow:hidden;
+	visibility:hidden;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+.switch_options:after{clear:both;}
+
+/*Options*/
+.switch_options span{
+    line-height: 18px;
+	display: inline-block;
+	float: left;
+	padding: 0px 7px;
+	margin: 0;
+	cursor: pointer;
+	font-size: 10px;
+	font-weight: normal;
+	color: #555;
+	border: 1px solid #aaa;
+	text-transform: uppercase;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+}
+.switch_options span:first-of-type{
+	border-radius: 2px 0 0 2px;
+	border-right: 0;
+}
+.switch_options span:last-of-type{
+	border-radius: 0 2px 2px 0;
+	border-left: 0;
+}
+.switch_options span:hover{
+	background: #fafafa;
+}
+
+/* Active option */
+.switch_options span.selected{
+	background: #00b7ea; /* Old browsers */
+	background: -moz-linear-gradient(top,  #00b7ea 0%, #009ec3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00b7ea), color-stop(100%,#009ec3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #00b7ea 0%,#009ec3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-9 */
+	border-color: #0082A3;
+	color: #fff;
+    cursor: default;
+}
+.switch_options span.selected1{
+	background: #00b7ea; /* Old browsers */
+	background: -moz-linear-gradient(top,  #00b7ea 0%, #009ec3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00b7ea), color-stop(100%,#009ec3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #00b7ea 0%,#009ec3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-9 */
+	border-color: #0082A3;
+	color: #fff;
+    cursor: default;
+}
+.switch_options span.disable{
+    cursor: default;
+    background-color: #DEDFE0 !important;
+	background: -moz-linear-gradient(top,  #DEDFE0 0%, #DEDFE0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#DEDFE0), color-stop(100%,#DEDFE0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #DEDFE0 0%,#DEDFE0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #DEDFE0 0%,#DEDFE0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #DEDFE0 0%,#DEDFE0 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #DEDFE0 0%,#DEDFE0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DEDFE0', endColorstr='#DEDFE0',GradientType=0 ); /* IE6-9 */
+}
+
+.switch_lefttext{float: left; margin: 7px 4px 0px 0px;}
