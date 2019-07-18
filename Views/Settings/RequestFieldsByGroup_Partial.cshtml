@@ -1,0 +1,181 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.RequestFieldsEntity>
+@using Corevo.eContracts365.RequestManager
+
+<script type="text/javascript" src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+
+<div id="page-wrap" class="admin-contrct-Field">
+    <table id='@ViewBag.GroupID' class="yui-grid width100">
+        <tr style="border-bottom: 1px solid #d1ecff; background-color:#fff;" class="nodrop nodrag">
+            <td style="display:none;">
+                <input type="text" id="GroupIdHdn" style="display:none;" value="@ViewBag.GroupID" />
+            </td>
+            <td id="GroupID" style="display:none;">@ViewBag.GroupID</td>
+            <td id="GroupName" style="display:none;">@ViewBag.GroupName</td>
+            <td id="GroupOrder" style="display:none;">@ViewBag.GroupOrder</td>
+            <td>
+                @{
+                    var grpName = ViewBag.GroupName;
+                    grpName = grpName.Replace("&amp;", "&");
+                    <span style="font-size: 18px; font-weight:normal; color: #6b6b6b;"> @grpName </span>
+                }
+            </td>
+            <td style="float: left; border:none; display:none;" class="f_list">
+                @if (@ViewBag.GroupName == "Primary Fields")
+                {
+                    <input class="css1-checkbox" type="checkbox" id='@ViewBag.GroupID' @ViewBag.ShowInRequestForm onclick="showinformvalue(this);" disabled="disabled" /> <label class="css1-label" for='@ViewBag.GroupID'>Show in Request form.</label>@*<span style="font-size:10px;"> Show in Request form.</span>*@
+                }
+                else
+                {
+                    <input class="css1-checkbox" type="checkbox" id='@ViewBag.GroupID' @ViewBag.ShowInRequestForm onclick="showinformvalue(this);" /> <label class="css1-label" for='@ViewBag.GroupID'>Show in Request form.</label>@*<span style="font-size:10px;"> Show in Request form.</span>*@<span style="font-size:10px;"></span><span style="font-size:10px;"></span>
+                }
+            </td>
+            @if (@ViewBag.GroupName == "Primary Fields")
+            {
+                <td class="openmenuprimary" style="float: right; border: none;">
+                    @*<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />*@
+                    @*<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />*@
+                    @*<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />*@
+                </td>
+            }
+            else
+            {
+                if (@ViewBag.Index == @ViewBag.Count)
+                {
+                    if (@ViewBag.Count == "2")
+                    {
+                        <td class="openmenugroupnoupdown" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="openmenugroupnodown" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                        </td>     }
+                }
+                else if (@ViewBag.Index == "2")
+                {
+                    <td class="openmenugroupnoup" style="float: right; border: none;">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                    </td>
+                }
+                else
+                {
+                    <td class="openmenugroup" style="float: right; border: none;">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                    </td>
+                }
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+
+            if ((item.FieldName == "RequestTitle") || (item.FieldName == "RequestType") || (item.FieldName == "BusinessArea"))
+            {
+                //disable drag drop for core fields
+                <tr id='@Html.DisplayFor(modelItem => item.RowKey)' style="border-bottom: 1px solid #d1ecff; " class="nodrop nodrag">
+                    <td id="RequestFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                    <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                    <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                    <td id="ChoiceValues" style="display:none;">@Html.DisplayFor(modelItem => item.ChoiceValues)</td>
+                    <td id="Description" style="display:none;">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td id="FieldHelp" style="display:none;">@Html.DisplayFor(modelItem => item.FieldHelp)</td>
+                    <td id="HelpText" style="display:none;">@Html.DisplayFor(modelItem => item.HelpText)</td>
+                    <td id="Required" style="display:none;">@Html.DisplayFor(modelItem => item.Required)</td>
+                    <td id="GroupName" style="display:none;">@ViewBag.GroupName</td>
+                    <td id="ShowInCreateForm" style="display:none;">@Html.DisplayFor(modelItem => item.ShowInCreateForm)</td>
+                    <td id="ShowInEditForm" style="display:none;">@Html.DisplayFor(modelItem => item.ShowInEditForm)</td>
+                    <td id="DefaultURL" style="display:none;">@Html.DisplayFor(modelItem => item.DefaultURL)</td>
+                    <td id="Country" style="display:none;">@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td id="CommentNo" style="display:none;">@Html.DisplayFor(modelItem => item.CommentNo)</td>
+                    <td id="CommentYes" style="display:none;">@Html.DisplayFor(modelItem => item.CommentYes)</td>
+                    <td id="CommentRequired" style="display:none;">@Html.DisplayFor(modelItem => item.CommentRequired)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FieldDisplayName)<span class="alert-red">*</span>
+
+                    </td>
+                    <td style="float: right; border: none;" class="openmenumandatoryfield">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Default Field, only help text can be edited." />
+                    </td>
+
+                </tr>
+            }
+            else
+            {
+                <tr id='@Html.DisplayFor(modelItem => item.RowKey)' style="border-bottom: 1px solid #d1ecff; ">
+                    <td id="RequestFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                    <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                    <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                    <td id="ChoiceValues" style="display:none;">@Html.DisplayFor(modelItem => item.ChoiceValues)</td>
+                    <td id="Description" style="display:none;">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td id="FieldHelp" style="display:none;">@Html.DisplayFor(modelItem => item.FieldHelp)</td>
+                    <td id="HelpText" style="display:none;">@Html.DisplayFor(modelItem => item.HelpText)</td>
+                    <td id="Required" style="display:none;">@Html.DisplayFor(modelItem => item.Required)</td>
+                    <td id="GroupName" style="display:none;">@ViewBag.GroupName</td>
+                    <td id="ShowInCreateForm" style="display:none;">@Html.DisplayFor(modelItem => item.ShowInCreateForm)</td>
+                    <td id="ShowInEditForm" style="display:none;">@Html.DisplayFor(modelItem => item.ShowInEditForm)</td>
+                    <td id="DefaultURL" style="display:none;">@Html.DisplayFor(modelItem => item.DefaultURL)</td>
+                    <td id="Country" style="display:none;">@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td id="CommentNo" style="display:none;">@Html.DisplayFor(modelItem => item.CommentNo)</td>
+                    <td id="CommentYes" style="display:none;">@Html.DisplayFor(modelItem => item.CommentYes)</td>
+                    <td id="CommentRequired" style="display:none;">@Html.DisplayFor(modelItem => item.CommentRequired)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FieldDisplayName)
+
+                    </td>
+                    <td class="openmenumainfield" style="float: right; border: none;">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+
+<style type="text/css">
+    div:first-of-type div.up {
+        visibility: hidden;
+        clear: both;
+    }
+
+    div:last-of-type div.down {
+        visibility: hidden;
+    }
+
+    div.main {
+        clear: both;
+    }
+
+    .up {
+        float: left;
+    }
+
+    .down {
+        float: left;
+    }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Initialise the first table (as before)
+        if ("@ViewBag.GroupID" != "" && "@ViewBag.GroupID" != null && typeof ("@ViewBag.GroupID") != "undefined")
+            $("#@ViewBag.GroupID").tableDnD();
+        $('.up').click(function () {
+            var parent = $(this).parent();
+            parent.insertBefore(parent.prev());
+        });
+        $('.down').click(function () {
+            var parent = $(this).parent();
+            parent.insertAfter(parent.next());
+        });
+    });
+
+</script>

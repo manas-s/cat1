@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractTemplate>
+@{
+    ViewBag.Title = "ContractTemplate";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading">
+            Contract Record Templates
+            <img src="~/Content/Images/help_training.png" alt="Contract Record Templates" title="Contract Record Templates" />
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <table class="paginated width100" id="customertable">
+                    <tbody>
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>No items found.</tr>
+                        }
+                        else
+                        {
+
+                            foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="TemplateID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                    <td id="ContractID" style="display:none;">@Html.DisplayFor(modelItem => item.ContractID)</td>
+                                    <td id="ContractTemplateName" style="display:none;">@Html.DisplayFor(modelItem => item.TemplateName)</td>
+
+                                    <td class="openmenu" style="vertical-align:top;" width="60%">
+                                        @Html.DisplayFor(modelItem => item.TemplateName)
+                                        <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="viewdetails"><a href="#viewdetails">View</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<div id="AddEditContractTemplate" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTemplateID" name="ContractTemplateID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="hdntxtContractID" name="hdnContractID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="hdntxtContractType" name="hdnContractType" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Template Name</td>
+                    <td class="labelright">
+                    <input id="txtContractTemplateName" maxlength="50" name="ContractTemplateName" type="text" class="f_inpt width70" />
+                        <input id="hdntxtContractTemplateName" name="hdntxtContractTemplateName" type="hidden" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Contract Template</td>
+                    <td class="labelright"></td>
+                </tr>
+                <tr>
+                    
+                    <td class="labelright" colspan="2" align="center">
+                    <textarea id="txtContractTemplate" name="ContractTemplate" rows="15" cols="20" class="f_text-box width90"></textarea></td>
+                </tr>
+                
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="ViewContractTemplate" style="display:none;">
+    <div id="dvPopupHeading2" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="viewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTemplateID2" name="ContractTemplateID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="hdntxtContractID2" name="hdnContractID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="hdntxtContractType2" name="hdnContractType" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Template Name</td>
+                    <td class="labelright">
+                        <label id="lblContractTemplateName" class="f_inpt width70" style="border:0px" />
+                        <input id="hdntxtContractTemplateName2" name="hdntxtContractTemplateName" type="hidden" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Contract Template</td>
+                    <td class="labelright"></td>
+                </tr>
+                <tr>
+
+                    <td class="labelright" colspan="2" align="center">
+                        <label id="lblContractTemplate" class="f_text-box width90" style="border:0px"></label>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Contract365/Settings_ContractTemplate.js" type="text/javascript"></script>
+}

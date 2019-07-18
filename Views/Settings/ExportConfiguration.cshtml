@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "ExportConfiguration";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<br />
+<br />
+<ul>
+    <li>
+        <div><b>Email</b></div>
+        <span><input type="text" /></span>
+    </li>
+</ul>
+
+<div class="pop_up_Content_Bottom">
+    <a href="javascript:void(0)" id="btnExport">Export Configuration</a>
+    <a class="pop_up_Content_White" href="javascript:void(0)">Cancel</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $('#btnExport').click(function () {
+            $("#loadingPage").fadeIn();
+
+            $.ajax({
+                url: '/Settings/GetExportConfiguration',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.Success) {
+                        //alert("Successfully Exported Configurations");
+                        swal("", "Successfully Exported Configurations");
+                        $("#loadingPage").fadeOut();
+                    }
+                    else {
+                        swal("", data.Message);
+                        $("#loadingPage").fadeOut();
+                    }
+
+                }
+            });
+        });
+
+
+
+    </script>
+}
+

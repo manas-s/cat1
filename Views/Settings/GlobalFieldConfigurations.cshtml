@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "GlobalFieldConfigurations";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<div style="width:98%;">
+    <ul style="border-bottom:1px solid #6c6c6c;" class="margin-bottom-10">
+        <li class="pageheading bordernone">Global Field Settings &nbsp;<img src="/Content/Images/help_training.png" alt="A centrally organized repository to store and manage all counterparty information." title="Manage fields for search,workflow & reports."></li>
+    </ul>
+    <div style="border: 1px solid #3099e4;" class="pop_up_Harizondal">
+        <ul>
+            <li style="display:block;"><a class="pop_up_Harizondal_meta_active" id="ContractFieldConfigurationTab" onclick="TabChnge('ContractFieldConfigurationTab')">Contract Field Configuration</a></li>
+            <li style="display:block;" class="FL_Requests"><a id="RequestFieldConfigurationTab" onclick="TabChnge('RequestFieldConfigurationTab')">Request Field Configuration</a></li>
+            <li style="display:block;"><a id="CounterpartyFieldConfigurationTab" onclick="TabChnge('CounterpartyFieldConfigurationTab')">Counterparty Field Configuration</a></li>
+        </ul>
+    </div>
+</div>
+<div id="ContractFieldConfigurationTabDiv" style="display:block;width:98%;">
+    <table id="ContFieldConfigTable" cellpadding="0" cellspacing="0" border="0" class="paginated width100 globalConfigTable">
+        <thead>
+            <tr>
+                <th><span style="float: left;">Contract Field Name</span><a id="sortContractFieldName" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('ContractFieldName', 'ContFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Field Type</span><a id="sortFieldType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('FieldType', 'ContFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Type</span><a id="sortType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('Type', 'ContFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th>Search</th>
+                <th>Workflows</th>
+                <th>Reports<img src="../Content/Images/context_Menu.png" style="padding-left:2px;" alt=" open menu" class="openreportOrderMenu" title="Default Field, only help text can be edited."></th>
+            </tr>
+        </thead>
+
+        <tbody id="ContFieldConfigTableBody"></tbody>
+
+    </table>
+
+</div>
+<div id="RequestFieldConfigurationTabDiv" style="display:none;width:98%;">
+    <table id="RequestFieldConfigTable" cellpadding="0" cellspacing="0" border="0" class="paginated width100 globalConfigTable">
+        <thead>
+            <tr>
+                <th><span style="float: left;">Request Field Name</span><a id="sortRFieldName" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('RFieldName', 'RequestFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Field Type</span><a id="sortRFieldType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('RFieldType', 'RequestFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Type</span><a id="sortRType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('RType', 'RequestFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th>Workflows</th>
+                <th>Reports<img src="../Content/Images/context_Menu.png" style="padding-left:2px;" alt=" open menu" class="openreportOrderMenu" title="Default Field, only help text can be edited."></th>
+            </tr>
+        </thead>
+
+        <tbody id="RequestFieldConfigTableBody"></tbody>
+
+    </table>
+</div>
+<div id="CounterpartyFieldConfigurationTabDiv" style="display:none;width:98%;">
+    <table id="CounterFieldConfigTable" cellpadding="0" cellspacing="0" border="0" class="paginated width100 globalConfigTable">
+        <thead>
+            <tr>
+                <th><span style="float: left;">Counterparty Field Name</span><a id="sortCPFieldName" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('CPFieldName', 'CounterFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Field Type</span><a id="sortCPFieldType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('CPFieldType', 'CounterFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th><span style="float: left;">Type</span><a id="sortCPType" href="javascript:void(0);" class="report_browse report_browse_one" onclick="javascript: generateTable('CPType', 'CounterFieldConfigTable');" style="float: left;margin-left: 5px;margin-top: -1px;margin-right:0 !important;"><img id="imgdoc" src="../Content/Images/e-open.png" title="Sort" style="float: right;margin-right:5px !important" class="no-print"></a></th>
+                <th>Search</th>
+                <th>Reports<img src="../Content/Images/context_Menu.png" style="padding-left:2px;" alt=" open menu" class="openreportOrderMenu" title="Default Field, only help text can be edited."></th>
+            </tr>
+        </thead>
+
+        <tbody id="CounterpartyFieldConfigTableBody"></tbody>
+
+    </table>
+</div>
+
+<div style="width:98%;">
+    <div style="float:right;margin-bottom:10px;">
+        <input id="btnSaveGlobalConfig" type="button" value="Save" class="f_button_green">
+        <input id="btnCancelGlobalConfig" type="button" value="Cancel" class="f_button_grey">
+    </div>
+</div>
+<div style="display:none" id="sorttttt">
+
+</div>
+<input type="hidden" id="hdnGlobalFieldRowKey" />
+<script type="text/javascript" src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+<div id="page-wrap" class="admin-contrct-Field" style="display: none;margin: 0 0 0 0 !important;">
+    <table id='OrderReportsField' class="yui-grid width100">
+    </table>
+</div>
+
+<ul id="ReportOrderMenu" class="contextMenu" style="top: 354px; left: 930px; display: none;">
+    <li class="edit"><a href="#order">Order</a></li>
+</ul>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_GlobalFieldConfigurations.js?" + DateTime.Now.GetHashCode());
+
+
+}
+
+

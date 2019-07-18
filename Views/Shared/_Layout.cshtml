@@ -1,0 +1,878 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <title>@ViewBag.Title - eContracts</title>
+    @*<link rel="stylesheet" type="text/css" href="~/Content/jquery.contextMenu.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/confirm.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/menu-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/form.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/form-media.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+        <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+        <link href="~/Content/css/table-style.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="~/Content/Metrics/css/media.css" rel="stylesheet">
+        <link href="~/Content/Metrics/css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="~/Content/contracts365Dev.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/css/resposive.css" />
+        <link href="~/Content/sweetalert.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="~/Content/jquery.cluetip.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+        <link href="~/Content/jquery-filetype.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+        <link rel="stylesheet" href="/Content/css/jquery_002.css">
+        <link href="~/Content/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">*@
+    @Styles.Render("~/_Layout_CSS")
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*Metrics*@
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @*<script type="text/javascript" src="~/Scripts/moment.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/nicEdit-latest.js"></script>
+        <script src="~/Scripts/sweetalert.min.js"></script>
+        <script src="~/Scripts/NewChanges/jquery.dlmenu.js"></script>
+        <script src="~/Scripts/dataTables.searchHighlight.min.js"></script>
+        <script src="~/Scripts/jquery.highlight.js"></script>*@
+
+
+    @*<script src="~/Scripts/BrowserDetection.js"></script>*@
+
+
+    @*@Scripts.Render("~/bundles/kendo")*@
+
+    @Styles.Render("~/Content/econtractscss")
+
+
+    @*<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+        <script src="~/Scripts/chosen.jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/Scripts/chosen.order.jquery.min.js"></script>
+        <script src="~/Scripts/jquery.cluetip.js" type="text/javascript"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-filetype.js"></script>
+        <script src="~/Scripts/jquery.dataTables.min.js"></script>*@
+
+
+    <style type="text/css" media="print">
+        .dontprint {
+            display: none;
+        }
+    </style>
+
+    <style>
+        .active {
+            background-color: #126fb1;
+        }
+
+        .cl::-ms-clear {
+            display: none;
+        }
+
+        .chosen-container {
+            width: 98.6% !important;
+        }
+
+        .chosen-choices {
+            margin: 6px 0px 0 0 !important;
+        }
+
+        .dataTables_scrollHeadInner {
+            width: 100% !important;
+        }
+
+            .dataTables_scrollHeadInner > table {
+                width: 100% !important;
+            }
+
+        .copylink {
+            /*display: none;*/
+        }
+    </style>
+    @*Added from 2.4final to 2.4*@
+    <style type="text/css">
+        #mySidenav .todos {
+            width: 100%;
+            float: left;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+            #mySidenav .todos span a {
+                width: 96%;
+                padding: 0 2%;
+                text-align: center;
+            }
+
+            #mySidenav .todos span a {
+                width: 96%;
+                padding: 0 2%;
+                text-align: center;
+            }
+
+            #mySidenav .todos span {
+                width: 50%;
+                float: left;
+            }
+    </style>
+
+
+</head>
+<body>
+    <div class="OnPageLoad">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loader.gif" />
+            </p>
+        </div>
+    </div>
+    <main>
+        <section id="wrapper">
+            <header id="top-header">
+                <div class="navigation_div">
+                    <div class="logo">
+                        <div class="logoTop">
+
+                            <b>
+                                <a href="/Home"><img src="/Content/Images/logo-mob.png" /></a>
+                            </b>
+                        </div>
+                        <a class="clearr" href="/Home" title=""><img class="FL_CompanyBrandingLogo" style="display:none" alt="logo" src="/Content/Images/logo.png" id="logoDashboard"></a>
+                    </div>
+                    <ul class="logoRight">
+                        <li class="profile-Picfull">
+                            <a style="" href="javascript:void(0)" id="popModal_profile">
+                                <img src="/Content/Images/my-proffil-logo.png" id="imgProfileLogo">
+                            </a>
+                        </li>
+                        <li class="Perm_Settings" style="display:none;">
+                            <a href="javascript:void(0)" id="popModal_settings" title="Navigate to"><b class="nav_1">&nbsp;</b><i>.</i></a>
+                        </li>
+                        <li>
+                            <a href="/General/HelpDocuments" target="_blank" title="Help Documents" style="display:inline-block"><b class='help_1'>&nbsp;</b><i>.</i></a>
+                        </li>
+                        <li>
+                            @*<a href="javascript:void(0)" id="popModal_alert" title="Alerts"><b class="alert_1">&nbsp;</b><i>.</i><span id="iUnviewdAlerts" class="unview_alerts" style="display:none"></span></a>*@
+                            <a href="javascript:void(0)" id="popModal_alert" title="Alerts" onclick="openNavAlert();" class="alertModal" style="display:inline-block"><b class="alert_1">&nbsp;</b><i>.</i><span id="iUnviewdAlerts" class="unview_alerts" style="display:none"></span></a> @*Added from 2.4final to 2.4*@
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" id="popModal_task" title="Tasks" onclick="openNav();" class="taskModal" style="display:inline-block"><b class="task_1">&nbsp;</b><i>.</i><span id="iUnviewdTasks" class="unview_alerts" style="display:none"></span></a>  @*Added from 2.4final to 2.4*@
+                            @*<a href="javascript:void(0)" id="popModal_task" title="Tasks"><b class="task_1">&nbsp;</b><i>.</i><span id="iUnviewdTasks" class="unview_alerts" style="display:none"></span></a>*@
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" id="quickActions" title="Quick Actions"><b class="quick_action_new">&nbsp;</b><i>.</i></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" id="popModal_search" title="Search"><b class="search_1">&nbsp;</b><i>.</i></a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+
+            <!--menu-->
+            <div class="container">
+                <div class="demo-1">
+
+                    <div id="dl-menu" class="dl-menuwrapper">
+                        <a class="dl-trigger" href="javascript:void(0);"><img src="/Content/images/dpmenu.png" /></a>
+                        <ul class="dl-menu">
+                            <li>
+                                <a href="javascript:void(0);" onclick="aNavDashboardClick()"><img src="/Content/images/mdashboard.png" /><i id="bNavDashboardMob">My Dashboard</i></a>
+                            </li>
+                            <li class="FL_Requests" style="display:none;">
+                                <a href="/Pipeline/Requests"><img src="/Content/images/mrequests.png" /><i id="bNavRequestsMob">Requests</i></a>
+                            </li>
+                            <li class="FL_Pipeline" style="display:none;">
+                                <a href="/Pipeline"><img src="/Content/images/mpipeline.png" /><i id="bNavPipelineMob">Pipeline</i></a>
+                            </li>
+                            <li>
+                                <a href="/Contracts"><img src="/Content/images/mcontract.png" /><i id="bNavContractsMob">My Contracts</i> </a>
+                            </li>
+                            <li>
+                                <a href="/Activity/Activity"><img src="/Content/images/mactivites.png" /><i id="bNavActivitiesMob">My Activities</i> </a>
+                            </li>
+                            <li id="liNavCounterpartyMob" class="" style="display:none;">
+                                <a href="/Counterparty"><img src="/Content/images/mcounterparty.png" />Counterparties</a>
+                            </li>
+                            <li id="liNavInsightsMob" style="display:none">
+                                <a href="/Reports/GlobalReportsLanding"><img src="/Content/images/minsight.png" />Insights</a>
+                            </li>
+                        </ul>
+                        <!-- /dl-menuwrapper --> <div style="clear:both;"></div>
+                    </div><div style="clear:both;"></div>
+                </div>
+            </div>
+
+            <nav id="navigation">
+                <div class="navigation_div">
+                    <ul id="nav">
+                        <li id="limydash" onmouseover="limydashshow(this)" style="padding: 0px 15px; border-left: 1px solid #dfdfdf;">
+                            <a href="javascript:void(0);"><img id="dashmain" src="/Content/images/icon/my-dashboard.png"><img class="dropArr" src="/Content/images/dp-ddown.png" /> </a>
+                            <ul class="business-area"></ul>
+                        </li>
+                        <li><a id="aNavDashboard" href="javascript:void(0);" onclick="aNavDashboardClick()"><b id="bNavDashboard" class="dashBoard">My Dashboard</b></a></li>
+                        <li class="FL_Requests" style="display:none;"><a id="aNavRequests" href="/Pipeline/Requests"><b id="bNavRequests" class="requests_1">My Requests</b></a></li>
+                        <li class="FL_Pipeline" style="display:none;"><a id="aNavPipeline" href="/Pipeline"><b id="bNavPipeline" class="pipeline_1">My Pipeline</b></a></li>
+
+                        <li><a id="aNavContracts" href="/Contracts"><b id="bNavContracts" class="contrac_1">My Contracts</b></a></li>
+
+                        <li>
+                            <a id="aNavActivities" href="/Activity/Activity">
+                                <b id="bNavActivities" class="activit_1">My Activities</b>
+                            </a>
+                        </li>
+                        <li id="liNavCounterparty" class="" style="display:none;"><a id="aNavCounterparties" href="/Counterparty"><b id="bNavCounterparties" class="counterP">Counterparties</b> </a></li>
+                        <li id="liNavInsights" style="display:none">
+                            <a id="aNavInsights" href="/Reports/GlobalReportsLanding"><b id="bNavInsights" class="insighT">Insights</b> @*<img class="dropArr" src="/Content/images/dp-ddown.png" />*@</a>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <!--menu completed-->
+            <!--Manas-->
+            <!--General message/notification bar-->
+            <div style="text-align:center">
+                <div class="generalnotification" id="general-notification">
+
+                </div>
+            </div>
+            <div id="mainContent" style="display:none">
+                @RenderBody()
+            </div>
+        </section>
+    </main>
+
+
+    <div style="display:none">
+        <div id="contentprofile">
+            <ul>
+                <li class="profileli bordertopnone">
+                    <div class="overflow_hidden">
+                        <img class="profileimg" height="40" width="40" id="imgProfile" />
+                        <small class="profilesmall margin-top-5">
+                            <b class="profileb"><span id="userFullName"></span></b>
+                        </small>
+                    </div>
+                    <div class="height-auto">
+                        <i class="profilei profile-indent"><span id="userDesignation"></span></i>
+                    </div>
+                </li>
+                <li class="profileli"><span class="profilespan"><a href="javascript:void(0)" onclick="UserProfile()">My Profile</a></span> <span class="profilespan rright"><a href="@Url.Action("LogOut", "General")">Log Out</a></span></li>
+            </ul>
+        </div>
+    </div>
+    <div style="display:none">
+        <div id="contentsettings">
+            <ul class="settings">
+                <li class="settingsli settingsli_Admin"><h3 class="settSh3">Navigate to</h3></li>
+                <li id="limydashboard" class="settingsli settingsli_Admin" style="display:none;">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img class="settingsimg" src="/Content/Images/home_s.png"><small class="settingssmall">My Dashboard</small>
+                    </a>
+                </li>
+                <li class="settingsli settingsli_Admin Perm_AdminAccess">
+                    <a href="@Url.Action("Index", "Settings")">
+                        <img class="settingsimg" src="/Content/Images/admin-icorn.png"><small class="settingssmall">eContracts Administration</small>
+                    </a>
+                </li>
+                <li class="settingsli settingsli_Admin Perm_AccountAccess">
+                    <a href="@Url.Action("AccountSettings", "Accounts")">
+                        <img class="settingsimg" src="/Content/Images/managing-account.png"><small class="settingssmall">Account Management</small>
+                    </a>
+                </li>
+                <!-- For Global Contract Owner and Global Administrator-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess lihide">
+                    <a href="@Url.Action("BusinessAreas", "Settings")">
+                        <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Contract & Business Areas</small>
+                    </a>
+                </li>
+                <!-- For Contract Area Administrator and Business Area Owner-->
+                <li id="liGenaralBusinessArea" class="settingsli settingsli_Admin Perm_OrgAccess1">
+                    <a href="@Url.Action("BusinessAreas", "General")">
+                        <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Contract & Business Areas</small>
+                    </a>
+                </li>
+
+                <!-- For Global Contract Owner and Global Administrator-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess Perm_GlobalInsight lihide">
+                    <a href="javascript:baclickglobalreports()">
+                        <img class="settingsimg" src="/Content/Images/icon/global-reports.jpg"><small class="settingssmall">Global Insights</small>
+                    </a>
+                </li>
+                <!-- For switch to office 365-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess">
+                    <a href="javascript:BackToO365()">
+                        <img class="settingsimg" src="/Content/Images/switch.png"><small class="settingssmall">Switch To Office 365</small>
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+    <div style="display:none">
+        <div id="contentquickactions">
+            <ul class="settings">
+                <li class="settingsli FL_RequestsLayout" style="border-top: none;display:none">
+                    <a href="/Pipeline/CreateRequest">
+                        <img class="settingsimg" src="/Content/Images/icon/add.png"><small class="settingssmall">New Request</small><span>Submit a Request for Contracts or Legal</span>
+                    </a>
+                </li>
+                <li class="settingsli UserPermisionPLLayout" style="border-top: none;display:none">
+                    <a href="/Contracts/CreateContract?Stage=pipeline">
+                        <img class="settingsimg" src="/Content/Images/icon/add.png"><small class="settingssmall">New Contract Record</small><span>Create a new Contract in the Pipeline </span>
+                    </a>
+                </li>
+                <li class="settingsli UserPermisionConLayout" style="border-top: none;display:none">
+                    <a href="/Contracts/CreateContract?Stage=active">
+                        <img class="settingsimg" src="/Content/Images/icon/add.png"><small class="settingssmall">Add Contract Record</small><span>Add signed contract and track lifecycle </span>
+                    </a>
+                </li>
+                <li class="settingsli CounterSettingLayout" style="border-top: none;display:none">
+                    <a href="/Counterparty/CreateCounterparty">
+                        <img class="settingsimg" src="/Content/Images/icon/add.png"><small class="settingssmall">New Counterparty</small><span>Add a Company or Entity as Counterparty</span>
+                    </a>
+                </li>
+
+                <li class="settingsli FL_TermsandClausesLayout Perm_AdminAccessLayout" style="border-top: none;display:none">
+                    <a href="/Settings/ClauseDB">
+                        <img class="settingsimg" src="/Content/Images/icon/qa_clause.png"><small class="settingssmall">Terms &amp; Clause Library</small><span>View Standard Legal Clauses & Terms</span>
+                    </a>
+                </li>
+                <li class="settingsli FL_AutomationLayout Perm_AdminAccessLayout" style="border-top: none;display:none">
+                    <a href="/Settings/UploadTemplate">
+                        <img class="settingsimg" src="/Content/Images/icon/qa_templatelibrary.png"><small class="settingssmall">Template Library</small><span>View Standard Contract Document Templates</span>
+                    </a>
+                </li>
+
+                @*<li class="settingsli" style="border-top: none;">
+                        <a href="#">
+                            <img class="settingsimg" src="/Content/Images/icon/qa_metrics.png"><small class="settingssmall">Insights & Reports</small><span>Navigate to Global Reports and Dashboards</span>
+                        </a>
+                    </li>*@
+                <li class="settingsli Perm_AdminAccessLayout" style="border-top: none;display:none">
+                    <a href="/Settings/ManageUsers">
+                        <img class="settingsimg" src="/Content/Images/icon/user.png"><small class="settingssmall">Users &amp; Permissions</small><span>Manage Users, Permissions & Role</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="dvViewUserProfile" style="display:none; overflow-y:auto;">
+        <ul class="poPup_Form_Field overflow_hidden my-profile">
+
+            <li>
+                <p><b>User Name</b></p>
+                <div id="dvProfile_UserName">
+                </div>
+            </li>
+            <li>
+                <p><b>Login Email ID</b></p>
+                <div id="dvProfile_LoginEmailID">
+                </div>
+            </li>
+
+            <li>
+                <p><b>Address</b></p>
+                <div id="dvProfile_Address">
+                </div>
+            </li>
+            <li>
+                <p><b>Email ID(for eContracts notifications)</b></p>
+                <div id="dvProfile_EmailID" class="word-break">
+                </div>
+            </li>
+
+            <li>
+                <p><b>Phone</b></p>
+                <div id="dvProfile_PhoneNo1">
+                </div>
+            </li>
+            <li>
+                <p><b>&nbsp;</b></p>
+                <div id="dvProfile_PhoneNo2">
+                </div>
+            </li>
+            <li class="EscalationFeature">
+                <p><b>Job Title</b></p>
+                <div id="dvProfile_JobTitle">
+                </div>
+            </li>
+            <li class="EscalationFeature">
+                <p><b>Department</b></p>
+                <div id="dvProfile_Department">
+                </div>
+            </li>
+            <li class="EscalationFeature">
+                <p><b>Reporting Manager</b></p>
+                <div id="dvProfile_MyManager">
+                </div>
+            </li>
+            <li>
+                <p><b>Out of Office</b></p>
+                <div id="dvProfile_OutOfOffice">
+                </div>
+            </li>
+            <li>
+                <p><b>Delegate To</b></p>
+                <div id="dvProfile_DelegateTo">
+                </div>
+            </li>
+
+            <li class="poPup_Form_Title1">
+                <b>Permission</b>
+            </li>
+
+
+            <li>
+                <p><b>User Type</b></p>
+                <div id="dvProfile_UserType" class="lineheight20">
+                </div>
+            </li>
+
+
+            <li>
+                <p><b>Contract Area(s)</b></p>
+                <div id="dvProfile_ContractArea" class="lineheight20">
+                </div>
+            </li>
+            <li>
+                <p><b>Owner of Business Area(s)</b></p>
+                <div id="dvProfile_OwnershipBusinessArea" class="lineheight20">
+                </div>
+            </li>
+            <li>
+                <p><b>Full Control Business Area(s)</b></p>
+                <div id="dvProfile_fullCtrlBusinessArea" class="lineheight20">
+                </div>
+            </li>
+
+            <li>
+                <p><b>Contribute Business Area(s)</b></p>
+                <div id="dvProfile_ContributeBusinessArea" class="lineheight20">
+                </div>
+            </li>
+
+            <li>
+                <p><b>Read Only Business Area(s)</b></p>
+                <div id="dvProfile_ReadBusinessArea" class="lineheight20">
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div id="dvAlertDetails" style="display:none;">
+        <div class="modalbody">
+            <ul class="poPup_Form_Field">
+                <li>
+                    <div id="alertTitle" class="alert_detai" style="display:none;"></div>
+                    <p class="alert_detaPright" style="margin-top: -18px; margin-bottom: 8px;">
+                        Sent on&nbsp;<i id="sentOn"></i>
+                    </p>
+                </li>
+                <li>
+                    <div id="alertText" class="width95 margin-0px" style="word-wrap:break-word"></div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="mySidenavAlert" class="sidenav">
+        @*Added from 2.4final to 2.4*@
+        <div class="clssidenav">
+            <div class="alert_heading">My Alerts<span style="float: right;margin-right: 40px;"><img id="IconAlertSetting" src="~/Content/Images/Alertsettings.png" style="cursor:pointer;" /></span></div>
+            <span href="javascript:void(0)" class="closebtn" onclick="closeNavAlert()" style="cursor:pointer">&times;</span>
+            <div id="alert">
+
+                <ul id="ulalert"></ul>
+
+                <p id="loadingcontentalert">
+                    <img src="../Content/Images/loading.gif" />
+                </p>
+            </div>
+            <div class="alert_footer"><span style="float:left; display:block;"><a href="javascript:DismissNotificationAll()">Dismiss All</a></span><span style="float:right; display:block;"><a href="/General/Alerts" target="_blank">View All Alerts</a></span></div>
+        </div>
+
+    </div>
+    <div id="mySidenav" class="sidenav" style="height:0px">
+        @*Added from 2.4final to 2.4*@
+        <div class="clssidenav">
+            <div class="alert_heading">My Tasks</div>
+            <span href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="cursor:pointer">&times;</span>
+            <div class="todos">
+                <span><a class="act" href="javascript:void(0)" id="Upcoming" onclick="Upcoming()">Upcoming<i id="UpcomingNo"></i></a></span>
+                <span><a href="javascript:void(0)" id="Overdue" onclick="Overdue()" class="overd">Overdue<i id="OverdueNo"></i></a></span>
+            </div>
+            <div>
+                <ul id="ulcontenttasks"></ul>
+                <ul id="ulcontenttasks1" style="display:none"></ul>
+            </div>
+            <div class="alert_footer"><span style="float:right; display:block;"><a href="/Activity/Activity" target="_blank">View All Tasks</a></span></div>
+        </div>
+    </div>
+    <div style="display:none">
+        <div id="contenttasks">
+            @*Added from 2.4final to 2.4*@
+            @*<ul id="ulcontenttasks">
+                    <li class="tasksli bordertopnone"><h3 class="tasksh3">Tasks</h3></li>
+
+                </ul>*@
+
+        </div>
+
+        <div id="contentsearch" style="width:226px !important">
+            <div style="margin-bottom:10px;"><h3 class="settSh3" style="display: inline-block; padding: 0 !important;">Global search  </h3><img id="imgbusinessarea" title="Search for all contract records, counterparty and documents." src="/Content/Images/input-help.png"></div>
+            <aside class="insearch_Right1">
+                <ul>
+                    <li><a id="aSearchContractTab" href="javascript:void(0);" onclick="SearchInTab('Contracts')" style="background-color: rgb(247, 247, 247);padding:10px 4px !important" data-searchtab="true">Contracts</a></li>
+                    <li><a id="aSearchDocumentTab" href="javascript:void(0);" onclick="SearchInTab('Documents')" style="padding:10px 4px !important" data-searchtab="false">Documents</a></li>
+                    <li><a id="aSearchCounterpartyTab" href="javascript:void(0);" onclick="SearchInTab('Counterparty')" style="padding:10px 4px !important" data-searchtab="false">Counterparty</a></li>
+                </ul>
+            </aside>
+            <div><input id="keyword" name="keyword" placeholder="Enter Keyword" type="text" class="search_input"></div>
+            <span style="margin-bottom: 1px !important;float: left;margin-top: 15px;font-size: 12px;color: #44a6d8 !important;"><a id="aNavContracts" href="javascript:void(0);" onclick="NavigateToAdvance()" style="color: #44a6d8;"><b id="bNavContracts">Go to Advanced Search &nbsp;<img src="../Content/Images/arrow_right_new.png" /></b></a></span>
+            <div class="search_btn">
+                <a href="javascript:void(0)" onclick="SearchKeyword();">Search</a>
+            </div>
+
+
+        </div>
+    </div>
+    <!--Prabhakar-->
+
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />
+            </p>
+        </div>
+    </div>
+
+    <div id="loadingPageBA">
+        <div id="loadingcontentBA">
+            <p id="loadingspinnerBA">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Redirecting to Business Area Dashboard
+            </p>
+        </div>
+    </div>
+
+
+    <div id="browseBA_Layouts" style="overflow-y:auto;display:none;">
+        <div style="overflow-y: auto; height: 470px;border: 1px solid #dcdcdc;">
+            <table id="example-basic-1" class="treetable">
+                <tbody id="tbodyBusinessArea"></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <select id="ddlApprovers" style="display:none">
+        <option value="0">--Select--</option>
+    </select>
+
+    @*Added from 2.4final to 2.4*@
+    @*<script>
+            function openNav() {
+                if (document.getElementById("mySidenav").style.width == "320px")
+                    document.getElementById("mySidenav").style.width = "0px";
+                else
+                    document.getElementById("mySidenav").style.width = "320px";
+                document.getElementById("mySidenavAlert").style.width = "0";
+            }
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+            function openNavAlert() {
+                if (document.getElementById("mySidenavAlert").style.width == "320px")
+                    document.getElementById("mySidenavAlert").style.width = "0px";
+                else
+                    document.getElementById("mySidenavAlert").style.width = "320px";
+                document.getElementById("mySidenav").style.width = "0";
+
+            }
+            function closeNavAlert() {
+                document.getElementById("mySidenavAlert").style.width = "0";
+            }
+        </script>*@
+    @*@Scripts.Render("~/Scripts/jquery.validate.min.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+
+    @*@Scripts.Render("~/bundles/econtracts")
+        @Scripts.Render("~/bundles/eContractsThirdParty")
+        @Scripts.Render("~/bundles/spcontext")*@
+    @*@Scripts.RenderFormat("<script src=\"{0}\"></script>", "~/bundles/eContractsThirdParty")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")*@
+    @Scripts.Render("~/bundles/Newecontracts")
+    @Scripts.Render("~/bundles/econtracts")
+    @Scripts.Render("~/bundles/spcontext")
+    @Scripts.Render("~/_Layout_JS_One")
+    @Scripts.Render("~/_Layout_JS_Two")
+    @*@Scripts.Render("~/bundles/eContractsThirdParty")*@
+    @*@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")*@
+    @*@Scripts.Render("~/Scripts/jquery.contextmenu.js")
+        @Scripts.Render("~/Scripts/jquery.simplemodal-1.1.1.js")
+        @Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")*@
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#dl-menu').dlmenu();
+        });
+    </script>
+    <script type="text/javascript">
+        var vApiBaseSiteUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiBaseSiteUrl"]';
+        var ConCacheUpdateRun = '@System.Web.HttpContext.Current.Cache["ConCacheUpdateRun_" + System.Web.HttpContext.Current.Session["AccountID"]]';
+        var ConCacheRefreshRun = '@System.Web.HttpContext.Current.Cache["ConCacheRefreshRun_" + System.Web.HttpContext.Current.Session["AccountID"]]';
+        var docCacheTime = '@System.Web.HttpContext.Current.Cache["DocTime_" + System.Web.HttpContext.Current.Session["AccountID"]]';
+        var conCacheTime = '@System.Web.HttpContext.Current.Cache["ContractTime_" + System.Web.HttpContext.Current.Session["AccountID"]]';
+        var ContractKey = '@System.Web.HttpContext.Current.Cache["ContractKey_" + System.Web.HttpContext.Current.Session["AccountID"]]';
+        var curUTCTime = '@DateTime.UtcNow';
+        if ('@Session["UserName"]' != '') {
+            localStorage.UserName = decodeURI(unescape('@Session["UserName"]'));
+            localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+            localStorage.APIKey = '@Session["APIKey"]';
+            localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+            localStorage.UserTitle = '@Session["UserTitle"]';
+            localStorage.OEmail = decodeURI(unescape('@Session["OEmail"]'));
+            localStorage.UserID = '@Session["UserID"]';
+            if ('@Session["UserType"]' != '')
+                localStorage.UserType = '@Session["UserType"]';
+            if ('@Session["RefreshToken"]' != '')
+                localStorage.RefreshToken = '@Session["RefreshToken"]';
+            localStorage.MaxRequestLength = '@Session["MaxRequestLength"]';
+            localStorage.Designation = 'Manager';
+            localStorage.LoginTime = new Date();
+        }
+        else {
+            //alert(localStorage.LoginTime);
+            if (typeof localStorage.LoginTime == "undefined") {
+                localStorage.removeItem('UserName');
+                localStorage.removeItem('AccountID');
+                localStorage.removeItem('APIKey');
+                localStorage.removeItem('SPHostUrl');
+                localStorage.removeItem('UserTitle');
+                localStorage.removeItem('OEmail');
+                localStorage.removeItem('UserID');
+                localStorage.removeItem('Permission');
+                localStorage.removeItem('GlobalBusinessArea');
+                localStorage.removeItem('GlobalBusinessAreaLocation');
+                localStorage.removeItem('BusinessAreaAccess');
+                localStorage.removeItem('UserType');
+                location = "/Error/NoAccess";
+            } else {
+                var start = moment(localStorage.LoginTime);
+                var end = moment(new Date());
+                var vv = end.diff(start, "minutes");
+                if (vv > 3) {
+                    var vSPHostUrl = localStorage.SPHostUrl;
+                    localStorage.removeItem('UserName');
+                    localStorage.removeItem('AccountID');
+                    localStorage.removeItem('APIKey');
+                    localStorage.removeItem('SPHostUrl');
+                    localStorage.removeItem('UserTitle');
+                    localStorage.removeItem('OEmail');
+                    localStorage.removeItem('UserID');
+                    localStorage.removeItem('Permission');
+                    localStorage.removeItem('GlobalBusinessArea');
+                    localStorage.removeItem('GlobalBusinessAreaLocation');
+                    localStorage.removeItem('BusinessAreaAccess');
+                    localStorage.removeItem('UserType');
+                    location = "/Home?SPHostUrl=" + vSPHostUrl;
+                } else {
+                    localStorage.LoginTime = new Date();
+                    //$.post('/Settings/SetSession', { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+                    //$.post("/Settings/SetSession", { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID }, function (sucess) {
+                    //});
+                    $.ajax({
+                        url: '/Settings/SetSession',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            AccountID: localStorage.AccountID,
+                            SPHostUrl: localStorage.SPHostUrl,
+                            UserName: localStorage.UserName,
+                            APIKey: localStorage.APIKey,
+                            OEmail: localStorage.OEmail,
+                            UserTitle: localStorage.UserTitle,
+                            UserID: localStorage.UserID
+                        },
+                        cache: false,
+                        success: function (person) {
+
+                        }
+                    });
+                }
+            }
+        }
+        if (typeof localStorage.eContractFeatures === "undefined") LoadFeatureList();
+
+
+
+        function LoadFeatureList() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                async: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    localStorage.setItem("eContractFeatures", JSON.stringify(data));
+                },
+                error: function (data) {
+                    var vvvv = "";
+                }
+            });
+        }
+    </script>
+    @Scripts.Render("~/Scripts/Contract365/_Layout.js?" + DateTime.Now.Date.ToBinary())
+    @*<script type="text/javascript" src="../Scripts/Contract365/_Layout.js"></script>*@
+
+</body>
+</html>
+
+<script>
+    $("#scroll-down").click(function () {
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+
+    });
+</script>
+
+
+<script>
+    @functions{
+ public string GetAntiForgeryToken()
+ {
+ string cookieToken, formToken;
+ AntiForgery.GetTokens(null, out cookieToken, out formToken);
+ return cookieToken + "," + formToken;
+ }
+ }
+
+</script>
+<input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />
+
+
+<script type="text/javascript">
+    @*Added from 2.4final to 2.4*@
+    //$('document').click(function () {
+    //    document.getElementById("mySidenav").style.width = "0";
+    //    document.getElementById("mySidenavAlert").style.width = "0";
+    //    $("#mySidenavAlert").css("height", "0px");
+    //    $("#mySidenav").css("height", "auto");
+    //});
+    $(function () {
+        $('#popModal_profile').click(function () {
+
+            $('#popModal_profile').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_profilearr').click(function () {
+            $('#popModal_profilearr').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_settings').click(function () {
+            $('#popModal_settings').popModal({
+                html: $('#contentsettings'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+        $('#quickActions').click(function () {
+            $('#quickActions').popModal({
+                html: $('#contentquickactions'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false,
+            });
+            $('#quickActions').next().css("top", "40px");
+
+        });
+
+        @*Added from 2.4final to 2.4*@
+
+        //$('#popModal_alert').click(function () {
+        //    $('#popModal_alert').popModal({
+        //        html: $('#contentalert'),
+        //        placement: 'bottomRight',
+        //        showCloseBut: false,
+        //        onDocumentClickClose: true,
+        //        onDocumentClickClosePrevent: '',
+        //        inline: true,
+        //        overflowContent: false,
+        //        onLoad: MarkNotificationViewed()
+        //    });
+        //});
+
+        //$('#popModal_task').click(function () {
+        //    $('#popModal_task').popModal({
+        //        html: $('#contenttasks'),
+        //        placement: 'bottomRight',
+        //        showCloseBut: false,
+        //        onDocumentClickClose: true,
+        //        onDocumentClickClosePrevent: '',
+        //        inline: true,
+        //        overflowContent: false,
+        //        onLoad: MarkTasksViewed()
+        //    });
+        //});
+
+        $('#popModal_search').click(function () {
+            $('#popModal_search').popModal({
+                html: $('#contentsearch'),
+                placement: 'bottomRight',
+                showCloseBut: false,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+            $("#keyword").focus();
+            $('#keyword').val('')
+        });
+
+
+    });
+</script>

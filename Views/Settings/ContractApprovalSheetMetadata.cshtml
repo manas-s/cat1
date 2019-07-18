@@ -1,0 +1,429 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ApprovalSheetField>
+@using Corevo.eContracts365.General
+@{
+    ViewBag.Title = "Contract Record Approval Sheet Metadata";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<link href="~/Content/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/confirm.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+<script type="text/javascript">
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    $(document).ready(function () {
+        $(".contractTypeTitle").text(getParameterByName('approvalsheettitle'));
+        $("#approvalSheetID").text(getParameterByName('approvalsheetid'));
+    });
+
+</script>
+<span id="approvalSheetID" style="display:none;"></span>
+<table class="width100">
+    <tr>
+        <td class="pageheading"><h4><span class="contractTypeTitle"></span></h4></td>
+        <td class="pageheading padding_right_20px" align="right">
+            <input id="btnSaveFieldOrder" type="button" value="Save Order" class="f_button_green_small clcustomenable" />
+            <input id="btnNewGroup" type="button" value="Create New Group" class="f_button_green_small clcustomenable" />
+        </td>
+    </tr>
+</table>
+<br />
+<div class="width95_a">
+
+    <div style="float:left; width:63%;">
+        <p style="background-color:#59a1d5; color:#ffffff"><span class="contractTypeTitle"></span> Field Groups and Selected Fields</p>
+
+        <table id="tblMetadata" class="width100">
+            @{
+                int counter1 = 1;
+                int count1 = ViewBag.GroupOrderCount;
+                foreach (string name in ViewBag.GroupNames)
+                {
+                    string appSID = Request.QueryString["approvalsheetid"];
+                    <tr id="GP_@counter1.ToString()">
+                        <td id="@name">
+                            @Html.Action("ApprovalFieldsinGroupMetadata", "Settings", new { fieldGroup = @name, index = @counter1, count = @count1, approvalSheetID = appSID })
+                        </td>
+                    </tr>
+                    counter1++;
+                }
+            }
+        </table>
+
+    </div>
+    <div class="available_fields">
+        <p style="background-color:#59a1d5; color:#ffffff" class="clcustomenable">Available / Unselected Fields</p>
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" class="clcustomenable" onclick="basicfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Contract Metadata</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgbasicfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="basicfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.FieldGroup == "Contract Information")
+                    {
+                        do
+                        {
+                            item.FieldName = item.FieldName.Replace("&amp;", "&");
+                        } while (item.FieldName.IndexOf("&amp;") > -1);
+                        do
+                        {
+                            item.FieldDisplayName = item.FieldDisplayName.Replace("&amp;", "&");
+                        } while (item.FieldDisplayName.IndexOf("&amp;") > -1);
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Contract Information</td>
+                            <td class="openmenuavail" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="contractingpartiesfields()" class="clcustomenable">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Counterparty Metadata</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgcontractingpartiesfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="contractingpartiesfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.FieldGroup == "Counterparty Information")
+                    {
+                        do
+                        {
+                            item.FieldName = item.FieldName.Replace("&amp;", "&");
+                        } while (item.FieldName.IndexOf("&amp;") > -1);
+                        do
+                        {
+                            item.FieldDisplayName = item.FieldDisplayName.Replace("&amp;", "&");
+                        } while (item.FieldDisplayName.IndexOf("&amp;") > -1);
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Counterparty Information</td>
+                            <td class="openmenuavail" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="primarydocumentfields()" class="clcustomenable">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Amendment Metadata</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgprimarydocumentfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="primarydocumentfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.FieldGroup == "Amendment Information")
+                    {
+                        do
+                        {
+                            item.FieldName = item.FieldName.Replace("&amp;", "&");
+                        } while (item.FieldName.IndexOf("&amp;") > -1);
+                        do
+                        {
+                            item.FieldDisplayName = item.FieldDisplayName.Replace("&amp;", "&");
+                        } while (item.FieldDisplayName.IndexOf("&amp;") > -1);
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Amendment Information</td>
+                            <td class="openmenuavail" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+    </div>
+
+
+    <div id="dialogOrder" style="display:none;">
+        @{
+            int counter = 0;
+            foreach (var name in ViewBag.GroupNames)
+            {
+                string appSID = Request.QueryString["approvalsheetid"];
+                @Html.Action("ApprovalFieldsinGroup", "Settings", new { fieldGroup = @name, index = @counter, approvalSheetID = appSID });
+                                                                                                                                         counter++;
+            }
+        }
+    </div>
+
+
+    <div id="dialogAddField" style="display:none;">
+        <div class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table cellpadding="2" cellspacing="2">
+                <tr>
+                    <td width="30%">
+                        <input type="text" id="ApprovalFieldIdHdn" style="display:none;" />
+                        <input type="text" id="FieldRelatedToHdn" style="display:none;" />
+                    </td>
+                    <td width="70%"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Type<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldType" onchange="changevalues(this);" class="f_inpt fullwidth validelement" disabled="disabled">
+                            <option value="0">--Select--</option>
+                            <option value="Single Line Text">Single Line Text</option>
+                            <option value="Multi Line Text">Multi Line Text</option>
+                            <option value="Date">Date</option>
+                            <option value="Choice">Choice</option>
+                            <option value="User">User</option>
+                            <option value="Multi- Choice (Dropdown)">Multi- Choice (Dropdown)</option>
+                            <option value="Multi- Choice (Browse)">Multi- Choice (Browse)</option>
+                            <option value="File Upload">File Upload</option>
+                            <option value="Value / Financials">Value / Financials</option>
+                            <option value="Lookup">Lookup</option>
+                            <option value="Lookup (Multi Select)">Lookup (Multi Select)</option>
+                            <option value="Number">Number</option>
+                            <option value="Phone Number">Phone Number</option>
+                            <option value="Yes/No">Yes/No</option>
+                            <option value="Email">Email</option>
+                            <option value="Hyperlink">Hyperlink</option>
+                            <option value="Taxonomy">Office 365 Sharepoint Taxonomy</option>
+
+                        </select>
+                        <div><label id="lblinformationtext" style="display:none">This field type will not appear in Edit Contract</label></div>
+                    </td>
+                </tr>
+                <tr id="trNumberFormatField" style="display:none;">
+                    <td class="f_head">
+                        Number Format<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlNumberFormat" class="f_inpt width100" title="Number Format">
+                            <option value="Number">Number</option>
+                            <option value="Number-D">Decimal</option>
+                            <option value="Number-P">Percent</option>
+                            <option value="Number-PD">Decimal Percent</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="trFieldName">
+                    <td class="f_head">
+                        Field Name
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtFieldName1" class="f_inpt fullwidth" disabled title="Field Name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Display Name<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtFieldDisplayName" maxlength="50" title="Field Display Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt fullwidth validelement startswithalphabets" />
+                        <input type="text" id="txtFieldName" style="display:none" class="f_inpt fullwidth" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Group
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldGroup" class="f_inpt fullwidth"></select>
+                    </td>
+                </tr>
+                <tr id="trfieldorder" style="display:none;">
+                    <td class="f_head">
+                        Order
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldOrder" class="f_inpt fullwidth"></select>
+                    </td>
+                </tr>
+
+
+                <tr id="trDescription">
+                    <td class="f_head">Description</td>
+                    <td class="labelright">
+                        <textarea id="txtDescription" onchange="ReplaceTagSymbol(this);" maxlength="300" class="f_inpt fullwidth" style=" height: 80px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Field Help</td>
+                    <td class="f_list labelright">
+                        <input name="chkHelp" class="css1-checkbox" id="chkHelp" type="checkbox">
+                        <label class="css1-label" for="chkHelp"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Help Text</td>
+                    <td class="labelright">
+                        <textarea id="txtHelpText" maxlength="300" onchange="ReplaceTagSymbol(this);" class="f_inpt fullwidth" style=" height: 80px;" title="Help Text"></textarea>
+                    </td>
+                </tr>
+                <tr id="trchoicesvalues" style="display:none;">
+                    <td class="f_head">
+                        Choice Values
+                    </td>
+                    <td class="labelright">
+                        <textarea id="txtChoicesValues" class="f_inpt fullwidth" onchange="ReplaceTagSymbol(this);" style=" height: 80px;" placeholder="Type each choice on a separate line" title="Choice Values"></textarea>
+                    </td>
+                </tr>
+                <tr id="trlookupvalues" style="display:none;">
+                    <td class="f_head" id="trlookupvaluesid">
+                        Lookup
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlLookupType" class="f_inpt width100" title="Lookup Tables"></select>
+                        <span class="css1-label" id="txtLookupTable"></span>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+
+    <div id="dialogAddGroup" style="display:none;">
+        <div class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtGroupEntityID" name="GroupEntityID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none;">
+                    <td class="f_head">
+                        Order
+                    </td>
+                    <td class="labelright">
+                        <input id="txtGroupOrder" name="GroupEntityID" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Group <span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtGroupName" maxlength="50" title="Field Group Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt fullwidth validelement startswithalphabets" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright">
+                        <textarea id="txtGroupDescription" maxlength="300" class="f_inpt fullwidth" style=" height: 80px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Related To<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldGroupRelatedTo" class="f_inpt fullwidth validelement" disabled="disabled">
+                            <option value="0">--Select--</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Counterparty">Counterparty</option>
+                            <option value="Amendment">Amendment</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Other fields Menu -->
+    <ul id="myMenu" class="contextMenu">
+        <li class="edit"><a href="#edit">Edit</a></li>
+        <li class="remove"><a href="#delete">Remove</a></li>
+    </ul>
+    <ul id="myPrimaryMenu" class="contextMenu">
+        <li class="edit"><a href="#edit">Edit</a></li>
+    </ul>
+    <!-- Available fields Menu -->
+    <ul id="availableFieldsMenu" class="contextMenu">
+        <li class="template"><a href="#add">Add</a></li>
+        @*<li class="delete"><a href="#delete">Delete</a></li>*@
+    </ul>
+
+    <!-- Primary Field Menu -->
+    <ul id="primaryMenu" class="contextMenu">
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+
+    <!-- Group Menu -->
+    <ul id="groupMenu" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">Delete</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+    <ul id="groupMenuNoDelete" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+    </ul>
+    <ul id="groupMenuNoUp" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">Delete</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+    <ul id="groupMenuNoUpDelete" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+    <ul id="groupMenuNoUpDown" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">Delete</a></li>
+    </ul>
+    <ul id="primarygroupMenuNoMove" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+    </ul>
+    <ul id="groupMenuNoDown" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">delete</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+    </ul>
+    <ul id="groupMenuNoDownDelete" class="contextMenu">
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+    </ul>
+
+</div>
+@Scripts.Render("~/Scripts/Contract365/Settings_ContractApprovalSheetMetadata.js?" + DateTime.Now.GetHashCode())

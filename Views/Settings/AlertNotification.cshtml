@@ -1,0 +1,1027 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.AlertsEntity>
+
+@{
+    ViewBag.Title = "Alerts Management";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+
+
+<table class="width95_a" style="margin-bottom:20px;">
+    <tr>
+
+        <td class="pageheading">Alerts Management<img src="~/Content/Images/help_training.png" alt="Alerts Management" title="Manage overall alerts sent out from eContracts and the message it contains." /></td>
+        <td class="pageheading" align="right">@*<input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" />*@</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="page-wrap" class="f_list">
+                <table class="width100">
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.EventName != "")
+                                {
+                                    if (item.EventName.Trim() != "")
+                                    {
+                                        <tr style="border-bottom:1px dotted #eeeaea;">
+                                            <td id="AlertID" style="display:none;">@item.RowKey</td>
+                                            <td id="IsActive" style="display:none;">@item.Active</td>
+                                            <td id="EventName" style="display:none;">@Html.DisplayFor(modelItem => item.EventName)</td>
+                                            <td class="css1-label">
+                                                <input id="@item.RowKey" name="Status" type="checkbox" class="Active css1-checkbox" value="@item.EventName" checked="@item.Active" />
+                                                <label for="@item.RowKey" class="css1-label">@item.EventName</label>
+                                                <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" style="margin-left: 12px;" alt="Open Menu" title="Open Menu" />
+                                            </td>
+                                            @*<td style="padding:5px;" id="tdTransition">
+                                                    @item.Priority
+                                                </td>*@
+                                        </tr>
+                                    }
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+        </td>
+    </tr>
+    @*<tr>
+            <td class="pageheading" colspan="2">Email Settings</td>
+        </tr>
+        <tr>
+            <td class="f_head f_small_heading">"From" Address</td>
+            <td class="labelright">
+                <input id="txtFrom" name="FromAddress" type="text" class="f_inpt width70" />
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head f_small_heading">Email Signature</td>
+            <td class="labelright">
+                <textarea id="txtSignature" name="Signature" rows="5" class="f_text-box width70"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head"></td>
+            <td class="foot_right" align="right">
+                <br />
+                <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+                <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+            </td>
+        </tr>*@
+</table>
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+
+<script type="text/javascript" src="~/Scripts/nicEdit-latest.js"></script>
+<script type="text/javascript">
+    //<![CDATA[
+
+    //]]>
+
+</script>
+
+<div id="addEditAlert" style="display:none;">
+    <div>
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelleft">
+                        <input id="txtAlertID" name="AlertID" type="hidden" />
+                        <input id="txtAlertGroup" name="AlertGroup" type="hidden" />
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Title</td>
+                        <td class="labelleft"><input id="txtRowKey" type="text" class="f_inpt width50" /></td>
+                    </tr>*@
+                <tr>
+                    <td class="">
+                        <div class="float_left">
+                            &nbsp;
+
+                        </div>
+                    </td>
+                    <td>
+                        <div id="AlertActiveEnabled" class="switch enabled_slider switch_enable switchSet" style=" float: right;">
+                            <div class="Toggle"></div>
+                            <span class="switch_enable">YES</span>
+                            <span class="switch_disable">NO</span>
+                            <input id="AlertActive" type="hidden" class="switch_val" value="Yes">
+                        </div><div class="float_left" style="text-align: right;float: right!important;display: inline-block;margin: 4px 10px;">
+                            <span class="switch_lefttext">Active</span>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="f_head"> Title<small class="required"></small></td>
+                    <td class="labelleft"><input id="txtEventName" name="EventName" type="text" class="f_inpt width80 validelement validtitle" disabled /></td>
+
+                </tr>
+                <tr>
+                    <td class="f_head">Priority</td>
+                    <td class="labelleft">
+                        <select id="ddlPriority" name="Priority" class="f_inpt width80">
+                            <option value="Low" selected="selected">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Send Alert as</td>
+                        <td class="labelleft">
+                            <span class="f_list">
+                                <input type="checkbox" name="SendAlert" id="chkDashboard" class="css1-checkbox" />
+                                <label for="chkDashboard" class="css1-label">Dashboard Notification</label>
+                                <input type="checkbox" name="Email" id="chkEmail" class="css1-checkbox" />
+                                <label for="chkEmail" class="css1-label">Email</label>
+                            </span>
+                        </td>
+                    </tr>*@
+                <tr id="trAlertTitle">
+                    <td class="f_head">Alert Title<small class="required">*</small></td>
+                    <td class="labelleft"><input id="txtAlertTitle" maxlength="100" name="AlertTitle" type="text" class="f_inpt width80 validelement validtitle" /></td>
+                </tr>
+                <tr id="trAlertText">
+                    <td class="f_head" valign="top">Alert Text</td>
+                    <td class="labelleft">
+                        <textarea id="txtAlertText" name="AlertText" rows="4" cols="50" style="width:628px;height: 200px;"></textarea>
+                    </td>
+                </tr>
+                <tr id="trAlertKeywords">
+                    <td> </td>
+                    <td align="right">
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewAlertKeywords()"> View Keywords</a></span>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Send To</td>
+                        <td class="labelleft">
+                            <select id="ddlSendTo" multiple="multiple" class="f_inpt width90" data-placeholder="Select Send To">
+                                <option value="{Contract Managers}">{Contract Managers}</option>
+                                <option value="{BusinessOwners}">{Business Owners}</option>
+                                <option value="{BusinessUsers}">{Business Users}</option>
+
+                            </select>
+                        </td>
+                    </tr>*@
+                <tr style="display:none;">
+                    <td class="f_head">Alert Frequency</td>
+                    <td class="labelleft">
+                        <table cellpadding="2" cellspacing="2" class="width100">
+                            <tr>
+                                <td class="f_list">
+                                    <input type="checkbox" name="Frequency" id="chkImmediate" class="css1-checkbox" title="Immediate" />
+                                    <label for="chkImmediate" class="css1-label">Immediate</label>
+                                </td>
+                                <td class="f_list">
+                                    <input type="checkbox" name="Frequency" id="chkDaily" class="css1-checkbox" title="Daily Digest" />
+                                    <label for="chkDaily" class="css1-label">Daily Digest</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="f_list">
+                                    <input type="checkbox" name="Frequency" id="chkWeekly" class="css1-checkbox" title="Weekly Digest" />
+                                    <label for="chkWeekly" class="css1-label">Weekly Digest</label>
+                                </td>
+                                <td class="f_list">
+                                    <input type="checkbox" name="Frequency" id="chkMonthly" class="css1-checkbox" title="Monthly Digest" />
+                                    <label for="chkMonthly" class="css1-label">Monthly Digest</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr id="trReminder" style="display:none;">
+                    <td class="f_head">Reminders</td>
+                    <td class="labelleft">
+                        <input id="txtRemind1" name="Remind1" type="text" class="f_inpt width20" /> days prior<br />
+                        <input id="txtRemind2" name="Remind2" type="text" class="f_inpt width20" /> days prior<br />
+                        <input id="txtRemind3" name="Remind3" type="text" class="f_inpt width20" /> days prior
+                    </td>
+                </tr>
+                @*<tr id="trReminderTitle" style="display:none;">
+                        <td class="f_head">Reminder Title</td>
+                        <td class="labelleft"><input id="txtReminderTitle" name="ReminderTitle" type="text" class="f_inpt width40" /></td>
+                    </tr>
+                    <tr id="trReminderText" style="display:none;">
+                        <td class="f_head">Reminder Text</td>
+                        <td class="labelleft">
+                            <textarea id="txtReminderText" name="ReminderText" rows="4"></textarea>
+                            <span class="right-float"><a href="javascript:void(0)" onclick="ViewAlertKeywords()"> Browse</a></span>
+                        </td>
+                    </tr>*@
+            </table>
+            <p id="save_progress" class="popup_save_progress" style="visibility:hidden;">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="dvAlertKeywords" style="display:none;">
+    <div id="dvPopupHeadingUsers" class="modalheader"><span></span></div>
+    <div id="page-wrap" style="overflow-y: scroll; height: 450px">
+        <table id="tblKeysContract" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Contract Title
+                </td>
+                <td>{Contract Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Type
+                </td>
+                <td>{Contract Type}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Term
+                </td>
+                <td>{Contract Term}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract TermType
+                </td>
+                <td>{Contract TermType}</td>
+            </tr>
+            <tr>
+                <td>
+                    Counterparty Name
+                </td>
+                <td>{Counterparty Name}</td>
+            </tr>
+            <tr>
+                <td>
+                    Created by
+                </td>
+                <td>{Created By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Created On
+                </td>
+                <td>{Created On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Modified By
+                </td>
+                <td>{Modified By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Modified On
+                </td>
+                <td>{Modified On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Archived By
+                </td>
+                <td>{Modified By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Archived On
+                </td>
+                <td>{Modified On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Signee Name(s)
+                </td>
+                <td>{Signees}</td>
+            </tr>
+            <tr>
+                <td>
+                    Final Signature Date
+                </td>
+                <td>{Final Signature Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Owner
+                </td>
+                <td>{Contract Owner}</td>
+            </tr>
+            <tr>
+                <td>
+                    Start Date
+                </td>
+                <td>{Start Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Next Evaluation Date
+                </td>
+                <td>{Next Evaluation Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    End Date
+                </td>
+                <td>{End Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Renewal Date
+                </td>
+                <td>{Renewal Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Renewal Note
+                </td>
+                <td>{Renewal Note}</td>
+            </tr>
+            <tr>
+                <td>
+                    Reason for Cancellation
+                </td>
+                <td>{Reason for Cancellation}</td>
+            </tr>
+            <tr>
+                <td>
+                    Renewal Days Remain
+                </td>
+                <td>{Renewal Days Remain}</td>
+            </tr>
+            <tr>
+                <td>
+                    Expire Days Remain
+                </td>
+                <td>{Expire Days Remain}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract URL
+                </td>
+                <td>{Contract URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Business Area
+                </td>
+                <td>{Business Area}</td>
+            </tr>
+            <tr>
+                <td>
+                    Legal Entity
+                </td>
+                <td>{Legal Entity}</td>
+            </tr>
+            <tr>
+                <td>
+                   Expired Date
+                </td>
+                <td>{Expired Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Cancelled Date
+                </td>
+                <td>{Cancelled Date}</td>
+            </tr>
+            @*Added from 2.4final to 2.4*@
+            <tr>
+                <td>
+                    Renewal Type
+                </td>
+                <td>{Renewal Type}</td>
+            </tr>
+            <tr>
+                <td>
+                    Renewal Conditions
+                </td>
+                <td>{Renewal Conditions}</td>
+            </tr>
+            <tr>
+                <td>
+                    CounterPartyNotice
+                </td>
+                <td>{CounterPartyNotice}</td>
+            </tr>
+            <tr>
+                <td>
+                    Current Term
+                </td>
+                <td>{Current Term}</td>
+            </tr>
+            <tr>
+                <td>
+                    RenewalOn
+                </td>
+                <td>{RenewalOn}</td>
+            </tr>
+            <tr>
+                <td>
+                    UpcomingTerm
+                </td>
+                <td>{UpcomingTerm}</td>
+            </tr>
+            <tr>
+                <td>
+                    AuthorizeUser
+                </td>
+                <td>{AuthorizeUser}</td>
+            </tr>
+            <tr>
+                <td>
+                    RenewalCheckList
+                </td>
+                <td>{RenewalCheckList}</td>
+            </tr>
+            <tr>
+                <td>
+                    Label
+                </td>
+                <td>{Label}</td>
+            </tr>
+            <tr>
+                <td>
+                    UpComingNotes
+                </td>
+                <td>{UpComingNotes}</td>
+            </tr>
+        </table>
+        <table id="tblKeysDocument" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Document Name
+                </td>
+                <td>{Document Name}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Title
+                </td>
+                <td>{Contract Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Valid Till
+                </td>
+                <td>{Valid Till}</td>
+            </tr>
+            <tr>
+                <td>
+                    Document Status
+                </td>
+                <td>{Document Status}</td>
+            </tr>
+            <tr>
+                <td>
+                    Document URL
+                </td>
+                <td>{Document URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract URL
+                </td>
+                <td>{Contract URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Document Description
+                </td>
+                <td>{Document Description}</td>
+            </tr>
+                        <tr>
+                <td>
+                    Document Type
+                </td>
+                <td>{Document Type}</td>
+            </tr>
+           
+            <tr>
+                <td>
+                    Creation Mode
+                </td>
+                <td>{Creation Mode}</td>
+            </tr>
+            @*<tr>
+                <td>
+                    Document Version
+                </td>
+                <td>{Document Version}</td>
+            </tr>*@
+            <tr>
+                <td>
+                    Published By
+                </td>
+                <td>{Modified By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Published On
+                </td>
+                <td>{Modified On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Comments
+                </td>
+                <td>{Comments}</td>
+            </tr>
+            <tr>
+                <td>
+                    Added By
+                </td>
+                <td>{Modified By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Added On
+                </td>
+                <td>{Modified On}</td>
+            </tr>
+        </table>
+        <table id="tblKeysMilestone" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Milestone Title
+                </td>
+                <td>{Milestone Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Milestone Date
+                </td>
+                <td>{Milestone Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Milestone Completed
+                </td>
+                <td>{Milestone Completed}</td>
+            </tr>
+            <tr>
+                <td>
+                    Completed On
+                </td>
+                <td>{Completed On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Completed By
+                </td>
+                <td>{Completed By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract URL
+                </td>
+                <td>{Contract URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Business Area
+                </td>
+                <td>{Business Area}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Title
+                </td>
+                <td>{Contract Title}</td>
+            </tr>
+        </table>
+        <table id="tblKeysObligation" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Obligation Title
+                </td>
+                <td>{Obligation Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Obligation Date
+                </td>
+                <td>{Obligation Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Obligation Completed
+                </td>
+                <td>{Obligation Completed}</td>
+            </tr>
+            <tr>
+                <td>
+                    Completed On
+                </td>
+                <td>{Completed On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Completed By
+                </td>
+                <td>{Completed By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract URL
+                </td>
+                <td>{Contract URL}</td>
+            </tr>
+        </table>
+        <table id="tblKeysCounterparty" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Counterparty Name
+                </td>
+                <td>{Counterparty Name}</td>
+            </tr>
+            <tr>
+                <td>
+                    Created by
+                </td>
+                <td>{Created By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Created On
+                </td>
+                <td>{Created On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Counterparty URL
+                </td>
+                <td>{Counterparty URL}</td>
+            </tr>
+        </table>
+        <table id="tblKeysTask" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Task Title
+                </td>
+                <td>{Task Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Task Due Date
+                </td>
+                <td>{Task Due Date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Notes
+                </td>
+                <td>{Notes}</td>
+            </tr>
+            <tr>
+                <td>
+                    Participants
+                </td>
+                <td>{Participants}</td>
+            </tr>
+            <tr>
+                <td>
+                    Assigned by
+                </td>
+                <td>{Assigned By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Item Title
+                </td>
+                <td>{Item Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Workflow Type
+                </td>
+                <td>{Workflow Type}</td>
+            </tr>
+            <tr>
+                <td>
+                    Workflow Status
+                </td>
+                <td>{Workflow Status}</td>
+            </tr>
+            <tr>
+                <td>
+                    Participant Status
+                </td>
+                <td>{Participant Status}</td>
+            </tr>
+            <tr>
+                <td>
+                    User
+                </td>
+                <td>{User}</td>
+            </tr>
+            <tr>
+                <td>
+                    Comment Text
+                </td>
+                <td>{Comment Text}</td>
+            </tr>
+            <tr>
+                <td>
+                    Task URL
+                </td>
+                <td>{Task URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Item URL
+                </td>
+                <td>{Item URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Workflow URL
+                </td>
+                <td>{Workflow URL}</td>
+            </tr>
+            <tr>
+                <td>
+                    Business Area
+                </td>
+                <td>{Business Area}</td>
+            </tr>
+            @*Added from 2.4final to 2.4*@
+            <tr>
+                <td>
+                    Document Name
+                </td>
+                <td>{DocumentName}</td>
+            </tr>
+            <tr>
+                <td>
+                    Counterparty
+                </td>
+                <td>{CounterpartyName}</td>
+            </tr>
+            <tr>
+                <td>
+                    Due Date
+                </td>
+                <td>{Dou date}</td>
+            </tr>
+            <tr>
+                <td>
+                    Workflow Title
+                </td>
+                <td>{WorkflowTitle}</td>
+            </tr>
+            <tr>
+                <td>
+                    Started on
+                </td>
+                <td>{startedOn}</td>
+            </tr>
+            <tr>
+                <td>
+                    Reviewers
+                </td>
+                <td>{Reviewers}</td>
+            </tr>
+            <tr>
+                <td>
+                    Activity
+                </td>
+                <td>{Activity}</td>
+            </tr>
+            <tr>
+                <td>
+                    Comment
+                </td>
+                <td>{Comment}</td>
+            </tr>
+            <tr>
+                <td>
+                    Document Type
+                </td>
+                <td>{DocumentType}</td>
+            </tr>
+            <tr>
+                <td>
+                    Approvers
+                </td>
+                <td>{Approvers}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Name
+                </td>
+                <td>{Contract Name}</td>
+            </tr>
+        </table>
+        <table id="tblKeysShare" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Task Title
+                </td>
+                <td>{Task Title}</td>
+            </tr>
+            <tr>
+                <td>
+
+                    Item Title
+                </td>
+                <td>{Item Title}</td>
+            </tr>
+            <tr>
+                <td>
+
+                    Comment
+                </td>
+                <td>{Comment}</td>
+            </tr>
+            <tr>
+                <td>
+
+                    Task URL
+                </td>
+                <td>{Task URL}</td>
+            </tr>
+            <tr>
+                <td>
+
+                    Item URL
+                </td>
+                <td>{Item URL}</td>
+            </tr>
+            <tr>
+                <td>
+
+                    User Name
+                </td>
+                <td>{User Name}</td>
+            </tr>
+            <tr>
+                <td>
+                    Expires In
+                </td>
+                <td>{Expires In}</td>
+            </tr>
+            <tr>
+                <td>
+                    Valid till date
+                </td>
+                <td>{Valid till date}</td>
+            </tr>
+            <!---manoj--->
+            <tr>
+                <td>
+                    Cover Sheet URL
+                </td>
+                <td>{Cover Sheet URL}</td>
+            </tr>
+            <!---manoj--->
+            @*Sridhar*@
+            <tr>
+                <td>
+                    Business Area
+                </td>
+                <td>{Business Area}</td>
+            </tr>
+            <tr>
+                <td>
+                    Legal Entity
+                </td>
+                <td>{Legal Entity}</td>
+            </tr>
+            <tr>
+                <td>
+                    Counterparty Name
+                </td>
+                <td>{Counterparty Name}</td>
+            </tr>
+            @*Sridhar*@
+        </table>
+        <table id="tblKeysRequest" style="display:none" class="width100">
+            <tr>
+                <td>
+                    Request Title
+                </td>
+                <td>{Request Title}</td>
+            </tr>
+            <tr>
+                <td>
+                    Request Type
+                </td>
+                <td>{Request Type}</td>
+            </tr>
+            <tr>
+                <td>
+                    Requestor
+                </td>
+                <td>{Requestor}</td>
+            </tr>
+            <tr><td>
+                    Approvers
+                </td>
+            <td>{Request Approvers}</td></tr>
+            <tr>
+                <td>
+                    Created by
+                </td>
+                <td>{Created By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Created On
+                </td>
+                <td>{Created On}</td>
+            </tr>
+            <tr>
+                <td>
+                    Modified By
+                </td>
+                <td>{Modified By}</td>
+            </tr>
+            <tr>
+                <td>
+                    Assigned To
+                </td>
+                <td>{Assigned To}</td>
+            </tr>
+            <tr>
+                <td>
+                    Business Area
+                </td>
+                <td>{Business Area}</td>
+            </tr>
+            <tr>
+                <td>
+                    Legal Entity
+                </td>
+                <td>{Legal Entity}</td>
+            </tr>
+            <tr>
+                <td>
+                    Counterparty Name
+                </td>
+                <td>{Counterparty Name}</td>
+            </tr>
+            <tr>
+                <td>
+                    Request Description
+                </td>
+                <td>{Request Description}</td>
+            </tr>
+            <tr>
+                <td>
+                    Current Status
+                </td>
+                <td>{Current Status}</td>
+            </tr>
+            <tr>
+                <td>
+                    Previous Status
+                </td>
+                <td>{Previous Status}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Contract Title
+                </td>
+                <td>{Contract Title}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Contract Type
+                </td>
+                <td>{Contract Type}</td>
+            </tr>
+            <tr>
+                <td>
+                    Contract Owner
+                </td>
+                <td>{Contract Owner}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    @*<script src="~/Scripts/Contract365/Settings_AlertNotification.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/Settings_AlertNotification.js?" + DateTime.Now.GetHashCode())
+    @*<link rel="stylesheet" href="~/Content/jquery.cleditor.css" />
+        <script src="~/Scripts/jquery.cleditor.min.js"></script>*@
+
+}
+

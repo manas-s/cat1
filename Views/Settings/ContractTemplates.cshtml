@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractTypesEntity>
+
+@{
+    ViewBag.Title = "ContractTemplates";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width100">
+    <tr>
+        <td class="pageheading" colspan="2">
+            Contract Record Templates
+            <img src="~/Content/Images/help_training.png" alt="Contract Record Templates" title="Contract Record Templates" />
+        </td>
+    </tr>
+    <tr>
+        <td class="pagecontent" colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <table class="paginated width100" id="customertable">
+                    <thead>
+                        <tr>
+                            <th>Contract Type</th>
+                            <th>Sample Contract Record</th>
+                            <th>Updated By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>No items found.</tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="ContractTypeID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                    <td id="ContractTypeTemplate" style="display:none;">@Html.DisplayFor(modelItem => item.SampleContractTemplateName)</td>
+                                    <td class="openmenu">
+                                        @Html.DisplayFor(modelItem => item.ContractType)
+                                        <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SampleContractTemplateName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+
+</td>
+    </tr>
+</table>
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="delete"><a href="#delete">Delete Template</a></li>
+</ul>
+
+@section Scripts {
+
+    
+<script src="~/Scripts/Contract365/Settings_ContractTemplates.js" type="text/javascript"></script>
+    }

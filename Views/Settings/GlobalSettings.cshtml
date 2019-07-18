@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Global Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_GlobalSettings.js?" + DateTime.Now.GetHashCode())
+}
+<table id="tblGlobalSettings" class="width95_a">
+    @*<tr>
+            <td class="pageheading" colspan="2">Auto Status Updates</td>
+        </tr>
+        <tr>
+            <td class="f_head" align="right">Update Record Status to 'Up for Renewal'</td>
+            <td class="labelright" width="60%">
+                <input id="txtUpForRenewal" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;days before renewal date
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head" align="right">Update Record Status to 'About to Expire'</td>
+            <td class="labelright" width="60%">
+                <input id="txtAboutToExpire" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;days before expiration date
+            </td>
+        </tr>
+
+        <tr>
+            <td class="f_head" align="right">Keep deleted contracts in Recycle bin for</td>
+            <td class="labelright" width="60%">
+                <input id="txtRecycleBinContracts" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;days
+            </td>
+        </tr>*@
+    <tr>
+        <td class="pageheading" colspan="2">New Counterparty Creation</td>
+    </tr>
+    <tr style="display:none">
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnAdmin" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties only from Administration Page (only Global Administrators & Global Owners)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnContract" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Counterparty Database from the Create/Add Contract Form (any user with permissions to create Contract).</label>
+        </td>
+    </tr>
+    <tr class='FL_Requests' style="display:none">
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnRequest" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Counterparty Database from the Request Form (any user with permissions to Request).</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnBA" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties from Business Area- Counterparty Page (Business Area Owners)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnCA" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties from Business Area- Counterparty Page (Contract Area Administrators)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnDocument" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Document from the Create/Upload Document Form</label>
+        </td>
+    </tr>
+    <tr class='FL_Requests' style="display:none">
+        <td class="pageheading" colspan="2">Request assignment</td>
+    </tr>
+    <tr class='FL_Requests' style="display:none">
+
+        <td class="f_head" align="right">Select User(s)/Role(s)</td>
+        <td class="labelright" width="60%">
+            <select class="f_inpt chosenmulti customchosen" name="Contractnumformat" id="ddluserrolesetting" multiple data-placeholder='Select'></select>
+        </td>
+    </tr>
+    @*MileStone Reminder *Harshitha*@
+    <tr>
+        <td class="pageheading" colspan="2">Default Reminders</td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Milestone Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Document Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right">Term Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr class="FL_BackupRestore" style="display:none;">
+        <td class="pageheading" colspan="2">Backup Settings</td>
+    </tr>
+    <tr class="FL_BackupRestore" style="display:none;">
+
+        <td class="f_head" align="right">Configuration&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkConfiguration" class="linkText">Take Now</a></td>
+        <td class="labelright" width="60%">
+            <input type="radio" name="Configuration" id="rbBkpConfigDaily" value="Daily" class="css1-checkbox" />
+            <label for="rbBkpConfigDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="Configuration" id="rbBkpConfigWeekly" value="Weekly" class="css1-checkbox" />
+            <label for="rbBkpConfigWeekly" class="css1-label">Weekly</label>
+        </td>
+    </tr>
+
+    <tr class="FL_BackupRestore" style="display:none;">
+        <td class="f_head" align="right">Reference Data&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkReference" class="linkText">Take Now</a></td>
+        <td class="labelright" width="60%">
+            <input type="radio" name="ReferenceData" id="rbBkpRefDataDaily" value="Daily" class="css1-checkbox" />
+            <label for="rbBkpRefDataDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="ReferenceData" id="rbBkpRefDataWeekly" value="Weekly" class="css1-checkbox" />
+            <label for="rbBkpRefDataWeekly" class="css1-label">Weekly</label>
+        </td>
+    </tr>
+    <tr class="FL_BackupRestore" style="display:none;">
+        <td class="f_head" align="right">Business Data&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkBusiness" class="linkText">Take Now</a></td>
+        <td class="labelright" width="60%">
+            <input type="radio" name="BusinessData" id="rbBkpBusinessDataDaily" value="Daily" class="css1-checkbox" />
+            <label for="rbBkpBusinessDataDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="BusinessData" id="rbBkpBusinessDataWeekly" value="Weekly" class="css1-checkbox" />
+            <label for="rbBkpBusinessDataWeekly" class="css1-label">Weekly</label>
+        </td>
+    </tr>
+    <tr class="FL_BackupRestore" style="display:none;">
+        <td class="f_head" align="right">Logs&nbsp;&nbsp;&nbsp;@*<a href="javascript:void(0);" id="lnkLogs" class="linkText">Take Now</a>*@</td>
+        <td class="labelright" width="60%">
+            <input type="radio" name="Logs" id="rbBkpLogsDaily" value="Daily" class="css1-checkbox" />
+            <label for="rbBkpLogsDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="Logs" id="rbBkpLogsWeekly" value="Weekly" class="css1-checkbox" />
+            <label for="rbBkpLogsWeekly" class="css1-label">Weekly</label>
+        </td>
+    </tr>
+    <tr class="FL_BackupRestore" style="display:none;">
+        <td class="f_head" align="right">Keep number of backups</td>
+        <td class="labelright" width="60%">
+            <input id="txtBackupsCount" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;(Max of 100)
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+

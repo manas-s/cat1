@@ -1,0 +1,95 @@
+﻿
+
+@{
+    ViewBag.Title = "GlobalFieldConfiguration";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_GlobalFieldConfig.js?" + DateTime.Now.GetHashCode());
+
+
+}
+<table id="tblGlobalSettings" class="width95_a" >
+    <tr >
+        <td class="pageheading padding_top_5px" colspan="3">Work Flow Contract Field Configuration<small class="required">*</small></td>
+    </tr>
+    <tr >
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="from_WorkFlowC_list" multiple="multiple" class="width70" name="from_select_list" style="height:130px;"></select>
+        </td>
+        <td class="labelright padding_top_3px" width="25%">
+            <input id="WFCmoveright" type="button" value=">>" class=" width25 f_button_grey fontsize_18" onclick="move_list_items('from_WorkFlowC_list', 'to_WorkFlowC_list');" />
+            <br />   <input id="WFCmoveleft" type="button" value="<<" class="width25 f_button_grey fontsize_18" onclick="move_list_items('to_WorkFlowC_list', 'from_WorkFlowC_list');" />
+        </td>
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="to_WorkFlowC_list" multiple="multiple" class="width70  validmultipleselect" name="to_select_list" style="height:130px;"></select>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading padding_top_5px" colspan="3">Work Flow Request Field Configuration<small class="required">*</small></td>
+    </tr>
+    <tr>
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="from_WorkFlowR_list" multiple="multiple" class="width70" name="from_select_list" style="height:130px;"></select>
+        </td>
+        <td class="labelright padding_top_3px" width="25%">
+            <input id="WFRmoveright" type="button" value=">>" class=" width25 f_button_grey fontsize_18" onclick="move_list_items('from_WorkFlowR_list', 'to_WorkFlowR_list');" />
+            <br />   <input id="WFRmoveleft" type="button" value="<<" class="width25 f_button_grey fontsize_18" onclick="move_list_items('to_WorkFlowR_list', 'from_WorkFlowR_list');" />
+        </td>
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="to_WorkFlowR_list" multiple="multiple" class="width70  validmultipleselect" name="to_select_list" style="height:130px;"></select>
+        </td>
+    </tr>
+    <tr >
+        <td class="pageheading padding_top_5px" colspan="3">Report Field Configuration<small class="required">*</small></td>
+    </tr>
+    <tr >
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="from_Report_list" multiple="multiple" name="from_select_list" style="height:130px;" class="width70"></select>
+            </td>
+        <td class="labelright padding_top_3px" width="25%">
+            <input id="Rmoveright" type="button" value=">>" class="width25 f_button_grey fontsize_18" onclick="move_list_items('from_Report_list', 'to_Report_list');" />
+            <br />   <input id="Rmoveleft" type="button" value="<<" class="width25 f_button_grey fontsize_18" onclick="move_list_items('to_Report_list', 'from_Report_list');" />
+            </td>
+        <td class="labelright padding_top_3px" width="35%">
+            @*<select id="to_Report_list" multiple="multiple" name="to_select_list" style="height:130px;" class="width70 validmultipleselect"></select>*@
+            <div id="to_Report_list" class="multiselect width70" style="height:130px;">
+                @*<label><input type="checkbox" name="option[]" value="1" />Green</label>
+            <label><input type="checkbox" name="option[]" value="2" />Red</label>
+            <label><input type="checkbox" name="option[]" value="3" />Blue</label>
+            <label><input type="checkbox" name="option[]" value="4" />Orange</label>
+            <label><input type="checkbox" name="option[]" value="5" />Purple</label>
+            <label><input type="checkbox" name="option[]" value="6" />Black</label>
+            <label><input type="checkbox" name="option[]" value="7" />White</label>*@
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="pageheading padding_top_5px" colspan="3">Search Field Configuration<small class="required">*</small></td>
+    </tr>
+    <tr>
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="from_Search_list" multiple="multiple" name="from_select_list" style="height:130px;" class="width70"></select>
+          </td>
+        <td class="labelright padding_top_3px" width="25%">
+           
+            <input id="Smoveright" type="button" value=">>" class="width25 f_button_grey fontsize_18" onclick="move_list_items('from_Search_list', 'to_Search_list');" />           
+           <br/> <input id="Smoveleft" type="button" value="<<" class="width25 f_button_grey fontsize_18" onclick="move_list_items('to_Search_list', 'from_Search_list');" />
+            </td>
+        <td class="labelright padding_top_3px" width="35%">
+            <select id="to_Search_list" multiple="multiple" name="to_select_list" style="height:130px;" class="width70 validmultipleselect"></select>
+        </td>
+    </tr>
+    <tr class="padding_top_5px">
+        <td class="pageheading"></td>
+        <td class="pageheading"></td>
+        <td class="pageheading" align="right">
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+       
+    </tr>
+</table>
+
+<input type="hidden" id="hdnGlobalFieldRowKey" />

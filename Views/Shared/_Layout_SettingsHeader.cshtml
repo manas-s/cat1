@@ -1,0 +1,416 @@
+﻿@{
+    ViewBag.Title = "_Layout_SettingsHeader";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Terms and Clause Library</title>
+
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="~/Content/leftnavigation-clause.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @*
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">*@
+    <link href="~/Content/css/clausesearchstyle.css" type="text/css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="~/Content/jquery.contextMenu.css" />
+    <link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/form.css" rel="stylesheet">
+    <link href="~/Content/form-media.css" rel="stylesheet">
+    <link href="~/Content/contracts365Dev.css" rel="stylesheet">
+    <link href="~/Content/contracts365.css" rel="stylesheet">
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/econtractscss")
+    <link href="~/Content/media-clause.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.popup.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+</head>
+<body>
+    <div class="container-fluid header_bg" style="background-color: #ffffff;">
+        <div class="top_nav" style="height:auto;">
+            <div class="top_menu1bg admin_profile-Height">
+                <div class="top_nav_inner admin_profile-Height">
+                    <div class="inner_left logotop_settings">
+                        @*<div class="sp_logo_image">
+                                <a href="javascript:void(0)" onclick="BackToO365()"><img src="~/Content/images/sharepoint_bt.png" /></a>
+                            </div>
+                            <div class="logo_image">
+                                <a href="@Url.Action(" index", "Home" )"><img src="~/Content/Images/logo.png" style="border-style:none;" alt="Contracts365" width="123" height="15" /></a>
+                            </div>*@
+                        @*<div class="logoTop">
+                                <small>
+                                    <a href="javascript:void(0);" onclick="BackToO365()" class="logotop_back">Switch To Office 365</a>
+                                    <a href="javascript:void(0)" onclick="BackToO365()"><img src="/Content/Images/switch-admin.png" /></a>
+                                </small>
+                            </div>*@
+                        <a class="clearr" href="@Url.Action("Index", "Home" , new { sphosturl=Session["SPHostUrl"] })" title=""><img class="FL_CompanyBrandingLogo" style="display:none" alt="logo" src="/Content/Images/logo.png" id="logoDashboard"></a>
+                    </div>
+                    <div class="inner_right">
+                        <div class="right_inner_icons admin_profile-Height">
+                            <ul id="menu" class="menu-width100 admin_settings-Pop admin_profile-Padding">
+                                @*
+                                    <li><span><img style="padding-right:5px;" src="~/Content/Images/icon1.png" /><a href="http://help-optimusbt.corevosoftware.wpengine.com/help-articles-cloud/" target="_blank">Help</a></span></li>
+                                    <li><span><img style="padding-right:5px;" src="~/Content/Images/icon2.png" /><a href="@Url.Action(" alerts", "General" )">Alerts</a></span></li>*@
+                                @*
+                                    <li class="borderLeft_none"><span><img style="margin:0px 5px;" src="~/Content/Images/admin-switch.png" id="popModal_settings" /></span></li>*@
+                                <li>
+                                    <a href="/General/HelpDocuments" target="_blank" title="Help Documents" style="display:inline-block"><b class='help_1'>&nbsp;</b><i>.</i></a>
+                                </li>
+                                <li class="borderLeft_none"><span><a href="javascript:void(0)" style="margin-top: 4px;" id="popModal_settings" title="Navigate to"><b class=" nav_1" style="margin-top: -8px;">&nbsp;</b><i></i></a></span></li>
+                                @*
+                                    <li><span><a href="@Url.Action(" alerts", "General" )"><img style="margin:0px 5px;" src="~/Content/Images/alart_hov.png" /></a></span></li>
+                                    <li><span><a href="@Url.Action(" activity", "Activity" )"><img style="margin:0px 5px;" src="~/Content/Images/task_hover.png" /></a></span></li>*@
+                                <li style="margin-right:5px;">
+                                    <span>
+                                        <a class="img-Height-Pro" href="javascript:void(0)" id="popModal_profile">
+                                            <img src="/Content/Images/my-proffil-logo.png" id="imgProfileLogo">
+                                        </a>
+
+                                        @*<img style="padding-right:5px;" src="~/Content/Images/profile_h.png" id="popModal_profile" />*@
+                                        @*<a href="javascript:void(0)" id="popModal_profilearr"><span id="userName"></span></a>*@
+                                    </span>
+                                </li>
+                                @*
+                                    <li><span><a href="javascript:void(0)" id="popModal_settings"><b class="pop_Setting_1"></b></a></span></li>*@
+                                @*
+                                    <li>
+                                        <a href="javascript:void(0)" id="popModal_alert"><b class="alert_1">&nbsp;</b><i>.</i><span id="iUnviewdAlerts" class="unview_alerts" style="display:none"></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" id="popModal_task"><b class="task_1">&nbsp;</b><span id="iUnviewdTasks" class="unview_alerts" style="display:none"></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" id="popModal_profile"><b class="profile_1">&nbsp;</b><small><span id="userName"></span></small></a>
+                                        <a href="javascript:void(0)" id="popModal_profilearr"><img src="/Content/Images/pro-arrow.png" /></a>
+                                    </li>*@
+                                @*
+                                    <li id="liAccount" style="display:none"><span><a href="@Url.Action(" accountsettings", "Accounts" )"><img style="padding-right:5px;" src="~/Content/Images/admin-managing.png" />Account</a></span></li>
+                                    <li><a href="javascript:void(0)" id="art-vmenu">Hello <span id="userName"></span>&nbsp;<img src="@Url.Content(" ~ />Content/Images/icon/arrow.png")" width="11" height="9" /></a></li>*@
+                                @*
+                                    <li>
+                                        <a href="@Url.Action(" userprofile", "General" )">Hello <span id="userName"></span></a>
+
+                                    </li>*@
+                                @*
+                                    <li style="border-style:none;padding-top:7px; padding-right:15px;"><a href="@Url.Action(" index", "Home" )"><span title="Home"><img src="~/Content/Images/home.png" /></span></a></li>*@
+
+                            </ul>
+                            <ul id="user-vmenu" class="headerdropAdmin" style="display:none">
+                                <li><img src="~/Content/images/icon/profile.png" /><a href="javascript:void(0)" onclick="UserProfile()">My Profile</a></li>
+                                <li><img src="~/Content/images/icon/signout.png" /><a href="@Url.Action(" logout", "General" )">Sign in as Different User</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="blue1">
+                <div class="blue1_left" id="dvMainHeading">ADMINISTRATION</div>
+                <div class="blue1_right">
+
+                </div>
+            </div>
+        </div>
+
+        <div style="display:none">
+            <div id="contentsettings">
+                <ul class="settings admin_SeTTings">
+                    <li class="settingsli settingsli_Admin" style="width: 90%;"><h3 class="settSh3">Navigate to</h3></li>
+                    <li class="settingsli settingsli_Admin Perm_AdminAccess">
+                        <a href="@Url.Action("index", "Home")">
+                            <img class="settingsimg" src="~/Content/Images/home_s.png"><small class="settingssmall">My Dashboard</small>
+                        </a>
+                    </li>
+                    <li id="liAccount" style="display:none" class="settingsli settingsli_Admin Perm_AccountAccess">
+                        <a href="@Url.Action("accountsettings", "Accounts" )">
+                            <img class="settingsimg" src="/Content/Images/managing-account.png"><small class="settingssmall">Account Management</small>
+                        </a>
+                    </li>
+                    <!-- For Global Contract Owner and Global Administrator-->
+                    @*
+                        <li class="settingsli settingsli_Admin Perm_OrgAccess">
+                            <a href="@Url.Action(" businessareas", "Settings" )">
+                                <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Organization Setup</small>
+                            </a>
+                        </li>*@
+
+
+                    <!-- For Contract Area Administrator and Business Area Owner-->
+                    @*
+                        <li class="settingsli settingsli_Admin Perm_OrgAccess1">
+                            <a href="@Url.Action(" businessareas", "General" )">
+                                <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Organization Setup</small>
+                            </a>
+                        </li>*@
+                    <!-- For Contract Area Administrator and Business Area Owner-->
+                    <li class="settingsli settingsli_Admin Perm_OrgAccess">
+                        <a href="javascript:baclickglobalreports()">
+                            <img class="settingsimg" src="/Content/Images/icon/global-reports.jpg"><small class="settingssmall">Global Insights</small>
+                        </a>
+                    </li>
+                    <li class="settingsli settingsli_Admin">
+                        <a href="javascript:BackToO365()">
+                            <img class="settingsimg" src="/Content/Images/switch.png"><small class="settingssmall">Switch To Office 365</small>
+                        </a>
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </div>
+        <div style="display:none">
+            <div id="contentprofile">
+                <ul>
+                    <li class="profileli bordertopnone">
+                        <div class="overflow_hidden">
+                            <img class="profileimg" height="40" width="40" id="imgProfile" />
+                            @*<img class="profileimg" src="/Content/Images/my-proffil.png" />*@
+                            <small class="profilesmall margin-top-10">
+                                <b class="profileb"><span id="userFullName"></span></b>
+                            </small>
+                        </div>
+                        <div class="height-auto">
+                            <i class="profilei profile-indent"><span id="userDesignation"></span></i>
+                        </div>
+                    </li>
+                    <li class="profileli"><span class="profilespan"><a href="javascript:void(0)" onclick="UserProfile()">My Profile</a></span> <span class="profilespan rright"><a href="@Url.Action(" logout", "General" )">Log Out</a></span></li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />
+            </p>
+        </div>
+    </div>
+
+    <div id="loadingPageBA">
+        <div id="loadingcontentBA">
+            <p id="loadingspinnerBA">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Redirecting to Business Area Dashboard
+            </p>
+        </div>
+    </div>
+
+    <script>
+        @functions{
+ public string GetAntiForgeryToken()
+ {
+ string cookieToken, formToken;
+ AntiForgery.GetTokens(null, out cookieToken, out formToken);
+ return cookieToken + "," + formToken;
+ }
+ }
+
+    </script>
+    <input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />
+
+    <script src="~/Scripts/Contract365/_Layout_SettingsHeader.js"></script>
+    <script src="~/Scripts/bs_leftnavi.js"></script>
+    <script src="~/Scripts/NewChanges/popModal.js"></script>
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/spcontext")
+    @Scripts.Render("~/Scripts/jquery.contextmenu.js")
+    @Scripts.Render("~/Scripts/jquery.simplemodal-1.1.1.js")
+    @Scripts.Render("~/Scripts/jquery.listnav-2.1.js")
+    @Styles.Render("~/Content/settingscss")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+    <script type="text/javascript">
+        var vApiBaseSiteUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiBaseSiteUrl"]';
+        if ('@Session["UserName"]' != '') {
+            localStorage.UserName = decodeURI(unescape('@Session["UserName"]'));
+            localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+            localStorage.APIKey = '@Session["APIKey"]';
+            localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+            localStorage.UserTitle = '@Session["UserTitle"]';
+            localStorage.OEmail = decodeURI(unescape('@Session["OEmail"]'));
+            localStorage.UserID = '@Session["UserID"]';
+            localStorage.RefreshToken = '@Session["RefreshToken"]';
+            localStorage.Designation = 'Manager';
+            localStorage.LoginTime = new Date();
+        }
+        else {
+            //alert(localStorage.LoginTime);
+            if (typeof localStorage.LoginTime == "undefined") {
+                localStorage.removeItem('UserName');
+                localStorage.removeItem('AccountID');
+                localStorage.removeItem('APIKey');
+                localStorage.removeItem('SPHostUrl');
+                localStorage.removeItem('UserTitle');
+                localStorage.removeItem('OEmail');
+                localStorage.removeItem('UserID');
+                localStorage.removeItem('Permission');
+                localStorage.removeItem('GlobalBusinessArea');
+                localStorage.removeItem('GlobalBusinessAreaLocation');
+                localStorage.removeItem('BusinessAreaAccess');
+                localStorage.removeItem('UserType');
+                location = "/Error/NoAccess";
+            } else {
+                var start = moment(localStorage.LoginTime);
+                var end = moment(new Date());
+                var vv = end.diff(start, "minutes");
+                if (vv > 3) {
+                    var vSPHostUrl = localStorage.SPHostUrl;
+                    localStorage.removeItem('UserName');
+                    localStorage.removeItem('AccountID');
+                    localStorage.removeItem('APIKey');
+                    localStorage.removeItem('SPHostUrl');
+                    localStorage.removeItem('UserTitle');
+                    localStorage.removeItem('OEmail');
+                    localStorage.removeItem('UserID');
+                    localStorage.removeItem('Permission');
+                    localStorage.removeItem('GlobalBusinessArea');
+                    localStorage.removeItem('GlobalBusinessAreaLocation');
+                    localStorage.removeItem('BusinessAreaAccess');
+                    localStorage.removeItem('UserType');
+                    location = "/Home?SPHostUrl=" + vSPHostUrl;
+                } else {
+                    localStorage.LoginTime = new Date();
+                    //$.post('/Settings/SetSession', { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+                    //$.post("/Settings/SetSession", { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID }, function (sucess) {
+                    //});
+                    $.ajax({
+                        url: '/Settings/SetSession',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            AccountID: localStorage.AccountID,
+                            SPHostUrl: localStorage.SPHostUrl,
+                            UserName: localStorage.UserName,
+                            APIKey: localStorage.APIKey,
+                            OEmail: localStorage.OEmail,
+                            UserTitle: localStorage.UserTitle,
+                            UserID: localStorage.UserID
+                        },
+                        cache: false,
+                        success: function (person) {
+
+                        }
+                    });
+                }
+            }
+        }
+
+        timeout_init();
+
+        function timeout_trigger() {
+            //$.post('/Settings/SetSession', { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+            //$.post("/Settings/SetSession", { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID }, function (sucess) {
+            //});
+            $.ajax({
+                url: '/Settings/SetSession',
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                },
+                data: {
+                    AccountID: localStorage.AccountID,
+                    SPHostUrl: localStorage.SPHostUrl,
+                    UserName: localStorage.UserName,
+                    APIKey: localStorage.APIKey,
+                    OEmail: localStorage.OEmail,
+                    UserTitle: localStorage.UserTitle,
+                    UserID: localStorage.UserID
+                },
+                cache: false,
+                success: function (person) {
+
+                }
+            });
+            timeout_init();
+        }
+
+        function timeout_init() {
+            setTimeout('timeout_trigger()', 60000);
+        }
+        $("#userName").html(localStorage.UserTitle);
+        $("#userFullName").html(localStorage.UserName);
+        $("#userDesignation").html(localStorage.UserType);
+
+        $('#popModal_settings').click(function () {
+            $('#popModal_settings').popModal({
+                html: $('#contentsettings'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_alert').click(function () {
+            $('#popModal_alert').popModal({
+                html: $('#contentalert'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_task').click(function () {
+            $('#popModal_task').popModal({
+                html: $('#contenttasks'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+        $('#popModal_profile').click(function () {
+            $('#popModal_profile').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_profilearr').click(function () {
+            $('#popModal_profilearr').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,321 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractFieldsEntity>
+
+@{
+    ViewBag.Title = "Office 365 Library Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<h4 style="display:none" id="orgSelected">HR</h4>
+<table class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Document Library Settings <img src="../Content/Images/help_training.png" id="settingsMenuHelp" title="Setup of Metadata Fields mapping and document storing options." /></td>
+    </tr>
+    <tr>
+        <td>
+            <div class="pop_up_Harizondal" id="settingsMenu">
+                <ul>
+                    <li><a id="idMapping" href="javascript:void(0);">Mapping / Storing</a></li>
+                    <li><a id="idVersioning" href="javascript:void(0);">Versioning</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="dvidMapping">
+    <div id="page-wrap" class="width95_a">
+
+        <table class="tblgrid">
+            <thead>
+                <tr>
+                    <th>Contract Field</th>
+                    <th>Description</th>
+                    <th>
+                        <button type="button" id="btnMapDraft" class="f_button_grey_small" style="margin:-10px;">Map</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.DraftLibraryFieldMapping != null)
+                {
+                    foreach (var item in ViewBag.DraftLibraryFieldMapping)
+                    {
+                        <tr>
+                            <td>@item.FieldDisplayName</td>
+                            <td colspan="2">@item.Description</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">No mapped field</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <br />
+    <span class="f_list" id="AllowSaveDraft">
+        <input type="checkbox" name="chkAllowreplaceSettings" id="chkAllowreplaceSettings" class="css1-checkbox" />
+        <label for="chkAllowreplaceSettings" class="css1-label">Allow to replace the signed document(s).</label>
+    </span><br />
+    <br />
+    
+    <span class="f_list" id="AllowSaveDraft">
+        <input type="checkbox" name="chkAllowSaveDraftSettings" id="chkAllowSaveDraftSettings" class="css1-checkbox" onchange="AllowOnChangeSaveDraf()" />
+        <label for="chkAllowSaveDraftSettings" class="css1-label">Allow to save a copy of the document(s) in azure cloud on create document form.</label>
+    </span><br />
+    <br />
+    <span class="f_list" id="SaveDraftCk">
+        <input type="checkbox" name="chkSaveDraftSettings" id="chkSaveDraftSettings" class="css1-checkbox" disabled />
+        <label for="chkSaveDraftSettings" class="css1-label">Save a copy of the document(s) in azure cloud by default.</label>
+    </span>
+    <br />
+    <span class="f_list" id="SaveRequestDocument" style="display:none">
+        <label>Save Request Document(s)</label>
+        <input type="radio" name="rdSaveRequestDocumet" id="rdblobstroage" value="Yes"  class="css1-checkbox"/><label for="rdblobstroage" class="">Blob Stroage</label>
+        <input type="radio" name="rdSaveRequestDocumet" id="rdsharepoint" value="No" class="css1-checkbox" /><label for="rdsharepoint" class="">SharePoint Library Stroage</label>
+    </span>
+    <br />
+    @*<br/>
+        <table class="width95_a">
+            <tr>
+                <td class="pageheading" colspan="2">Office 365 Sharepoint Finalized Library Settings</td>
+            </tr>
+            <tr>
+                <td style="padding-top:15px;">
+                    Finalized Document Library
+                </td>
+                <td>
+                    <span id="finalizedLibrary" style="background-color:#b9b6b6;"></span>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <span style="font-weight:normal; font-size:16px;">Contract Record to Document Library Field Mapping</span>
+        <img src="../Content/Images/help_training.png" title="Contract Record to Document Library Field Mapping" />
+        <br />
+
+        <div id="page-wrap" class="width95_a">
+
+            <table class="tblgrid">
+                <thead>
+                    <tr>
+                        <th>Contract Field</th>
+                        <th>Description</th>
+                        <th>
+                            <button type="button" id="btnMapFinal" class="f_button_grey_small" style="margin:-10px;">Map</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.FinalLibraryFieldMapping != null)
+                    {
+                        foreach (var item in ViewBag.FinalLibraryFieldMapping)
+                        {
+                            <tr>
+                                <td>@item.FieldDisplayName</td>
+                                <td colspan="2">@item.Description</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2">No mapped field</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <br />
+        <span class="f_list">
+            <input type="checkbox" name="chkSaveFinalSettings" id="chkSaveFinalSettings" class="css1-checkbox" />
+            <label for="chkSaveFinalSettings" class="css1-label">save a copy of the document(s) in azure cloud by default.</label>
+        </span>
+        <br />
+        <br />
+        <h4>Document &amp; Field Data Sync Settings</h4>
+        <hr />
+        <ul class="f_list">
+            <li>
+                <input id="automatic" type="radio" name="syncsettings" checked="checked" class="css-checkbox" value="automatic" />
+                <label for="automatic" class="css-label">Automatic, on every save and update</label>
+            </li>
+
+            <li>
+                <input id="manual" type="radio" name="syncsettings" class="css-checkbox" value="manual" />
+                <label for="manual" class="css-label">Manual, only when sync button is clicked</label>
+            </li>
+            <li>
+                <input id="other" type="radio" name="syncsettings" class="css-checkbox" value="other" />
+                <label for="other" class="css-label">Ask every time when document is updated</label>
+            </li>
+        </ul>*@
+    <p style="text-align:right" class="width95_a">
+        <input type="submit" value="Save" id="btnSave" class="f_button_green" />
+    </p>
+</div>
+<!-- Model Popups-->
+<div id="dialogMapDraftField" style="display:none;">
+    <div class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" id="MapDraftFieldTable">
+            @if (Model != null)
+                        {
+                foreach (var item in Model)
+            {
+                <tr>
+                    <td style="display:none;">
+                        <input type="text" value="" id="txtMappedFields" />
+                    </td>
+                    <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                    <td class="f_list padding_5px">
+                        @{bool isAlreadyAdded = false;}
+                        @if (ViewBag.DraftLibraryFieldMapping != null)
+                        {
+                            foreach (var itemsaved in ViewBag.DraftLibraryFieldMapping)
+                            {
+                                if (itemsaved.FieldDisplayName == item.FieldDisplayName)
+                                {
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+                        @if (isAlreadyAdded)
+                        {
+                        <input type="checkbox" id="@item.FieldName" name="chkDraft" class="css1-checkbox" checked value=@item.FieldName />
+                        <label for="@item.FieldName" class="css1-label">@item.FieldDisplayName</label>
+                        }
+                        else
+                        {
+                        <input type="checkbox" id="@item.FieldName" name="chkDraft" class="css1-checkbox" value=@item.FieldName />
+                        <label for="@item.FieldName" class="css1-label">@item.FieldDisplayName</label>
+                        }
+
+                    </td>
+                </tr>
+            }
+            }
+        </table>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="pagination_MapDraftField" class="margin-left-m20"></article>
+    </div>
+    <div class="width20 float_right1 result_count padding_right_none">
+        <span id="spResult_MapDraftField"></span>
+    </div>
+</div>
+
+<div id="dialogMapFinalField" style="display:none;">
+    <div class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2">
+            @if (Model != null)
+                        {
+                foreach (var item in Model)
+            {
+                <tr>
+                    <td style="display:none;">
+                        <input type="text" value="" id="txtFinalMappedFields" />
+                    </td>
+                    <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                    <td class="f_list">
+                        @{bool isAlreadyAdded = false;}
+                        @if (ViewBag.FinalLibraryFieldMapping != null)
+                        {
+                            foreach (var itemsaved in ViewBag.FinalLibraryFieldMapping)
+                            {
+                                if (itemsaved.FieldDisplayName == item.FieldDisplayName)
+                                {
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+                        @if (isAlreadyAdded)
+                        {
+                            <input type="checkbox" id="@item.FieldName+1" name="chkFinal" class="css1-checkbox" checked value=@item.FieldName />
+                            <label for="@item.FieldName+1" class="css1-label">@item.FieldDisplayName</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="@item.FieldName+1" name="chkFinal" class="css1-checkbox" value=@item.FieldName />
+                            <label for="@item.FieldName+1" class="css1-label">@item.FieldDisplayName</label>
+                        }
+                    </td>
+                </tr>
+            }
+            }
+        </table>
+    </div>
+</div>
+<!-- End of model popup-->
+<div id="dvidVersioning" style="display:none;">
+    <table class="width95_a">
+        <tr>
+            <td colspan="2">
+                <table class="width100">
+                    <tr>
+                        <td class="tableLeft width50 wf_padding">Document Version History</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkVersionNo" type="radio" name="docversion" value="No" />No versioning
+                            <br/>
+                            <input id="chkVersionMajor" type="radio" name="docversion" checked value="Major" />Create major versions Example: 1, 2, 3, 4
+                            <br />
+                            <input id="chkVersionAll" type="radio" name="docversion" value="All" />Create major and minor versions Example: 1.0, 1.1, 1.2, 2.0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Who should see draft items in this document library?</td>
+                        <td class="tableRight width50 wf_padding">                         
+                            <input id="chkdocRead" type="radio" name="docsecurity" checked value="Read" />Any user who can read items
+                            <input id="chkdocEdit" type="radio" name="docsecurity" value="Edit" />Only users who can edit items
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Require Check Out</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkCheckoutYes" type="radio" name="doccheckout" value="Yes" />Yes
+                            <input id="chkCheckoutNo" type="radio" name="doccheckout" checked value="No" />No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Default document view</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkDocViewClient" type="radio" name="docdefaultview" value="WordClient" />Word Client (Microsoft Word)
+                            <input id="chkDocViewOnline" type="radio" name="docdefaultview" checked value="WordOnline" />Word Online
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Allow External User to Upload new versions of document?</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkExtUploadYes" type="radio" name="docuploadexternal" checked value="Yes" />Yes
+                            <input id="chkExtUploadNo" type="radio" name="docuploadexternal" value="No" />No
+                        </td>
+                    </tr>                                        
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="tableLeft"></td>
+            <td class="foot_right" align="right">
+                <p style="text-align:right" class="width95_a">
+                    <input type="submit" value="Save" id="btnSaveVersion" class="f_button_green_small" />
+                </p>
+            </td>
+        </tr>
+    </table>
+    
+</div>
+<!-- Scripts-->
+@section Scripts {
+    <script src="~/Scripts/Contract365/Settings_DraftLibrarySettings.js"></script>
+}
+
+

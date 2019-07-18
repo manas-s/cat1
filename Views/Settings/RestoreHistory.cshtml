@@ -1,0 +1,73 @@
+﻿@*@model IEnumerable<Corevo.eContracts365.TableEntities.RestoreHistoryEntity>*@
+@{
+    ViewBag.Title = "Restore History";
+    //Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_RestoreHistory.js?" + DateTime.Now.GetHashCode())
+}
+<br />
+<section class="main">
+    <section class="wraper">
+        <div class="box_Report">
+            <div id="logFiltersForm" class="width100">
+                <table class="width95_a" id="tblReportFilters">
+                    <tbody>
+                        <tr>
+                            <td class="text labelleft" width="15%">Restore Type</td>
+                            <td class="labelleft" width="40%">
+                                <select id="ddlRestoreTypeHis" name="RestoreType" class="f_inpt_small width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="ConfigurationData">Configuration Data</option>
+                                    <option value="ReferenceData">Reference Data</option>
+                                    <option value="BusinessData">Business Data</option>
+                                    <option value="LogsData">Logs Data</option>
+                                </select>
+
+
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="width95_a"><tr><td class="text labelleft"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()" class="pop_up_Content_White">Apply</a> <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td></tr></table>
+        </div>
+    </section>
+</section>
+<br />
+<div id="page-wrap">
+    <table class="paginated width95_a">
+        @*ENH 491 Back up & Restore*@
+        <thead>
+            <tr>
+                <th id="footleft1" class="font-normal">
+                    Restore Type
+                    <a class="search-btn" id="trigger1" href="javascript:void(0);">
+                        <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                    </a>
+                    <div class="search-sec" id="drop1" style="display: none;">
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort1('asc')"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div>
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort1('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                    </div>
+                </th>
+                <th id="datefootleft1" class="font-normal">
+                    Restore History Date
+                    <a class="search-btn" id="datetrigger1" href="javascript:void(0);">
+                        <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                    </a>
+                    <div class="search-sec" id="datedrop1" style="display:none;">
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort1('ascdate');">Sort by Date- Ascending</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort1('descdate');">Sort by Date- Descending</a></div>
+                    </div>
+                </th>
+                <th>Restored by</th>
+            </tr>
+        </thead>
+        <tbody id="restorehistorytable"></tbody>
+    </table>
+    @*ENH 491 Back up & Restore*@
+</div>
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination"></article>
+</div>

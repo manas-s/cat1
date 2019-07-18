@@ -1,0 +1,1156 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width100">
+    <tr>
+        <td class="pageheading" colspan="2">User Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ManageUsers" href="@Url.Action("ManageUsers", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ManageUsers", "Settings")">Users & Permission</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage user profile, alerts, access and permissions.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-User-role" href="@Url.Action("UserRole", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("UserRole", "Settings")">User Roles</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage user roles and assign specific roles to users.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @*<div class="featureTile">
+                        <a class="feature-icon img-pos-RolesPermissions" href="@Url.Action("RolesPermissions", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("RolesPermissions", "Settings")">Roles &amp; Permissions</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Roles &amp; Permissions
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-RolesPermissions" href="@Url.Action("PermissionSet", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("PermissionSet", "Settings")">Permission Set</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Permission Set
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>*@
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+
+        <td class="pageheading" colspan="2">Organization Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CompanyProfile" href="@Url.Action("CompanyProfile", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("CompanyProfile", "Settings")">Company Info & Legal Entities</a>
+                        </div>
+                        <div class="featureDescription">
+                            Setup Company and Legal Entity information.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile" id="divBusinessArea" style="display:none;">
+                    <a class="feature-icon img-pos-BusinessAreas" href="@Url.Action("BusinessAreas", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("BusinessAreas", "Settings")">Contract & Business Areas</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup organization Contract and Business Area hierarchy.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="2">Contract Record Setup</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractFields" href="@Url.Action("ContractFields", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractFields", "Settings")">Basic Metadata Fields</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup basic Metadata fields for all Contract Record Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractNumber" href="@Url.Action("ContractNumber", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractNumber", "Settings")">Contract Title & Numbering Scheme</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure a standard title & numbering scheme for all Contract Records.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractStatus" href="@Url.Action("ContractStatus", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractStatus", "Settings")">Status Management</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Contract Record status, and auto status update conditions.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractValue" href="@Url.Action("ContractValue", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractValue", "Settings")">Contract Value (Financials)</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup Currencies, Display formats, Base currency and Conversion rates.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                @*<div class="featureTile">
+                        <a class="feature-icon img-pos-LookupValues" href="@Url.Action("LookupValues", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("LookupValues", "Settings")">Standard Lookup Values</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Standard Lookup Values
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-CustomLookupValues" href="@Url.Action("LookUp", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("LookUp", "Settings")">Custom Lookup Values</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Custom Lookup Values
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>*@
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractTypes" href="@Url.Action("ContractTypes", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractTypes", "Settings")">Contract Record Type Management</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Contract Record Types, configure specific fields, Document Templates and assign to Contract Areas.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                @*<div class="featureTile">
+                        <a class="feature-icon img-pos-Contract-Record-Templates" href="@Url.Action("ContractTemplate", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("ContractTemplate", "Settings")">Contract Record Templates</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Contract Record Templates
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>*@
+                <div class="featureTile">
+                    <a id="Features" class="feature-icon img-pos-StandardMilestones" href="@Url.Action("DefaultMilestones", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("DefaultMilestones", "Settings")">Standard Milestones</a>
+                        </div>
+                        <div class="featureDescription">
+                            Setup standard milestones, calculate dates and assign to Contract Record Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractTermTypes" href="@Url.Action("ContractTermTypes", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractTermTypes", "Settings")">Contract Term Type Management</a>
+                        </div>
+                        <div class="featureDescription">
+                            Manage Contract Term Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractRelationships" href="@Url.Action("ContractRelationships", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractRelationships", "Settings")">Contract Relationships</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Contract Relationships.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile FL_ApprovalSheet">
+                    <a class="feature-icon img-pos-SummaryApproval" href="@Url.Action("ContractApprovalSheets", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ContractApprovalSheets", "Settings")">Summary & Approval Sheet</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Contract Approval Sheets.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="pageheading FL_Requests" colspan="2">Request Setup</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="content-wraper FL_Requests">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractFields" href="@Url.Action("RequestFields", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("RequestFields", "Settings")">Basic Metadata Fields</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup basic metadata fields for all Request Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-RequestTypeManagement" href="@Url.Action("RequestTypes", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("RequestTypes", "Settings")">Request Type Management</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Request Types, configure specific fields and assign to Contract Areas.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-RequestAssignment" href="@Url.Action("RequestAssignment", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("RequestAssignment", "Settings")">Request Assignment</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure standard Request assignment users / user roles.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="pageheading FL_Counterparty" colspan="2">Counterparty Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="content-wraper FL_Counterparty">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractFields" href="@Url.Action("CounterpartyFields", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("CounterpartyFields", "Settings")">Basic Metadata Fields</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup basic Metadata fields for all Counterparty Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CounterpartySettings" href="@Url.Action("CounterpartySettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("CounterpartySettings", "Settings")">Counterparty Settings</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Options for Counterparty information management and creation.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CounterpartyTypes" href="@Url.Action("CounterpartyTypes", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("CounterpartyTypes", "Settings")">Counterparty Types</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup Counterparty types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="pageheading" colspan="2">Master Data & Lookups</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="content-wraper">
+                <div class="featureTile FL_Counterparty">
+                    <a class="feature-icon img-pos-CounterpartyDatabase" href="@Url.Action("Counterparty", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Counterparty", "Settings")">Counterparty Database</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Database of all Counterparty Organization and Entities.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile FL_Counterparty">
+                    <a class="feature-icon img-pos-CounterpartyContacts" href="@Url.Action("CounterpartyContacts", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("CounterpartyContacts", "Settings")">Counterparty Contacts</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage Counterparty Contact information.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-LookupValues" href="@Url.Action("LookupValues", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("LookupValues", "Settings")">Metadata Field Lookups (Standard)</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage options for Standard lookups in eContracts.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CustomLookupValues" href="@Url.Action("LookUp", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("LookUp", "Settings")">Metadata Field Lookups (Custom)</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Create and manage Custom (user created) lookups.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ContractLabels" href="@Url.Action("Labels", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Labels", "Settings")">Contract Record Labels</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage color coded Contract Record labels for quick identification and Search.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile FL_Product" style="display:none">
+                    <a class="feature-icon img-pos-ProductListing" href="@Url.Action("Product", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Product", "Settings")">Product Listing</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage list of your Company's standard Products.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile FL_Project" style="display:none">
+                    <a class="feature-icon img-pos-ProjectListing" href="@Url.Action("Project", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Project", "Settings")">Project Listing</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage list of your Company's Projects (only for Project based Contracts).
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-ProjectListing" href="@Url.Action("GlobalFieldConfigurations", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("GlobalFieldConfigurations", "Settings")">Global Field Settings</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Global Field Settings
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr class="FL_TermsandClauses" style="display:none">
+        <td class="pageheading" colspan="2">Terms &amp; Clauses</td>
+    </tr>
+    <tr class="FL_TermsandClauses" style="display:none">
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-Contract-clauses" href="@Url.Action("ClauseDB", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ClauseDB", "Settings")">Terms &amp; Clauses</a>
+                        </div>
+                        <div class="featureDescription">
+                            Manage terms and clauses library.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    @*<tr>
+            <td class="pageheading" colspan="2">Contract Types</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+
+                <div class="content-wraper">
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-ContractTypes" href="@Url.Action("ContractTypes", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("ContractTypes", "Settings")">Contract Types Settings</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Contract Types
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-ContractTemplates" href="@Url.Action("ContractTemplates", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("ContractTemplates", "Settings")">Sample(Template) Contract</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Contract Templates
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>*@
+    <tr>
+        <td class="pageheading" colspan="2">Document Management</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-DocumentTypes" href="@Url.Action("DocumentTypes", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("DocumentTypes", "Settings")">Document Type Management</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup Document Types and associate with Contract Areas and Contract Record Types.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile FL_Automation" style="display:none">
+                    <a class="feature-icon img-pos-TemplateDocuments" href="@Url.Action("UploadTemplate", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("UploadTemplate", "Settings")">Document Templates (Automation)</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage standard document templates (.dotx) and use for Document Automation.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile FL_Automation" style="display:none">
+                    <a class="feature-icon img-pos-TemplateDocuments-Key" href="@Url.Action("TemplateConfigurationKeywords", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("TemplateConfigurationKeywords", "Settings")">Document Template Keywords (Fields)</a>
+                        </div>
+                        <div class="featureDescription">
+                            Metadata Fields to Document Keywords mapping for Document Automation.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-DraftLibrarySettings" href="@Url.Action("DraftLibrarySettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("DraftLibrarySettings", "Settings")">Document Library Settings</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup of Metadata Field mapping and document storing options.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="pageheading" colspan="2">Workflows & Tasks</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile FL_Workflow" style="display:none;">
+                    <a class="feature-icon img-pos-Record-approval" href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Contract Approval", BusinessArea = "All" })"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle FL_Workflow" style="display:none;">
+                            <a href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Contract Approval", BusinessArea = "All" })">Contract Record Approvals</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure conditions and routing rules for Contract Record approvals.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @*<div class="featureTile">
+                        <a class="feature-icon img-pos-Terms" href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Renewal Approval", BusinessArea = "All" })"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Renewal Approval", BusinessArea = "All" })">Renewal Approval</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Configure conditions and routing rules for Contract Records
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>*@
+                <div class="featureTile FL_Workflow" style="display:none;">
+                    <a class="feature-icon img-pos-Contract-Document-review" href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Document Review", BusinessArea = "All" })"></a>
+                    <div class="featureTextBlock FL_Workflow" style="display:none;">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Document Review", BusinessArea = "All" })">Document Reviews</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure conditions and routing rules for Document reviews.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile FL_RequestsWorkFlow" style="display:none;">
+                    <a class="feature-icon img-pos-RequestApprovals" href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Request Approval", ContractArea = "All", BusinessArea = "All" })"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle FL_RequestsWorkFlow" style="display:none;">
+                            <a href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Request Approval", ContractArea = "All", BusinessArea = "All" })">Request Approvals</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure conditions and routing rules for Request approvals.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @*eO39865*@
+                <div class="featureTile FL_Workflow" style="display:none;">
+                    <a class="feature-icon img-pos-AmendmentApprovals" href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Amendment Approval", BusinessArea = "All" })"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle FL_Workflow" style="display:none;">
+                            <a href="@Url.Action("WorkflowConfigurationList", "Settings", new { Type = "Amendment Approval", BusinessArea = "All" })">Amendment Approvals</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure conditions and routing rules for Amendment Approvals.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-Workflow-Settings" href="@Url.Action("WorkflowSettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("WorkflowSettings", "Settings")">Workflow Settings</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            General options for Tasks assignment & Workflow routing.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="pageheading" colspan="2">Alerts & Reminders</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-AlertNotification" href="@Url.Action("AlertNotification", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("AlertNotification", "Settings")">Alerts Management</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Manage overall alerts sent out from eContracts and the message it contains.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-WorkflowAlertSettings" href="@Url.Action("WorkflowAlertSettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("WorkflowAlertSettings", "Settings")">Workflow Alert Settings</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Options for workflow tasks related alerts sent out.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-DefaultReminderSetup" href="@Url.Action("DefaultReminderSetup", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("DefaultReminderSetup", "Settings")">Default Reminder Setup</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Setup default reminders for Contract Renewals and Expirations.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-Histroy-Alert" href="@Url.Action("Alert", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Alert", "Settings")">Alert Log</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Log of all alerts sent out.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="pageheading" colspan="2">Metrics</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile" style="display:none">
+                    <a class="feature-icon img-pos-ReportsConfiguration" href="@Url.Action("Reports", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Reports", "Settings")">Reports Configuration</a>
+                        </div>
+                        <div class="featureDescription">
+                            Configure views, filters and audience for (Global Insights) Reports.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-MetricsConfiguration" href="@Url.Action("MetricsSettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("MetricsSettings", "Settings")">Metrics Configuration</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Configure options for metrics components.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+
+        </td>
+    </tr>
+
+
+
+
+
+
+    @*<tr>
+            <td class="pageheading" colspan="2">Terms</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+
+                <div class="content-wraper">
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-Terms" href="@Url.Action("Terms", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("Terms", "Settings")">Contract Terms</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Contract Terms
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>*@
+    <tr>
+        <td class="pageheading" colspan="2">System</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="content-wraper">
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-LOg-Histroy" href="@Url.Action("Loghistory", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Loghistory", "Settings")">System Logs</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Log of all important Contract Record related activities performed by the user.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile  FL_BackupRestore" style="display:none">
+                    <a class="feature-icon img-pos-Back-up" href="@Url.Action("Backup_Restore", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("Backup_Restore", "Settings")">Backup &amp; Restore</a>
+
+                        </div>
+                        <div class="featureDescription">
+                            Data Backup settings and options to Restore to previous state.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-Conrt-recyclebin" href="@Url.Action("RecycleBin", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("RecycleBin", "Settings")">Recycle Bin Contracts</a>
+                        </div>
+                        <div class="featureDescription">
+                            View and Restore deleted records.
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-Conrt-recyclebin" href="@Url.Action("RecycleBinRequests", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("RecycleBinRequests", "Settings")">Recycle Bin Requests</a>
+                        </div>
+                        <div class="featureDescription">
+                            Requests in Recycle Bin
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @*<div class="featureTile">
+                        <a class="feature-icon img-pos-LOg-Histroy" href="@Url.Action("Loghistory", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("Alert", "Settings")">Alerts</a>
+                            </div>
+                            <div class="featureDescription">
+                                Alerts
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>*@
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-GeneralSettings" href="@Url.Action("GeneralSettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("GeneralSettings", "Settings")">General Settings</a>
+                        </div>
+                        <div class="featureDescription">
+                            Manage General Settings
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="featureTile FL_Integration">
+                    <a class="feature-icon img-pos-GeneralSettings" href="@Url.Action("IntegrationSettings", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("IntegrationSettings", "Settings")">Integration Settings</a>
+                        </div>
+                        <div class="featureDescription">
+                            Manage Integration Settings
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                @*<div class="featureTile  FL_BackupRestore" style="display:none">
+                        <a class="feature-icon img-pos-Back-up" href="@Url.Action("Backup_Restore", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+
+                                <a href="@Url.Action("Backup_Restore", "Settings")">Backup &amp; Restore</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Backup &amp; Restore
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>*@
+                @*<div class="featureTile FL_BackupRestore" style="display:none">
+                        <a class="feature-icon img-pos-Restore" href="@Url.Action("Restore", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("Restore", "Settings")">Restore</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Restore
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="featureTile FL_BackupRestore" style="display:none">
+                        <a class="feature-icon img-pos-Restore-Histroy" href="@Url.Action("RestoreHistory", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("RestoreHistory", "Settings")">Restore History</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Restore History
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>*@
+            </div>
+        </td>
+    </tr>
+
+    @*<tr>
+            <td class="pageheading" colspan="2">General Settings</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="content-wraper">
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-AlertNotification" href="@Url.Action("AlertNotification", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("AlertNotification", "Settings")">Alerts &amp; Notifications</a>
+
+                            </div>
+                            <div class="featureDescription">
+                                Set up Alert
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="featureTile">
+                        <a class="feature-icon img-pos-Global-Settings" href="@Url.Action("GlobalSettings", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("GlobalSettings", "Settings")">Global Settings</a>
+                            </div>
+                            <div class="featureDescription">
+                                Specify duration for date based status updates
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="featureTile" style="display:none;">
+                        <a id="Features" class="feature-icon img-pos-Addon-Feature" href="@Url.Action("ManageFeatures", "Settings")"></a>
+                        <div class="featureTextBlock">
+                            <div class="featureTitle">
+                                <a href="@Url.Action("ManageFeatures", "Settings")">eContracts Add On Features</a>
+                            </div>
+                            <div class="featureDescription">
+                                Turn On/Off global features
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </td>
+
+        </tr>*@
+    <tr style="display:none">
+        <td class="pageheading" colspan="2">Data Import & Export</td>
+    </tr>
+    <tr style="display:none">
+        <td colspan="2">
+
+            <div class="content-wraper">
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CompanyProfile" href="@Url.Action("ImportConfiguration", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ImportConfiguration", "Settings")">Import Configuration</a>
+                        </div>
+                        <div class="featureDescription">
+                            Import Configuration
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CompanyProfile" href="@Url.Action("ImportCounterparty", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ImportCounterparty", "Settings")">Import Counterparty</a>
+                        </div>
+                        <div class="featureDescription">
+                            Import Counterparty
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-CompanyProfile" href="@Url.Action("ImportContractsAndMetadata", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ImportContractsAndMetadata", "Settings")">Import Contracts & Metadata</a>
+                        </div>
+                        <div class="featureDescription">
+                            Import Contracts & Metadata
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-BusinessAreas" href="@Url.Action("ExportConfiguration", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ExportConfiguration", "Settings")">Export Configuration</a>
+                        </div>
+                        <div class="featureDescription">
+                            Export Configuration
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-BusinessAreas" href="@Url.Action("ExportCounterparty", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ExportCounterparty", "Settings")">Export Counterparty</a>
+                        </div>
+                        <div class="featureDescription">
+                            Export Counterparty
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="featureTile">
+                    <a class="feature-icon img-pos-BusinessAreas" href="@Url.Action("ExportContractsandMetadata", "Settings")"></a>
+                    <div class="featureTextBlock">
+                        <div class="featureTitle">
+                            <a href="@Url.Action("ExportContractsandMetadata", "Settings")">Export Contracts & Metadata</a>
+                        </div>
+                        <div class="featureDescription">
+                            Export Contracts & Metadata
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+</table>
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+           
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature?featurename=Business Area',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                async: false,
+                success: function (data) {
+                    if (data.Status == "OFF")
+                        $("#divBusinessArea").hide();
+                    else
+                        $("#divBusinessArea").show();
+                },
+                error: function (data) {
+                    $("#divBusinessArea").show();
+                }
+            });
+        });
+    </script>
+}
+

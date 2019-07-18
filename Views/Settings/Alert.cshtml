@@ -1,0 +1,91 @@
+﻿@*@model IEnumerable<Corevo.eContracts365.TableEntities.NotificationsEntity>*@
+
+@{
+    ViewBag.Title = "Alerts";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/Contract365/Settings_Alert.js?" + DateTime.Now.GetHashCode())
+}
+
+
+<div id="page-wrap" class="width95_a">
+    <table>
+        <tr>
+            <td class="pageheading">
+                Alert Log
+                <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Log of all alerts sent out.">
+            </td>
+            <td class="pageheading" align="right">
+                <select id="ddlPriority" name="Priority" title="Priority" class="f_inpt_small width50">
+                    <option value="0">All</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <table class="paginated width100" id="myAlertstable">
+        @*<tbody>
+            @if (Model == null || Model.Count() == 0)
+            {
+                <tr>There is no Alerts.</tr>
+            }
+            else
+            {
+                <tr>
+                    <th>
+                        Alert Title
+
+                    </th>
+                    <th>
+                        Alert For
+                    </th>
+                </tr>
+                foreach (var item in Model)
+                {
+                    <tr style="border-bottom:1px dotted #eeeaea;">
+                        <td style="vertical-align:top;">
+                            @Html.DisplayFor(modelItem => item.NotificationTitle)
+
+                            @if (item.Priority == "High")
+                            {
+                                <img src="/Content/Images/priority_high.png" alt="High" title="High" />
+                            }
+                            else if (item.Priority == "Medium")
+                            {
+                                <img src="/Content/Images/priority_medium.png" alt="Medium" title="Medium" />
+                            }
+                            else if (item.Priority == "Low")
+                            {
+                                <img src="/Content/Images/priority_low.png" alt="Low" title="Low" />
+                            }
+                            else
+                            {
+                                <img src="/Content/Images/priority_none.png" alt="None" title="None" />
+
+                            }
+                            <br />
+                            <small>@Html.DisplayFor(modelItem => item.NotificationDate)</small>
+                            <script type="text/javascript">DisplayDate('@item.NotificationDate');</script> 
+                        </td>
+                        <td align="right" style="vertical-align: top;">
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                    </tr>
+
+                }
+
+            }
+        </tbody>*@
+    </table>
+
+</div>
+
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination" class="margin-left-m20"></article>
+</div>
+

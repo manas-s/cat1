@@ -1,0 +1,720 @@
+﻿@model Corevo.eContracts365.TableEntities.RolesAndPermission
+
+@{
+    ViewBag.Title = "RolesPermissions";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width100">
+    <tr>
+        <td class="pageheading">Contract Management Roles & Permissions<span class="right-float"> [<a href="http://help-optimusbt.corevosoftware.wpengine.com/category/help-articles-cloud/managing-users-permissions/" target="_blank">View Permission Access Mapping</a></span>]
+            <span style="vertical-align: top; text-align: right; float: right; margin-top: -5px; ">
+                <img src="@Url.Content("~/Content/Images/help_green.png")" class="showtip" 
+                     title="Permission Level|Administrator – can modify administration pages + Manage.|Manage – delete item + contribute.|Contribute- can create new, edit items + Collaborate.|Collaborate- can share + View.View Only – can view item.|No Access – cannot view item" />
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="tblgrid width100" id="tblStatus">
+                <thead>
+                    <tr>
+                        <th>Term Area&nbsp;<img src="~/Content/Images/help_training.png" alt="Term Area" title="Term Area" /></th>
+                        <th>Overall, throughout the app&nbsp;<img src="~/Content/Images/help_training.png" alt="Overall, throughout the app" title="Overall, throughout the app" /></th>
+                        <th>Shared with/Assigned to me&nbsp;<img src="~/Content/Images/help_training.png" alt="Shared with/Assigned to me" title="Shared with/Assigned to me" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Super Admin</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Overall
+                        </td>
+                        <td>
+                            Full Control
+                        </td>
+                        <td style="padding:5px;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Contract Administrators</td>
+                    </tr>
+                    <tr>
+                            <td style="padding:5px;">
+                                Contract Records
+                            </td>
+                            <td>
+                                <select id="ddlRecordsCAAll" name="Role" class="f_inpt width80">
+                                    <option value="NoAccess">No Access</option>
+                                    <option value="FullControl">Full Control</option>
+                                    <option value="Manage">Manage</option>
+                                    <option value="Contribute">Contribute</option>
+                                    <option value="Collaborate">Collaborate</option>
+                                    <option value="ViewOnly">View Only</option>
+                                </select>
+                            </td>
+                            <td style="padding:5px;"></td>
+                        </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td>
+                            <select id="ddlDocumentsCAAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td style="padding:5px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Activities
+                        </td>
+                        <td>
+                            <select id="ddlActivityCAAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td style="padding:5px;" id="tdTransition"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contacts &amp; Counterparties
+                        </td>
+                        <td>
+                            <select id="ddlCounterpartyCAAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td style="padding:5px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Users &amp; Profiles
+                        </td>
+                        <td>
+                            <select id="ddlUsersCAAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td style="padding:5px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Reports
+                        </td>
+                        <td>
+                            <select id="ddlReportsCAAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td style="padding:5px;"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" class="pagesubheading text-blue" style="padding-top: 10px; color: rgb(63, 145, 204);">Contract Managers</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Records
+                        </td>
+                        <td>
+                            <select id="ddlRecordsCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlRecordsCM" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td>
+                            <select id="ddlDocumentsCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlDocumentsCM" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Activities
+                        </td>
+                        <td>
+                            <select id="ddlActivityCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlActivityCM" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="FullControl">Full Control</option>
+                                <option value="Manage">Manage</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contacts &amp; Counterparties
+                        </td>
+                        <td>
+                            <select id="ddlCounterpartyCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                                                        @*<select id="ddlCounterpartyCM" name="Role" class="f_inpt width80">
+            <option value="0">--Select--</option>
+                <option value="FullControl">Full Control</option>
+            <option value="Manage">Manage</option>
+            <option value="Contribute">Contribute</option>
+            <option value="Collaborate">Collaborate</option>
+            <option value="ViewOnly">View Only</option>
+            <option value="NoAccess">No Access</option>
+        </select>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Users &amp; Profiles
+                        </td>
+                        <td>
+                            <select id="ddlUsersCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                                                        @*<select id="ddlUsersCM" name="Role" class="f_inpt width80">
+            <option value="0">--Select--</option>
+                <option value="FullControl">Full Control</option>
+            <option value="Manage">Manage</option>
+            <option value="Contribute">Contribute</option>
+            <option value="Collaborate">Collaborate</option>
+            <option value="ViewOnly">View Only</option>
+            <option value="NoAccess">No Access</option>
+        </select>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Reports
+                        </td>
+                        <td>
+                            <select id="ddlReportsCMAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                                                        @*<select id="ddlReportsCM" name="Role" class="f_inpt width80">
+            <option value="0">--Select--</option>
+                <option value="FullControl">Full Control</option>
+            <option value="Manage">Manage</option>
+            <option value="Contribute">Contribute</option>
+            <option value="Collaborate">Collaborate</option>
+            <option value="ViewOnly">View Only</option>
+            <option value="NoAccess">No Access</option>
+        </select>*@
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Business Owners</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Records
+                        </td>
+                        <td>
+                            <select id="ddlRecordsBOAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlRecordsBO" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td>
+                            <select id="ddlDocumentsBOAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlDocumentsBO" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Activities
+                        </td>
+                        <td>
+                            <select id="ddlActivityBOAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="ddlActivityBO" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contacts &amp; Counterparties
+                        </td>
+                        <td>
+                            <select id="ddlCounterpartyBOAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            @*<select id="ddlCounterpartyBO" name="Role" class="f_inpt width80">
+                                <option value="0">--Select--</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Reports
+                        </td>
+                        <td>
+                            <select id="ddlReportsBOAll" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                        <td>
+                            @*<select id="ddlReportsBO" name="Role" class="f_inpt width80">
+                                <option value="0">--Select--</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>*@
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Approvers/Reviewers</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Records
+                        </td>
+                        <td>
+                           
+                        </td>
+                        <td>
+                            <select id="ddlRecordsAR" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlDocumentsAR" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Activities
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlActivityAR" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Business Users</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Records
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlRecordsBU" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlDocumentsBU" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Activities
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlActivityBU" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Contribute">Contribute</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td colspan="3" class="pagesubheading" style="padding-top: 10px; color: rgb(63, 145, 204);">Guest Users</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:5px;">
+                            Contract Documents
+                        </td>
+                        <td></td>
+                        <td>
+                            <select id="ddlDocumentsGuest" name="Role" class="f_inpt width80">
+                                <option value="NoAccess">No Access</option>
+                                <option value="Collaborate">Collaborate</option>
+                                <option value="ViewOnly">View Only</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="right"><br />
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+@section Scripts {
+    @if (Model == null)
+    {
+
+    }
+    else
+    {
+        //foreach (var item in Model)
+        //{
+        var item = Model;
+        <script type="text/javascript">
+            $('.showtip').cluetip({ splitTitle: '|' });
+    var vAdministartors=  '@Html.Raw(item.Administartors)';
+
+    $(vAdministartors).find('OverAll').each(function(){
+        var sRecords = $(this).find('Records').text();
+        var sDocuments = $(this).find('Documents').text();
+        var sActivity = $(this).find('Activity').text();
+        var sCounterparty = $(this).find('Counterparty').text();
+        var sUsers = $(this).find('Users').text();
+        var sReports = $(this).find('Reports').text();
+        $("#ddlRecordsCAAll option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+        $("#ddlDocumentsCAAll option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+        $("#ddlActivityCAAll option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+        $("#ddlCounterpartyCAAll option").filter(function (index) { return $(this).text() === sCounterparty; }).prop('selected', true);
+        $("#ddlUsersCAAll option").filter(function (index) { return $(this).text() === sUsers; }).prop('selected', true);
+        $("#ddlReportsCAAll option").filter(function (index) { return $(this).text() === sReports; }).prop('selected', true);
+    });
+
+
+    var vManagers=  '@Html.Raw(item.Managers)';
+
+            $(vManagers).find('OverAll').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                var sCounterparty = $(this).find('Counterparty').text();
+                var sUsers = $(this).find('Users').text();
+                var sReports = $(this).find('Reports').text();
+                $("#ddlRecordsCMAll option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsCMAll option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityCMAll option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+                $("#ddlCounterpartyCMAll option").filter(function (index) { return $(this).text() === sCounterparty; }).prop('selected', true);
+                $("#ddlUsersCMAll option").filter(function (index) { return $(this).text() === sUsers; }).prop('selected', true);
+                $("#ddlReportsCMAll option").filter(function (index) { return $(this).text() === sReports; }).prop('selected', true);
+            });
+
+            $(vManagers).find('Share').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                var sCounterparty = $(this).find('Counterparty').text();
+                var sUsers = $(this).find('Users').text();
+                var sReports = $(this).find('Reports').text();
+                $("#ddlRecordsCM option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsCM option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityCM option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+                //$("#ddlCounterpartyCM option").filter(function (index) { return $(this).text() === sCounterparty; }).prop('selected', true);
+                //$("#ddlUsersCM option").filter(function (index) { return $(this).text() === sUsers; }).prop('selected', true);
+                //$("#ddlReportsCM option").filter(function (index) { return $(this).text() === sReports; }).prop('selected', true);
+            });
+
+
+            var vBusinessOwners=  '@Html.Raw(item.BusinessOwners)';
+
+            $(vBusinessOwners).find('OverAll').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                var sCounterparty = $(this).find('Counterparty').text();
+                var sUsers = $(this).find('Users').text();
+                var sReports = $(this).find('Reports').text();
+                $("#ddlRecordsBOAll option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsBOAll option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityBOAll option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+                $("#ddlCounterpartyBOAll option").filter(function (index) { return $(this).text() === sCounterparty; }).prop('selected', true);
+                $("#ddlReportsBOAll option").filter(function (index) { return $(this).text() === sReports; }).prop('selected', true);
+            });
+
+            $(vBusinessOwners).find('Share').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                var sCounterparty = $(this).find('Counterparty').text();
+                var sReports = $(this).find('Reports').text();
+                $("#ddlRecordsBO option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsBO option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityBO option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+                //$("#ddlCounterpartyBO option").filter(function (index) { return $(this).text() === sCounterparty; }).prop('selected', true);
+                //$("#ddlReportsBO option").filter(function (index) { return $(this).text() === sReports; }).prop('selected', true);
+            });
+
+
+            var vApprovers=  '@Html.Raw(item.Approvers)';
+
+            $(vApprovers).find('Share').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                $("#ddlRecordsAR option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsAR option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityAR option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+            });
+
+
+            var vBusinessUsers=  '@Html.Raw(item.BusinessUsers)';
+
+            $(vBusinessUsers).find('Share').each(function(){
+                var sRecords = $(this).find('Records').text();
+                var sDocuments = $(this).find('Documents').text();
+                var sActivity = $(this).find('Activity').text();
+                $("#ddlRecordsBU option").filter(function (index) { return $(this).text() === sRecords; }).prop('selected', true);
+                $("#ddlDocumentsBU option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+                $("#ddlActivityBU option").filter(function (index) { return $(this).text() === sActivity; }).prop('selected', true);
+            });
+
+
+            var vGuest=  '@Html.Raw(item.Guest)';
+
+            $(vBusinessUsers).find('Share').each(function(){
+                var sDocuments = $(this).find('Documents').text();
+                $("#ddlDocumentsGuest option").filter(function (index) { return $(this).text() === sDocuments; }).prop('selected', true);
+            });
+        </script>
+        //}
+    }
+    <script type="text/javascript">
+
+
+        $('#btnSave').click(function () {
+            $('#btnSave').attr('disabled', 'disabled');
+            $.ajax({
+                url: '@Url.Action("UpdateRolePermission", "Settings")',
+                type: 'PUT',
+                headers: {
+                    'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                },
+                dataType: 'json',
+                data: {
+                    RowKey:localStorage.AccountID,
+                    RecordsCAAll: $("#ddlRecordsCAAll").find('option:selected').text(),
+                    DocumentsCAAll: $("#ddlDocumentsCAAll").find('option:selected').text(),
+                    ActivityCAAll: $("#ddlActivityCAAll").find('option:selected').text(),
+                    CounterpartyCAAll: $("#ddlCounterpartyCAAll").find('option:selected').text(),
+                    UsersCAAll: $("#ddlUsersCAAll").find('option:selected').text(),
+                    ReportsCAAll: $("#ddlReportsCAAll").find('option:selected').text(),
+
+                    RecordsCMAll: $("#ddlRecordsCMAll").find('option:selected').text(),
+                    DocumentsCMAll: $("#ddlDocumentsCMAll").find('option:selected').text(),
+                    ActivityCMAll: $("#ddlActivityCMAll").find('option:selected').text(),
+                    CounterpartyCMAll: $("#ddlCounterpartyCMAll").find('option:selected').text(),
+                    UsersCMAll: $("#ddlUsersCMAll").find('option:selected').text(),
+                    ReportsCMAll: $("#ddlReportsCMAll").find('option:selected').text(),
+                    RecordsCM: $("#ddlRecordsCM").find('option:selected').text(),
+                    DocumentsCM: $("#ddlDocumentsCM").find('option:selected').text(),
+                    ActivityCM: $("#ddlActivityCM").find('option:selected').text(),
+                    CounterpartyCM: "",// $("#ddlCounterpartyCM").find('option:selected').text(),
+                    UsersCM: "",// $("#ddlUsersCM").find('option:selected').text(),
+                    ReportsCM: "",// $("#ddlReportsCM").find('option:selected').text(),
+
+                    RecordsBOAll: $("#ddlRecordsBOAll").find('option:selected').text(),
+                    DocumentsBOAll: $("#ddlDocumentsBOAll").find('option:selected').text(),
+                    ActivityBOAll: $("#ddlActivityBOAll").find('option:selected').text(),
+                    CounterpartyBOAll: $("#ddlCounterpartyBOAll").find('option:selected').text(),
+                    ReportsBOAll: $("#ddlReportsBOAll").find('option:selected').text(),
+                    RecordsBO: $("#ddlRecordsBO").find('option:selected').text(),
+                    DocumentsBO: $("#ddlDocumentsBO").find('option:selected').text(),
+                    ActivityBO: $("#ddlActivityBO").find('option:selected').text(),
+                    CounterpartyBO: "",// $("#ddlCounterpartyBO").find('option:selected').text(),
+                    ReportsBO:"",// $("#ddlReportsBO").find('option:selected').text(),
+
+                    RecordsAR: $("#ddlRecordsAR").find('option:selected').text(),
+                    DocumentsAR: $("#ddlDocumentsAR").find('option:selected').text(),
+                    ActivityAR: $("#ddlActivityAR").find('option:selected').text(),
+
+                    RecordsBU: $("#ddlRecordsBU").find('option:selected').text(),
+                    DocumentsBU: $("#ddlDocumentsBU").find('option:selected').text(),
+                    ActivityBU: $("#ddlActivityBU").find('option:selected').text(),
+
+                    DocumentsGuest: $("#ddlDocumentsGuest").find('option:selected').text()
+
+                },
+                success: function (person) {
+                   // alert("Roles and Permission Setting Saved.");
+                    swal("", "Roles and Permission Setting Saved.");
+                    $('#btnSave').removeAttr('disabled');
+                }
+            });
+        });
+    </script>
+}
+@*@section Scripts {
+<script src="~/Scripts/Contract365/Settings_RolesPermissions.js" type="text/javascript"></script>
+    
+}*@

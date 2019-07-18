@@ -1,0 +1,546 @@
+﻿@{
+    ViewBag.Title = "Counterparty";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+<table class="width95_a">
+    <tr>
+        <td class="pageheading bordernone">Counterparty Database &nbsp;<img src="~/Content/Images/help_training.png" alt="A centrally organized repository to store and manage all counterparty information." title="Database of all Counterparty Organization and Entities." /></td>
+        <td class="pageheading sub1" align="right">
+            <div class="cbp-hrmenu cbp-hrmenu5 sub2">
+                <ul style="padding-bottom: 0;right: 20.5% !important;position: absolute;">
+                    <li class="newCont1">
+                        <a class="drop_a" href="javascript:void(0);" id="btnMultipleAction" style="display:none;background-color: #FFF !important;border: 1px solid #DDD !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                        <div id="dvMultipleSelection" class="cbp-hrsub nEw_ContRact3 hhide menusettings">
+                            <div class="meaan">
+                                <div class="">
+                                    <div class="mean-width3 ">
+                                        <ul class="menusettingsul">
+                                            <li><a href="javascript:void(0);" onclick="javascript: activatecounterparty();">Active</a></li>
+                                            <li><a href="javascript:void(0);" onclick="javascript: deactivatecounterparty();">Deactive</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="width44 cbp-hrmenu single-Bulk">
+                <a id="btnAddSingle" href="javascript:void(0);" class="f_button_green_small newContract" onclick="CounterpartyPopup()" name="Add Single">Add Counterparty</a>
+                <a id="btnAddMultiple" href="javascript:void(0);" name="Add Multiple" style="display:none" title="Create multiple Counterparty" onclick="CounterpartyMultiple()" class="newContract newContract1 f_button_green_small FL_CounterpartyImport"><img src="../Content/Images/bulk.png" /></a>
+                @*<input id="btnAddSingle" type="button" value="Add Single" class="f_button_green_small" onclick="CounterpartyPopup()" />
+                    <input id="btnAddMultiple" type="button" value="Add Multiple" class="f_button_green_small FL_CounterpartyImport" style="display:none" onclick="CounterpartyMultiple()" />*@
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="my-Alerts_Act1" style="padding-bottom:5px !important">
+                <div class="inserch1">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="SearchCP()" /></a>
+                </div>
+
+
+                <aside class="filTer_Ri" style="margin-right: -20px;" id="btnFilter">
+                    <div class="cbp-hrmenu cbp-hrmenu5">
+                        <ul>
+                            <li>
+                                <a id="" class="fiLTer_color drop_a2" href="javascript:void(0);"><img src="../Content/Images/filter_icon.png"> <img src="../Content/Images/dp-ddown.png" /></a>
+                                <div id="dvfilter" class="cbp-hrsub fIlter_2 hhide2 ">
+                                    <div class="meaan">
+                                        <div class="">
+                                            <b>Filter</b>
+                                            <div class="cbp-hrsub-inner">
+                                                <div class="mEAnwidth_2 width24">
+                                                    <h4>Status</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterStatus" name="UserType" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                            <option value="Yes">Active</option>
+                                                            <option value="No">Inactive</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width30">
+                                                    <h4>Counterparty Type</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterType" name="Status" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width24">
+                                                    <h4>Sort By</h4>
+                                                    <ul class="line-h" id="tdSort">
+                                                        <li><a id="aRecentlyUpdated" href="javascript:void(0)" style="background-color:#cccccc;" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                        <li><a id="aRecentlyCreated" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Created</a></li>
+
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="pop_up_Content_Bottom3 float_right1">
+                                            <a class="pop_up_Content_Blue" href="javascript:void(0)" onclick="javascript: applyFilter();" id="popModal_profile">Apply</a>
+                                            <a class="pop_up_Content_White" href="javascript:void(0)" onclick="javascript:clearSelection();" id="popModal_profile">Clear All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+                @*<aside class="filTer_Ri" style="margin-right: -20px;" id="btnFilter">
+                        <div class="cbp-hrmenu cbp-hrmenu5">
+                            <ul>
+                                <li>
+                                    <a id="" class="fiLTer_color drop_a2" href="javascript:void(0);">Filter <img src="/Content/Images/dp-ddown.png" /></a>
+                                    <div class="cbp-hrsub fIlter1 hhide2 width60_imp">
+                                        <div class="meaan">
+                                            <div class="">
+                                                <b>Filter</b>
+                                                <div class="cbp-hrsub-inner">
+                                                    <div class=" mEAnwidth1">
+                                                        <h4>Status</h4>
+                                                        <div class="line-h filter_doCu">
+                                                            <select id="filterStatus" name="Status" size="7" multiple style="width:100%;">
+                                                                <option value="All">All</option>
+                                                                <option value="Active">Active</option>
+                                                                <option value="Inactive">Inactive</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="mEAnwidth1">
+                                                        <h4>Counterparty Type</h4>
+                                                        <div class="line-h filter_doCu">
+                                                            <select id="filterType" name="Status" size="7" multiple style="width:100%;">
+                                                                <option value="All">All</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mEAnwidth1">
+                                                        <h4>Sort By</h4>
+                                                        <ul class="line-h">
+                                                            <li><a id="aRecentlyUpdated" href="javascript:void(0)" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                            <li><a id="aRecentlyCreated" href="javascript:void(0)" style="color: #69befb;" onclick="javascript: highlight(this);">Recently Created</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pop_up_Content_Bottom3 float_right1">
+                                                <a class="pop_up_Content_Blue" href="javascript:void(0)" onclick="javascript: applyFilter();" id="popModal_profile">Apply</a>
+                                                <a class="pop_up_Content_White" href="javascript:void(0)" onclick="javascript:clearSelection();" id="popModal_profile">Clear All</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>*@
+            </div>
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input id="chkAll" class="ifnoitemfoumd" type="checkbox" style="margin: 3px 15px 0px 5px; float: left;" onclick="SelectAll(this);" /><label class="css1-label ifnoitemfoumd" for="chkAll">Select All</label>
+            <div id="page-wrap" class="f_list">
+                <table class="width100">
+                    <tbody id="listCounterperty"></tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination" class="margin-left-m20"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#acounterpartydetail">View Details</a></li>
+    <li class="edit contributeCounterparty"><a href="#edit">Edit</a></li>
+    @*<li class="edit contributeCounterparty"><a href="#modifyStatus">Modify Status</a></li>*@
+    <li class="separator"></li>
+    <li class="contacts"><a href="#contacts">View Contacts</a></li>
+    <li class="newcontact contributeCounterparty"><a href="#newcontact">Add Contact</a></li>
+    <li class="separator"></li>
+    <li class="delete manageCounterparty"><a href="#delete">Delete</a></li>
+</ul>
+
+<div id="addEditCounterparty" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <div id="counterpartyForm" class="width100">
+                <ul class="poPup_Form_Field pop-up-space" id="counterpartyItems">
+                    <li>
+                        <p></p>
+                        <div>
+                            <input id="txtCounterpartyID" name="CounterpartyID" type="hidden" />
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Counterparty Name</b><small>*</small></p>
+                        <div>
+                            <input id="txtCounterpartyName" maxlength="100" name="CounterpartyName" type="text" title="Counterparty Name" onchange="ReplaceSpecialCharacters(this);" class="validelement validtitle" />
+                        </div>
+                    </li>
+                    <li id="trcp-type">
+                        <p><b>Counterparty Type</b><small>*</small></p><div>
+                            <select id="ddlCounterpartyType" name="CounterpartyType" title="Counterparty Type" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="CP_Det1" id="trcp-gbl">
+                        <p><b>Global or Regional</b><small>*</small></p><div>
+                            <input type="radio" checked style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;" name="IsGlobal" value="No" />Regional
+                        </div>
+                    </li>
+                    <li class="CP_Det1" id="trcp-RgBusi" style="display:none">
+                        <p><b>Business Area</b><small>*</small></p><div>
+                            <input type="hidden" id="hdnOwnerofBusinessArea" /><input type="hidden" id="hdnLocOwnerofBusinessArea" /><input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="">
+                            <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)"> Browse</a>
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>Status</b><small>*</small></p><div>
+                            <select id="ddlStatus" name="Status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addEditContact" style="display:none;">
+    <div id="dvPopupHeadingContact" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewContactFields">
+            @*<table  class="width100" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td class="f_head">Contact Name</td>
+                        <td class="labelright"><input id="txtContactName" name="ContactName" type="text" title="Contact Name" class="f_inpt width90 validelement" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Counterparty</td>
+                        <td class="labelright">
+                            <select id="ddlCounterparty" name="Counterparty" title="Counterparty" class="f_input width90 validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Role</td>
+                        <td class="labelright"><input id="txtRole" name="Role" type="text" title="Role" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Address</td>
+                        <td class="labelright"><input id="txtAddressLine1C" name="AddressLine1" type="text" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="labelright"><input id="txtAddressLine2C" name="AddressLine2" type="text" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">City</td>
+                        <td class="labelright"><input id="txtCityC" name="City" type="text" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">State</td>
+                        <td class="labelright"><input id="txtStateC" name="State" type="text" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Country</td>
+                        <td class="labelright">
+                            <select id="ddlCountryC" name="Country" class="f_inpt width90">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Zip/Postal Code</td>
+                        <td class="labelright"><input id="txtZipC" name="Zip" type="text" class="f_inpt width90" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Contact Number</td>
+                        <td class="labelright">
+                            <input id="txtContactNoC" name="ContactNo" type="text" title="Contact Number" class="f_inpt width90" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Email ID</td>
+                        <td class="labelright"><input id="txtEmailIDC" name="EmailID" type="text" title="Email ID" class="f_inpt width90 validemail" /></td>
+                    </tr>
+                </table>*@
+
+
+            <ul class="poPup_Form_Field">
+
+                <li>
+                    <p><b>Counterparty</b><small>*</small><img src="/Content/Images/input-help.png" /></p>
+                    <div>
+                        <span id="spnCounterpartyName" title="Counterparty Name" class="title"></span>
+                        @*<select id="ddlCounterparty" name="Counterparty" title="Counterparty" class="validelement">
+                                <option value="0">--Select--</option>
+                            </select>*@
+                    </div>
+                </li>
+                <li>
+
+                    <p>
+                        <b>
+                            Internal or External
+                        </b>
+                        <small>*</small>
+                    </p>
+
+                    <div>
+                        <input type="radio" checked style="width: 10% !important;height: 13px !important;float: none !important;" name="InternalOrExternal" value="External">External<input type="radio" style="width: 10%;height: 13px !important;float: none !important;" name="InternalOrExternal" value="Internal">Internal
+                    </div>
+
+                </li>
+                <li class="InContact" id="InternalUser" style="display:none;">
+
+                    <p>
+                        <b>Internal User</b><small style="color: red;display: inline;">&nbsp;*</small>
+                    </p>
+                    <div>
+                        <select id="ddlInternalUser"></select>
+                    </div>
+                </li>
+                <li class="ExContact" style="display:none;">
+                    <p><b>Contact Name</b><small>*</small><img src="/Content/Images/input-help.png" /></p>
+                    <div>
+                        <input id="txtContactName" maxlength="100" name="ContactName" type="text" title="Contact Name" class="validelement validtitle" />
+                    </div>
+                </li>
+                <li class="ExContact" style="display:none;">
+                    <p><b>Role</b></p>
+                    <div>
+                        <input id="txtRole" name="Role" maxlength="50" type="text" title="Role" />
+                    </div>
+                </li>
+                <li class="ExContact" style="display:none;">
+                    <p><b>Address</b></p>
+                    <div>
+                        <input id="txtAddressLine1C" maxlength="100" name="AddressLine1" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b></b></p>
+                    <div>
+                        <input id="txtAddressLine2C" maxlength="100" name="AddressLine2" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>City</b></p>
+                    <div>
+                        <input id="txtCityC" name="City" maxlength="50" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>State</b></p>
+                    <div>
+                        <input id="txtStateC" name="State" maxlength="50" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Country</b></p>
+                    <div>
+                        <select id="ddlCountryC" name="Country">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Zip/Postal Code</b></p>
+                    <div>
+                        <input id="txtZipC" name="Zip" maxlength="20" type="text" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Contact Number</b></p>
+                    <div>
+                        <input id="txtContactNoC" name="ContactNo" maxlength="50" type="text" title="Contact Number" />
+                    </div>
+                </li>
+
+                <li class="ExContact" style="display:none;">
+                    <p><b>Email ID</b></p>
+                    <div>
+                        <input id="txtEmailIDC" name="EmailID" type="text" maxlength="50" title="Email ID" class="validemail" />
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Related Counterparties Start -->
+@*<div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+        <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="bg-warning">
+                <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+            </div>
+            <article id="right">
+                <input id="txtSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+            </article>
+            <div>
+                <label>Relationship Type</label>
+                <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                    <option value="0">--Select--</option>
+                    <option value="Parent">Parent - Subsidiary</option>
+                    <option value="Supplier">Supplier - Customer</option>
+                    <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                    <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div>
+                    <div>
+                        <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract." src="/Content/Images/input-help.png"></span>
+                        <select id="ddlRelationshipTypeParent" class="f_inpt width30 validelement"></select>
+                    </div>
+                </div>
+                <div id="page-wrap" class="f_list">
+                    <table id="tblPopupCounterparties"></table>
+                </div>
+            </div>
+            <div id="loadCounterparties"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedCounterparties">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div id="popupCounterparties" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingPeople" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div class="bg-warning">
+            <p>You can select one or more existing counterparty from below and link to this counterparty.</p>
+        </div>
+        <article id="right">
+            <input id="txtSearchBoxCounterparties" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewCounterparties();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparties').val(''); ViewCounterparties();">Clear</a>
+        </article>
+        <div>
+            <label>Relationship Type</label>
+            <select id="ddlRelationshipTypeCounterparties" class="f_inpt width50 validelement margin-l0px">
+                <option value="0">--Select--</option>
+                <option value="Parent">Parent - Subsidiary</option>
+                <option value="Supplier">Supplier - Customer</option>
+                <option value="Prime Contractor">Prime Contractor - Sub Contractor</option>
+                <option value="Dissolved on Merger">Dissolved on Merger - Merged into</option>
+                <option value="Other">Other</option>
+            </select>
+            <div>
+                <div>
+                    <span><label id="lblRelatedPopup_Counterparties" style="float:left;padding-top: 10px;" class="margin-left0 margin-right-10"> </label><img style="padding-top: 10px;" title="Choose how the chosen type is related with the current Contract Record." src="/Content/Images/input-help.png"></span>
+                    <select id="ddlRelationshipTypeParentcounterparties" class="f_inpt width30 validelement"></select>
+                </div>
+            </div>
+            <div id="page-wrap" class="f_list">
+                <table id="tblPopupCounterparties"></table>
+            </div>
+        </div>
+        <div id="loadCounterparties"></div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationRelatedCounterparties" class="margin-left-m20"></article>
+        </div>
+        <div class="selectFIlterItem" style="margin-bottom:15px;">
+            <div id="liRelatedCounterparties">
+            </div>
+            <div id="liSelectedCounterparties">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Related Counterparties End -->
+
+<div id="browseGenericforrelcon" style="display:none;overflow: hidden;">
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tblGenericforcon"></table>
+    </div>
+    <div id="loadGencon"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationGenericcon" style="width:100%; text-align:center;"></article>
+    </div>
+</div>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+<div id="browseGeneric" style="display:none;overflow: hidden;">
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tblGenericheader"></table>
+        <table id="tblGeneric"></table>
+    </div>
+    <div id="loadGen"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationGeneric"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedRU">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/intlTelInput.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+    <link rel="stylesheet" href="/Content/css/jquery_002.css">
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+    @Scripts.Render("~/Scripts/Contract365/Settings_Counterparty.js?" + DateTime.Now.GetHashCode())
+    @Scripts.Render("~/Scripts/intlTelInput.js")
+}

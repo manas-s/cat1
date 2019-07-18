@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Counterparty Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_CounterpartySettings.js?" + DateTime.Now.GetHashCode())
+}
+
+<table id="tblGlobalSettings" class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Counterparty Settings
+            <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Options for Counterparty information management and creation.">
+        </td>
+    </tr>
+    <tr style="display:none">
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnAdmin" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties only from Administration Page (only Global Administrators & Global Owners)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnContract" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Counterparty Database from the Create/Add Contract Form (any user with permissions to create Contract).</label>
+        </td>
+    </tr>
+    <tr class='FL_Requests' style="display:none">
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnRequest" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Counterparty Database from the Request Form (any user with permissions to Request).</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnBA" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties from Business Area- Counterparty Page (Business Area Owners)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnCA" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties from Business Area- Counterparty Page (Contract Area Administrators)</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="labelright" align="left" colspan="2">
+            <input type="checkbox" name="Extendable" id="chkCPOnDocument" class="css1-checkbox" />
+            <label for="" class="css1-label">Allow adding New Counterparties to the Document from the Create/Upload Document Form</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,184 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.RequestEntity>
+@{
+    ViewBag.Title = "RecycleBin Requests";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+@section Scripts {
+   @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+    <link rel="stylesheet" href="/Content/css/jquery_002.css">
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+    @Scripts.Render("~/Scripts/Contract365/Settings_RecycleBinRequests.js?" + DateTime.Now.GetHashCode())
+
+}
+
+<div id="page-wrap" class="width95_a">
+    <table class="width95_a">
+        <tr>
+            <td class="pageheading">
+                Recycle Bin Requests
+            </td>
+            <td class="pageheading" align="right">
+                <div class="cbp-hrmenu cbp-hrmenu5">
+                    <ul style="float:right; min-height:30px; padding:0;">
+                        <li class="newCont1" style="padding:0; border:none;">
+                            <a class="drop_a" href="javascript:void(0);" id="btnMultipleAction" style="display:none;background-color: #FFF !important;border: 1px solid #DDD !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                            <div id="dvMultipleSelection" class="cbp-hrsub nEw_ContRact3 hhide" style="margin: 0px !important;">
+                                <div class="meaan">
+                                    <div class="">
+                                        <div class="mean-width3 ">
+                                            <ul class="menusettingsul">
+                                                <li><a href="javascript:void(0);" onclick="javascript: RestoreRequest();">Restore</a></li>
+                                                <li><a href="javascript:void(0);" onclick="javascript: DeleteRequest();">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <table>
+            <tr>
+                <td class="f_head" align="right">Keep deleted requests in Recycle bin for</td>
+                <td class="labelright">
+                    <input id="txtRecycleBinRequest" maxlength="3" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;days
+                </td>
+                <td class="foot_right" align="right">
+                    <input id="btnSaveProfile" type="submit" value="Save" onclick="javascript:SaveAutoStatusUpdate()" class="f_button_green" />
+                    <input id="btnCancelProfile" type="submit" value="Reset" onclick="javascript: BindGlobalSettings(this)" class="f_button_grey" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+        <input id="txtSearchBox" placeholder="Search" type="text" />
+        <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+    </div>
+    <div class="selectFIlterItem margin-left-m20">
+        <div id="liFiltersSearchText">
+
+        </div>
+        <div id="liFiltersStatus">
+
+        </div>
+        <div id="liFiltersType">
+
+        </div>
+    </div>
+
+    <div class="fields-table">
+
+        <div class="table-sec">
+            <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                <thead id="thidRequestsInRecycleBin">
+                    <tr>
+                        <th class="font-normal" style="width: 8% !important;">
+                            <input id="chkAll" type="checkbox" style="float: left;" onclick="SelectAll(this);" />
+                            <!--<label class="css1-label" for="chkAll"> Select All</label> -->
+                        </th>
+                        <th id="footleft" class="font-normal">
+                            Request Title
+                            <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                            </a>
+                            <div class="search-sec" id="drop" style="display:none;">
+                                <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                            </div>
+                        </th>
+                        <th class="font-normal">Deleted By</th>
+                        <th id="datefootleft" class="font-normal">
+                            Deleted On
+                            <a class=" search-btn" id="datetrigger" href="javascript:void(0);">
+                                <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                            </a>
+                            <div class="search-sec" id="datedrop" style="display:none;">
+                                <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                            </div>
+                        </th>
+                        <th class="font-normal">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="idRequestsInRecycleBin"></tbody>
+            
+            </table>
+        </div>
+
+    </div>
+ 
+    @*<table class="paginated width95_a" id="idRequestsInRecycleBin">
+        <tbody>
+            @if (Model == null || Model.Count() == 0)
+            {
+                <tr>There are no Requests in Recycle Bin .</tr>
+            }
+            else
+            {
+                <tr>
+                    <td style="padding:5px; width: 20px;"><input id="chkAll" type="checkbox" style="float: left;" onclick="SelectAll(this);" /></td>
+                    <td><label class="css1-label" for="chkAll">Select All</label></td>
+                </tr>
+                foreach (var item in Model)
+                {
+
+                    <tr style="border-bottom:1px dotted #eeeaea;">
+                        <td style="padding:5px; width: 20px;" class="">
+                            <input id="@item.RowKey" name="Chkrecyclerequest" type="checkbox" style="margin: -15px 0 0 0; float: left;" onclick="checkMultiplerecyclerequest(this);" />
+                        </td>
+                        <td style="vertical-align:top;">
+                            <label id="RequestID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</label>
+                            <label id="RequestTitle" style="display:none;">@Html.DisplayFor(modelItem => item.RequestTitle)</label>
+                            @Html.DisplayFor(modelItem => item.RequestTitle)
+                          
+                            <img class="openmenu" title="Open Menu" alt="Open Menu" src="../Content/Images/context_Menu.png">
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Requestor)<span> | </span> @Html.DisplayFor(modelItem => item.RequestType)<span> | </span> <span class="datetimeformat" style="display:none;"> @item.Modified.Value.ToShortDateString() </span>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>*@
+</div>
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination"></article>
+</div>
+
+<ul id="myMenuView" class="contextMenu">
+    <li class="viewdetails" id="ViewRecycleBinRequests"><a href="#View">View</a></li>
+    <li class="restore" id="RestoreRecycleBinRequests"><a href="#Restore">Restore</a></li>
+    <li class="dismiss" id="DeleteRecycleBinRequests"><a href="#Delete">Delete</a></li>
+</ul>
+
+<div id="divViewRecycleBinRequests" class="pop_up" style="overflow: hidden; display:none">
+    <div class="pop_up_Content">
+        <ul class="pop_up_Harizondal">
+            <li><a href="javascript:void(0)" id="Summary" class="pop_up__Acti" onclick="MetadataSummary();">Summary</a></li>
+            <li><a href="javascript:void(0)" id="Details" onclick="MetadataDetails();">Details</a></li>
+        </ul>
+
+        <table id="tblSummary" class="width100" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="f_head">Request Title</td>
+                <td class="labelleft" id="tdSumRequestTitle"></td>
+            </tr>         
+            <tr>
+                <td class="f_head">Request Type</td>
+                <td class="labelleft" id="tdSumRequestType"></td>
+            </tr>
+            <tbody id="tblSummaryMetadata"></tbody>
+        </table>
+
+        <table id="tblDetailsMetadata" class="width100" border="0" cellpadding="0" cellspacing="0" style="display:none;"></table>
+
+    </div>
+
+</div>

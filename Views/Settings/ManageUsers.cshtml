@@ -1,0 +1,1042 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.UsersEntity>
+
+
+@{
+    ViewBag.Title = "Users and Permission";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<table class="width95_a" oncontextmenu="return false;">
+    <tr>
+        <td class="pageheading bordernone">Users and Permission &nbsp;<img src="~/Content/Images/help_training.png" alt="User Management" title="Manage user profile, alerts, access and permissions." /></td>
+    </tr>
+    <tr>
+        <td>
+            <div class="pop_up_Harizondal" style="width: 120%;padding-top: 5px;">
+                <ul>
+                    <li><a id="idUsers" href="javascript:void(0);">User(s)</a></li>
+                    <li><a id="idUserGroups" href="javascript:void(0);">User Groups</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    @*User*@
+    <tr id="trUserSearch">
+        <td>
+            <div class="my-Alerts_Act1" style="padding-bottom: 5px !important; width: 120%;">
+                <div class="inserch1">
+                    <input placeholder="Search" type="text" id="txtSearchBox" />
+                    <a href="javascript:void(0);"><img src="../Content/Images/search1.png" onclick="javascript:search();" /></a>
+                </div>
+                <aside class="filTer_Ri_Users" style="margin-right: -20px;" id="btnFilter">
+                    <div class="cbp-hrmenu cbp-hrmenu5">
+                        <ul>
+                            <li>
+                                <a id="" class="fiLTer_color drop_a2" href="javascript:void(0);">Filter <img src="../Content/Images/dp-ddown.png" /></a>
+                                <div id="dvfilter" class="cbp-hrsub fIlter_2 hhide2 ">
+                                    <div class="meaan">
+                                        <div class="">
+                                            <b>Filter</b>
+                                            <div class="cbp-hrsub-inner">
+                                                <div class="mEAnwidth_2 width24">
+                                                    <h4>Is Enabled ?</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterEnabled" name="UserType" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width30">
+                                                    <h4>User Type</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="filterUserType" name="UserType" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                            <option value="Account Owner">Account Owner</option>
+                                                            <option value="Global Contract Owner">Global Contract Owner</option>
+                                                            <option value="Global Administrator">Global Administrator</option>
+                                                            <option value="Contract Area Administrator">Contract Area Administrator</option>
+                                                            <option value="Business Area Owner">Business Area Owner</option>
+                                                            <option value="Business User">Business User</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width24">
+                                                    <h4>Sort By</h4>
+                                                    <ul class="line-h" id="tdSort">
+                                                        <li><a id="aAlphabetical" href="javascript:void(0)" style="background-color:#cccccc;" onclick="javascript: highlight(this);">Alphabetical Order</a></li>
+                                                        <li><a id="aCreated" href="javascript:void(0)" onclick="javascript: highlight(this);">Created Date</a></li>
+                                                        <li><a id="aRecently" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="pop_up_Content_Bottom3">
+                                            <a id="btnApplyFilter" onclick="javascript: applyFilter();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                            <a id="btnCancel" onclick="javascript:clearSelection();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+                <div class="selectFIlterItem">
+                    <div id="liFiltersSearchText">
+                    </div>
+                    <div id="liFiltersUserType">
+                    </div>
+                    <div id="liFiltersEnabled">
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td align="right">
+            <div class="cbp-hrmenu cbp-hrmenu5 sub2" style="margin-top:-17px">
+                <ul style="padding-bottom: 0;right: 11% !important;position: absolute;">
+                    <li class="newCont1">
+                        <a class="drop_a" href="javascript:void(0);" id="btnMultipleAction" style="display:none;background-color: #FFF !important;border: 1px solid #DDD !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                        <div id="dvMultipleSelection" class="cbp-hrsub nEw_ContRact3 hhide menusettings">
+                            <div class="meaan">
+                                <div class="">
+                                    <div class="mean-width3 ">
+                                        <ul class="menusettingsul">
+                                            <li><a href="javascript:void(0);" onclick="javascript: showEnableDisableMultiple();">Enable/Disable</a></li>
+                                            <li><a href="javascript:void(0);" onclick="javascript: multipleDelete();">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="cbp-hrmenu cbp-hrmenu5 sub3" style="margin-top:-12px">
+                <input id="btnAddNewUser" style="padding:5px 10px 7px;" type="button" value="Add New" class="f_button_green_small" />
+            </div>
+        </td>
+    </tr>
+    @*User*@
+    <tr id="trUserSelectAll">
+        <td colspan="2">
+            <input id="chkAll" class="ifnoitemfoumd" type="checkbox" style="margin: 3px 15px 0px 5px; float: left;" onclick="SelectAll(this);" /><label class="css1-label ifnoitemfoumd" for="chkAll">Select All</label>
+            <div id="page-wrap" class="f_list">
+                <table class="paginated width100" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th class="font-normal"></th>
+                            <th id="footleft" class="font-normal">User</th>
+                            <th id="thADUserGroup" class="font-normal">Assigned User Group(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listUsers"></tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+
+    @*UserGroup*@
+    <tr id="trUserGroupSearch" style="display:none">
+        <td>
+            <div class="my-Alerts_Act1" style="padding-bottom: 5px !important; width: 120%;">
+                <div class="inserch1">
+                    <input placeholder="Search" type="text" id="txtUserGroupSearchBox" />
+                    <a href="javascript:void(0);"><img src="../Content/Images/search1.png" onclick="javascript: searchUserGroup();" /></a>
+                </div>
+                <aside class="filTer_Ri_Users" style="margin-right: -20px;" id="btnUserGroupFilter">
+                    <div class="cbp-hrmenu cbp-hrmenu5">
+                        <ul>
+                            <li>
+                                <a id="" class="fiLTer_color drop_a2" href="javascript:void(0);">Filter <img src="../Content/Images/dp-ddown.png" /></a>
+                                <div id="dvUserGroupfilter" class="cbp-hrsub fIlter_2 hhide2 " style="width: 40% !important;right: 100px !important;">
+                                    <div class="meaan">
+                                        <div class="">
+                                            <b>Filter</b>
+                                            <div class="cbp-hrsub-inner">
+                                                <div class="mEAnwidth_2 width24" style="display:none;">
+                                                    <h4>Is Enabled ?</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="UserGroupfilterEnabled" name="UserType" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width50">
+                                                    <h4>User Type</h4>
+                                                    <div class="line-h filter_doCu">
+                                                        <select id="UserGroupfilterUserType" name="UserType" size="7" multiple style="width:100%;">
+                                                            <option value="All">All</option>
+                                                            <option value="Account Owner">Account Owner</option>
+                                                            <option value="Global Contract Owner">Global Contract Owner</option>
+                                                            <option value="Global Administrator">Global Administrator</option>
+                                                            <option value="Contract Area Administrator">Contract Area Administrator</option>
+                                                            <option value="Business Area Owner">Business Area Owner</option>
+                                                            <option value="Business User">Business User</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mEAnwidth_2 width40">
+                                                    <h4>Sort By</h4>
+                                                    <ul class="line-h" id="tdSort">
+                                                        <li><a id="aUserGroupAlphabetical" href="javascript:void(0)" style="background-color:#cccccc;" onclick="javascript: highlight(this);">Alphabetical Order</a></li>
+                                                        <li><a id="aUserGroupCreated" href="javascript:void(0)" onclick="javascript: highlight(this);">Created Date</a></li>
+                                                        <li><a id="aUserGroupRecently" href="javascript:void(0)" onclick="javascript: highlight(this);">Recently Updated</a></li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="pop_up_Content_Bottom3">
+                                            <a id="btnUserGroupApplyFilter" onclick="javascript: applyFilterUserGroup();" href="javascript:void(0)" class="pop_up_Content_Blue">Apply</a>
+                                            <a id="btnUserGroupCancel" onclick="javascript: clearSelectionUserGroup();" href="javascript:void(0)" class="pop_up_Content_White">Clear All</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+                <div class="selectFIlterItem">
+                    <div id="liUserGroupFiltersSearchText">
+                    </div>
+                    <div id="liUserGroupFiltersUserType">
+                    </div>
+                    <div id="liUserGroupFiltersEnabled">
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td align="right">
+            <div class="cbp-hrmenu cbp-hrmenu5 sub2" style="margin-top:-17px">
+                <ul style="padding-bottom: 0;right: 11% !important;position: absolute;">
+                    <li class="newCont1">
+                        <a class="drop_a" href="javascript:void(0);" id="btnUserGroupMultipleAction" style="display:none;background-color: #FFF !important;border: 1px solid #DDD !important;"><img src="../Content/Images/icon/drop.png" /></a>
+                        <div id="dvUserGroupMultipleSelection" class="cbp-hrsub nEw_ContRact3 hhide menusettings">
+                            <div class="meaan">
+                                <div class="">
+                                    <div class="mean-width3 ">
+                                        <ul class="menusettingsul">
+                                            <li><a href="javascript:void(0);" onclick="javascript: showEnableDisableMultiple();">Enable/Disable</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="cbp-hrmenu cbp-hrmenu5 sub3" style="margin-top:-12px">
+                <input id="btnAddNewUserGroup" style="padding:5px 10px 7px;" type="button" value="Add New" class="f_button_green_small" />
+            </div>
+        </td>
+    </tr>
+    @*UserGroup*@
+    <tr id="trUserGroupSelectAll" style="display:none">
+        <td colspan="2">
+            @*<input id="chkUserGroupAll" class="ifnoitemfoumd" type="checkbox" style="margin: 3px 15px 0px 5px; float: left;display:none" onclick="SelectAll(this);" /><label class="css1-label ifnoitemfoumd" style="display:none" for="chkAll">Select All</label>*@
+            <div id="page-wrap" class="f_list">
+                <table class="paginated width100" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th id="footleft" class="font-normal">
+                                User Group
+                            </th>
+                            <th class="font-normal">Assigned User(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listUserGroup"></tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination1"></article>
+            </div>
+        </td>
+    </tr>
+
+
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="history"><a href="#history">User Activity</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="alerts"><a href="#alert">Alerts</a></li>
+    <li class="replace"><a href="#replace">Replace</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuNoDelete" class="contextMenu">
+    <li class="history"><a href="#history">User Activity</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="alerts"><a href="#alert">Alerts</a></li>
+    <li class="replace"><a href="#replace">Replace</a></li>
+    @*<li class="delete"><a href="#delete">Delete</a></li>*@
+</ul>
+<ul id="myMenuGroup" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+
+<div id="addEditUser" style="display:none;" oncontextmenu="return false;">
+    <div id="dvPopupHeadingUser" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <input id="hdnBusinessArea" type="hidden" />
+            <input id="hdnContributeBusinessArea" type="hidden" />
+            <input id="hdnReadBusinessArea" type="hidden" />
+            <input id="hdnLocBusinessArea" type="hidden" />
+            <input id="hdnLocContributeBusinessArea" type="hidden" />
+            <input id="hdnLocReadBusinessArea" type="hidden" />
+            <input id="hdnContractArea" type="hidden" />
+            <input id="hdnLocOwnerofBusinessArea" type="hidden" />
+            <input id="hdnOwnerofBusinessArea" type="hidden" />
+            <table cellpadding="0" cellspacing="0" class="width100">
+                <tr>
+                    <td class="">
+                        <div class="float_left">
+                            &nbsp;
+
+                        </div>
+                    </td>
+                    <td>
+                        <div id="ManageUsersEnabled" class="switch enabled_slider switchSet  switch_enable" style=" float: right;">
+                            <div class="Toggle"></div>
+                            <span class="switch_enable">YES</span>
+                            <span class="switch_disable">NO</span>
+                            <input id="ManageUsers" type="hidden" class="switch_val" value="Yes">
+                        </div><div class="float_left" style="text-align: right;float: right!important;display: inline-block;margin: 4px 10px;">
+                            <span class="switch_lefttext">Enabled</span>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">User Name<img src="/Content/Images/input-help.png" alt="Enter name of the user to be created." title="Enter name of the user to be created." /></td>
+                    <td class="labelright"><label id="lblUserName"></label></td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">Login Email ID</td>
+                    <td class="labelright"><label id="lblLoginEmailID"></label></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Role</td>
+                    <td class="labelright">
+                        <input id="txtRole" name="Role" type="text" class="f_inpt width80" />
+                        @*<select id="ddlRole" name="Role" class="f_inpt width80">
+                                <option value="0">No Access</option>
+                                <option value="Administrators">Contract Administrator</option>
+                                <option value="Managers">Contract Manager</option>
+                                <option value="BusinessOwner">Business Owner</option>
+                                <option value="Approver">Approver/Reviewer</option>
+                                <option value="BusinessUser">Business User</option>
+                                <option value="GuestUser">Guest User</option>
+                            </select>*@
+                    </td>
+                </tr>
+
+
+
+                @*<tr>
+                        <td class="f_head">Permission Set</td>
+                        <td class="labelright">
+                            <select id="ddlPermissionSet" class="f_inpt width76" name=" permissionset" multiple data-placeholder="All"></select>
+                        </td>
+                    </tr>*@
+                <tr style="display:none">
+                    <td class="f_head">Designation</td>
+                    <td class="labelright"><input id="txtDesignation" name="Designation" type="text" class="f_inpt width80" /></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">ReportsTo</td>
+                    <td class="labelright"><input id="txtReportsTo" name="ReportsTo" type="text" class="f_inpt width80" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Address<img src="/Content/Images/input-help.png" alt="Enter address of the user." title="Enter address of the user." /></td>
+                    <td class="labelright"><input id="txtAddress1" maxlength="100" name="Address1" type="text" class="f_inpt width80 margin-bottom-m2" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="labelright"><input id="txtAddress2" maxlength="100" name="Address2" type="text" class="f_inpt width80 margin-bottom-m2" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">City</td>
+                    <td class="labelright"><input id="txtCity" name="City" maxlength="50" type="text" class="f_inpt width80" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Country<img src="/Content/Images/input-help.png" alt="Choose the name of the country which the user belongs to from the list." title="Choose the name of the country which the user belongs to from the list." /></td>
+                    <td class="labelright">
+                        <select id="ddlCountry" name="Country" class="f_inpt width80"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Email ID(for eContracts notifications)<img src="/Content/Images/input-help.png" alt="Enter email id of the user." title="Enter email id of the user." /></td>
+
+                    <td class="labelright"><input id="txtEmailID" name="EmailID" maxlength="50" type="text" class="f_inpt width80 validemail validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Phone 1<img src="/Content/Images/input-help.png" alt="Enter phone number of the user." title="Enter phone number of the user." /></td>
+                    <td class="labelright"><input id="txtPhoneNo1" name="PhoneNo1" maxlength="50" type="text" class="f_inpt width80 margin-bottom-m2" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Phone 2<img src="/Content/Images/input-help.png" alt="Enter phone number of the user." title="Enter phone number of the user." /></td>
+                    <td class="labelright"><input id="txtPhoneNo2" name="PhoneNo2" type="text" maxlength="50" class="f_inpt width80" /></td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Is Enabled ?</td>
+                        <td class="labelright">
+                            <input id="rbnYes" checked="checked" value="Yes" type="radio" name="ManageUsers" />&nbsp;<span>Yes</span>&nbsp;
+                            <input id="rbnNo" value="No" type="radio" name="ManageUsers" />&nbsp;<span>No</span>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td class="f_head">User Role<img src="/Content/Images/input-help.png" alt="Choose the name of the User Role which the user belongs to from the list." title="Choose the name of the User Role which the user belongs to from the list." /></td>
+                    <td class="labelright">
+                        <select id="ddluserrole" name="User Role" multiple="multiple" class="f_inpt width80 chosenmulti" data-placeholder="Select User Role(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <b class="poPup_Form_PermissionTitle">Permissions</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">User Type</td>
+                    <td class="labelright">
+                        <ul class="f_list f_list-margin">
+                            <li>
+                                <input id="chkGlobalContractOwner" type="checkbox" name="UserType" value="Global Contract Owner" onclick="checkUserType();" />
+                                <label for="chkGlobalContractOwner">Global Contract Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to all Business Areas and All Contract. Overrides Custom Permission." title="Has access to all Business Areas and All Contract. Overrides Custom Permission." />
+                            </li>
+                            <li>
+                                <input id="chkGlobalAdministrator" type="checkbox" name="UserType" value="Global Administrator" onclick="checkUserType();" />
+                                <label for="chkGlobalAdministrator">Global Administrator</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to all Contract Areas and Administration Pages. No access to Business Areas or Contracts, unless provided." title="Has access to all Contract Areas and Administration Pages. No access to Business Areas or Contracts, unless provided." />
+                            </li>
+                            <li>
+                                <input id="chkAccountOwner" type="checkbox" name="UserType" value="Account Owner" onclick="checkUserType();" />
+                                <label for="chkAccountOwner">Account Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to account management pages." title="Has access to account management pages." />
+                            </li>
+                            <li>
+                                <input id="chkContractAreaAdministrator" type="checkbox" name="UserType" value="Contract Area Administrator" onclick="checkUserType();" />
+                                <label for="chkContractAreaAdministrator">Contract Area Administrator</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to Contract Area Settings Page. No access to Contracts." title="Has access to Contract Area Settings Page. No access to Contracts." />
+                            </li>
+
+                            <li>
+                                <input id="chkBusinessAreaOwner" type="checkbox" name="UserType" value="Business Area Owner" onclick="checkUserType();" />
+                                <label for="chkBusinessAreaOwner">Business Area Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to Business Area Settings Page and all Contracts in the Business Area, including private." title="Has access to Business Area Settings Page and all Contracts in the Business Area, including private." />
+                            </li>
+                            <li>
+                                <input id="chkBusinessUser" type="checkbox" name="UserType" value="Business User" checked="checked" disabled="disabled" />
+                                <label for="chkBusinessUser">Business User</label>&nbsp;<img src="../Content/Images/help_training.png" alt="" title="" />
+                            </li>
+                        </ul>
+
+                    </td>
+                </tr>
+
+                <tr class="ContractArea" style="display:none;">
+                    <td class="f_head">Contract Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtContractArea" name="ContractArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="browseContractArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessAreaOwner" style="display:none;">
+                    <td class="f_head">Owner of Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtOwnerofBusinessArea" name="OwnerofBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewOwnerofBusinessArea()"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Full Control Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtBusinessArea" name="BusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewBusinessArea()"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Contribute Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtContributeBusinessArea" name="ContributeBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="ContributeBusinessArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Read Only Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtReadBusinessArea" name="ReadBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="ReadBusinessArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr style="display:none">
+                    <td class="f_head">Permissions On Document(s)</td>
+                    <td class="labelright">
+                        <select id="ddlPermOnDocuments" name="PermOnDocuments" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly" selected="selected">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr style="display:none">
+                    <td class="f_head">Permissions On Counterparty(s)</td>
+                    <td class="labelright">
+                        <select id="ddlPermOnCounterparty" name="PermOnCounterparty" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @*<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+                <div>
+                    <table id="example-basic-11" class="treetable">
+                        <tbody id="tbodyBusinessArea11"></tbody>
+                    </table>
+                </div>
+                <div class="selectFIlterItem" style="margin-bottom:10px;">
+                    <div id="liSelectedBAOwners">
+                    </div>
+                    <label id="lblBusinessAreaOwners" style="display: none;"></label>
+                </div>
+
+                <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" />
+            </div>
+            <div id="browseBA" class="k-content" style="display: none; text-align: left;">
+                <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+                    <table id="example-basic-12" class="treetable">
+                        <tbody id="tbodyBusinessArea12"></tbody>
+                    </table>
+                </div>
+                <div class="selectFIlterItem" style="margin-bottom:10px;">
+                    <div id="liSelectedBA">
+                    </div>
+                    <label id="lblBusinessArea" style="display: none;"></label>
+                </div>
+
+                <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+            </div>
+            <div id="browseBAContribute" class="k-content" style="display: none; text-align: left;">
+                <div>
+                    <table id="example-basic-13" class="treetable">
+                        <tbody id="tbodyBusinessArea13"></tbody>
+                    </table>
+                </div>
+                <div class="selectFIlterItem" style="margin-bottom:10px;">
+                    <div id="liSelectedBAContribute">
+                    </div>
+                    <label id="lblBusinessAreaContribute" style="display: none;"></label>
+                </div>
+
+                <input id="txtBAContributeRowkey" type="hidden" /><input id="txtBAContributeParent" type="hidden" /><input id="txtBAContribute" type="hidden" />
+            </div>
+            <div id="browseBARead" class="k-content" style="display: none; text-align: left;">
+                <div>
+                    <table id="example-basic-14" class="treetable">
+                        <tbody id="tbodyBusinessArea14"></tbody>
+                    </table>
+                </div>
+
+                <div class="selectFIlterItem" style="margin-bottom:10px;">
+                    <div id="liSelectedBARead">
+                    </div>
+                    <label id="lblBusinessAreaRead" style="display: none;"></label>
+                </div>
+
+                <input id="txtBAReadRowkey" type="hidden" /><input id="txtBAReadParent" type="hidden" /><input id="txtBARead" type="hidden" />
+            </div>
+            <div id="browseBAContractArea" class="k-content" style="display: none; text-align: left;">
+                <div>
+                    <table id="example-basic-15" class="treetable">
+                        <tbody id="tbodyBusinessArea15"></tbody>
+                    </table>
+                </div>
+
+                <div class="selectFIlterItem" style="margin-bottom:10px;">
+                    <div id="liSelectedBAContractArea">
+                    </div>
+                    <label id="lblBAContractArea" style="display: none;"></label>
+                </div>
+
+                <input id="txtBAContractAreaRowkey" type="hidden" /><input id="txtBAContractAreaParent" type="hidden" /><input id="txtBAContractArea" type="hidden" />
+            </div>*@
+    </div>
+</div>
+
+
+
+<div id="addEditUserGroup" style="display:none;" oncontextmenu="return false;">
+    <div class="modalbody">
+        <div id="addNewGroupEntityFields">
+            <table cellpadding="0" cellspacing="0" class="width100">
+                <tr>
+                    <td class="">
+                        <div class="float_left">
+                            &nbsp;
+                        </div>
+                    </td>
+                    <td style="display:none">
+                        @*ManageUsersEnabled;ManageUsers*@
+                        <div id="ManageUserGroupEnabled" class="switch enabled_slider switchSet  switch_enable" style=" float: right;">
+                            <div class="Toggle"></div>
+                            <span class="switch_enable">YES</span>
+                            <span class="switch_disable">NO</span>
+                            <input id="ManageUserGroup" type="hidden" class="switch_val" value="Yes">
+                        </div><div class="float_left" style="text-align: right;float: right!important;display: inline-block;margin: 4px 10px;">
+                            <span class="switch_lefttext">Enabled</span>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Group Name<img src="/Content/Images/input-help.png" alt="Enter name of the group to be created." title="Enter name of the group to be created." /></td>
+                    <td class="labelright"><label id="lblGroupName"></label></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <b class="poPup_Form_PermissionTitle">Permissions</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head">User Type</td>
+                    <td class="labelright">
+                        <ul class="f_list f_list-margin">
+                            <li>
+                                <input id="chkGroupGlobalContractOwner" type="checkbox" name="UserTypeGroup" value="Global Contract Owner" onclick="checkUserTypeGroup();" />
+                                <label for="chkGroupGlobalContractOwner">Global Contract Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to all Business Areas and All Contract. Overrides Custom Permission." title="Has access to all Business Areas and All Contract. Overrides Custom Permission." />
+                            </li>
+                            <li>
+                                <input id="chkGroupGlobalAdministrator" type="checkbox" name="UserTypeGroup" value="Global Administrator" onclick="checkUserTypeGroup();" />
+                                <label for="chkGroupGlobalAdministrator">Global Administrator</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to all Contract Areas and Administration Pages. No access to Business Areas or Contracts, unless provided." title="Has access to all Contract Areas and Administration Pages. No access to Business Areas or Contracts, unless provided." />
+                            </li>
+                            <li>
+                                <input id="chkGroupAccountOwner" type="checkbox" name="UserTypeGroup" value="Account Owner" onclick="checkUserTypeGroup();" />
+                                <label for="chkGroupAccountOwner">Account Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to account management pages." title="Has access to account management pages." />
+                            </li>
+                            <li>
+                                <input id="chkGroupContractAreaAdministrator" type="checkbox" name="UserTypeGroup" value="Contract Area Administrator" onclick="checkUserTypeGroup();" />
+                                <label for="chkGroupContractAreaAdministrator">Contract Area Administrator</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to Contract Area Settings Page. No access to Contracts." title="Has access to Contract Area Settings Page. No access to Contracts." />
+                            </li>
+
+                            <li>
+                                <input id="chkGroupBusinessAreaOwner" type="checkbox" name="UserTypeGroup" value="Business Area Owner" onclick="checkUserTypeGroup();" />
+                                <label for="chkGroupBusinessAreaOwner">Business Area Owner</label>&nbsp;<img src="../Content/Images/help_training.png" alt="Has access to Business Area Settings Page and all Contracts in the Business Area, including private." title="Has access to Business Area Settings Page and all Contracts in the Business Area, including private." />
+                            </li>
+                            <li>
+                                <input id="chkGroupBusinessUser" type="checkbox" name="UserTypeGroup" value="Business User" checked="checked" disabled="disabled" />
+                                <label for="chkGroupBusinessUser">Business User</label>&nbsp;<img src="../Content/Images/help_training.png" alt="" title="" />
+                            </li>
+                        </ul>
+
+                    </td>
+                </tr>
+
+                <tr class="ContractArea" style="display:none;">
+                    <td class="f_head">Contract Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtGroupContractArea" name="ContractArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="browseGroupContractArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessAreaOwner" style="display:none;">
+                    <td class="f_head">Owner of Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtGroupOwnerofBusinessArea" name="OwnerofBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewOwnerofBusinessArea()"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Full Control Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtGroupBusinessArea" name="BusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewBusinessArea()"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Contribute Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtGroupContributeBusinessArea" name="ContributeBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="ContributeGroupBusinessArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr class="BusinessArea" style="display:none;">
+                    <td class="f_head">Read Only Business Area(s)</td>
+                    <td class="labelright">
+                        <input id="txtGroupReadBusinessArea" name="ReadBusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" id="ReadGroupBusinessArea"> Browse</a></span>
+                    </td>
+                </tr>
+
+                <tr style="display:none">
+                    <td class="f_head">Permissions On Document(s)</td>
+                    <td class="labelright">
+                        <select id="ddlGroupPermOnDocuments" name="PermOnDocuments" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly" selected="selected">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr style="display:none">
+                    <td class="f_head">Permissions On Counterparty(s)</td>
+                    <td class="labelright">
+                        <select id="ddlGroupPermOnCounterparty" name="PermOnCounterparty" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<input id="txtUserID" name="UserID" type="hidden" />
+<input id="hdUserType" type="hidden" />
+
+<div id="dvReplaceUser" style="display:none;" oncontextmenu="return false;">
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="0" cellspacing="0" class="width100">
+                <tr>
+                    <td class="labelleft" colspan="2">Replace <label id="lblUserName1"></label> with the following user. </td>
+                </tr>
+                <tr>
+                    <td class="f_head margin-top-5">Replace with User</td>
+                    <td class="labelright"><select id="ddlReplace" name="ddlReplace" class="f_inpt width80 validelement"></select></td>
+                </tr>
+                <tr>
+                    <td class="labelleft" colspan="2">Select from below the tasks and ownership that has to be reassigned to/replaced by the new user.  </td>
+                </tr>
+                <tr>
+                    <td class="labelleft" colspan="2">
+                        <ul class="f_list f_list-margin">
+                            <li>
+                                <input id="chkOwnershipCAA" type="checkbox" name="Ownership" value="Contract Area Admin" />
+                                <label for="chkOwnershipCAA">Contract Area Admin</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipBAO" type="checkbox" name="Ownership" value="Business Area Owner" />
+                                <label for="chkOwnershipBAO">Business Area Owner</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipCO" type="checkbox" name="Ownership" value="Contract Ownership" />
+                                <label for="chkOwnershipCO">Contract Ownership</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipMO" type="checkbox" name="Ownership" value="Milestone Ownership" />
+                                <label for="chkOwnershipMO">Milestone Ownership</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipOO" type="checkbox" name="Ownership" value="Obligation Ownership" />
+                                <label for="chkOwnershipOO">Obligation Ownership</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipRW" type="checkbox" name="Ownership" value="Running Workflows" />
+                                <label for="chkOwnershipRW">Workflow Approvals and Document Review</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipRER" type="checkbox" name="Ownership" value="Renewal & Expiration Reminders" />
+                                <label for="chkOwnershipRER">Renewal & Expiration Reminders</label>
+                            </li>
+
+                            <li>
+                                <input id="chkOwnershipAS" type="checkbox" name="Ownership" value="Authorized Signatory" />
+                                <label for="chkOwnershipAS">Authorized Signatory</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipAO" type="checkbox" name="Ownership" value="Account Owner" />
+                                <label for="chkOwnershipAO">Account Owner</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipUR" type="checkbox" name="Ownership" value="Standard Milestone" />
+                                <label for="chkOwnershipUR">User Roles</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipRAS" type="checkbox" name="Ownership" value="Request Assignment Settings" />
+                                <label for="chkOwnershipRAS">Request Assignment Settings</label>
+                            </li>
+                            <li>
+                                <input id="chkOwnershipRAT" type="checkbox" name="Ownership" value="Request Assigned to" />
+                                <label for="chkOwnershipRAT">Request Assigned to</label>
+                            </li>
+                            <li style="display:none">
+                                <input id="chkOwnershipWF" type="checkbox" name="Ownership" value="Workflows" />
+                                <label for="chkOwnershipWF">Workflows</label>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <span style="background-color:yellow">Note: Changes may take up to few hours to display in all places depending on number of Contract Records/Documents.</span>
+        </div>
+
+    </div>
+</div>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" />
+</div>
+<div id="browseBA" class="k-content" style="display: none; text-align: left;">
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBA">
+        </div>
+        <label id="lblBusinessArea" style="display: none;"></label>
+    </div>
+
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+</div>
+<div id="browseBAContribute" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-13" class="treetable">
+            <tbody id="tbodyBusinessArea13"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAContribute">
+        </div>
+        <label id="lblBusinessAreaContribute" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAContributeRowkey" type="hidden" /><input id="txtBAContributeParent" type="hidden" /><input id="txtBAContribute" type="hidden" />
+</div>
+<div id="browseBARead" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-14" class="treetable">
+            <tbody id="tbodyBusinessArea14"></tbody>
+        </table>
+    </div>
+
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBARead">
+        </div>
+        <label id="lblBusinessAreaRead" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAReadRowkey" type="hidden" /><input id="txtBAReadParent" type="hidden" /><input id="txtBARead" type="hidden" />
+</div>
+<div id="browseBAContractArea" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-15" class="treetable">
+            <tbody id="tbodyBusinessArea15"></tbody>
+        </table>
+    </div>
+
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAContractArea">
+        </div>
+        <label id="lblBAContractArea" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAContractAreaRowkey" type="hidden" /><input id="txtBAContractAreaParent" type="hidden" /><input id="txtBAContractArea" type="hidden" />
+</div>
+
+
+<div id="dvUsers" style="display:none;">
+    <span style="background-color:yellow">Note: Users available in the SharePoint site (where the eContracts app is installed), and not already added to eContracts app are shown.</span>
+    <article style="width:100%;">
+        <input id="txtSearchBoxRequest" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchRequest();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxRequest').val(''); SearchRequest();">Clear</a>
+    </article>
+    <div id="dvPopupHeadingUsers" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table id="Emptytable"></table>
+        <table class="tblgrid width100" id="tblUsers"></table>
+    </div>
+</div>
+
+<div id="dvUserGroups" style="display:none;">
+    <span style="background-color:yellow">Note: User Groups available in the SharePoint site (where the eContracts app is installed), and not already added to eContracts app are shown.</span>
+    <article style="width:100%;">
+        <input id="txtSearchBoxRequestUserGroup" class="f_inpt cl width80 padding_right_20px" type="text" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchRequestUserGroup();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxRequestUserGroup').val(''); SearchRequestUserGroup();">Clear</a>
+    </article>
+    <div id="dvPopupHeadingUserGroup" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table id="Emptytable1"></table>
+        <table class="tblgrid width100" id="tblUserGroups"></table>
+    </div>
+</div>
+
+<div id="addEditPermissionMultiple" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewPerM">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head" width="150px">Permission Set</td>
+                    <td class="labelright">
+                        <select id="ddlPermissionSetM" class="f_inpt width100" style=" width:250px;" name="permissionset" multiple data-placeholder="All"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="enableDisableMultiple" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewStatM">
+            <table cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="f_head">Enable?</td>
+                    <td class="labelright" style="padding-top:2px;">
+                        <input id="rbnYesM" checked="checked" value="Yes" type="radio" name="ManageUsersM" />&nbsp;<b>Yes</b>&nbsp;
+                        <input id="rbnNoM" value="No" type="radio" name="ManageUsersM" />&nbsp;<b>No</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div id="contractLogsPopup" style="display:none; position: static !important;">
+    <div style="right: 4%; top: 7px; position: absolute;">
+        <span style="float: left ! important; margin: 15px 20px 0px 0px;">Item</span>
+        <div class="padding_top_10px padding_right_10px" style="float: right ! important;">
+            @*<select id="ddlHistoryFilter" class="form-contro">
+                    <option>All</option>
+                    <option>Contract</option>
+                    <option>Document</option>
+                    <option>Milestone</option>
+                </select>*@
+
+            <!--manoj-->
+            <select id="ddlHistoryFilter" class="form-contro">
+                <option>All</option>
+                <option>Contract Record</option>
+                <option>Document</option>
+                <option>Milestone</option>
+                <option class="bar" value="FL_Obligations" id="i">Obligation</option>
+                <option>Correspondence</option>
+                <option>Note</option>
+            </select>
+            <!--manoj-->
+        </div>
+    </div>
+    <div id="page-wrap">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="logHisheader width20">Date and Time</th>
+                        <th class="logHisheader">Item</th>
+                        <th class="logHisheader">Activity</th>
+
+                    </tr>
+                </thead>
+                <tbody id="contractLogs"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Activity"></article>
+    </div>
+</div>
+
+
+
+@*<script id="treeviewBA-template" type="text/kendo-ui-template">
+        #: item.businessAreaName #&nbsp;
+        # if (item.businessAreaName!="Business Areas") { #
+        (#: item.owner #)
+        # } #
+
+    </script>*@
+
+
+
+
+<style scoped>
+    /*#treeviewBA {
+        width: 300px;
+        margin: 0 auto;
+    }*/
+
+    #ddluserrole_chosen {
+        width: 81% !important;
+    }
+</style>
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>*@
+@section Scripts {
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+    <link rel="stylesheet" href="/Content/css/jquery_002.css">
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        document.onkeypress = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onmousedown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onkeydown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+    </script>
+    @Scripts.Render("~/Scripts/Contract365/Settings_ManageUsers.js?" + DateTime.Now.GetHashCode())
+}
+

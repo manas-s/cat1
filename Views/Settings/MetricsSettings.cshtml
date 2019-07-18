@@ -1,0 +1,471 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.SettingsEntity>
+@{
+    ViewBag.Title = "MetricsSettings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a" id="tblMetricSettings">
+    <tr>
+        <td class="pageheading" colspan="2">
+            Metrics Configuration
+            <img src="~/Content/Images/help_training.png" alt="Metrics Settings" title="Configure options for metrics components." />
+        </td>
+    </tr>
+    <tr >
+        <td class="f_head" style="padding-bottom: 20px;">
+            Metrics Dashboard
+        </td>
+    </tr>
+    <tr>
+        <td class="formhead" colspan="2">
+            @*<input id="chkMetricsSummary" name="Status" type="checkbox" class="Active css1-checkbox" value="MetricsSummary" />*@
+            <label for="lblMetricsSummary" class="css1-label">Metrics Summary</label>
+            <a href="javascript:void(0)" onclick="ManageSummary();">
+                <img src="../Content/Images/settings1.png" class="openmenu margintop-2px" style="width:1.5%;" alt="Manage" title="Manage Summary" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td class="formhead" colspan="2">
+            @*<input id="chkStatusMetrics" name="Status" type="checkbox" class="Active css1-checkbox" value="StatusMetrics" />*@
+            <label for="lblStatusMetrics" class="css1-label">Status Metrics</label>
+            <a href="javascript:void(0)" onclick="ManageMetrics('Status Metrics');">
+                <img src="../Content/Images/settings1.png" class="openmenu margintop-2px" style="width:1.5%;" alt="Manage" title="Manage Status Metrics" />
+            </a>
+        </td>
+    </tr>
+    <tr >
+        <td class="formhead" colspan="2">
+            @*<input id="chkRenewal/ExpirationMetrics" name="Status" type="checkbox" class="Active css1-checkbox" value="Renewal/ExpirationMetrics" />*@
+            <label for="lblRenewal/ExpirationMetrics" class="css1-label">Renewal/Expiration Metrics</label>
+            <a href="javascript:void(0)" onclick="ManageMetrics('Renewal/Expiration Metrics');">
+                <img src="../Content/Images/settings1.png" class="openmenu margintop-2px" style="width:1.5%;" alt="Manage" title="Manage" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td class="formhead" colspan="2">
+            @*<input id="chkProductivityMetrics" name="Status" type="checkbox" class="Active css1-checkbox" value="ProductivityMetrics" />*@
+            <label for="lblProductivityMetrics" class="css1-label">Productivity Metrics</label>
+            <a href="javascript:void(0)" onclick="ManageMetrics('Productivity Metrics');">
+                <img src="../Content/Images/settings1.png" class="openmenu margintop-2px" style="width:1.5%;" alt="Manage" title="Manage" />
+            </a>
+        </td>
+    </tr>
+    <tr style="display:none;" >
+        <td class="formhead" colspan="2">
+            @*<input id="chkFinancialMetrics" name="Status" type="checkbox" class="Active css1-checkbox" value="FinancialMetrics" />*@
+            <label for="lblFinancialMetrics" class="css1-label">Financial Metrics</label>
+            <a href="javascript:void(0)" onclick="ManageMetrics('Financial Metrics');" >
+                <img src="../Content/Images/settings1.png" class="openmenu margintop-2px" style="width:1.5%;" alt="Manage" title="Manage" />
+            </a>
+        </td>
+    </tr>
+    <tr style="border-bottom: 1px dotted #eeeaea; padding-top: 10px;">
+        <td class="css1-label f_head">
+            <label class="css1-label">Global Settings</label>
+        </td>
+    </tr>
+    <tr >
+        <td class="f_head" style="vertical-align:baseline;" align="right">
+            Saved Reports will be Archived in
+        </td>
+        <td class="labelright css1-label width70">
+            <select id="ddldays" class="f_inpt width20 margin-left-10" style="color:black;">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="90">90</option>
+            </select>days.
+
+
+        </td>
+    </tr>
+    
+
+    <tr >
+        <td class="f_head" style="vertical-align:baseline;" align="right">
+            Refresh Interval<small class="required">*</small>
+        </td>
+        <td class="labelright css1-label width70">
+            <select id="ddlRefreshInterval" class="f_inpt width50 margin-left-10" style="color:black;">
+                <option value="Every 30 Minutes">Every 30 Minutes</option>
+                <option value="Every 1 Hour">Every 1 Hour</option>
+            </select>
+        </td>
+    </tr>
+    <tr >
+        <td class="f_head" style="vertical-align:baseline;" align="right">
+            Auto Snapshot Interval<small class="required">*</small>
+
+        </td>
+        <td class="labelright css1-label width70" >
+            <select id="ddlAutoSnapshotInterval" class="f_inpt width50 margin-left-10" style="color:black;">
+                <option value="Every 7 Days">Every 7 Days</option>
+                <option value="Every 1 Month">Every 1 Month</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<div class ="pageheading margin-right30" align="right">   
+    <input type="button" id="btnSaveMetrics" class="f_button_green" value="Save" />
+</div>
+<input type="hidden" id="hdnMetricsType" />
+<input type="hidden" id="hdnrowkey" />
+<input type="hidden" id="hdnSummaryRKey" />
+
+
+<div id="addEditStatusMetrics" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+           <table cellpadding="2" cellspacing="2" class="width100">
+                <tbody id="tbMetricsSetting">
+                 @*   <tr>
+        <td class="css1-label">Select/Deselect Components<small class="required">*</small></td>
+        <td class="css1-label">
+            <div id="divAddComponent1">
+                <input type="text" id="lblAddComponent1" class="f_inpt width70 validelement" />
+            </div>
+
+            <span title="Add Component" id="AddComponent1" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+        <td class="css1-label">
+            <div id="divAddComponent2">
+                <input type="text" id="lblAddComponent2" class="f_inpt width70 validelement" />
+            </div>
+            <span title="Add Component" id="AddComponent2" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="css1-label"></td>
+        <td class="css1-label">
+            <div id="divAddComponent3">
+                <input type="text" id="lblAddComponent3" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent3" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+        <td class="css1-label">
+            <div id="divAddComponent4">
+                <input type="text" id="lblAddComponent4" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent4" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+    </tr>
+    <tr id="trAddComponent56">
+        <td class="css1-label"></td>
+        <td class="css1-label">
+            <div id="divAddComponent5">
+                <input type="text" id="lblAddComponent5" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent5" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+        <td class="css1-label">
+            <div id="divAddComponent6">
+                <input type="text" id="lblAddComponent6" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent6" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+    </tr>
+    <tr id="trAddComponent78">
+        <td class="css1-label"></td>
+        <td class="css1-label">
+            <div id="divAddComponent7">
+                <input type="text" id="lblAddComponent7" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent7" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+        <td class="css1-label">
+            <div id="divAddComponent8">
+                <input type="text" id="lblAddComponent8" class="f_inpt width70" />
+            </div>
+            <span title="Add Component" id="AddComponent8" class="status_yellow css1-label" onclick="AddComponent(this)">Add Component</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="formhead">Select Reporting period<small class="required">*</small></td>
+
+        <td class="formhead">
+            <ul>
+                <li>
+                    <input id="chkThisWeek" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="This Week" />
+                    <label class="css1-label">This Week</label>
+                </li>
+                <li>
+                    <input id="chkLast2Month" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="Last Two Months + This Month" />
+                    <label class="css1-label">Last Two Months + This Month</label>
+
+                </li>
+                <li>
+                    <input id="chkLastQuarter" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="Last Quarter" />
+                    <label class="css1-label">Last Quarter</label>
+
+                </li>
+                <li>
+                    <input id="chkThisYear" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="This Year" />
+                    <label class="css1-label">This Year</label>
+                </li>
+                <li>
+                    <input id="chkNextYear" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="Next Year" />
+                    <label class="css1-label">Next Year</label>
+                </li>
+            </ul>
+        </td>
+        <td class="formhead">
+            <ul>
+                <li>
+                    <input id="chkLastYear" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="This Month + Next Two Months" />
+                    <label class="css1-label">This Month + Next Two Months</label>
+                </li>
+                <li>
+                    <input id="chkThisMonth" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="This Month" />
+                    <label class="css1-label">This Month</label>
+                </li>
+                <li>
+                    <input id="chkThisQuarter" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="This Quarter" />
+                    <label class="css1-label">This Quarter</label>
+                </li>
+                <li>
+                    <input id="chkNextQuarter" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="Next Quarter" />
+                    <label class="css1-label">Next Quarter</label>
+                </li>
+                <li>
+                    <input id="chkLastYear" name="Period" type="checkbox" onchange="chkReportingperiod(this)" class="Active css1-checkbox" value="Last Year" />
+                    <label class="css1-label">Last Year</label>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr style="padding-top: 10px;">
+        <td class="css1-label">
+            <label class="css1-label">Select Default Reporting period</label>
+            <small class="required">*</small>
+
+        </td>
+        <td>
+            <select id="ddlDefaultReportingperiod" class="f_inpt width80 margin-left-10" style="color:black;">
+                <option value="This Week">This Week</option>
+                <option value="This Month">This Month</option>
+                <option value="Last Two Months + This Month">Last Two Months + This Month</option>
+                <option value="This Month + Next Two Months">This Month + Next Two Months</option>
+                <option value="This Quarter">This Quarter</option>
+                <option value="Last Quarter">Last Quarter</option>
+                <option value="Next Quarter">Next Quarter</option>
+                <option value="This Year">This Year</option>
+                <option value="Last Year">Last Year</option>
+                <option value="Next Year">Next Year</option>
+            </select>
+        </td>
+    </tr>
+    <tr style="padding-top: 10px;">
+        <td class="css1-label">
+            <label class="css1-label">Snapshot Reporting period</label>
+            <small class="required">*</small>
+        </td>
+        <td>
+            <select id="ddlSnapshotReportingperiod" class="f_inpt width80 margin-left-10" style="color:black;">
+                <option value="This Week">This Week</option>
+                <option value="This Month">This Month</option>
+                <option value="Last Two Months + This Month">Last Two Months + This Month</option>
+                <option value="This Month + Next Two Months">This Month + Next Two Months</option>
+                <option value="This Quarter">This Quarter</option>
+                <option value="Last Quarter">Last Quarter</option>
+                <option value="Next Quarter">Next Quarter</option>
+                <option value="This Year">This Year</option>
+                <option value="Last Year">Last Year</option>
+                <option value="Next Year">Next Year</option>
+            </select>
+        </td>
+    </tr>*@
+        </tbody>
+    </table>
+        </div>
+    </div>
+    <input id="hdnlblComponent" type="hidden"/>
+</div>
+
+<div id="addComponents" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewComponent">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tbody id="tbodyComponents">
+                    @*<tr>
+                        <td class="labelright"></td>
+                        <td class="labelright">
+                            <ul>
+                                <li><label id="lblEffectiveContracts" class="formhead_left css1-label">Effective Contracts</label></li>
+                                <li>Line Graph</li>
+                                <li>Shows total Number of active contracts</li>
+                            </ul>
+                        </td>
+                        <td class="labelright">
+                            <span title="Add Component" id="EffectiveContracts" class="status_blue css1-label" onclick="AddNewComponent(this)"><img src="~/Content/Images/add-icon.png" alt="Add Component" title="Add Component" /> Add Component</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelright"></td>
+                        <td class="labelright">
+                            <ul>
+                                <li><label id="lblContractsinPipeline" class="formhead_left css1-label">Contracts in Pipeline</label></li>
+                                <li>Line Graph</li>
+                                <li>Shows total Number of contracts in Pipeline</li>
+                            </ul>
+                        </td>
+                        <td class="labelright">
+                            <span title="Add Component" id="ContractsinPipeline" class="status_blue css1-label" onclick="AddNewComponent(this)"><img src="~/Content/Images/add-icon.png" alt="Add Component" title="Add Component" /> Add Component</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelright"></td>
+                        <td class="labelright">
+                            <ul>
+                                <li><label id="lblContractinflowRate" class="formhead_left css1-label">Contract inflow Rate</label></li>
+                                <li>Stacked Bar Graph</li>
+                                <li>Shows inflow rate of contracts in a specific reporting period</li>
+                            </ul>
+                        </td>
+                        <td class="labelright">
+                            <span title="Add Component" id="ContractinflowRate" class="status_blue css1-label" onclick="AddNewComponent(this)"><img src="~/Content/Images/add-icon.png" alt="Add Component" title="Add Component" /> Add Component</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelright"></td>
+                        <td class="labelright">
+                            <ul>
+                                <li><label id="lblContractOutflowRate" class="formhead_left css1-label">Contract Outflow Rate</label></li>
+                                <li>Stacked Bar Graph</li>
+                                <li>Shows Outflow rate of contracts in a specific reporting period</li>
+                            </ul>
+                        </td>
+                        <td class="labelright">
+                            <span title="Add Component" id="ContractOutflowRate" class="status_blue css1-label" onclick="AddNewComponent(this)"><img src="~/Content/Images/add-icon.png" alt="Add Component" title="Add Component" /> Add Component</span>
+                        </td>
+                    </tr>*@
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+
+<div id="addEditMetricsSummary" style="display:none;">
+    <div class="row-group tab-title">
+        <div class="col12">
+            <div class="pad-all no-paa-bot padding_left_none">              
+                <p class="f_head">
+                    Select/Remove Components<small class="required">*</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-wraper">
+    <div class="form-wraper-in">
+        <div class="form-section">
+            <div class="form-section-in" id="formTableDocument">
+                <div class="row-group" id="divDocuments">
+                    <div class="col12 no-pad">
+                        <div class="collapse-heading">
+                            <div class="col10 no-pad">
+                                <h3 class="formhead_left" id="fieldGroup-2">Status Summary</h3>
+                                <p class="p-text" id="fieldGroup-2Desc"></p>
+                            </div>
+                            <div class="col2 text-right">
+                                <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('divStatusSummary', 'docfirst1', '');"><img id="docfirst1" src="../Content/Images/e-open.png" title="Expand"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-input-group" id="divStatusSummary" style="display: none;">
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="form-wraper">
+        <div class="form-wraper-in">
+            <div class="form-section">
+                <div class="form-section-in" id="formTableDocument">
+                    <div class="row-group" id="divDocuments">
+                        <div class="col12 no-pad">
+                            <div class="collapse-heading">
+                                <div class="col10 no-pad">
+                                    <h3 class="formhead_left" id="fieldGroup-2">Renewal/Expiration Metrics Summary</h3>
+                                    <p class="p-text" id="fieldGroup-2Desc"></p>
+                                </div>
+                                <div class="col2 text-right">
+                                    <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('divRenewalExpirationSummary', 'docfirst2', '');"><img id="docfirst2" src="../Content/Images/e-open.png" title="Expand"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group" id="divRenewalExpirationSummary" style="display: none;">
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-wraper">
+        <div class="form-wraper-in">
+            <div class="form-section">
+                <div class="form-section-in" id="formTableDocument">
+                    <div class="row-group" id="divDocuments">
+                        <div class="col12 no-pad">
+                            <div class="collapse-heading">
+                                <div class="col10 no-pad">
+                                    <h3 class="formhead_left" id="fieldGroup-2">Productivity Metrics Summary</h3>
+                                    <p class="p-text" id="fieldGroup-2Desc"></p>
+                                </div>
+                                <div class="col2 text-right">
+                                    <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('divProductivitySummary', 'docfirst3', '');"><img id="docfirst3" src="../Content/Images/e-open.png" title="Expand"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group" id="divProductivitySummary" style="display: none;">
+                  
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+
+    <div class="form-wraper" style="display:none;">
+        <div class="form-wraper-in">
+            <div class="form-section">
+                <div class="form-section-in" id="formTableDocument">
+                    <div class="row-group" id="divDocuments">
+                        <div class="col12 no-pad">
+                            <div class="collapse-heading">
+                                <div class="col10 no-pad">
+                                    <h3 class="formhead_left" id="fieldGroup-2">Financial Metrics Summary</h3>
+                                    <p class="p-text" id="fieldGroup-2Desc"></p>
+                                </div>
+                                <div class="col2 text-right">
+                                    <a class="" href="javascript:void(0);" onclick="javascript: togglediv123('divFinancialSummary', 'docfirst4', '');"><img id="docfirst4" src="../Content/Images/e-open.png" title="Expand"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-group" id="divFinancialSummary" style="display: none;">
+                  
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+        @section Scripts {
+
+            @Scripts.Render("~/Scripts/Contract365/Settings_MetricsSettings.js?" + DateTime.Now.GetHashCode())
+
+        }

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Workflow Alert Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_WorkflowAlertSttings.js?" + DateTime.Now.GetHashCode())
+}
+
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Workflow Alert Settings
+            <img src="../Content/Images/help_training.png" alt="Custom Lookup Values" title="Options for workflow tasks related alerts sent out.">
+        </td>
+    </tr>   
+    <tr id="trAlertSettings" >
+        <td colspan="2">
+            <table class="width100">
+                <tr>
+                    <td class="tableLeft width50 wf_padding">Task Assignment</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertTaskAssignment" type="checkbox" name="AlertTaskAssignment" value="Assignee" checked="checked" disabled="disabled" />Assignee
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">All Workflow outcomes/events (approvals, reassigns, change requests & rejections)</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAllAlertWorkflowCompletionInitiator" type="checkbox" name="AllAlertWorkflowCompletion" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAllAlertWorkflowCompletionAll" type="checkbox" name="AllAlertWorkflowCompletion" value="All Participants" />All Participants
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Workflow Completion and Outcome Digest</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertWorkflowCompletionInitiator" type="checkbox" name="AlertWorkflowCompletion" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAlertWorkflowCompletionAll" type="checkbox" name="AlertWorkflowCompletion" value="All Participants" />All Participants
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Change Request (Contract Record or Document)</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertChangeRequestInitiator" type="checkbox" name="AlertChangeRequest" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAlertChangeRequestAssigned" type="checkbox" name="AlertChangeRequest" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">New version of document submitted</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertNewDocumentVersionInitiator" type="checkbox" name="AlertNewDocumentVersion" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAlertNewDocumentVersionAssigned" type="checkbox" name="AlertNewDocumentVersion" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">New Comment added</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertWorkflowCommentInitiator" type="checkbox" name="AlertWorkflowComment" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAlertWorkflowCommentAssigned" type="checkbox" name="AlertWorkflowComment" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Approval Workflow Rejection(Contract, Amendment, Renewal)</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkAlertRejectionInitiator" type="checkbox" name="AlertRejection" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                        <input id="chkAlertRejectionAssigned" type="checkbox" name="AlertRejection" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="tableLeft"></td>
+        <td class="foot_right" align="right">
+            <br />
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+

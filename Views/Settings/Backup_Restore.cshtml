@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Backup_Restore";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<div style="width:98%">
+    @*<div class="featureTile  FL_BackupRestore">
+            <a class="feature-icon img-pos-Back-up" id="BackupHistory" href="@Url.Action("BackUp", "Settings")"></a>
+            <div class="featureTextBlock">
+                <div class="featureTitle">
+                    <a id="BackupHistory" href="@Url.Action("BackUp", "Settings")">Backup</a>
+
+                </div>
+                <div class="featureDescription">
+                    Backup
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="featureTile FL_BackupRestore">
+            <a class="feature-icon img-pos-Restore" id="RestoreBackups" href="@Url.Action("Restore", "Settings")"></a>
+            <div class="featureTextBlock">
+                <div class="featureTitle">
+                    <a id="RestoreBackups" href="@Url.Action("Restore", "Settings")">Restore</a>
+
+                </div>
+                <div class="featureDescription">
+                    Restore
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="featureTile FL_BackupRestore">
+            <a class="feature-icon img-pos-Restore-Histroy" id="RestoreHistories" href="@Url.Action("RestoreHistory", "Settings")"></a>
+            <div class="featureTextBlock">
+                <div class="featureTitle">
+                    <a id="RestoreHistories" href="@Url.Action("RestoreHistory", "Settings")">Restore History</a>
+
+                </div>
+                <div class="featureDescription">
+                    Restore History
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>*@
+    @*<ul>
+            <li class="FL_BackupRestore" style="display:block;"><a id="BackupHistory" href="@Url.Action("BackUp", "Settings")">Backup</a></li>
+            <li class="FL_BackupRestore" style="display:block;"><a id="RestoreBackups" href="@Url.Action("Restore", "Settings")">Restore</a></li>
+            <li class="FL_BackupRestore" style="display:block;"><a id="RestoreHistories" href="@Url.Action("RestoreHistory", "Settings")">Restore History</a></li>
+        </ul>*@
+    <div style="border: 1px solid #3099e4;" class="pop_up_Harizondal">
+        <ul>
+            <li style="display:block;"><a class="pop_up_Harizondal_meta_active" id="BackupHistoryTab" onclick="TabChnge('backuphistorytab')">Backup</a></li>
+            <li style="display:block;"><a id="RestoreBackupsTab" onclick="TabChnge('RestoreBackupsTab')">Restore</a></li>
+            <li style="display:block;"><a id="RestoreHistoriesTab" onclick="TabChnge('RestoreHistoriesTab')">Restore History</a></li>
+        </ul>
+    </div>
+</div>
+<div id="BackupHistoryTabDiv" style="display:block">
+    @Html.Partial("~/Views/Settings/BackUp.cshtml")
+</div>
+<div id="RestoreBackupsTabDiv" style="display:none">
+    @Html.Partial("~/Views/Settings/Restore.cshtml")
+</div>
+<div id="RestoreHistoriesTabDiv" style="display:none">
+    @Html.Partial("~/Views/Settings/RestoreHistory.cshtml")
+</div>
+@section scripts{
+@Scripts.Render("~/Scripts/Contract365/Settings_BackUp.js?" + DateTime.Now.GetHashCode())
+@Scripts.Render("~/Scripts/Contract365/Settings_Restore.js?" + DateTime.Now.GetHashCode())
+@Scripts.Render("~/Scripts/Contract365/Settings_RestoreHistory.js?" + DateTime.Now.GetHashCode())
+    <script>
+    $(document).ready(function () {
+       
+        $(".pop_up_Harizondal_meta_active").removeClass("pop_up_Harizondal_meta_active");
+        $("#BackupHistoryTab").addClass("pop_up_Harizondal_meta_active");
+        $("#BackupHistoryTabDiv").css("display", "");
+        $("#RestoreBackupsTabDiv").css("display", "none");
+        $("#RestoreHistoriesTabDiv").css("display", "none");
+    });
+    function TabChnge(id) {
+        if (id == "backuphistorytab") {
+          
+            $("#BackupHistoryTabDiv").css("display", "");
+            $("#RestoreBackupsTabDiv").css("display", "none");
+            $("#RestoreHistoriesTabDiv").css("display", "none");
+            $(".pop_up_Harizondal_meta_active").removeClass("pop_up_Harizondal_meta_active");
+            $("#BackupHistoryTab").addClass("pop_up_Harizondal_meta_active");
+
+
+        }
+        else if (id == "RestoreBackupsTab") {
+          
+            $("#BackupHistoryTabDiv").css("display", "none");
+            $("#RestoreBackupsTabDiv").css("display", "");
+            $("#RestoreHistoriesTabDiv").css("display", "none");
+            $(".pop_up_Harizondal_meta_active").removeClass("pop_up_Harizondal_meta_active");
+            $("#RestoreBackupsTab").addClass("pop_up_Harizondal_meta_active");
+        }
+        else if (id == "RestoreHistoriesTab") {
+         
+            $("#BackupHistoryTabDiv").css("display", "none");
+            $("#RestoreBackupsTabDiv").css("display", "none");
+            $("#RestoreHistoriesTabDiv").css("display", "");
+            $(".pop_up_Harizondal_meta_active").removeClass("pop_up_Harizondal_meta_active");
+            $("#RestoreHistoriesTab").addClass("pop_up_Harizondal_meta_active");
+        }
+    }
+    </script>
+
+}
+
+
+

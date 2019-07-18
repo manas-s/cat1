@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "ImportContractsAndMetadata";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+    
+}
+
+<br />
+<br />
+<ul>
+    <li>
+        <input type="file" id="fileImport" accept=".xml" />
+    </li>
+</ul>
+
+<div class="pop_up_Content_Bottom">
+    <a href="javascript:void(0)" id="btnImport">Import Contracts & Metadata</a>
+    <a class="pop_up_Content_White" href="javascript:void(0)">Cancel</a>
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $('#btnImport').click(function () {
+
+            var xmlpath = $('#fileImport').val();
+
+            if (xmlpath) {
+                $.ajax({
+                    url: '/Settings/GetImportContractsAndMetadata?filepath=' + xmlpath,
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+
+                       // alert("Successfully Exported ContractsAndMetadata");
+                        swal("", "Successfully Exported ContractsAndMetadata");
+                    }
+                });
+            }
+            else {
+               // alert('Please select the file path');
+                swal("", "Please select the file path");
+            }
+
+        });
+
+
+
+    </script>
+}
+
+
+
+

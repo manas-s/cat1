@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "PastErrorLogsHistory";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+@section Scripts {    <link href="~/Content/daterangepicker1.css" rel="stylesheet" type="text/css" />
+
+    @Scripts.Render("~/Scripts/Contract365/Settings_PastErrorLogsHistory.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/NewChanges/moment.js" type="text/javascript"></script>
+    <script src="~/Scripts/NewChanges/daterangepicker.js" type="text/javascript"></script>
+}
+<div>
+
+
+
+    <table class="width95_a">
+        <tbody>
+            <tr>
+                <td class="pageheading bordernone">Past Error Logs History files &nbsp;</td>
+                <td><a href="@Url.Action("ErrorLogsHistory", "Settings")">Go Back</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+                <div id="page-wrap">
+                    <table class="paginated width95_a" id="tblPastErrorlogshistoryFile"></table>
+
+                </div>
+                <div class="pagination-holder clearfix">
+                    <article id="compact-pagination"></article>
+                </div>
+

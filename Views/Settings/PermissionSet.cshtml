@@ -1,0 +1,646 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.PermissionSet>
+@{
+    ViewBag.Title = "PermissionSet";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width100">
+    <tr>
+        <td class="pageheading">Permission Set &nbsp;<img src="~/Content/Images/help_training.png" alt="Permission Set" title="Permission Set" /></td>
+        <td class="pageheading" align="right"><input id="btnAddNewPermissionSet" type="button" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="page-wrap">
+                <table class="paginated width100">
+                    <tbody>
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>There is no permission set found.</tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="@item.RowKey" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="PermissionSetID" style="display:none;">@item.RowKey</td>
+                                    <td id="PermissionSetTitle" style="display:none;">@Html.DisplayFor(modelItem => item.PermissionSetTitle)</td>
+                                    <td class="openmenu css1-label">
+                                        @item.PermissionSetTitle
+                                        <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                        <span class="small_content">@item.BusinessAreas</span>
+                                    </td>
+                                    <td class="css1-label">
+                                        @*@item.Role*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+
+
+<div id="addEditPermissionSet" style="display:none;">
+    <div id="dvPopupHeadingUser" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtPermissionSetID" name="PermissionSetID" type="hidden" /></td>
+                </tr>
+
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Name</td>
+                    <td class="labelright"><input id="txtPermissionSetTitle" name="PermissionSetTitle" type="text" class="f_inpt width80" /></td>
+                </tr>
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Description</td>
+                    <td class="labelright"><textarea class="sampleArea" id="txtDescription"></textarea></td>
+                </tr>
+
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td>
+                        <div class="poPup_Form_Title1">
+                            <b>Business User Permissions</b>
+                        </div>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Business Areas</td>
+                        <td class="labelright">
+                            <select id="ddlBusinessAreas" name="BusinessAreas" class="f_inpt width80">
+                                <option value="FullControl">Full Control</option>
+                                <option value="Edit">Edit</option>
+                                <option value="Read">Read</option>
+                            </select>
+                        </td>
+                    </tr>*@
+
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Business Area</td>
+                    <td class="labelright">
+                        <input id="txtBusinessArea" name="BusinessArea" readonly="readonly" type="text" class="f_inpt width80" />
+                        <span class="right-float"><a href="javascript:void(0)" onclick="ViewBusinessArea()"> Browse</a></span>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">
+                        Include Sub-Business Area
+                    </td>
+                    <td class="labelright">
+                        <span>
+                            <input type="checkbox" name="IncludeSubBusinessArea" id="chkIncludeSubBusinessArea" class="css1-checkbox" value="Yes" />
+                            <label for="chkIncludeSubBusinessArea" class="css1-label"> </label>
+                        </span>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Contract Records</td>
+                    <td class="labelright">
+                        <select id="ddlPermInContracts" name="PermInContracts" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Contract Documents</td>
+                    <td class="labelright">
+                        <select id="ddlPermInDocuments" name="PermInDocuments" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+                @*<tr style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">Contract Activities</td>
+                        <td class="labelright">
+                            <select id="ddlPermInActivities" name="PermInActivities" class="f_inpt width80">
+                                <option value="FullControl">Full Control</option>
+                                <option value="EditOrRead">Edit / Read</option>
+                                <option value="ReadOnly">Read Only</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>*@
+                <tr style="border-bottom:1px dotted #eeeaea;">
+                    <td class="f_head">Contract & Counterparty</td>
+                    <td class="labelright">
+                        <select id="ddlPermInCounterparty" name="PermInCounterparty" class="f_inpt width80">
+                            <option value="FullControl">Full Control</option>
+                            <option value="EditOrRead">Edit / Read</option>
+                            <option value="ReadOnly">Read Only</option>
+                            <option value="NoAccess">No Access</option>
+                        </select>
+                    </td>
+                </tr>
+
+                @*<tr style="border-bottom:1px dotted #eeeaea;">
+                        <td>
+                            <div class="poPup_Form_Title1">
+                                <b>Administrator Permissions</b>&nbsp;&nbsp;
+                                <input id="rbnOn" checked="checked" value="ON" type="radio" name="AdministratorPermissions" />&nbsp;<b>On</b>&nbsp;
+                                <input id="rbnOff" value="OFF" type="radio" name="AdministratorPermissions" />&nbsp;<b>Off</b>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="trAdminCompanySetup" style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">Company Setup</td>
+                        <td class="labelright">
+                            <select id="ddlPermInCompanySetup" name="PermInCompanySetup" class="f_inpt width80">
+                                <option value="Manage">Manage</option>
+                                <option value="View">View</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="trAdminContractTypes" style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">Contract Types, Metadata & Templates</td>
+                        <td class="labelright">
+                            <select id="ddlPermInContractTypesMetadataTemplates" name="PermInContractTypesMetadataTemplates" class="f_inpt width80">
+                                <option value="Manage">Manage</option>
+                                <option value="View">View</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="trAdminUserPermission" style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">User & Permission Management</td>
+                        <td class="labelright">
+                            <select id="ddlPermInUserPermissionManagement" name="PermInUserPermissionManagement" class="f_inpt width80">
+                                <option value="Manage">Manage</option>
+                                <option value="View">View</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="trAdminFeatureTurnOff" style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">Feature Turn / Off & Configuration</td>
+                        <td class="labelright">
+                            <select id="ddlPermInFeatureTurnOffConfiguration" name="PermInFeatureTurnOffConfiguration" class="f_inpt width80">
+                                <option value="Manage">Manage</option>
+                                <option value="View">View</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="trAdminReports" style="border-bottom:1px dotted #eeeaea;">
+                        <td class="f_head">Reports</td>
+                        <td class="labelright">
+                            <select id="ddlPermInReports" name="PermInReports" class="f_inpt width80">
+                                <option value="Manage">Manage</option>
+                                <option value="View">View</option>
+                                <option value="NoAccess">No Access</option>
+                            </select>
+                        </td>
+                    </tr>*@
+
+
+            </table>
+        </div>
+        <div id="browseBA" class="k-content" style="display: none; text-align: left;">
+            <div id="loadBA"></div>
+            <div id="treeviewBA" class="demo-section"></div>
+            <div class="selectFIlterItem" style="margin-bottom:10px;">
+                <div id="liSelectedBA">
+                </div>
+                <label id="lblBusinessArea" style="display: none;"></label>
+            </div>
+            <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+        </div>
+    </div>
+</div>
+<script id="treeviewBA-template" type="text/kendo-ui-template">
+    #: item.businessAreaName #&nbsp;
+    # if (item.businessAreaName!="Business Areas") { #
+    (#: item.owner #)
+    # } #
+
+</script>
+<style scoped>
+    /*#treeviewBA {
+        width: 300px;
+        margin: 0 auto;
+    }*/
+</style>
+@*<link rel="stylesheet" href="/resources/demos/style.css">*@
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var selecteditems = [];
+
+        $(document).ready(function () {
+            $(".openmenu").contextMenu({ menu: 'myMenu', leftButton: true }, function (action, el, pos) { contextMenuWork(action, el.parent("tr"), pos); });
+
+
+
+
+            $('input:radio[name=AdministratorPermissions]').change(function () {
+
+
+                if (this.value == 'ON') {
+                    $("#trAdminCompanySetup").css('display', '');
+                    $("#trAdminContractTypes").css('display', '');
+                    $("#trAdminUserPermission").css('display', '');
+                    $("#trAdminFeatureTurnOff").css('display', '');
+                    $("#trAdminReports").css('display', '');
+                }
+                else if (this.value == 'OFF') {
+                    $("#trAdminCompanySetup").css('display', 'none');
+                    $("#trAdminContractTypes").css('display', 'none');
+                    $("#trAdminUserPermission").css('display', 'none');
+                    $("#trAdminFeatureTurnOff").css('display', 'none');
+                    $("#trAdminReports").css('display', 'none');
+                }
+
+
+            });
+
+
+
+            $("#addEditPermissionSet").dialog({
+                autoOpen: false, closeText: "",
+                width: "60%",
+                title: "Permission Set",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        AddUpdatePermissionSet();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            var vCount = '@Model.Count()';
+            $('#compact-pagination').pagination({
+                items: vCount,
+                itemsOnPage: 20,
+                cssStyle: 'compact-theme'
+            });
+
+            $("#browseBA").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Business Area",
+                modal: true,
+                buttons: {
+                    "OK": function () {
+
+                        $('#lblBusinessArea').text("");
+                        $('#txtBusinessArea').text("");
+
+                        var selecteditemslength = selecteditems.length;
+                        if (selecteditemslength > 0) {
+                            for (var i = 0; i < selecteditemslength; i++) {
+
+                                if (i != selecteditemslength - 1) {
+                                    $('#lblBusinessArea').append(selecteditems[i] + "; ");
+                                }
+                                else {
+                                    $('#lblBusinessArea').append(selecteditems[i]);
+                                }
+                            }
+                            $('#txtBA').val($('#lblBusinessArea').text());
+                        }
+                        else {
+                            $('#txtBA').val("");
+                        }
+
+
+
+
+                        $('#txtBusinessArea').val($('#txtBA').val());
+                        $(this).dialog("close");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+        });
+
+        function ViewBusinessArea() {
+            $('#txtBARowkey').val("");
+            $('#txtBAParent').val("");
+            $('#txtBA').val("");
+            $("#browseBA").dialog("option", "title", "Browse Business Area");
+            $("#browseBA").dialog("open");
+            $("#browseBA").height("auto");
+        }
+
+        function contextMenuWork(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var permissionTitle = $(el).find("#PermissionSetTitle").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + permissionTitle + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $("#loadingPage").fadeIn();
+               var permissionSetID = $(el).find("#PermissionSetID").text();
+               $.ajax({
+                   url: '/Settings/DeletePermissionSet',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { permissionSetID: permissionSetID },
+                   cache: false,
+                   success: function (data) {
+                       alert(data);
+                       swal("", data);
+                       location = location;
+                   }
+               });
+           }
+           return;
+       });
+
+                        //if (confirm("Are you sure you want to delete '" + permissionTitle + "'?")) {
+                        //    $("#loadingPage").fadeIn();
+                        //    var permissionSetID = $(el).find("#PermissionSetID").text();
+                        //    $.ajax({
+                        //        url: '/Settings/DeletePermissionSet',
+                        //        type: 'DELETE',
+                        //        dataType: 'json',
+                        //        data: { permissionSetID: permissionSetID },
+                        //        cache: false,
+                        //        success: function (data) {
+                        //            alert(data);
+                        //            location = location;
+                        //        }
+                        //    });
+                        //}
+                        break;
+                    }
+                case "edit":
+                    {
+                        var permissionSetID = $(el).find("#PermissionSetID").text();
+                        $.ajax({
+                            url: '/Settings/GetPermissionSetDetails',
+                            type: 'GET',
+                            dataType: 'json',
+                            data: { permissionSetID: permissionSetID },
+                            cache: false,
+                            success: function (entity) {
+                                $("#txtPermissionSetID").val(entity.RowKey);
+                                $("#txtPermissionSetTitle").val(entity.PermissionSetTitle);
+                                $("#txtBusinessArea").val(entity.BusinessAreas);
+                                $("#ddlPermInDocuments option").filter(function (index) { return $(this).text() === entity.PermInDocuments; }).prop('selected', true);
+                                $("#ddlPermInContracts option").filter(function (index) { return $(this).text() === entity.PermInContracts; }).prop('selected', true);
+                                $("#ddlPermInCounterparty option").filter(function (index) { return $(this).text() === entity.PermInCounterparty; }).prop('selected', true);
+                                $("#txtDescription").val(entity.PermissionSetDescription);
+
+                                //$("#ddlPermInReports option").filter(function (index) { return $(this).text() === entity.PermInReports; }).prop('selected', true);
+                                //$("#ddlPermInActivities option").filter(function (index) { return $(this).text() === entity.PermInContractActivities; }).prop('selected', true);
+                                //$("#ddlPermInCompanySetup option").filter(function (index) { return $(this).text() === entity.PermInCompanySetup; }).prop('selected', true);
+                                //$("#ddlPermInContractTypesMetadataTemplates option").filter(function (index) { return $(this).text() === entity.PermInContractTypesMetadataTemplates; }).prop('selected', true);
+                                //$("#ddlPermInUserPermissionManagement option").filter(function (index) { return $(this).text() === entity.PermInUserPermissionManagement; }).prop('selected', true);
+                                //$("#ddlPermInFeatureTurnOffConfiguration option").filter(function (index) { return $(this).text() === entity.PermInFeatureTurnOffConfiguration; }).prop('selected', true);
+
+                                //if (entity.PermInAdministratorPermissions != null && entity.PermInAdministratorPermissions == "ON") {
+                                //    $("input:radio[name=AdministratorPermissions][value='ON']").attr('checked', 'checked');
+
+                                //    $("#trAdminCompanySetup").css('display', '');
+                                //    $("#trAdminContractTypes").css('display', '');
+                                //    $("#trAdminUserPermission").css('display', '');
+                                //    $("#trAdminFeatureTurnOff").css('display', '');
+                                //    $("#trAdminReports").css('display', '');
+
+                                //}
+                                //if (entity.PermInAdministratorPermissions != null && entity.PermInAdministratorPermissions == "OFF") {
+                                //    $("input:radio[name=AdministratorPermissions][value='OFF']").attr('checked', 'checked');
+
+
+                                //    $("#trAdminCompanySetup").css('display', 'none');
+                                //    $("#trAdminContractTypes").css('display', 'none');
+                                //    $("#trAdminUserPermission").css('display', 'none');
+                                //    $("#trAdminFeatureTurnOff").css('display', 'none');
+                                //    $("#trAdminReports").css('display', 'none');
+
+                                //}
+
+                                if (entity.IncludeSubBusinessArea != null && entity.IncludeSubBusinessArea == "Yes") {
+                                    $("input:checkbox[name=IncludeSubBusinessArea][value='Yes']").attr('checked', 'checked');
+                                }
+                                else {
+                                    $("input:checkbox[name=IncludeSubBusinessArea][value='Yes']").attr('checked', false);
+                                }
+
+                                selecteditems = entity.BusinessAreas.split(';');
+                                $('#txtBA').val(entity.BusinessAreas)
+
+                                if (entity.BusinessAreas != "") {
+
+                                    var selecteditemslength = selecteditems.length;
+                                    $('#liSelectedBA').html("");
+                                    for (var i = 0; i < selecteditemslength; i++) {
+                                        $('#liSelectedBA').append('<span style="font-size:11px;">' + selecteditems[i].trim() + '<img src="/Content/Images/close-quick.png" onclick="javascript:liRemoveSelected(this,' + selecteditems.indexOf(selecteditems[i]) + ');" style="float:right" /></span>');
+                                    }
+                                }
+                                else {
+                                    $('#liSelectedBA').html("");
+                                    selecteditems.length = null;
+                                }
+
+
+                            }
+                        });
+
+                        $("#addEditPermissionSet").dialog("option", "title", "Edit Permission Set");
+                        $("#addEditPermissionSet").dialog("open");
+                        break;
+                    }
+            }
+        }
+
+        function AddUpdatePermissionSet() {
+
+            $.ajax({
+                url: '/Settings/AddUpdatePermissionSet',
+                type: 'PUT',
+                dataType: 'json',
+                headers: {
+                    'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                },
+                data: {
+                    RowKey: $("#txtPermissionSetID").val(),
+                    PermissionSetTitle: $("#txtPermissionSetTitle").val(),
+                    BusinessAreas: $("#txtBusinessArea").val(),
+                    IncludeSubBusinessArea: $("input:checkbox[name=IncludeSubBusinessArea]:checked").val(),
+                    PermInDocuments: $("#ddlPermInDocuments").find('option:selected').text(),
+                    PermInContracts: $("#ddlPermInContracts").find('option:selected').text(),
+                    PermInCounterparty: $("#ddlPermInCounterparty").find('option:selected').text(),
+                    PermissionSetDescription: $("#txtDescription").val(),
+
+
+                    //PermInReports: $("#ddlPermInReports").find('option:selected').text(),
+                    //PermInContractActivities: $("#ddlPermInActivities").find('option:selected').text(),
+                    //PermInAdministratorPermissions: $('input:radio[name=AdministratorPermissions]:checked').val(),
+                    //PermInCompanySetup: $("#ddlPermInCompanySetup").find('option:selected').text(),
+                    //PermInContractTypesMetadataTemplates: $("#ddlPermInContractTypesMetadataTemplates").find('option:selected').text(),
+                    //PermInUserPermissionManagement: $("#ddlPermInUserPermissionManagement").find('option:selected').text(),
+                    //PermInFeatureTurnOffConfiguration: $("#ddlPermInFeatureTurnOffConfiguration").find('option:selected').text(),
+
+                },
+                cache: false,
+                success: function (status) {
+                    // alert(status.Message);
+                    swal("", status.Message);
+                    location = location;
+                    if (!($("#addEditPermissionSet").dialog("isOpen")))
+                        $('.ui-button-green-text').parent().removeAttr('disabled');
+
+                }
+            });
+        }
+
+        $('#btnAddNewPermissionSet').click(function () {
+            clearformdata();
+            $("#addEditPermissionSet").dialog("option", "title", "New Permission Set");
+            $("#addEditPermissionSet").dialog("open");
+        });
+
+        function clearformdata() {
+            $("#txtPermissionSetID").val("");
+            $("#txtPermissionSetTitle").val("");
+            $("#txtBusinessArea").val("");
+            $("#ddlBusinessAreas option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            $("#ddlPermInDocuments option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            $("#ddlPermInContracts option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            $("#ddlPermInCounterparty option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            $("#txtDescription").val("");
+
+            //$("#ddlPermInReports option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("#PermInContractActivities option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("#PermInCompanySetup option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("#PermInContractTypesMetadataTemplates option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("#PermInUserPermissionManagement option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("#PermInFeatureTurnOffConfiguration option").filter(function (index) { return $(this).text() === "Read"; }).prop('selected', true);
+            //$("input:radio[name=AdministratorPermissions][value='ON']").attr('checked', 'checked');
+
+        }
+
+        var inline2 = new kendo.data.HierarchicalDataSource({
+            data: [@Html.Raw(ViewBag.Source)],
+            schema: {
+                model: {
+                    children: "childrenData"
+                }
+            }
+        });
+
+        var treeview = $("#treeviewBA").kendoTreeView({
+            template: kendo.template($("#treeviewBA-template").html()),
+            dataSource: inline2,
+            loadOnDemand: false,
+            schema: {
+                model: {
+                    id: "RowKey",
+                    fields: {
+                        RowKey: { editable: false, nullable: true },
+                        ParentBusinessAreaID: "ParentBusinessAreaID",
+                        BusinessAreaName: "BusinessAreaName"
+                    }
+                }
+            },
+            select: function (e) {
+                var SELCLASS = 'k-state-focused';
+                var SELECTOR = '.k-state-focused';
+                var tree = $('#treeviewBA').data('kendoTreeView');
+
+                var dataItem = tree.dataItem(e.node);
+                $('#txtBARowkey').val(dataItem.rowKey);
+                $('#txtBAParent').val(dataItem.parentBusinessAreaID);
+                $('#txtBA').val(dataItem.businessAreaName);
+
+                var node = $(e.node).closest('.k-item');
+                var kin = node.find('>div span.k-in');
+                var isSel = kin.is(SELECTOR);
+
+                // Find and remove item from an array
+
+                var i = selecteditems.indexOf(dataItem.businessAreaName);
+
+
+                if ($("#txtBusinessArea").val() != "") {
+                    selecteditems = $("#txtBusinessArea").val().split(';');
+                    var selecteditemslength = selecteditems.length;
+                    for (var j = 0; j < selecteditemslength; j++) {
+                        if (dataItem.businessAreaName.trim() == selecteditems[j].trim()) {
+                            i = selecteditems.indexOf(selecteditems[j])
+                        }
+                    }
+                }
+
+
+                if (i != -1) {
+                    kin.removeClass(SELCLASS)
+                } else {
+                    selecteditems.push(dataItem.businessAreaName);
+                    $('#liSelectedBA').append('<span style="font-size:11px;">' + dataItem.businessAreaName + '<img src="/Content/Images/close-quick.png" onclick="javascript:liRemoveSelected(this);" style="float:right" /></span>');
+                }
+                //$('#txtBA').val(selecteditems);
+
+                e.preventDefault();
+
+
+            }
+        }).data("kendoTreeView");
+        treeview.expand(".k-item");
+
+        function liRemoveSelected(obj) {
+
+            var child = obj.parentNode;
+            var i = selecteditems.indexOf(child.innerText.trim());
+            if (i != -1) {
+                selecteditems.splice(i, 1);
+            }
+            child.parentNode.removeChild(child);
+
+        }
+        function liRemoveSelected(obj, index) {
+
+            var child = obj.parentNode;
+            child.parentNode.removeChild(child);
+            if (index != -1) {
+                selecteditems.splice(index, 1);
+            }
+        }
+    </script>
+}
+

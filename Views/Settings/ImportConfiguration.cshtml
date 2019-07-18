@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "ImportConfiguration";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<br />
+<br />
+<ul>
+    <li>
+        <input type="file" id="fileImport" />
+    </li>
+</ul>
+
+<div class="pop_up_Content_Bottom">
+    <a href="javascript:void(0)"  id="btnImport">Import</a>
+    <a class="pop_up_Content_White" href="javascript:void(0)">Cancel</a>
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $('#btnImport').click(function () {
+            
+            var xmlpath = $('#fileImport').val();
+
+            if (xmlpath)
+            {
+                $.ajax({
+                    url: '/Settings/GetImportConfiguration?filepath=' + xmlpath,
+                    type: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+
+                       // alert("Successfully Exported Configurations");
+                        swal("", "Successfully Exported Configurations");
+                    }
+                });
+            }
+            else
+            {
+                //alert('Please select the file path');
+                swal("", "Please select the file path");
+            }
+            
+        });
+
+
+
+    </script>
+}
+

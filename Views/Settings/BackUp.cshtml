@@ -1,0 +1,139 @@
+﻿@*@model IEnumerable<Corevo.eContracts365.TableEntities.BackupHistoryEntity>*@
+@{
+    ViewBag.Title = "Backup";
+  //  Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_BackUp.js?" + DateTime.Now.GetHashCode())
+}
+<br />
+<section class="main">
+    <section class="wraper">
+        <div class="box_Report">
+                <table id="tblGlobalSettings" class="width95_a">
+                    <tr class="FL_BackupRestore" style="display:none;">
+                        <td class="pageheading" colspan="2">Backup Settings</td>
+                    </tr>
+                    <tr class="FL_BackupRestore" style="display:none;">
+
+                        <td class="f_head" align="right">Configuration&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkConfiguration" class="linkText">Take Now</a></td>
+                        <td class="labelright" width="60%">
+                            <input type="radio" name="Configuration" id="rbBkpConfigDaily" value="Daily" class="css1-checkbox" />
+                            <label for="rbBkpConfigDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="Configuration" id="rbBkpConfigWeekly" value="Weekly" class="css1-checkbox" />
+                            <label for="rbBkpConfigWeekly" class="css1-label">Weekly</label>
+                        </td>
+                    </tr>
+
+                    <tr class="FL_BackupRestore" style="display:none;">
+                        <td class="f_head" align="right">Reference Data&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkReference" class="linkText">Take Now</a></td>
+                        <td class="labelright" width="60%">
+                            <input type="radio" name="ReferenceData" id="rbBkpRefDataDaily" value="Daily" class="css1-checkbox" />
+                            <label for="rbBkpRefDataDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="ReferenceData" id="rbBkpRefDataWeekly" value="Weekly" class="css1-checkbox" />
+                            <label for="rbBkpRefDataWeekly" class="css1-label">Weekly</label>
+                        </td>
+                    </tr>
+                    <tr class="FL_BackupRestore" style="display:none;">
+                        <td class="f_head" align="right">Business Data&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" id="lnkBusiness" class="linkText">Take Now</a></td>
+                        <td class="labelright" width="60%">
+                            <input type="radio" name="BusinessData" id="rbBkpBusinessDataDaily" value="Daily" class="css1-checkbox" />
+                            <label for="rbBkpBusinessDataDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="BusinessData" id="rbBkpBusinessDataWeekly" value="Weekly" class="css1-checkbox" />
+                            <label for="rbBkpBusinessDataWeekly" class="css1-label">Weekly</label>
+                        </td>
+                    </tr>
+                    <tr class="FL_BackupRestore" style="display:none;">
+                        <td class="f_head" align="right">Logs&nbsp;&nbsp;&nbsp;@*<a href="javascript:void(0);" id="lnkLogs" class="linkText">Take Now</a>*@</td>
+                        <td class="labelright" width="60%">
+                            <input type="radio" name="Logs" id="rbBkpLogsDaily" value="Daily" class="css1-checkbox" />
+                            <label for="rbBkpLogsDaily" class="css1-label">Daily</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="Logs" id="rbBkpLogsWeekly" value="Weekly" class="css1-checkbox" />
+                            <label for="rbBkpLogsWeekly" class="css1-label">Weekly</label>
+                        </td>
+                    </tr>
+                    <tr class="FL_BackupRestore" style="display:none;">
+                        <td class="f_head" align="right">Keep number of backups</td>
+                        <td class="labelright" width="60%">
+                            <input id="txtBackupsCount" name="Format" type="text" class="f_inpt width60 validelement validnumber" />&nbsp;(Max of 100)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="foot_right" align="right" colspan="2" style="border-bottom: 1px solid rgb(108, 108, 108); padding-bottom: 10px;">
+                            <input id="btnSave" type="button" value="Save" class="f_button_green" />
+                            <input id="btnCancel" type="button" value="Cancel" class="f_button_grey" />
+                        </td>
+                    </tr>
+                </table>
+                <table class="width95_a" id="tblReportFilters">
+                    <tbody>
+                        <tr>
+                            <td class="text labelleft" width="15%">BackUp Type</td>
+                            <td class="labelleft" width="30%">
+                                <select id="ddlBackUpType" name="BackUpType" class="f_inpt_small width95">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="ConfigurationData">Configuration Data</option>
+                                    <option value="ReferenceData">Reference Data</option>
+                                    <option value="BusinessData">Business Data</option>
+                                    <option value="LogsData">Logs Data</option>
+                                </select>
+
+
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" id="btnAddNewBck" onclick="ApplyFilterBck()" class="pop_up_Content_White">Apply</a>
+                                <a id="btnClearFilterBck" href="javascript:void(0);" class="pop_up_Content_White" style="display:none;">Clear</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <table class="width95_a"><tr><td class="text labelleft"><a href="javascript:void(0);" id="btnAddNewBck" onclick="ApplyFilterBck()" class="pop_up_Content_White">Apply</a> 
+                                             <a id="btnClearFilterBck" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td></tr></table>
+        </div>
+    </section>
+</section>
+<br />
+<div id="page-wrap">
+    <table class="paginated width95_a">
+        @*ENH 491 Back up & Restore*@
+        <thead>
+            <tr>
+                <th id="footleft" class="font-normal">
+                    Backup Type
+                    <a class="search-btn" id="trigger" href="javascript:void(0);">
+                        <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                    </a>
+                    <div class="search-sec" id="drop" style="display: none;">
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div>
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                    </div>
+                </th>
+                <th id="datefootleft" class="font-normal">
+                    Backup History Date
+                    <a class="search-btn" id="datetrigger" href="javascript:void(0);">
+                        <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                    </a>
+                    <div class="search-sec" id="datedrop" style="display:none;">
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');">Sort by Date- Ascending</a></div>
+
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('descdate');">Sort by Date- Descending</a></div>
+                        @*<div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick=" TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                        <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>*@
+
+                    </div>
+                </th>
+                <th>Backup Taken By</th>
+            </tr>
+        </thead>
+        @*ENH 491 Back up & Restore*@
+        <tbody id="backuphistorytable"></tbody>
+    </table>          
+</div>
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination"></article>
+</div>
+
+<ul id="myMenuView" class="contextMenu">
+    <li class="download"><a href="#Download">Download</a></li>
+</ul>

@@ -1,0 +1,332 @@
+﻿@{
+    ViewBag.Title = "IntegrationSettings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+
+
+@*<table class="width95_a" style="margin-bottom:20px;" id="tblIntegrationSettings">
+
+        <tr>
+            <td class="pageheading" colspan="2">Integration Settings <img src="~/Content/Images/help_training.png" alt="General Settings" title="Configure Integration settings. " /><input id="btnAddIntegrationSettings" type="button" value="New Integration" style="margin-left:69%" class="f_button_green_small"></td>
+        </tr>
+        <tr style="border-bottom:1px dashed #d3d1d1;">
+            <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">Counterparty: <a onclick="edit()"><img src="/Content/Images/edit.png"></a></td>
+            <td align="right">
+                <a href="javascript:void(0);" onclick="javascript: togglediv('trCounterparty', 'imgSummary');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummary" /></a>
+            </td>
+        </tr>
+        <tr id="trCounterparty">
+            <td colspan="2" style="padding-left: 25px"></td>
+        </tr>
+
+        <tr style="border-bottom:1px dashed #d3d1d1;">
+            <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">Users:</td>
+            <td align="right">
+                <a href="javascript:void(0);" onclick="javascript: togglediv('trUsers', 'UsersImgSummary');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="UsersImgSummary" /></a>
+            </td>
+        </tr>
+    </table>*@
+
+<div id="dvMainPage">
+    <div class="pageheading">Integration Settings <img src="~/Content/Images/help_training.png" alt="General Settings" title="Configure Integration settings. " /><input id="btnAddIntegrationSettings" type="button" value="New Integration" style="float: right;margin-right: 5%;margin-top: -2px;" class="f_button_green_small"></div>
+    <div style="border-bottom:1px dashed #d3d1d1;" class="FTP_Counterparty">
+        <div class="padding_bottom_10px font_20 padding_top_20px">
+            <span style="font-size: 17px">Counterparty <img id="menuCounterparty" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuCounterParty" /><label id="lblRunNowCounterpartySettings" style="display:none;margin-left: 30px;color: #44a6d8">Running...</label><input id="btnRunNowCounterpartySettings" type="button" value="Run Now" class="f_button_green_small" style="margin-left: 73.5%;padding: 3px 13px 4px 13px;display:none"></span>
+            <span id="CounterpartyID" style="display:none"></span>
+            <a href="javascript:void(0);" onclick="javascript: togglediv('dvCounterparty', 'imgSummaryCounterparty');" style="float: right; margin-right: 5%;"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummaryCounterparty" /></a>
+            <div id="dvCounterparty">
+                <table id="tblCounterparty" style="margin-top:10px;width: 70% !important;font-size: 12px">
+                    <tbody id="tbodyCounterparty"></tbody>
+                </table>
+                <div id="NoItemsCounterparty" style="font-size: 14px;width: 95%;padding: 5px;border-bottom: 1px dotted #eeeaea;background-color: #D9D9D9;display:none">No Items Found.</div>
+
+            </div>
+        </div>
+
+    </div>
+    <div style="border-bottom:1px dashed #d3d1d1;" class="FL_Vendor">
+        <div class="padding_bottom_10px font_20 padding_top_20px">
+            <span style="font-size: 17px">Vendor <img id="menuVendor" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuVendor" /><label id="lblRunNowVendorSettings" style="display:none;margin-left: 30px;color: #44a6d8">Running...</label><input id="btnRunNowVendorSettings" type="button" value="Run Now" class="f_button_green_small" style="margin-left: 76%;padding: 3px 13px 4px 13px;display:none"></span>
+            <span id="VendorID" style="display:none"></span>
+            <a href="javascript:void(0);" onclick="javascript: togglediv('dvVendor', 'imgSummaryVendor');" style="float: right; margin-right: 5%;"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummaryVendor" /></a>
+            <div id="dvVendor">
+                <table id="tblVendor" style="margin-top:10px;width: 70% !important;font-size: 12px">
+                    <tbody id="tbodyVendor"></tbody>
+                </table>
+                <div id="NoItemsVendor" style="font-size: 14px;width: 95%;padding: 5px;border-bottom: 1px dotted #eeeaea;background-color: #D9D9D9;display:none">No Items Found.</div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <div style="border-bottom:1px dashed #d3d1d1;" class="Fl_Customer">
+        <div class="padding_bottom_10px font_20 padding_top_20px">
+            <span style="font-size: 17px">Customer <img id="menuCustomer" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuCustomer" /><label id="lblRunNowCustomerSettings" style="display:none;margin-left: 30px;color: #44a6d8">Running...</label><input id="btnRunNowCustomerSettings" type="button" value="Run Now" class="f_button_green_small" style="margin-left: 76%;padding: 3px 13px 4px 13px;display:none"></span>
+            <span id="CustomerID" style="display:none"></span>
+            <a href="javascript:void(0);" onclick="javascript: togglediv('dvCustomers', 'imgSummaryCustomers');" style="float: right; margin-right: 5%;"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummaryCustomers" /></a>
+            <div id="dvCustomers">
+                <table id="tblCustomers" style="margin-top:10px;width: 70% !important;font-size: 12px">
+                    <tbody id="tbodyCustomers"></tbody>
+                </table>
+                <div id="NoItemsCustomers" style="font-size: 14px;width: 95%;padding: 5px;border-bottom: 1px dotted #eeeaea;background-color: #D9D9D9;display:none">No Items Found.</div>        
+            </div>
+        </div>
+    </div>
+    <div style="border-bottom:1px dashed #d3d1d1;" class="FL_ADUserProfile">
+        <div class="padding_bottom_10px font_20 padding_top_20px">
+            <span style="font-size: 17px">Active Directory Users <img id="menuUserprofile" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuUserProfile" /><label id="lblRunNowUserSettings" style="display:none;margin-left: 30px;color: #44a6d8">Running...</label><input id="btnRunNowUserSettings" type="button" value="Run Now" class="f_button_green_small" style="margin-left: 66.1%;padding: 3px 13px 4px 13px;display:none"></span>
+            <span id="UserID" style="display:none"></span>
+            <a href="javascript:void(0);" onclick="javascript: togglediv('dvUserprofile', 'imgSummaryUserprofile');" style="float: right; margin-right: 5%;"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummaryUserprofile" /></a>
+            <div id="dvUserprofile">
+                <table id="tblUserprofile" style="margin-top:10px;width: 70% !important;font-size: 12px">
+                    <tbody id="tbodyUserprofile"></tbody>
+                </table>
+                <div id="NoItemsUserprofile" style="font-size: 14px;width: 95%;padding: 5px;border-bottom: 1px dotted #eeeaea;background-color: #D9D9D9;display:none">No Items Found.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dvIntegrationSettings" style="display:none;overflow-y: auto;">
+    <table class="width100">
+        <tr>
+            <td class="tableLeft width40">Integration Type<small class="required">*</small></td>
+            <td class="tableRight width60">
+                <select name="IntegrationType" id="ddlIntegrationType" class="width90_6 validelement" onchange="IntegrationType()" title="Integration Type">
+                    <option value="0">--Select--</option>
+                    <option value="Counterparty" class="FTP_Counterparty">Counterparty</option>
+                    <option value="Vendor" class="FL_Vendor">Vendor</option>
+                    <option value="Customer" class="Fl_Customer">Customer</option>
+                    <option value="ADUserProfile" class="FL_ADUserProfile">Active Directory Users</option>
+                </select>
+                <label id="lblIntegrationType"></label>
+            </td>
+
+        </tr>
+        <tr class="trCounterParty">
+            <td class="tableLeft width40">FTP HostName<small class="required">*</small></td>
+            <td  class="tableRight width60">
+                <input id="txtFtpHostname" maxlength="100" name="FtphostName" type="text" class="f_inpt width90_6 validelement margin-bottom-2 validtitle" />
+            </td>
+
+        </tr>
+        <tr class="trCounterParty">
+            <td class="tableLeft width40">File Name<small class="required">*</small></td>
+            <td  class="tableRight width60">
+                <input id="txtFileName" maxlength="100" name="FileName" type="text" class="f_inpt width90_6 validelement margin-bottom-2 validtitle" />
+            </td>
+        </tr>
+
+        <tr class="trCounterParty">
+            <td class="tableLeft width40">User Name<small class="required">*</small></td>
+            <td  class="tableRight width60">
+                <input id="txtUsername" maxlength="100" name="UserName" type="text" class="f_inpt width90_6 validelement margin-bottom-2 validtitle" />
+            </td>
+        </tr>
+        <tr class="trCounterParty">
+            <td class="tableLeft width40">Password<small class="required">*</small></td>
+            <td  class="tableRight width60">
+                <input id="txtPassword" maxlength="100" name="Password" type="password" class="f_inpt width90_6 validelement margin-bottom-2 validtitle" />
+            </td>
+        </tr>
+        <tr>
+            <td class="tableLeft width40">
+                Auto Update<small class="required">*</small>
+                <br />
+            </td>
+            <td  class="tableRight width60">
+                <input id="rdDaily" type="radio" checked="checked" name="rdAutoUpdate" onclick="Daily()" value="Daily" class="css-checkbox" />
+                <label for="rdDaily" class="css-label" style="margin-right: 10px;">Daily</label>
+                <input id="rdWeekly" type="radio" name="rdAutoUpdate" onclick="Weekly()" value="Weekly" class="css-checkbox" />
+                <label for="rdWeekly" class="css-label" style="margin-right: 10px;">Weekly</label>
+                <input id="rdMonthly" type="radio" name="rdAutoUpdate" onclick="Monthly()" value="Monthly" class="css-checkbox" />
+                <label for="rdMonthly" class="css-label" style="margin-right: 10px;">Monthly</label>
+                <ul class="ulDaily">
+                    <li style="margin-bottom: 5px;">Starting every day</li>
+                    <li style="margin-bottom: 5px;">
+                        <input id="textDailyTimePicker" class="time ui-timepicker-input" placeholder="Select Time" style="width:16%;height: 30px" type="text" />
+                    </li>
+                </ul>
+                <ul class="ulWeekly">
+                    <li style="margin-bottom: 5px;">Starting every week</li>
+                    <li style="margin-bottom: 5px;">
+                        <select name="TDayWeeklyS" id="ddlDayWeeklyS" class="width15" title="Day of the week">
+                            <option value="0">Sunday</option>
+                            <option value="1">Monday</option>
+                            <option value="2">Tuesday</option>
+                            <option value="3">Wednesday</option>
+                            <option value="4">Thursday</option>
+                            <option value="5">Friday</option>
+                            <option value="6">Saturday</option>
+                        </select>
+                        <input id="textWeeklyTimePicker" class="time ui-timepicker-input" style="width:16%;height: 30px" type="text" />
+                    </li>
+                </ul>
+                <div class="dvMonthly">
+                    <input id="rdDateMonthly" type="radio" checked name="MonthlySelection" onclick="MonthlyDate()" value="Date" class="css-checkbox" />
+                    <label for="rdDateMonthly" class="css-label">By date: starting every month</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul class="ulMonthlyDate">
+                        <li style="margin-bottom: 5px;">
+                            <input id="textMothlyTimePicker" class="time ui-timepicker-input" placeholder="Select Time" style="width:16%;height: 30px" type="text" />&nbsp;on&nbsp; the
+                            <select name="TDateMonthlyS" id="ddlDateMonthlyS" class="width15" title="Day of the month">
+                                <option value="1">1st</option>
+                                <option value="2">2nd</option>
+                                <option value="3">3rd</option>
+                                <option value="4">4th</option>
+                                <option value="5">5th</option>
+                                <option value="6">6th</option>
+                                <option value="7">7th</option>
+                                <option value="8">8th</option>
+                                <option value="9">9th</option>
+                                <option value="10">10th</option>
+                                <option value="11">11th</option>
+                                <option value="12">12th</option>
+                                <option value="13">13th</option>
+                                <option value="14">14th</option>
+                                <option value="15">15th</option>
+                                <option value="16">16th</option>
+                                <option value="17">17th</option>
+                                <option value="18">18th</option>
+                                <option value="19">19th</option>
+                                <option value="20">20th</option>
+                                <option value="21">21st</option>
+                                <option value="22">22nd</option>
+                                <option value="23">23rd</option>
+                                <option value="24">24th</option>
+                                <option value="25">25th</option>
+                                <option value="26">26th</option>
+                                <option value="27">27th</option>
+                                <option value="28">28th</option>
+                                <option value="29">29th</option>
+                                <option value="30">30th</option>
+                                <option value="31">31st</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <br />
+                    <input id="rdDayMonthly" type="radio" name="MonthlySelection" onclick="MonthlyDay()" value="Day" class="css-checkbox" />
+                    <label for="rdDayMonthly" class="css-label">By day: starting every month on</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <ul class="ulMonthlyDay">
+                        <li style="margin-bottom: 5px;">
+                            <select name="TMonthDayMonthly" id="ddlMonthDayMonthly" class="width15" title="Day of the month">
+                                <option value="1">First</option>
+                                <option value="2">Second</option>
+                                <option value="3">Third</option>
+                                <option value="4">Fourth</option>
+                                <option value="5">Last</option>
+                            </select>
+                            <select name="TWeekDayMonthly" id="ddlWeekDayMonthly" class="width15" title="Day of the week">
+                                <option value="0">Sunday</option>
+                                <option value="1">Monday</option>
+                                <option value="2">Tuesday</option>
+                                <option value="3">Wednesday</option>
+                                <option value="4">Thursday</option>
+                                <option value="5">Friday</option>
+                                <option value="6">Saturday</option>
+                            </select>
+                        </li>
+                    </ul>
+
+                </div>
+                <div id="dvError" style="display:none;color: red">Warning: The beginning time of the start window is greater than or equal to the ending time.</div>
+            </td>
+        </tr>
+        <tr class="trCounterParty Mapfield">
+            <td class="tableLeft width40">Upload the file with the source column names<small class="required requiredEdit">*</small></td>
+            <td class="tableRight width60">
+                <input type="file" id="FileUploadCounterparty" name="FileUploadCounterparty" title="file to be added." class="browse-file-doc validelement" onchange="javascript: changeinuploadfiles(this);" style="cursor:pointer;display: inline-block !important" />
+                <a href="javascript:void(0)" id="aRemoveBrowseFie" onclick="removeBrowseFile(this)" style="display:none;margin-left: 20%"><img src="../Content/Images/close_red.png"></a><a id="lnkMapField" style="margin-left:10%;color:#44a6d8;display:none" href="javascript:MapField();">Map Fields</a>
+            </td>
+            @*<td style="padding-top: 8px"> </td>*@
+        </tr>
+        <tr class="textOR" style="display:none">
+            <td class="tableLeft">Or</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="GenerateField" style="display:none">
+            <td class="tableLeft width40">Generate file with eContractsFields<small class="required">*</small></td>
+            <td  class="tableRight width60">
+                <a id="GenerateFile" style="color: #44a6d8">Generate</a>
+
+            </td>
+        </tr>
+    </table>
+    <table id="tblMapField" style="margin-top:10px;display:none">
+        <thead>
+            <tr>
+                <th style="line-height: 25px !important; padding:0px 0px !important">Source Field</th>
+                <th style="line-height: 25px !important; padding:0px 0px !important">eContracts Field</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyMapField"></tbody>
+    </table>
+
+</div>
+<ul id="MyMenuCounterpartyIntergration" class="contextMenu">
+    <li class="edit Manage"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#Delete">Delete</a></li>   
+</ul>
+<ul id="MyMenuVendorIntergration" class="contextMenu">
+    <li class="edit Manage"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#Delete">Delete</a></li>
+</ul>
+<ul id="MyMenuCustomerIntergration" class="contextMenu">
+    <li class="edit Manage"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#Delete">Delete</a></li>
+</ul>
+<ul id="MyMenuUserIntergration" class="contextMenu">
+    <li class="edit Manage"><a href="#edit">Edit</a></li>
+    <li class="delete Manage"><a href="#Delete">Delete</a></li>
+</ul>
+<span id="IntegrationID" style="display:none"></span>
+
+
+<div id="Maindv" style="display:none;">
+    <div id="GenerateLink">
+        <ul class="settings admin_SeTTings">
+            <li class="settingsli settingsli_Admin">
+                <a href="javascript:generateXmlFile();">
+                    <small class="settingssmall">Xml File</small>
+                </a>
+            </li>
+            <li class="settingsli settingsli_Admin">
+                <a href="javascript:generateExcelFile();">
+                    <small class="settingssmall">Excel File</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.timepicker.css" />
+@section Scripts {
+    <script src="~/Scripts/Contract365/Settings_IntegrationSettings.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js" type="text/javascript"></script>
+}
+
+<style>
+    tbody#tbodyCounterparty, tr, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    tbody#tbodyVendor, tr, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    tbody#tbodyUserprofile, tr, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    tbody#tbodyCustomers, tr, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+</style>

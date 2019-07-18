@@ -1,0 +1,450 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractTypesEntity>
+
+@{
+    ViewBag.Title = "Contract Record Types Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table id="tblParent" class="width95_a">
+    <tr>
+        <td class="pageheading font-normal">
+            Contract Record Type Management
+            <img src="~/Content/Images/help_training.png" alt="Contract Record Types" title="Manage Contract Record Types, configure specific fields, Document Templates and assign to Contract Areas." />
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" style="display:none;" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                           <thead>
+                                <tr>
+                                    <th class="font-normal">
+                                        Enable/Disable
+                                    </th>
+                                    <th id="footleft" class="font-normal">Contract Record Type
+                                        <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal" style="width: 300px !important; word-wrap: break-word;">Assigned Contract Areas</th>
+                                    <th class="font-normal">Transaction Type</th>
+                                    @*<th class="font-normal">Contract Class</th>*@
+                                    <th id="datefootleft" class="font-normal">
+                                        Created Date
+                                        <a class="search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contracttypestable"></tbody>
+                          @*  @if (Model == null || Model.Count() == 0)
+     {
+         <tr>No items found.</tr>
+     }
+     else
+     {
+         <tbody>
+
+             @foreach (var item in Model)
+             {
+                 <tr style="border-bottom:1px dotted #eeeaea;">
+                     <td id="ContractTypeID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                     <td id="ContractType" style="display:none;">@Html.DisplayFor(modelItem => item.ContractType)</td>
+                     <td id="IsRenewable" style="display:none;">@Html.DisplayFor(modelItem => item.Renewable)</td>
+                     @if (item.Milestones != null)
+                     {
+                         <td id="MilestoneID" style="display:none;">@Html.DisplayFor(modelItem => item.Milestones)</td>
+                     }
+
+                     @if (item.ContractType == "General")
+                     {
+                         <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                             <input id="@item.RowKey" name="@item.RowKey" type="checkbox" disabled class="css1-checkbox" value="@item.ContractType" checked="@item.Active" />
+                             <label for="@item.RowKey" class="css1-label"></label>
+                         </td>
+                         <td class="" style="vertical-align:top;" width="50%">
+                             @Html.DisplayFor(modelItem => item.ContractType)
+                             <img src="../Content/Images/context_Menu.png" class="openmenuGeneral margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                         </td>
+                     }
+                     else
+                     {
+                         <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                             <input id="@item.RowKey" name="@item.RowKey" type="checkbox" class="css1-checkbox" value="@item.ContractType" checked="@item.Active" />
+                             <label for="@item.RowKey" class="css1-label"></label>
+                         </td>
+                         <td align="center">
+                             @Html.DisplayFor(modelItem => item.ContractType)
+                             <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                         </td>
+                     }
+
+                     <td align="center">  @item.ContractArea</td>
+                     <td align="center">@item.TransactionType</td>
+                     <td align="center">@item.ContractClass</td>
+                     <td align="center">@item.Created</td>
+                     <td align="center"><a id="@item.RowKey" href="javascript:void(0)" onclick="EditContractType(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.RowKey" name="@item.ContractType" href="javascript:void(0)" onclick="DeleteContractType(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                 </tr>
+             }
+
+         </tbody>
+    }*@
+                        </table>
+                    </div>
+
+                </div>
+               @* <table class="width100">
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>No items found.</tr>
+                        }
+                        else
+                        {
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Enable/ Disable
+                                    </th>
+                                    <th>
+                                        Contract Type
+                                    </th>
+                                    <th>
+                                        Summary
+                                    </th>
+                                </tr>
+                            </thead>
+    <tbody id="customertable">
+        @foreach (var item in Model)
+        {
+            <tr style="border-bottom:1px dotted #eeeaea;">
+                <td id="ContractTypeID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                <td id="ContractType" style="display:none;">@Html.DisplayFor(modelItem => item.ContractType)</td>
+                <td id="IsRenewable" style="display:none;">@Html.DisplayFor(modelItem => item.Renewable)</td>
+                @if (item.Milestones != null)
+                {
+                    <td id="MilestoneID" style="display:none;">@Html.DisplayFor(modelItem => item.Milestones)</td>
+                }
+
+                @if (item.ContractType == "General")
+                {
+                    <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                        <input id="@item.RowKey" name="@item.RowKey" type="checkbox" disabled class="css1-checkbox" value="@item.ContractType" checked="@item.Active" />
+                        <label for="@item.RowKey" class="css1-label"></label>
+                    </td>
+                    <td class="" style="vertical-align:top;" width="50%">
+                        <b> @Html.DisplayFor(modelItem => item.ContractType)</b>
+                        <img src="../Content/Images/context_Menu.png" class="openmenuGeneral margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                        @Html.DisplayFor(modelItem => item.TransactionType)&nbsp;|&nbsp;@Html.DisplayFor(modelItem => item.ContractClass)
+                    </td>
+                }
+                else
+                {
+                    <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                        <input id="@item.RowKey" name="@item.RowKey" type="checkbox" class="css1-checkbox" value="@item.ContractType" checked="@item.Active" />
+                        <label for="@item.RowKey" class="css1-label"></label>
+                    </td>
+                    <td class="" style="vertical-align:top;" width="50%">
+                        <b> @Html.DisplayFor(modelItem => item.ContractType)</b>
+                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                        @Html.DisplayFor(modelItem => item.TransactionType)&nbsp;|&nbsp;@Html.DisplayFor(modelItem => item.ContractClass)
+                    </td>
+                }
+                <td align="right" style="vertical-align: top;" width="45%">
+                    @Html.DisplayFor(modelItem => item.ContractTermType)
+
+                </td>
+            </tr>
+        }
+    </tbody>
+                        }
+
+                </table>*@
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <!---manoj--->
+    <li class="folderView customview" style="display:none"><a href="#folderView">Folder Structure</a></li>
+    <!---manoj--->
+    <li class="metadata"><a href="#metadata">Metadata</a></li>
+    <li class="defaultproperties"><a href="#milestones">Milestones</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuGeneral" class="contextMenu">
+    <li class="metadata"><a href="#metadata">Metadata</a></li>
+</ul>
+
+<div id="AddEditContractTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2"  class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTypeID" name="ContractTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Type Name<span class="required">*</span></td>
+                    <td class="f_list labelright width60"><input id="txtContractType" maxlength="100" onchange="ReplaceSpecialCharacters(this);" name="ContractType" type="text" class="f_inpt width98dot5 validelement validtitle" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Abbreviation</td>
+                    <td class="labelright"><input id="txtContractTypeabbreviation" name="ContractType" type="text" maxlength="10" class="f_inpt width98dot5" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" name="Description" maxlength="300" rows="2" cols="20" class="f_text-box width98dot5"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Transaction Type<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlTransactionType" name="TransactionType" class="f_inpt width98dot5 validelement">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option value="Buy-Side">Buy-Side</option>
+                            <option value="Sell-Side">Sell-Side</option>
+                            <option value="Legal/General Agreement">Legal/General Agreement</option>
+                        </select>
+                    </td>
+                </tr>
+                @*<tr>
+                    <td class="f_head">Contract Class<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlContractClass" name="ContractClass" class="f_inpt width98dot5 validelement">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Master Agreement">Master Agreement</option>
+                            <option value="Sub-Contract">Sub-Contract</option>
+                        </select>
+                    </td>
+                </tr>*@
+                <tr>
+                    <td class="f_head">Default Term Type</td>
+                    <td class="labelright">
+                        <select id="ddlContractTermType" name="ContractTermType" class="f_inpt width98dot5 ">
+                            @*<option value="0" selected="selected">--Select--</option>
+                            <option value="Fixed Term">Fixed Term</option>
+                            <option value="Evergreen / Perpetual">Evergreen / Perpetual</option>
+                            <option value="Renewable">Renewable</option>
+                            <option value="Executed / Performance">Executed / Performance</option>*@
+                        </select>
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td class="f_head" style="margin-bottom: 5px;">Contract Area(s)</td>
+
+                   
+                   
+                    
+
+
+
+
+                    @*<td class="labelright"><span id="spnContractArea"></span></td>*@
+                    <td class="labelright">
+                        <select id="ddlContractArea" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlContractArea" title='Contract Area' data-placeholder='Select Contract Area(s)'></select>
+                    </td>
+
+                   
+                  
+                  
+                </tr>
+                <tr>
+                    <td class="f_head" style="margin-bottom: 5px;">Required Document Type(s)</td>
+                    <td class="labelright">
+                        <select id="ddlDocumentType" multiple="multiple" class='f_inpt width90 chosenmulti' name="DocumentType" title='Required Document Type(s)' data-placeholder='Select Required Document Type(s)'></select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="f_head" style="margin-bottom: 5px;">Required Document Template(s)</td>
+                    <td class="labelright">
+                        <select id="ddlDocumentTemplate" multiple="multiple" class='f_inpt width90 chosenmulti' name="DocumentTemplate" title='Required Document Template(s)' data-placeholder='Select Required Document Template(s)'></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="f_head" style="margin-bottom: 5px;">Required Milestone Type(s)</td>
+                    <td class="labelright">
+                        <select id="ddlMilestoneType" multiple="multiple" class='f_inpt width90 chosenmulti' name="MilestoneType" title='Required Milestone Type(s)' data-placeholder='Select Required Milestone Type(s)'></select>
+                    </td>
+                </tr>
+                <tr class="FL_ApprovalSheet">
+                    <td class="f_head" style="margin-bottom: 5px;">Assigned Summary Sheet(s)</td>
+                    <td class="labelright">
+                        <select id="ddlAssignedSummarySheets" multiple="multiple" class='f_inpt width90 chosenmulti' name="SummarySheets" title='Assigned Summary Sheet(s)' data-placeholder='Select Summary Sheet(s)'></select>
+                    </td>
+                </tr>
+                <tr class="FL_ApprovalSheet">
+                    <td class="f_head" style="margin-bottom: 5px;">Default Summary Sheet</td>
+                    <td class="labelright">
+                        <select id="ddlDefaultSummarySheet" name="DefaultSummarySheet" class="f_inpt width98dot5 "></select>
+                    </td>
+                </tr>
+
+                <tr style="display:none">
+                    <td class="f_head">Contract Extensions</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Extendable" id="chkExtendable" class="css1-checkbox" value="Extendable" />
+                        <label for="chkExtendable" class="css1-label">Yes, Contracts of this type can be extended.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkExtensionApproval" disabled="disabled" name="ExtensionApproval" class="css1-checkbox" type="checkbox" value="ExtensionApproval" />
+                        <label for="chkExtensionApproval" class="css1-label">Extensions requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Renewals</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Renewable" id="chkRenewable" class="css1-checkbox" value="Renewable" />
+                        <label for="chkRenewable" class="css1-label">Yes, Contracts of this type are renewable.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkRenewalApproval" disabled="disabled" name="RenewalApproval" class="css1-checkbox" type="checkbox" value="RenewalApproval" />
+                        <label for="chkRenewalApproval" class="css1-label">Renewals requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Amendments</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Amendable" id="chkAmendable" class="css1-checkbox" value="Amendable" />
+                        <label for="chkAmendable" class="css1-label">Yes, Contracts of this type can be amended.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left: 20px; padding-bottom: 10px;">
+                        <input id="chkAmendmentApproval" name="AmendmentApproval" class="css1-checkbox" type="checkbox" value="AmendmentApproval" />
+                        <label for="chkAmendmentApproval" class="css1-label">Amendments requires approvals.</label>
+                    </td>
+                </tr>
+                @*<tr>
+                    <td class="f_head" style="padding-top: 10px;">Available for Organisations</td>
+                    <td class="f_list" id="AvailableOrganisations"></td>
+                </tr>*@
+                <!--manoj-->
+                <tr>
+                    <td class="f_head">Create Document From Template</td>
+                    <td class="f_list" id=""><input id="rdaddcontract" type="radio" name="DocumentCreate" class="" value="rdaddcontract" /><label for="rdaddcontract">New Contract</label><input id="rdnewcontract" type="radio" name="DocumentCreate" class="" value="rdnewcontract" /><label for="rdnewcontract">Add Contract</label>
+                        <input id="rdboth" type="radio" name="DocumentCreate" class="" value="rdboth" /><label for="rdboth">Both</label>
+                        <input id="rdnone" type="radio" name="DocumentCreate" class="" value="rdnone" /><label for="rdnone">None</label></td>
+                </tr>
+                <!--manoj-->
+                <!--Authorize Signatory Enhancment-->
+                <tr id="trAuthorizedSignatoryContractType">
+                    <td class="f_head">Authorized Signee(s)</td>
+                    <td class="labelright">
+                        <select id="ddlContractTypeAuthorizedSignatory" multiple="multiple" class="f_inpt width98 chosenmulti" data-placeholder="Select"></select><br />
+                        <span style="font-size:12px;">
+                            Note: eSignature on Contracts related to this Legal entity can be obtained only from Authorized Signatory users selected here.
+                        </span>
+                    </td>
+                </tr>                
+                <!--Authorize Signatory Enhancment-->
+            </table>
+        </div>
+    </div>
+</div>
+<div id="AddEditMilestones" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewMilestone">
+            <div id="page-wrap">
+                <table class="paginated width100" id="customertable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Enable/ Disable
+                            </th>
+                            <th>
+                                Milestone Title
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyMilestone">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationmilestone"></article>
+            </div>
+        </div>
+    </div>
+</div>
+<!---manoj--->
+<div id="treeviewFolderMove" style="display:none;">
+    <div class="structure" style="display:none"><button value="Sub Folder" title="Add Folder/Sub Folder" type="button" class="" onclick='addnewnode("add")' id="btnaddsubfolder"><img alt="" src="../Content/Images/folder-plus.png">Add</button><button value="Remove Folder" title="Remove Folder" type="button" class="" onclick='removefolderinstructure()' id="btnremovesubfolder"><img alt="" src="../Content/Images/folder-remove.png">Remove</button><button value="Rename Folder" title="Rename Folder" type="button" class="" onclick='addnewnode("rename")' id="btnrenamesubfolder"><img alt="" src="../Content/Images/folder-rename.png">Rename</button></div>
+    <div class="modalbody">
+        <div id="load"></div>
+        @*<a href="javascript:void(0)" onclick='addnewnode()'>Add Node</a>*@
+
+        <div id="browseFolderMove" class="k-content" style="overflow-y:auto;height: 375px;user-select: none;position: relative;overflow-x: hidden;">
+            @*<div id="treeviewFolderMoveOption" class="demo-section"></div>
+                <input id="txtFolder" type="hidden" /><input id="txtFolderURL" type="hidden" />*@
+        </div>
+    </div>
+    <input type="hidden" id="hdntreeviewFolderMove" />
+</div>
+<div id="dvfoldercreation" style="display:none;overflow-y: auto;">
+    <div id="dvPopupHeadingclanguahe" class="modalheader"><span></span></div>
+    <div id="dvfoldercreationvalidate">
+        <table class="" cellpadding="2" cellspacing="2">
+            <tr>
+                <td><label>Folder Name&nbsp;<small class="required">*</small></label></td>
+                <td><input id="txtnewfoldervalue" type="text" onkeypress="return isBackSlashKey(event)" maxlength="50"  class="f_inpt validelement specialchar" title="New Folder Name" style="width: 350px;" name="Folder Name" placeholder="Enter Folder Name" /></td>
+            </tr>
+        </table>
+    </div>
+    <input id="hdnnewfolderurl" type="hidden" />
+    <input id="hdnrenamefolder" type="hidden" />
+    <input id="hdnnewfoldercreatedfrom" type="hidden" />
+</div>
+<!---manoj--->
+@section scripts{
+@Scripts.Render("~/Scripts/Contract365/Settings_ContractTypes.js?" + DateTime.Now.GetHashCode())
+<script src="~/Scripts/tree.jquery.js"></script>
+<link href="~/Content/css/jqtree.css" rel="stylesheet" />
+}

@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ExportCounterparty";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<br />
+<br />
+<ul>
+    <li>
+        <div><b>Email</b></div>
+        <span><input type="text" /></span>
+    </li>
+</ul>
+
+<div class="pop_up_Content_Bottom">
+    <a href="javascript:void(0)" id="btnExport">Export Counterparty</a>
+    <a class="pop_up_Content_White" href="javascript:void(0)">Cancel</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $('#btnExport').click(function () {
+            $("#loadingPage").fadeIn();
+
+            $.ajax({
+                url: '/Settings/GetExportCounterparty',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    //alert("Successfully Exported Counterparty");
+                    swal("", "Successfully Exported Counterparty");
+                    $("#loadingPage").fadeOut();
+                }
+            });
+        });
+
+
+
+    </script>
+}

@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractFieldsEntity>
+
+@{
+    ViewBag.Title = "Document Template Keywords";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts{
+
+@Scripts.Render("~/Scripts/Contract365/Settings_TemplateConfigurationKeywords.js?" + DateTime.Now.GetHashCode())
+<link href="~/Content/css/popup.css" rel="stylesheet" />
+<script src="~/Scripts/Contract365/_Layout_Settings.js"></script>
+}
+<table class="width95_a">
+    <tr>
+        <td class="pageheading">Document Template Keywords (Fields)
+            <img src="~/Content/Images/help_training.png" alt="Lables" title="Metadata Fields to Document Keywords mapping for Document Automation." /></td>
+    </tr>
+    <tr>
+        <td>
+            <div class="pop_up_Harizondal">
+                <ul>
+                    <li><a id="idContracts" href="javascript:void(0);">Contracts</a></li>
+                    <li><a id="idCounterParty" href="javascript:void(0);">Counterparty</a></li>
+                    <li><a id="idLegalEntities" href="javascript:void(0);">LegalEntities</a></li>
+                    <li class="FL_ApprovalSheet"><a id="idAmendment" href="javascript:void(0);">AmendmentEntities</a></li>
+                    <li><a id="idInstruction" href="javascript:void(0);">Instruction</a></li>
+                    <li><a id="idDateFormat" href="javascript:void(0);">Date Format</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="page-wrap" class="width95_a">
+    <table id="dvidContracts" class="tblgrid">
+        <thead>
+            <tr>
+                <th>Field	</th>
+                <th>Keyword</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+
+            if (@item.FieldType == "File Upload" || @item.FieldName == "ContractType") { }
+            else
+            { 
+            <tr><td>@Html.DisplayFor(modelItem => item.FieldDisplayName)</td><td>@Html.DisplayFor(modelItem => item.FieldName)</td></tr>
+
+            }            
+        }
+    </table>
+
+    <table id="dvidCounterParty" class="tblgrid" style="display:none;">
+        @*<thead>
+            <tr>
+                <th>Field	</th>
+                <th>Keyword</th>
+            </tr>
+        </thead>
+
+
+        <tr><td>Address Line1</td><td>AddressLine1</td></tr>
+        <tr><td>Address Line2</td><td>AddressLine2</td></tr>
+        <tr><td>City</td><td>City</td></tr>
+        <tr><td>Contact No</td><td>Contact No </td></tr>
+        <tr><td>Counterparty Type</td><td>CounterpartyType </td></tr>
+        <tr><td>Country</td><td>Country </td></tr>
+        <tr><td>Email ID</td><td>EmailID </td></tr>
+        <tr><td>Location</td><td>Location </td></tr>
+        <tr><td>State</td><td>State </td></tr>
+        <tr><td>Status</td><td>Status</td></tr>
+        <tr><td>Zip</td><td>Zip</td></tr>*@
+    </table>
+
+   
+
+
+    <table id="dvidLegalEntities" class="tblgrid" style="display:none;">
+        <thead>
+            <tr>
+                <th>Field	</th>
+                <th>Keyword</th>
+            </tr>
+        </thead>
+        <tr><td>Abbreviation</td><td>Abbreviation</td></tr>
+        <tr><td>Address Line1</td><td>AddressLine1</td></tr>
+        <tr><td>Address Line2</td><td>AddressLine2</td></tr>
+        <tr><td>City</td><td>City</td></tr>
+        <tr><td>State/Province/Region</td><td>State</td></tr>
+        <tr><td>Zip/Postal Code</td><td>Zip</td></tr>
+        <tr><td>Country</td><td>Country</td></tr>
+        <tr><td>Default Currency </td><td>DefaultCurrency</td></tr>           
+        <tr><td>Authorized Signatory(ies)</td><td>AuthorizedSignatory</td></tr>  
+        <tr><td>Company Number/Registration Number</td><td>CompanyNumber</td></tr>  
+        <tr><td>Company Fax</td><td>CompanyFax</td></tr>  
+    </table>
+
+    <table id="dvidAmendment" class="tblgrid" style="display:none;"></table>
+
+</div>
+
+<table id="dvInstruction" style="display:none;">
+    <tr><td><img src="/Content/Images/instruction1.png" /></td></tr>
+    <tr><td><img src="/Content/Images/instruction2.png" /></td></tr>
+    <tr><td><img src="/Content/Images/instruction3.png" /></td></tr>
+</table>
+
+<table id="dvDateFormat" style="display:none;">
+    <tr>
+        <td class="f_head" align="right">List of Available Date Formats</td>
+        <td class="labelright" width="60%">
+            <select id="DateFormat" style="color:black;width:inherit !important;" class="f_inpt width20" onchange="FormatDate()">
+              @*  <option value="mm/dd/y" selected>MM/dd/yy</option>*@
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                @*<option value="dd/mm/y">dd/MM/yy</option>
+                <option value="dd/mm/yy">dd/MM/yyyy</option>
+                <option value="mm-dd-y">MM-dd-yy</option>
+                <option value="mm-dd-yy">MM-dd-yyyy</option>
+                <option value="dd-mm-y">dd-MM-yy</option>
+                <option value="dd-mm-yy">dd-MM-yyyy</option>
+                <option value="M dd, y">MMM dd, yy</option>
+                <option value="M D, y">MMM ddd, yy</option>
+                <option value="M DD, y">MMM dddd, yy</option>
+                <option value="M dd, yy">MMM dd, yyyy</option>
+                <option value="M D, yy">MMM ddd, yyyy</option>
+                <option value="M DD, yy">MMM dddd, yyyy</option>
+                <option value="MM dd, y">MMMM dd, yy</option>
+                <option value="MM D, y">MMMM ddd, yy</option>
+                <option value="MM DD, y">MMMM dddd, yy</option>
+                <option value="MM dd, yy">MMMM dd, yyyy</option>
+                <option value="MM D, yy">MMMM ddd, yyyy</option>
+                <option value="MM DD, yy">MMMM dddd, yyyy</option>*@
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" style="height:35px;">Chosen Format (DD-Day; MM-Month; YYYY-Year)</td>
+        <td class="labelright">
+            <label id="lblDateFormat" style="font-size:15px;" />
+        </td>
+    </tr>
+</table>
+<br/>
+<p style="text-align:right" class="width95_a">
+    <input type="submit" style="display:none;" value="Save" id="btnSave" class="f_button_green" />
+</p>

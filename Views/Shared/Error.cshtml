@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Error";
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout_Error.cshtml";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Unknown User</h2>
+        <p>Unable to determine your identity. Please try again by launching the app installed on your site.</p>
+    </div>
+</div>
+@*<script type="text/javascript">
+    alert('accountID: ' + localStorage.AccountID + ', userName: ' + localStorage.UserName + ', APIKey:' + localStorage.APIKey + ', oEmail:' + localStorage.OEmail + ', userTitle: ' + localStorage.UserTitle + ', userID:' + localStorage.UserID+'');
+    if ('@Session["UserName"]' != '') {
+        localStorage.UserName = '@Session["UserName"]';
+        localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+        localStorage.APIKey = '@Session["APIKey"]';
+        localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+        localStorage.UserTitle = '@Session["UserTitle"]';
+        localStorage.OEmail = '@Session["OEmail"]';
+        localStorage.UserID = '@Session["UserID"]';
+
+        }
+    else if (localStorage.UserName != '') {
+        alert('pass');
+        $.post('https://econtracts365.azurewebsites.net/Settings/SetSession', { accountID: localStorage.AccountID, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+        alert('pass');
+        //parent.history.back();
+        location = location;
+    }
+</script>*@

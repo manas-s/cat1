@@ -1,0 +1,92 @@
+﻿@*@model IEnumerable<Corevo.eContracts365.TableEntities.UserActivityEntity>*@
+
+
+@{
+    ViewBag.Title = "Log History";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+@section Scripts {
+@Scripts.Render("~/Scripts/Contract365/Settings_LogHistory.js?" + DateTime.Now.GetHashCode())
+}
+<br />
+<section class="main">
+    <section class="wraper">
+        <div class="box_Report">
+                <table class="width95_a" id="tblReportFilters">
+                    <tbody>
+                        <tr>
+                            <td class="pageheading" colspan="4">System Logs&nbsp;<img src="~/Content/Images/help_training.png" alt="System Logs" title="Log of all important contract related activities performed by the user." /></td>
+                           
+                        </tr>
+                        <tr>
+                            <td class="text labelleft" width="15%">Date</td>
+                            <td class="labelleft">
+                                <input id="txtDateFrom" type="text" name="DateFrom" class="f_inpt_small width70 validdate">
+                            </td>
+                            <td class="text labelleft" width="15%">To</td>
+                            <td class="labelleft">
+                                <input id="txtDateTo" type="text" name="DateTo" class="f_inpt_small width70 validdate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text labelleft" width="15%">Type</td>
+                            <td class="labelleft">
+                                <select id="ddlLogType" name="LogType" class="f_inpt_small width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="Create">Create</option>
+                                    <option value="Update">Update</option>
+                                    <option value="Delete">Delete</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <table class="width95_a"><tr><td class="text labelleft"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()" class="pop_up_Content_White">Apply</a> <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td></tr></table>
+        </div>
+    </section>
+</section>
+
+
+<br/>
+<div id="page-wrap">
+    <table class="paginated width95_a" id="loghistorytable">
+        @*<tbody>
+            @if (Model == null || Model.Count() == 0)
+            {
+                <tr>There is no history.</tr>
+            }
+            else
+            {
+                <tr>
+                    <th>
+                        Log History
+                    </th>
+                    <th>
+                        Log History For
+                    </th>
+                </tr>
+                foreach (var item in Model)
+                {
+                    <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                        <td style="vertical-align:top;">
+                            @Html.DisplayFor(modelItem => item.Activity)
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Timestamp)
+                        </td>
+                        <td align="right" style="vertical-align: top;">
+                            @Html.DisplayFor(modelItem => item.Object)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>*@
+
+    </table>
+
+</div>
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination"></article>
+</div>
+

@@ -1,0 +1,709 @@
+﻿@{
+    ViewBag.Title = "Counterparty Types";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+
+    <!-- Counterparty Types -->
+
+    <tr class="collapseCounterpartytype">
+
+        <td class="pageheading">
+            Counterparty Types
+            <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Setup Counterparty types.">
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNewCounterpartyType" type="button" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr class="collapseCounterpartytype">
+        <td colspan="2">
+            <div id="page-wrap">
+                <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" id="customertableCounterparty" class="paginated width100">
+                            <thead>
+                                <tr>
+                                    <th id="footleft" class="font-normal">
+                                        Counterparty Type
+                                        <a class="search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Created By</th>
+                                    <th id="datefootleft" class="font-normal">
+                                        Modified On
+                                        <a class=" search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customLookupTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationCounterparty"></article>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+
+<!-- Right Click Menu-Counterparty Type -->
+<ul id="myMenuCounterpartyType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Counterparty Type -->
+<div id="addEditCounterpartyType" style="display:none;">
+    <div id="dvPopupHeadingCounterpartyType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtCounterpartyTypeID" name="CounterpartyTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Counterparty Type <small class="required">*</small> </td>
+                <td class="labelright"><input id="txtCounterpartyType" maxlength="100" name="CounterpartyType" type="text" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @*Counterparty Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            BindStandardLookup();
+            $('#drop').hide();
+            $('#datedrop').hide();
+
+
+            $(".openmenuCounterpartyType").contextMenu({ menu: 'myMenuCounterpartyType', leftButton: true }, function (action, el, pos) { contextMenuWorkCounterpartyType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditCounterpartyType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Counterparty Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveCounterpartyType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableCounterparty tbody tr").length;
+            $('#compact-paginationCounterparty').pagination({
+                items: vCount,
+                itemsOnPage: 5,
+                typeID: 'customertableCounterparty',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewCounterpartyType').click(function () {
+            $("#txtCounterpartyTypeID").val("");
+            $("#txtCounterpartyType").val("");
+            $("#addEditCounterpartyType").dialog("option", "title", "New Counterparty Type");
+            $("#addEditCounterpartyType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkCounterpartyType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        $("#loadingPage").fadeIn();
+                        var counterpartyType = $(el).find("#CounterpartyType").text();
+                        //manoj
+                        $.ajax({
+                            url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/counterparty?counterpartytype=' + encodeURIComponent(counterpartyType),
+                            type: 'GET',
+                            dataType: 'json',
+                            'Content-Type': 'application/json',
+                            cache: false,
+                            headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                            success: function (data) {
+                                if (data.length == 0) {
+                                    deletecounterpartytype(counterpartyType);
+                                } else {
+                                    swal({
+                                        title: '',
+                                        text: "<span style=\"font-weight:700\">'" + counterpartyType + "'</span> Conunterparty type cannot be deleted. Related Counterparties exists",
+                                    },
+                                    function (confirmed) {
+                                        if (confirmed) {
+                                            $("#loadingPage").fadeOut();
+                                        }
+                                    })
+                                }
+                            },
+                            error: function (data) {
+                                deletecounterpartytype(counterpartyType);
+                            }
+                        });
+                        //manoj
+
+                        @*if (confirm("Are you sure you want to delete '" + counterpartyType + "'?")) {
+                            $.ajax({
+                                //url: '@Url.Action("DeleteCounterpartyType", "Settings")',
+                                url: '/Settings/DeleteCounterpartyType',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                data: { counterpartyType: counterpartyType },
+                                cache: false,
+                                success: function (data) {
+                                    alert(data);
+                                    location = "/Settings/LookupValues";
+                                }
+                            });
+                        }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var counterpartyType = $(el).find("#CounterpartyType").text();
+                        $("#txtCounterpartyTypeID").val(counterpartyType);
+                        $("#txtCounterpartyType").val(counterpartyType);
+                        $("#addEditCounterpartyType").dialog("option", "title", "Edit Counterparty Type");
+                        $("#addEditCounterpartyType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+
+        function SaveCounterpartyType() {
+            if (requiredValidator('addEditCounterpartyType', false)) {
+                if ($("#txtCounterpartyType").val() == "") {
+                    // alert("Enter Counterparty Type.")
+                    swal("", "Enter Counterparty Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveCounterpartyType", "Settings")',
+                        url: '/Settings/SaveCounterpartyType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldCounterpartyType: $("#txtCounterpartyTypeID").val(),
+                            NewCounterpartyType: $("#txtCounterpartyType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //swal("", person.Message);
+                            ////alert(person.Message);
+
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+
+                            },
+                             function (confirmed) {
+                                 if (person.Success == true) {
+                                     location = "/Settings/CounterpartyTypes";
+                                 }
+                                 else {
+                                     $('.ui-button-green-text').parent().removeAttr('disabled');
+                                 }
+
+                             });
+
+
+
+                            if (!($("#addEditCounterpartyType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+
+                        }
+                    });
+                }
+            }
+        }
+
+        function search() {
+            $('#compact-paginationCounterparty').css('display', 'none');
+            $("#customLookupTable").empty();
+            $("#customLookupTable").append('<tr class="lineheight20"><td><img src="../Content/Images/icon/loading.gif" style="height: 16px; width: 16px;"></td></tr>');
+            $("#liFiltersSearchText").empty();
+            var lookupname = "Counterparty Types";
+            var txtsearchboxvalue = $.trim($('#txtSearchBox').val());
+            if (txtsearchboxvalue != "" && txtsearchboxvalue != null) {
+                $('#liFiltersSearchText').append('<span><small>' + txtsearchboxvalue + '</small><a href="javascript:void(0)"><img src="/Content/Images/close-quick.png" onclick="javascript:liRemove(this);" /></a></span>');
+
+                $.ajax({
+                    url: '/Settings/SearchStandardLookupValues',
+                    type: 'Get',
+                    dataType: 'json',
+                    data: {
+                        searchKeyword: txtsearchboxvalue,
+                        lookupname: lookupname
+                    },
+                    cache: false,
+                    success: function (jsObject) {
+                        if (jsObject.Success) {
+                            jsObject = jsObject.Data;
+                            var data = JSON.parse(jsObject);
+                            var StandardLookupsearch = [];
+                            $("#customLookupTable").empty();
+                            var string = "";
+                            if (data == null || data == "") {
+                                string += '  <tr>No items found.</tr>';
+                            }
+                            else {
+                                $(data).each(function (i, item) {
+                                    string += '     <tr id="row" style="border-bottom:1px dotted #eeeaea;">';
+                                    string += '<td id="CounterpartyType" style="display:none;">' + item.TypeName + '</td>';
+                                    string += '<td align="center"><span id="LookupField">' + encodeURIComponent(item.TypeName) + '</span>';
+                                    string += '<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuCounterpartyType margintop-2px" />'
+                                    string += '</td>';
+                                    string += '<td align="center">' + item.CreatedBy + '</td>';
+                                    if (localStorage.AppDateFormat == null || localStorage.AppDateFormat == "" || localStorage.AppDateFormat == 'undefined') {
+                                        string += ' <td align="center">' + moment(new Date(item.Modified)).format('MM/DD/YYYY') + '</td>';
+                                    }
+                                    else {
+                                        string += ' <td align="center">' + moment(new Date(item.Modified)).format(localStorage.AppDateFormat) + '</td>';
+                                    }
+                                    string += '<td align="center"><a id="' + item.TypeName + '" href="javascript:void(0)" onclick="EditCounterParty(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="' + item.TypeName + '" href="javascript:void(0)" onclick="DeleteCounterParty(this);"><img src="../Content/Images/CM_removeNew.png" alt="" title="delete"></a> </td>';
+                                    StandardLookupsearch.push(item.TypeName);
+
+                                });
+                            }
+
+                            $("#txtSearchBox").autocomplete({
+                                source: StandardLookupsearch,
+                                minLength: 1,
+                                focus: function (event, ui) {
+                                    return false;
+                                },
+                                select: function (evn, uidetails) {
+                                    $("#txtSearchBox").val(uidetails.item.label);
+                                    search();
+                                }
+                            });
+                            $("#customLookupTable").append(string);
+
+                            $("#customLookupTable tr").each(function () {
+                                var text = $(this).find("#LookupField").text();
+                                if (text != null && text != "")
+                                    $(this).find("#LookupField").text(decodeURIComponent(text));
+                            });
+
+                            if (data.length == 0) {
+                                $("#customLookupTable").html("No Items Found");
+                                $('#compact-paginationCounterparty').css("display", "none");
+                            } else {
+                                var vCount = $("#customLookupTable tr").length;
+                                if (vCount > 25) {
+                                    vCtypeCurrentPage = 1;
+                                    $('#compact-paginationCounterparty').css('display', '');
+                                    $('#compact-paginationCounterparty').pagination({
+                                        items: vCount,
+                                        itemsOnPage: 5,
+                                        typeID: 'customLookupTable',
+                                        cssStyle: 'compact-theme'
+                                    });
+                                } else {
+                                    $('#compact-paginationCounterparty').css('display', 'none');
+                                }
+                                //    TableSort();
+                                $(".openmenuCounterpartyType").contextMenu({ menu: 'myMenuCounterpartyType', leftButton: true }, function (action, el, pos) { contextMenuWorkCounterpartyType(action, el.parent("td").parent("tr"), pos); });
+
+                            }
+                        }
+                        else {
+                            $("#customLookupTable").empty();
+                            $("#customLookupTable").html("No Items Found");
+                            $('#compact-paginationCounterparty').css('display', 'none');
+                        }
+                    },
+                    error: function (data) {
+                        $("#customLookupTable").empty();
+                        $("#customLookupTable").html("No Items Found");
+                        $('#compact-paginationCounterparty').css('display', 'none');
+                    }
+                });
+            }
+        }
+        function liRemove(obj) {
+            $(obj.parentNode.parentNode).empty();
+            $('#txtSearchBox').val('');
+            $("#liFiltersSearchText").empty();
+            BindStandardLookup();
+            //BindStandardLookup($("#idLookupName").text());
+
+        }
+        function BindStandardLookup() {
+            $("#customLookupTable").empty();
+            $("#customLookupTable").append('<tr class="lineheight20"><td><img src="../Content/Images/icon/loading.gif" style="height: 16px; width: 16px;"> </td></tr>');
+            var lookupname = "Counterparty Types";
+            var txtsearchboxvalue = "";
+            $.ajax({
+                url: '/Settings/SearchStandardLookupValues',
+                type: 'Get',
+                dataType: 'json',
+                data: {
+                    searchKeyword: txtsearchboxvalue,
+                    lookupname: lookupname
+                },
+                cache: false,
+                success: function (jsObject) {
+                    if (jsObject.Success) {
+                        jsObject = jsObject.Data;
+                        var data = JSON.parse(jsObject);
+                        var StandardLookupsearch = [];
+                        $("#customLookupTable").empty();
+                        var string = "";
+                        if (data == null || data == "") {
+                            string += '  <tr>No items found.</tr>';
+                        }
+                        else {
+                            $(data).each(function (i, item) {
+                                string += '<tr id="row" style="border-bottom:1px dotted #eeeaea;">';
+                                string += '<td id="CounterpartyType" style="display:none;">' + item.TypeName + '</td>';
+                                string += '<td align="center"><span id="LookupField">' + encodeURIComponent(item.TypeName) + '</span>';
+                                string += '<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuCounterpartyType margintop-2px" />';
+                                string += '</td>';
+                                string += '<td align="center">' + item.CreatedBy + '</td>';
+                                if (localStorage.AppDateFormat == null || localStorage.AppDateFormat == "" || localStorage.AppDateFormat == 'undefined') {
+                                    string += ' <td align="center">' + moment(new Date(item.Modified)).format('MM/DD/YYYY') + '</td>';
+                                }
+                                else {
+                                    string += ' <td align="center">' + moment(new Date(item.Modified)).format(localStorage.AppDateFormat) + '</td>';
+                                }
+                                string += '<td align="center"><a id="' + item.TypeName + '" href="javascript:void(0)" onclick="EditCounterParty(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="' + item.TypeName + '" href="javascript:void(0)" onclick="DeleteCounterParty(this);"><img src="../Content/Images/CM_removeNew.png" alt="" title="delete"></a> </td>';
+                                StandardLookupsearch.push(item.TypeName);
+
+                            });
+                        }
+
+                        $("#txtSearchBox").autocomplete({
+                            source: StandardLookupsearch,
+                            minLength: 1,
+                            focus: function (event, ui) {
+                                return false;
+                            },
+                            select: function (evn, uidetails) {
+                                $("#txtSearchBox").val(uidetails.item.label);
+                                search();
+                            }
+                        });
+                        $("#customLookupTable").append(string);
+
+                        $("#customLookupTable tr").each(function () {
+                            var text = $(this).find("#LookupField").text();
+                            if (text != null && text != "")
+                                $(this).find("#LookupField").text(decodeURIComponent(text));
+                        });
+
+                        if (data.length == 0) {
+                            $("#customLookupTable").html("No Items Found");
+                            $('#compact-paginationCounterparty').css("display", "none");
+                        } else {
+                            var vCount = $("#customLookupTable tr").length;
+                            if (vCount > 5) {
+                                // vCtypeCurrentPage = 1;
+                                $('#compact-paginationCounterparty').css('display', '');
+                                $('#compact-paginationCounterparty').pagination({
+                                    items: vCount,
+                                    itemsOnPage: 5,
+                                    cssStyle: 'compact-theme'
+                                });
+                            } else {
+                                $('#compact-paginationCounterparty').css('display', 'none');
+                            }
+                            //    TableSort();
+                            $(".openmenuCounterpartyType").contextMenu({ menu: 'myMenuCounterpartyType', leftButton: true }, function (action, el, pos) { contextMenuWorkCounterpartyType(action, el.parent("td").parent("tr"), pos); });
+
+                        }
+                    }
+                    else {
+                        $("#customLookupTable").empty();
+                        $("#customLookupTable").html("No Items Found");
+                        $('#compact-paginationCounterparty').css('display', 'none');
+                    }
+                },
+                error: function (data) {
+                    $("#customLookupTable").empty();
+                    $("#customLookupTable").html("No Items Found");
+                    $('#compact-paginationCounterparty').css('display', 'none');
+                }
+            });
+        }
+
+
+        function TableSort(sortby) {
+            var rows = $('#customLookupTable  tr').get();
+            rows.sort(function (a, b) {
+                var A = $(a).children('td').eq(0).text().toUpperCase();
+                var B = $(b).children('td').eq(0).text().toUpperCase();
+                var A2 = $(a).children('td').eq(3).text().toUpperCase();
+                var B2 = $(b).children('td').eq(3).text().toUpperCase();
+                var z = 0;
+                if (sortby == "asc") {
+                    z = ((A < B) ? -1 : ((A > B) ? 1 : 0));
+                }
+                else if (sortby == "desc") {
+                    z = ((A < B) ? 1 : ((A > B) ? -1 : 0));
+
+                }
+
+                else if (sortby == "ascdate") {
+                    var dateParts = A2.split("/");
+                    var date = new Date();
+                    if (localStorage.AppDateFormat == "MM/DD/YYYY")
+                        date = new Date(dateParts[2], (dateParts[0] - 1), dateParts[1]);
+                    else
+                        date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+                    var a1 = date.getTime();
+                    dateParts = B2.split("/");
+                    if (localStorage.AppDateFormat == "MM/DD/YYYY")
+                        date = new Date(dateParts[2], (dateParts[0] - 1), dateParts[1]);
+                    else
+                        date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+                    var b1 = date.getTime();
+                    z = ((a1 < b1) ? -1 : ((a1 > b1) ? 1 : 0));
+                }
+                else if (sortby == "descdate") {
+                    var dateParts = A2.split("/");
+                    var date = new Date();
+                    if (localStorage.AppDateFormat == "MM/DD/YYYY")
+                        date = new Date(dateParts[2], (dateParts[0] - 1), dateParts[1]);
+                    else
+                        date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+                    var a1 = date.getTime();
+                    dateParts = B2.split("/");
+                    if (localStorage.AppDateFormat == "MM/DD/YYYY")
+                        date = new Date(dateParts[2], (dateParts[0] - 1), dateParts[1]);
+                    else
+                        date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+                    var b1 = date.getTime();
+                    z = ((a1 < b1) ? 1 : ((a1 > b1) ? -1 : 0));
+                }
+                return z;
+            });
+            $.each(rows, function (index, row) {
+
+                $('#customLookupTable').append(row);
+            });
+
+            var vCount = $("#customLookupTable tr").length;
+
+            if (vCount > 5) {
+                vCtypeCurrentPage = 1;
+                $('#compact-paginationCounterparty').css('display', '');
+                $('#compact-paginationCounterparty').pagination({
+                    items: vCount,
+                    itemsOnPage: 5,
+                    cssStyle: 'compact-theme'
+                });
+            } else {
+                $('#compact-paginationCounterparty').css('display', 'none');
+            }
+
+            //if (vCount > 5) {
+            //    vCtypeCurrentPage = 1;
+            //    $('#compact-paginationCounterparty').css('display', '');
+            //    $('#compact-paginationCounterparty').pagination({
+            //        items: vCount,
+            //        itemsOnPage: 5,
+            //        typeID: 'customLookupTable',
+            //        currentPage: vCtypeCurrentPage,
+            //        cssStyle: 'compact-theme'
+            //    });
+            //} else {
+            //    $('#compact-pagination').css('display', 'none');
+            //}
+
+            if ($('#drop').is(':hidden')) { }
+            else
+            {
+                $('#drop').slideToggle();
+            }
+            if ($('#datedrop').is(':hidden')) { }
+            else
+            {
+                $('#datedrop').slideToggle();
+            }
+        }
+
+        function EditCounterParty(obj) {
+            var counterpartyType = obj.id;
+            $("#txtCounterpartyTypeID").val(counterpartyType);
+            $("#txtCounterpartyType").val(counterpartyType);
+            $("#addEditCounterpartyType").dialog("option", "title", "Edit Counterparty Type");
+            $("#addEditCounterpartyType").dialog("open");
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+
+        }
+
+        function DeleteCounterParty(obj) {
+            $("#loadingPage").fadeIn();
+            //manoj
+            var counterpartyType = obj.id;
+            //manoj
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/counterparty?counterpartytype=' + encodeURIComponent(counterpartyType),
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    if (data.length == 0) {
+                        deletecounterpartytype(counterpartyType);
+                    } else {
+                        swal({
+                            title: '',
+                            text: "<span style=\"font-weight:700\">'" + counterpartyType + "'</span> Conunterparty type cannot be deleted. Related Counterparties exists",
+                        },
+                        function (confirmed) {
+                            if (confirmed) {
+                                $("#loadingPage").fadeOut();
+                            }
+                        })
+                    }
+                },
+                error: function (data) {
+                    deletecounterpartytype(counterpartyType);
+                }
+            });
+            //manoj
+        }
+
+        $('#footleft').click(function (e) {
+            e.stopPropagation();
+        });
+
+        $('#datefootleft').click(function (e) {
+            e.stopPropagation();
+        });
+
+        $('#trigger').click(function (e) {
+            $('#drop').toggle();
+        });
+
+        $('#datetrigger').click(function (e) {
+            $('#datedrop').toggle();
+        });
+        $('html').click(function () {
+            if ($('#drop').is(':hidden')) { }
+            else
+            {
+                $('#drop').slideToggle();
+            }
+            if ($('#datedrop').is(':hidden')) { }
+            else
+            {
+                $('#datedrop').slideToggle();
+            }
+        });
+        //Suren - 27/12/2016
+
+        //manoj
+        function deletecounterpartytype(counterpartyType) {
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + counterpartyType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+            function (confirmed) {
+                if (confirmed) {
+                    $.ajax({
+                        //url: '@Url.Action("DeleteCounterpartyType", "Settings")',
+                        url: '/Settings/DeleteCounterpartyType',
+                        type: 'DELETE',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val()
+                        },
+                        data: { counterpartyType: counterpartyType },
+                        cache: false,
+                        success: function (data) {
+                            swal({
+                                title: '',
+                                text: data,
+
+                            },
+                              function (confirmed) {
+                                  if (confirmed) {
+                                      location = "/Settings/CounterpartyTypes";
+                                  }
+
+                              });
+
+                        }
+                    });
+                } else {
+                    $("#loadingPage").fadeOut();
+                }
+                return;
+            });
+        }
+        //manoj
+
+    </script>
+}

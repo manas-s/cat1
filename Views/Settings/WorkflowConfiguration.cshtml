@@ -1,0 +1,257 @@
+﻿
+@{
+    ViewBag.Title = "WorkflowConfiguration";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<script src="/Scripts/chosen.jquery.js" type="text/javascript"></script>
+<script src="/Scripts/prism.js"></script>
+<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<style>
+    .chosen-container{
+        width: 95% !important;
+    }
+    .chosen-choices {
+        margin: 6px 0px 0 0 !important; 
+    }
+</style>
+<input type="hidden" id="hdIsDefault" value="" />
+<table class="width95_a" id="tblWorkflow">
+    <tr>
+        <td class="pageheading" colspan="2"><span id="sWorkflowtype"></span>: <span id="sBusinessArea">[Business Area]</span></td>
+    </tr>
+    <tr style="border-bottom:1px dashed #d3d1d1;">
+        <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">Summary</td>
+        <td align="right">
+            <a href="javascript:void(0);" onclick="javascript: togglediv('trSummary', 'imgSummary');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummary" /></a>
+        </td>
+    </tr>
+    <tr id="trSummary">
+        <td colspan="2">
+            <table class="width100">
+                <tr>
+                    <td class="tableLeft width20">Workflow Title<small class="required">*</small></td>
+                    <td class="tableRight width80">
+                        <input id="txtWorkflowTitle" maxlength="100" name="WorkflowTitle" type="text" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width60 validelement margin-bottom-2 validtitle" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width20">Business Area<small class="required">*</small></td>
+                    <td class="tableRight width80">
+                        <input id="txtBusinessArea" name="BusinessArea" type="text" class="f_inpt width60 validelement margin-bottom-2" disabled="disabled" /><a id="aBusinessArea" href='javascript:void(0)' class='poPup_Browse' onclick='ViewBusinessArea()'> Browse</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width20">Description<small class="required">*</small></td>
+                    <td class="tableRight width80">
+                        <textarea id="txtDescription" maxlength="300" name="Description" class="f_inpt_textarea width60 validelement" rows="3"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr style="border-bottom:1px dashed #d3d1d1;">
+        <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">System Initiated(Automatic)</td>
+        <td align="right">
+            <a href="javascript:void(0);" onclick="javascript: togglediv('trInitiation', 'imgInitiation');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgInitiation" /></a>
+        </td>
+    </tr>
+    <tr id="trInitiation">
+        <td colspan="2" class="padding_left_20px">
+            <table class="width100 margin-top-10">
+                <tr>
+                    <td>
+                        <input id="chkEventCreate" type="checkbox" value="On Create" />
+                        <label for="chkEventCreate" class="OnItemCreate">When a new item is Created</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td>
+                        <input id="chkEventMilestone" type="checkbox" value="On Milestone" />
+                        <label for="chkEventMilestone">On Milestone Date</label>
+                        <select id="ddlAllMilestone" class="f_inpt width30" disabled="disabled">
+                            <option selected="selected" value="0">Milestone</option>
+                        </select>
+                    </td>
+                </tr>
+                @*<tr id="trInitiationEvent">
+                    <td class="tableLeft padding_left_35px">
+                        <input id="chkEventCreate" type="checkbox" value="On Create" />
+                        <label for="chkEventCreate" >When a new Contract Record is Created</label><br />
+                        <input id="chkEventMilestone" type="checkbox" value="On Milestone" />
+                        <label for="chkEventMilestone" >On Milestone Date</label>
+                        <select id="ddlAllMilestone" class="f_inpt width30" disabled="disabled">
+                            <option selected="selected" value="0">Milestone</option>
+                        </select>
+                    </td>
+                </tr>*@
+            </table>
+        </td>
+    </tr>
+    <tr id="trAssignmentTitle1" style="border-bottom:1px dashed #d3d1d1;">
+        <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">Default Task Routing <img src="../Content/Images/input-help.png" title="This will be the order task will be assigned when no defined conditions are met." /></td>
+        <td align="right">
+            <a href="javascript:void(0);" onclick="javascript: togglediv('trAssignmentContent1', 'imgAssignmentTitle1');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgAssignmentTitle1" /></a>
+        </td>
+    </tr>
+    <tr id="trAssignmentContent1">
+        <td colspan="2" class="padding_left_20px padding_top_10px">
+            <table id="tblStage1" class="width100 AssignmentContent tbl_WF_Cond">
+                <tr id="trStage11">
+                    <td class="width20 v_align_top">
+                        <input id="txtStage11" type="text" maxlength="50" name="Stage" placeholder="Stage*" class="f_inpt width95 validelement" value="Stage 1"/>
+                    </td>
+                    <td class="width50 v_align_top">
+                        <select onchange="javascript:OnChangeParticipant(this);"  class="f_inpt width95 chosen-select validmultiselect chosenmulti" name="Participant" id="ddlParticipants11" multiple data-placeholder='Participant(s)*'></select>
+                    </td>
+                    <td class="width10 v_align_top padding_top_3px">
+                        <select id="ddlOrder11" class="f_inpt width95 validelement" name="Order"><option value="Serial" selected="selected">Serial</option><option id="ParallelOpt11" style="display:none;" value="Parallel">Parallel</option></select>
+                    </td>
+                    <td class="width20 v_align_top">
+                        <a href="javascript:void(0)" class="linkText" onclick="DeleteStage('0','','')" style="visibility:hidden;">Delete Stage</a>
+                    </td>
+                </tr>
+            </table>
+            <a href="javascript:void(0)" class="linkText wf_margin_7" onclick="AddStage('1')">Add Stage</a>
+        </td>
+    </tr>
+</table>
+<table class="width95_a">
+    <tr>
+        <td class="tableLeft">
+            <a href="javascript:void(0)" class="linkText padding_left_20px" onclick="AddAssignment()">Add Conditional Task Routing</a>
+        </td>
+        <td class="foot_right" align="right">
+        </td>
+    </tr>
+    <tr>
+        <td class="tableLeft"></td>
+        <td class="foot_right padding_bottom_20px" align="right">
+            <br />
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+            <br />
+        </td>
+    </tr>
+</table>
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:auto !important">
+    <div id="loadBA"></div>
+    @*<div id="treeviewBA" class="demo-section"></div>*@
+    <div style="overflow-y: auto; height: 480px;">
+        <table id="example-basic-1" class="treetable">
+            <tbody id="tbodyBusinessArea"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" />
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/Scripts/Contract365/Settings_WorkflowConfiguration.js?" + DateTime.Now.GetHashCode())
+    }
+
+
+
+
+
+@*<tr id="trAssignmentTitle2" style="border-bottom:1px dashed #d3d1d1;">
+        <td class="pagesubheading padding_bottom_10px">Conditional Task Assignment: <span id="spAssignmentTitle2">[Rule Name]</span> <a href="javascript:void(0)" class="linkText" onclick="DeleteCondition('2')"><img src="../Content/Images/icon/remove.png" /></a></td>
+        <td align="right">
+            <a href="javascript:void(0);" onclick="javascript: togglediv('trAssignmentContent2', 'imgAssignmentTitle2');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgAssignmentTitle2" /></a>
+        </td>
+    </tr>
+    <tr id="trAssignmentContent2">
+        <td colspan="2">
+            <table id="tblAssignment2" class="width100">
+                <tr>
+                    <td class="tableLeft width30 padding_left_20px">Rule Name</td>
+                    <td class="tableRight width70"><input id="txtRuleName2" type="text" name="RuleName2" class="f_inpt width60 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="pagesubheading padding_left_20px">Conditions</td>
+                    <td align="right"></td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width30 padding_left_20px">Run this workflow</td>
+                    <td class="tableRight width70">
+                        <select id="ddlCondition2" class="f_inpt width60">
+                            <option selected="selected" value="Only when all conditions are met">Only when all conditions are met</option>
+                            <option value="When at least one condition is met">When at least one condition is met</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="tableLeft padding_left_20px padding_bottom_10px">
+                        <table id="tblCondition2" class="width100">
+                            <tr id="trCondition21">
+                                <td class="width20">
+                                    <select id="ddlField21" class="f_inpt width95 validelement" onchange="FieldChange('21')">
+                                        <option selected="selected" value="0">Field Name</option>
+                                        <option value="Contract Type~String">Contract Type</option>
+                                        <option value="Contract Value~Number">Contract Value</option>
+                                        <option value="Start Date~Date">Start Date</option>
+                                        <option value="End Date~Date">End Date</option>
+                                        <option value="Renewal Date~Date">Renewal Date</option>
+                                    </select>
+                                </td>
+                                <td class="width20">
+                                    <input id="txtType21" type="text" placeholder="Type" disabled="disabled" class="f_inpt width95" />
+                                </td>
+                                <td class="width20">
+                                    <select id="ddlOperator21" class="f_inpt width95 validelement">
+                                        <option selected="selected" value="0">Operator</option>
+                                    </select>
+                                </td>
+                                <td class="width20">
+                                    <input id="txtValue21" type="text" placeholder="Value" class="f_inpt width95 validelement" />
+                                </td>
+                                <td class="width10">
+                                    <a href="javascript:void(0)" class="linkText" onclick="DeleteCondition('0')" style="visibility:hidden;">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <a href="javascript:void(0)" class="linkText" onclick="AddCondition('2')">Add Condition</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pagesubheading padding_left_20px">Task Assignment</td>
+                    <td align="right"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="tableLeft padding_left_20px">
+                        <input id="rdAssignmentAdhoc2" type="radio" name="Assignment2" onclick="TaskAssignment('Ad-hoc','2');" value="Ad-hoc" checked="checked" />
+                        <label for="rdAssignmentAdhoc2" class="css-label">Ad-hoc, Initiator selects participants</label>
+                        <input id="rdAssignmentAuto2" type="radio" name="Assignment2" onclick="TaskAssignment('Auto-Assignment', '2');" value="Auto-Assignment" />
+                        <label for="rdAssignmentAuto2" class="css-label">Auto-Assignment</label>
+                    </td>
+                </tr>
+                <tr id="trStage2" style="display:none;">
+                    <td colspan="2" class="tableLeft padding_left_20px">
+                        <table id="tblStage2" class="width100">
+                            <tr id="trStage21">
+                                <td class="width20">
+                                    <input id="txtStage11" type="text" placeholder="Stage" class="f_inpt width95 validelement" />
+                                </td>
+                                <td class="width50">
+                                    <input id="txtParticipants21" type="text" placeholder="Participants" class="f_inpt width95 validelement" />
+                                </td>
+                                <td class="width10">
+                                    <select id="ddlOrder21" class="f_inpt width95 validelement"><option selected="selected">Serial</option><option>Parallel</option></select>
+                                </td>
+                                <td class="width10">
+                                    <a href="javascript:void(0)" class="linkText" onclick="DeleteStage('0')" style="visibility:hidden;">Delete Stage</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <a href="javascript:void(0)" class="linkText" onclick="AddStage('2')">Add Stage</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>*@

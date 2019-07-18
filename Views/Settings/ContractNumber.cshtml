@@ -1,0 +1,208 @@
+﻿@{
+    ViewBag.Title = "Contract Record Number";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+
+<table class="width95_a" style="margin-bottom:20px;">
+    <tr>
+        <td class="pageheading" colspan="2">Contract Title <img src="~/Content/Images/help_training.png" alt="Contract Title" title="Configure a standard contract title format for all Contract Records. " /></td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Format</td>
+        <td class="labelright" width="70%">
+            @*<input id="txtFormat" name="Format" type="text" class="f_inpt width90" />*@
+            <div class="width50 v_align_top">
+                <select class="f_inpt validmultiselect chosenmulti customchosen" name="ContractTitleformat" id="ddcontractTitleformat" multiple data-placeholder='Select'>
+                    <option value="Counterparty">{Counterparty}</option>
+                    @*<option value="Contract Number">{Contract Number}</option>*@
+                    <option value="Business Area">{Business Area}</option>
+                    <option value="Contract Area">{Contract Area}</option>
+                    <option value="Contract Type">{Contract Type}</option>
+                    <option value="Created Date">{Created Date}</option>
+                    <option value="Created Day">{Created Day}</option>
+                    <option value="Created Month">{Created Month}</option>
+                    <option value="Created Month Name">{Created Month Name}</option>
+                    <option value="Created Year">{Created Year}</option>
+                    <option value="Legal Entity Name">{Legal Entity Name}</option>
+                    <option value="Transaction Type">{Transaction Type}</option>
+                    @*<option value="User Entry">{User Entry}</option>*@
+                </select>
+            </div>
+
+            <input id="hdntxtFullControlUsers" name="hdntxtFullControlUsers" type="hidden" />
+
+            <p class="f_p">
+                (For example, {ContractType}{Separator}{CreatedDate}{Separator}{Counterparty} : for CON/12122013/CP)
+                @*<span class="right-float"><a href="javascript:void(0)" onclick="ViewKeywords()"> View Standard Keywords</a></span>*@
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="f_head"><p id="lblAutoUserTitleText" style="display:none"> User Entry</p> </td>
+        <td class="labelright" width="70%">
+            <p id="AutoUserTitleText" style="display:none">
+                <input type="text" id="txtautoTitleuser" maxlength="100" class="f_inpt width50 margin-left-10" placeholder="Enter User text" />
+            </p>
+
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right"> Select Separator</td>
+        <td class="labelright" width="70%">
+            <select class="f_inpt width50 margin-left-10" name="ContracTitleformatseperator" id="ddTitleseperator">
+                <option value="-">-</option>
+                <option value=":">:</option>
+                <option value="/">/</option>
+                <option value="|">|</option>
+            </select>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right"> Contract Record Title Format</td>
+        <td class="labelright" width="70%">
+            @*<input id="outoutformat" type="text" class="f_inpt width50 margin-left-10 " style="width:50%" readonly />*@
+            <label id="lblTitleoutputformat" />
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSaveTitleFormat" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancelProfile" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+
+<table class="width95_a" style="margin-bottom:20px;">
+    <tr style="display:none">
+        <td class="pageheading" colspan="2">Numbering Scheme
+            <img src="~/Content/Images/help_training.png" alt="Contract Types" title="Configure a standard numbering scheme for all Contract Records. " /></td>
+    </tr>
+    <tr style="display:none">
+        <td colspan="2" class="labelleft">
+            <ul class="f_list">
+                <li>
+                    <input id="rdManual" type="radio" name="NumberAssignment" class="css-checkbox" onclick="DisableControls()" value="Manually" />
+                    <label for="rdManual" class="css-label">Allow Users to assign Contract Record Number manually</label>
+                </li>
+
+                <li>
+                    <input id="rdAuto" type="radio" name="NumberAssignment" class="css-checkbox" onclick="EnableControls()" value="Auto generate" />
+                    <label for="rdAuto" class="css-label">Auto generate of Contract Record Number for all Contract Records</label>
+                </li>
+                <li>
+                    <input id="rdOnDemand" type="radio" name="NumberAssignment" class="css-checkbox" onclick="EnableControls()" value="On demand" />
+                    <label for="rdOnDemand" class="css-label">Auto generate Contract Record Number only on demand</label>
+                </li>
+
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="2">Numbering Scheme <img src="~/Content/Images/help_training.png" alt="Numbering Scheme" title="Configure a standard numbering scheme for all Contract Records. " /></td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Format</td>
+        <td class="labelright" width="70%">
+            @*<input id="txtFormat" name="Format" type="text" class="f_inpt width90" />*@
+            <div class="width50 v_align_top">
+                <select class="f_inpt validmultiselect chosenmulti customchosen" name="Contractnumformat" id="ddcontractnumformat" multiple data-placeholder='Select'>
+                    <option value="Auto Increment Number">{Auto Increment Number}</option>
+                    <option value="Business Area">{Business Area}</option>
+                    <option value="Contract Area">{Contract Area}</option>
+                    <option value="Contract Type">{Contract Type}</option>
+                    <option value="Created Date">{Created Date}</option>
+                    <option value="Created Day">{Created Day}</option>
+                    <option value="Created Month">{Created Month}</option>
+                    <option value="Created Month Name">{Created Month Name}</option>
+                    <option value="Created Year">{Created Year}</option>
+                    <option value="Legal Entity Name">{Legal Entity Name}</option>
+                    <option value="Transaction Type">{Transaction Type}</option>
+                    <option value="User Entry">{User Entry}</option>
+                </select>
+            </div>
+           
+                <input id="hdntxtFullControlUsers" name="hdntxtFullControlUsers" type="hidden" />
+
+                <p class="f_p">
+                    (For example, {User Entry}{Separator}{CreatedDate}{Separator}{Autoincrement} : for CON/12122013/550)
+                    @*<span class="right-float"><a href="javascript:void(0)" onclick="ViewKeywords()"> View Standard Keywords</a></span>*@
+                </p>
+</td>
+    </tr>
+    <tr>
+        <td align="right" class="f_head"><p id="lblAutoIncrNumber" style="display:none"> Starts With</p></td>
+        <td class="labelright" width="70%"><p id="AutoIncrNumber" style="display:none">
+    <input type="text" id="txtautoincr" class="f_inpt width50 margin-left-10" placeholder="Enter Starting Number" maxlength="10" />
+</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="f_head"><p id="lblAutoUserText" style="display:none"> User Entry</p> </td>
+        <td class="labelright" width="70%"><p id="AutoUserText" style="display:none">
+    <input type="text" id="txtautouser" maxlength="100" class="f_inpt width50 margin-left-10" placeholder="Enter User text" />
+</p>
+
+</td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right"> Select Separator</td>
+        <td class="labelright" width="70%">
+               <select class="f_inpt width50 margin-left-10" name="Contractnumformatseperator" id="ddseperator">
+                                    <option value="-">-</option>
+                                    <option value=":">:</option>
+                                    <option value="/">/</option>
+                                    <option value="|">|</option></select>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right"> Contract Record Number Format</td>
+        <td class="labelright" width="70%">
+            @*<input id="outoutformat" type="text" class="f_inpt width50 margin-left-10 " style="width:50%" readonly />*@
+            <label id="lbloutputformat" />
+        </td>
+
+    </tr>
+    @*<tr>
+        <td class="f_head" align="right">Default Amendment</td>
+        <td class="labelright" width="70%">
+            <input id="rdDefaultAmendmentYes" type="radio" name="DefaultAmendment" class="css-checkbox" value="Yes" />
+            <label for="rdDefaultAmendmentYes" class="css-label margin-right8">Yes</label>
+            <input id="rdDefaultAmendmentNo" type="radio" name="DefaultAmendment"  class="css-checkbox" value="No" />
+            <label for="rdDefaultAmendmentNo" class="css-label margin-right8">No</label>
+        </td>
+    </tr>*@
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSaveProfile" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancelProfile" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+
+<div id="dvKeywords" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table class="tblgrid width100" id="tblKeywords">
+            <tr>
+                <th>Keyword</th>
+                <th>Description</th>
+            </tr>
+            <tr><td>{CreatedDate}</td><td>Created Date</td></tr>
+            <tr><td>{Autoincrement}</td><td>Auto increment no</td></tr>
+        </table>
+        </div>
+    </div>
+
+        @section Scripts {
+<script src="~/Scripts/Contract365/Settings_ContractNumber.js" type="text/javascript"></script>
+<script src="~/Scripts/chosen.order.jquery.min.js"></script>
+        }

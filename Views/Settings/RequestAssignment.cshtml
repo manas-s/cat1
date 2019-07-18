@@ -1,0 +1,30 @@
+﻿
+
+@{
+    ViewBag.Title = "Request Assignment";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_RequestAssignment.js?" + DateTime.Now.GetHashCode())
+}
+<table id="tblGlobalSettings" class="width95_a">
+    <tr class='FL_Requests' style="display:none">
+        <td class="pageheading" colspan="2">Request Assignment
+            <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Configure standard Request assignment users / user roles."></td>
+    </tr>
+    <tr class='FL_Requests' style="display:none">
+
+        <td class="f_head" align="right">Select User(s)/Role(s)</td>
+        <td class="labelright" width="60%">
+            <select class="f_inpt chosenmulti customchosen" name="Contractnumformat" id="ddluserrolesetting" multiple data-placeholder='Select'></select>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>

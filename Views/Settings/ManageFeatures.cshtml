@@ -1,0 +1,1045 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.FeaturesEntity>
+@{
+    ViewBag.Title = "eContracts Add On Features";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading">
+            eContracts Add On Features
+            <img src="~/Content/Images/help_training.png" alt="eContracts Add On Features" title="eContracts Add On Features" />
+        </td>
+        <td class="pageheading" align="right"><input id="btnEnable" value="Manage Add On Features" class="f_button_green_small" onclick="fnUpdateFeatures()" type="submit"></td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr id=@item.RowKey>
+            <td class="formhead_left">
+                @item.FeatureName
+                <input type="hidden" class="cls_txtPartitionKey" value=@item.PartitionKey />
+            </td>
+            @if (@item.Enable != "NO" && @item.Enable != "" && @item.Enable != null)
+            {
+                var Enable = "switch_disable";
+
+                <td class="padding_top_10px" align="right">
+
+                    @if (@item.Status == "ON")
+                    {
+                        Enable = "switch_enable";
+
+                        @*<span class="f_button_green_small turn_On" style="cursor:default">@item.Status</span>
+                            <span class="f_button_white_small" id="@item.FeatureName" style="cursor:pointer" onclick='fnUpdateStatus(this, "OFF");'>OFF</span>*@
+
+                    }
+                    else
+                    {
+                        Enable = "switch_disable";
+
+                        @*<span class="f_button_white_small" id="@item.FeatureName" style="cursor:pointer" onclick='fnUpdateStatus(this,"ON");'>ON</span>
+                            <span class="f_button_orange_small turn_Off" style="cursor:default">@item.Status</span>*@
+                    }
+
+                    @if (@item.RowKey == "20")
+                    {
+                        <div class="switch @Enable disabled_slider switchSet">
+                            <div class="Toggle" id="@item.FeatureName" onclick="fnUpdateStatus(this)"></div>
+                            <span class="switch_enable">ON</span>
+                            <span class="switch_disable">OFF</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="switch @Enable enabled_slider switchSet">
+                            <div class="Toggle" id="@item.FeatureName" onclick="fnUpdateStatus(this)"></div>
+                            <span class="switch_enable">ON</span>
+                            <span class="switch_disable">OFF</span>
+                        </div>
+                    }
+                </td>
+            }
+        </tr>
+        <tr>
+            <td colspan="2" class="text1 formhead">
+                <div style="display:table; width:90% !important;">
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                </div>
+            </td>
+        </tr>
+        if (@item.RowKey == "1" && @item.Status == "ON")
+        {
+
+            <tr>
+                <td colspan="2" class="text1" id="eSignatureptd">
+                    <script>
+                        var strConf = '@item.Configuration';
+                        strConf = strConf.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+
+                        showeSignature(strConf);
+
+                        function showeSignature(value) {
+                            var provider = parseBetween('<Provider>', '</Provider>', value);
+                            if (provider == 'Docu Sign') {
+                                var key = parseBetween('<Key>', '</Key>', value);
+                                var dsuserName = parseBetween('<UserName>', '</UserName>', value);
+                                var dspwd = parseBetween('<Password>', '</Password>', value);
+                                var dsaccountId = parseBetween('<AccountID>', '</AccountID>', value);
+
+                                var streSignature = '<span> Provider : ' + provider + '</span></br>';
+                                streSignature += '<span>' + provider + ' Key : ' + key + '</span></br>';
+                                streSignature += '<span>UserName : ' + dsuserName + '</span></br>';
+                                streSignature += '<span>Password : ' + dspwd + '</span></br>';
+                                streSignature += '<span>Account Id : ' + dsaccountId + '</span>';
+
+                                $("#eSignatureptd").append(streSignature);
+                            }
+                            else {
+                                var key = parseBetween('<Key>', '</Key>', value);
+                                var streSignature = '<span> Provider : ' + provider + '</span></br>';
+                                streSignature += '<span>' + provider + ' Key : ' + key + '</span>';
+                                $("#eSignatureptd").append(streSignature);
+
+                            }
+
+
+                        }
+
+                        function parseBetween(beginString, endString, originalString) {
+                            var beginIndex = originalString.indexOf(beginString);
+                            if (beginIndex === -1) {
+                                return null;
+                            }
+                            var beginStringLength = beginString.length;
+                            var substringBeginIndex = beginIndex + beginStringLength;
+                            var substringEndIndex = originalString.indexOf(endString, substringBeginIndex);
+                            if (substringEndIndex === -1) {
+                                return null;
+                            }
+                            return originalString.substring(substringBeginIndex, substringEndIndex);
+                        }
+                    </script>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<div id="dvSignature" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head">Provider</td>
+                    <td class="labelright">
+                        <ul class="f_list">
+                            <li>
+                                <input id="rdEcho" type="radio" name="Signature" class="css-checkbox" onclick="DisableDocuSign()" value="Echo Sign" checked="checked" />
+                                <label for="rdEcho" class="css-label">Adobe Echo Sign</label>
+                            </li>
+                            <li>
+                                <input id="rdRight" type="radio" name="Signature" class="css-checkbox" onclick="DisableDocuSign()" value="Right Signature" />
+                                <label for="rdRight" class="css-label">Right Signature</label>
+                            </li>
+
+
+                            <li>
+                                <input id="rddocusign" type="radio" name="Signature" class="css-checkbox" onclick="EnableDocuSign()" value="Docu Sign" />
+                                <label for="rddocusign" class="css-label">Docusign</label>
+                            </li>
+
+
+
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">API Key/Token <small class="required">*</small></td>
+                    <td class="labelright">
+                        <input id="txtToken" name="Token" type="text" class="f_inpt width70 validelement" />
+                    </td>
+                </tr>
+                <tr id="trSenderDetails" style="height:40px">
+                    <td class="f_head">Send eSignature Alerts from <small class="required">*</small></td>
+                    <td class="labelright">
+                        <ul class="f_list">
+                            <li>
+                                <input id="rdSenderAccount" type="radio" name="SenderDetails" onclick="EnableGroupKey()" class="css-checkbox" value="No" checked="checked" />
+                                <label for="rdSenderAccount" class="css-label">Account / Organization Admin Name</label>
+                            </li>
+                            <li>
+                                <input id="rdSenderUser" type="radio" name="SenderDetails" onclick="EnableGroupKey()" class="css-checkbox" value="Yes" />
+                                <label for="rdSenderUser" class="css-label">User Name of Signature Initiator</label>
+                            </li>
+                        </ul>
+
+
+                    </td>
+                </tr>
+                <tr id="trGroupKey">
+                    <td class="f_head">Group Key <small class="required">*</small></td>
+                    <td class="labelright">
+                        <input id="txtGroupKey" name="Token" type="text" class="f_inpt width70 validelement" />
+                    </td>
+                </tr>
+                <tr id="trusername">
+                    <td class="f_head">User Name <small class="required">*</small></td>
+                    <td class="labelright">
+                        <input id="txtUserName" name="Token" type="text" class="f_inpt width70 validelement" />
+                    </td>
+                </tr>
+
+                <tr id="trpassword">
+                    <td class="f_head">Password <small class="required">*</small></td>
+                    <td class="labelright">
+                        <input id="txtPassword" name="Token" type="text" class="f_inpt width70 validelement" />
+                    </td>
+                </tr>
+                <tr id="traccountid">
+                    <td class="f_head">Account ID <small class="required">*</small></td>
+                    <td class="labelright">
+                        <input id="txtAccountID" name="Token" type="text" class="f_inpt width70 validelement" />
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="dvEnableFeatures" style="display:none;">
+    <div class="modalbody">
+        <div id="enableFeatures">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr style="display:none;">
+                    <td class="f_head" colspan="2"><input id="txtRowKey" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Select file<small class="required">*</small></td>
+                    <td class="labelright">
+                        <input type="file" id="docFeatures" name="file" title="txt file" class="validelement" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="dvFtpIntegration" style="display:none;">
+    <div class="modalbody">
+        <div id="dvIntegrationType">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head">Integration Type<small class="required">*</small></td>
+                    <td class="labelright">
+                        <select id="ddlIntegrationType" name="IntegrationType" title="Integration Type" class="width60 validelement">
+                            <option value="0">--Select--</option>
+                            <option value="Counterparty">Counterparty</option>
+                            <option value="Vendor">Vendor</option>
+                            <option value="Customer">Customer</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('input[type="radio"][name=SenderDetails]:checked').val() == "No") {
+            $('#trGroupKey').hide('fast');
+            $('#txtGroupKey').removeClass("validelement");
+        }
+        else {
+            $('#txtGroupKey').addClass("validelement");
+            $('#trGroupKey').show('fast');
+        }
+        @*localStorage.setItem("eContractFeatures", JSON.stringify(@Html.Raw(Json.Encode(Model))));*@
+        $("#dvSignature").dialog({
+            autoOpen: false, closeText: "",
+            width: "70%",
+            title: "Document Signature Configuration",
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    if (requiredValidator("addNewEntityFields")) {
+                        var configuration = '';
+                        var vProvider = $('input[type="radio"][name=Signature]:checked').val();
+                        if (vProvider == 'Docu Sign') {
+                            configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key><UserName>" + $("#txtUserName").val() + "</UserName><Password>" + $("#txtPassword").val() + "</Password><AccountID>" + $("#txtAccountID").val() + "</AccountID></Signature>").html();
+                        } else if (vProvider == 'Echo Sign') {
+                            if ($('input[type="radio"][name=SenderDetails]:checked').val() == "No") {
+                                configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key><IsUserBased>" + $('input[type="radio"][name=SenderDetails]:checked').val() + "</IsUserBased></Signature>").html();
+                            }
+                            else {
+                                configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key><IsUserBased>" + $('input[type="radio"][name=SenderDetails]:checked').val() + "</IsUserBased><GroupKey>" + $("#txtGroupKey").val() + "</GroupKey></Signature>").html();
+                            }
+                        }
+                        else {
+                            configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key></Signature>").html();
+                        }
+                        var pKey = $('.cls_txtPartitionKey').val();
+
+
+                        UpdateFeature("ON", pKey, "1", configuration);
+                    }
+                },
+                Cancel: function () {
+
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                toggleItem = '';
+            }
+        });
+
+
+
+        $("#dvEnableFeatures").dialog({
+            autoOpen: false, closeText: "",
+            width: "50%",
+            title: "Upload Licensing file",
+            modal: true,
+            buttons: {
+                "OK": function () {
+                    if (requiredValidator("enableFeatures")) {
+                        var restoreFile = $('#docFeatures')[0].value;
+                        //restoreFile = restoreFile.split('\\')[restoreFile.split('\\').length - 1];
+                        restoreFile = restoreFile.split('/').pop().split('\\').pop();
+                        if (restoreFile == "eContractsFeaturesEnable.txt") {
+                            $("#loadingPage").fadeIn();
+                            var formData = new FormData();
+
+                            var opmlFile = $("#docFeatures")[0];
+                            formData.append("opmlFile", opmlFile.files[0]);
+                            formData.append("AccountID", localStorage.AccountID);
+                            formData.append("CurrentUser", localStorage.UserName);
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/postfeaturesfile',
+                                type: 'POST',
+                                data: formData,
+                                cache: false,
+                                contentType: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                processData: false,
+                                success: function (data) {
+                                    $("#loadingPage").fadeOut();
+                                    location = "/Settings/ManageFeatures";
+
+
+                                },
+                                error: function (data) {
+
+                                }
+                            });
+                        }
+                        else {
+                            var errormsg = "Please Browse Proper File to enable Features ";
+                            $("#docFeatures").addClass('error');
+                            $("#docFeatures").after('<span class="errorValidate" style="display:block;" id="errormsg_' + $("#docFeatures").attr('id') + '">' + errormsg + $("#docFeatures").attr('title') + ' </span>');
+                        }
+                    }
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dvFtpIntegration").dialog({
+            autoOpen: false, closeText: "",
+            width: "40%",
+            title: "Ftp Integration",
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    if (requiredValidator("dvIntegrationType")) {
+                        var configuration = '';
+                        var Type = $('#ddlIntegrationType').val();
+                        if (Type == 'Counterparty') {
+                            configuration = $('<div/>').text("<IntegrationType><Counterparty>Yes</Counterparty><Vendor>No</Vendor><Customer>No</Customer></IntegrationType>").html();
+                        } else if (Type == 'Vendor') {
+                            configuration = $('<div/>').text("<IntegrationType><Counterparty>No</Counterparty><Vendor>Yes</Vendor><Customer>No</Customer></IntegrationType>").html();
+                        }
+                        else if (Type == 'Customer') {
+                            configuration = $('<div/>').text("<IntegrationType><Counterparty>No</Counterparty><Vendor>No</Vendor><Customer>Yes</Customer></IntegrationType>").html();
+                        }
+
+                        var pKey = $('.cls_txtPartitionKey').val();
+                        UpdateFeature("ON", pKey, "39", configuration);
+                    }
+                },
+                Cancel: function () {
+
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {
+                toggleItem = '';
+            }
+        });
+
+
+
+    });
+
+
+
+    function EnableDocuSign() {
+        $('#trSenderDetails').hide('fast');
+        $('#trGroupKey').hide('fast');
+        $('#trusername').show('fast');
+        //$('#div1').show('fast');
+        $('#trpassword').show('fast');
+        $('#traccountid').show('fast');
+        $('#txtAccountID').addClass("validelement");
+        $('#txtPassword').addClass("validelement");
+        $('#txtUserName').addClass("validelement");
+        $('#txtGroupKey').removeClass("validelement");
+    }
+    function DisableDocuSign() {
+        var vProvider = $('input[type="radio"][name=Signature]:checked').val();
+        if (vProvider == "Echo Sign") {
+            $('#trSenderDetails').show('fast');
+            if ($('input[type="radio"][name=SenderDetails]:checked').val() == "No") {
+                $('#trGroupKey').hide('fast');
+                $('#txtGroupKey').removeClass("validelement");
+            }
+            else {
+                $('#txtGroupKey').addClass("validelement");
+                $('#trGroupKey').show('fast');
+            }
+
+        }
+        else {
+            $('#trSenderDetails').hide('fast');
+            $('#trGroupKey').hide('fast');
+            $('#txtGroupKey').removeClass("validelement");
+        }
+        $('#trusername').hide('fast');
+        //$('#div1').show('fast');
+        $('#trpassword').hide('fast');
+        $('#traccountid').hide('fast');
+
+        $('#txtAccountID').removeClass("validelement");
+        $('#txtPassword').removeClass("validelement");
+        $('#txtUserName').removeClass("validelement");
+
+    }
+
+    function EnableGroupKey() {
+        var vProvider = $('input[type="radio"][name=Signature]:checked').val();
+        if (vProvider == "Echo Sign") {
+            if ($('input[type="radio"][name=SenderDetails]:checked').val() == "Yes") {
+                $('#txtGroupKey').addClass("validelement");
+                $('#trGroupKey').show('fast');
+            }
+            else {
+                $('#trGroupKey').hide('fast');
+                $('#txtGroupKey').removeClass("validelement");
+            }
+        }
+    }
+
+    var toggleItem = '';
+    //   function fnUpdateStatus(item, newStatus) {
+    function fnUpdateStatus(item) {
+        toggleItem = item;
+        var obj = $(item).parent();
+        var newStatus = "";
+
+
+        if ($(obj).hasClass('switch_disable')) {
+            newStatus = "ON";
+        }
+        else {
+            newStatus = "OFF";
+        }
+        var pKey = $('.cls_txtPartitionKey').val();
+        var rKey = item.parentNode.parentNode.parentNode.id;
+        if (rKey == "1" && newStatus == "ON") {
+            $('#trusername').hide('fast');
+            //$('#div1').show('fast');
+            $('#trpassword').hide('fast');
+            $('#traccountid').hide('fast');
+
+            $('#txtAccountID').removeClass("validelement");
+            $('#txtPassword').removeClass("validelement");
+            $('#txtUserName').removeClass("validelement");
+
+            $("#dvSignature").dialog("open");
+        }
+        else if (rKey == "39" && newStatus == "ON") {
+            $("#dvFtpIntegration").dialog("open");
+        }
+        else {
+            var featurename = item.id;
+            if (rKey == "24" && newStatus == "OFF") {
+                swal({
+                    title: '',
+                    text: "All Contract Type will have only Basic Metadata fields. Do you want to proceed?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                    html: true
+                },
+                function (confirmed) {
+                    if (confirmed) {
+                        UpdateFeature(newStatus, pKey, rKey, "", featurename);
+                    }
+                    //else {
+                    //    toggleItem = '';
+                    //    $(obj).toggleClass('switch_enable').toggleClass('switch_disable');
+                    //}
+                    return;
+                });
+            } else {
+                UpdateFeature(newStatus, pKey, rKey, "", featurename);
+            }
+        }
+    }
+
+    function UpdateFeature(newStatus, pKey, rKey, configuration, featurename) {
+        $("#loadingPage").fadeIn();
+        var obj = $(toggleItem).parent();
+        $(obj).toggleClass('switch_enable').toggleClass('switch_disable');
+        $.ajax({
+            url: '/Settings/UpdateFeature',
+            type: 'PUT',
+            dataType: 'json',
+            headers: {
+                'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+            },
+            data: {
+                Status: newStatus,
+                PartitionKey: pKey,
+                RowKey: rKey,
+                Configuration: configuration,
+                username: localStorage.UserName
+            },
+            cache: false,
+            success: function (status) {
+                if (status.Success) {
+                    toggleItem = '';
+                    $.ajax({
+                        url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature',
+                        type: 'GET',
+                        dataType: 'json',
+                        'Content-Type': 'application/json',
+                        cache: false,
+                        async: false,
+                        headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                        success: function (data) {
+                            localStorage.setItem("eContractFeatures", JSON.stringify(data));
+                            var vAccFeat = $.grep(data, function (n, i) {
+                                return (n.RowKey == "29" && n.Status == "ON");
+                            });
+                            if (vAccFeat.length > 0) {
+                                if (typeof localStorage.CompanyBrandingLogo === "undefined") {
+                                    $.ajax({
+                                        url: '/Accounts/GetAccountSetting?accountid=' + localStorage.AccountID,
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        cache: false,
+                                        success: function (AccountSetting) {
+                                            if (AccountSetting.CompanyLogo != "") {
+                                                localStorage.setItem("CompanyBrandingLogo", AccountSetting.CompanyLogo);
+                                                $(".FL_CompanyBrandingLogo").attr("src", AccountSetting.CompanyLogo);
+                                                $(".FL_CompanyBrandingLogo").css('display', '');
+                                            }
+                                            else {
+                                                $(".FL_CompanyBrandingLogo").css('display', '');
+                                                localStorage.setItem("CompanyBrandingLogo", '/Content/Images/logo.png');
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    if (localStorage.CompanyBrandingLogo != "/Content/Images/logo.png") {
+                                        $(".FL_CompanyBrandingLogo").attr("src", localStorage.CompanyBrandingLogo);
+                                        $(".FL_CompanyBrandingLogo").css('display', '');
+                                    }
+                                    else {
+                                        $(".FL_CompanyBrandingLogo").css('display', '');
+                                    }
+
+                                }
+                            }
+                            else {
+                                $(".FL_CompanyBrandingLogo").css('display', '');
+                            }
+
+                            // location = "/Settings/ManageFeatures";
+                            window.location.reload();
+                        },
+                        error: function () {
+                            toggleItem = '';
+                            $("#loadingPage").fadeOut();
+                        }
+                    });
+                    //if (featurename == "Business Area") {
+                    //    if (newStatus == "ON") {//if business area feature is turned on, add it to contract fields
+                    //        $.ajax({
+                    //            url: '/Settings/SaveContractField',
+                    //            type: 'POST',
+                    //            dataType: 'json',
+                    //            data: {
+                    //                FieldType: "Taxonomy",
+                    //                FieldDisplayName: "Business Area",
+                    //                FieldGroup: "Primary Fields",
+                    //                Required: true,
+                    //                Description: "Business Area",
+                    //                FieldHelp: true,
+                    //                HelpText: "Business Area",
+                    //            },
+                    //            cache: false,
+                    //            success: function (person) {
+                    //            }
+                    //        });
+                    //    } else {//if business area feature is turned off, delete it from contract fields
+                    //        $.ajax({
+                    //            url: '/Settings/DeleteContractField',
+                    //            type: 'Delete',
+                    //            dataType: 'json',
+                    //            data: {FieldName:"BusinessArea"},
+                    //            cache: false,
+                    //            success: function (data) {
+                    //            }
+                    //        });
+                    //    }
+                    //}
+                }
+                else {
+                    toggleItem = '';
+                    $("#loadingPage").fadeOut();
+                }
+            },
+            error: function () {
+                toggleItem = '';
+                $("#loadingPage").fadeOut();
+            }
+        });
+    }
+
+    function fnUpdateFeatures() {
+        $("#dvEnableFeatures").dialog("open");
+    }
+
+
+
+</script>
+
+@*@model IEnumerable<Corevo.eContracts365.TableEntities.FeaturesEntity>
+    @{
+        ViewBag.Title = "ManageFeatures";
+        Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+    }
+
+    <table class="width95_a">
+        <tr>
+            <td class="pageheading" colspan="2">
+                eContracts Add On Features
+                <img src="~/Content/Images/help_training.png" alt="eContracts Add On Features" title="eContracts Add On Features" />
+            </td>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr id=@item.RowKey>
+                <td class="formhead formhead_left">
+                    @item.FeatureName
+                    <input type="hidden" class="cls_txtPartitionKey" value=@item.PartitionKey />
+                </td>
+                <td class="formhead padding_top_10px" align="right">
+                    @if (@item.Status == "ON")
+                    {
+                        <span class="f_button_green_small turn_On" style="cursor:default">@item.Status</span>
+                        <span class="f_button_white_small" id="@item.FeatureName" style="cursor:pointer" onclick='fnUpdateStatus(this, "OFF");'>OFF</span>
+
+                    }
+                    else
+                    {
+                        <span class="f_button_white_small" id="@item.FeatureName" style="cursor:pointer" onclick='fnUpdateStatus(this,"ON");'>ON</span>
+                        <span class="f_button_orange_small turn_Off" style="cursor:default">@item.Status</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text1">
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                </td>
+            </tr>
+            if (@item.RowKey == "1" && @item.Status == "ON")
+            {
+
+                <tr>
+                    <td colspan="2" class="text1" id="eSignatureptd">
+                        <script>
+                            var strConf = '@item.Configuration';
+                            strConf = strConf.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+
+                            showeSignature(strConf);
+
+                            function showeSignature(value) {
+                                var provider = parseBetween('<Provider>', '</Provider>', value);
+                                if (provider == 'Docu Sign') {
+                                    var key = parseBetween('<Key>', '</Key>', value);
+                                    var dsuserName = parseBetween('<UserName>', '</UserName>', value);
+                                    var dspwd = parseBetween('<Password>', '</Password>', value);
+                                    var dsaccountId = parseBetween('<AccountID>', '</AccountID>', value);
+
+                                    var streSignature = '<span> Provider : ' + provider + '</span></br>';
+                                    streSignature += '<span>' + provider + ' Key : ' + key + '</span></br>';
+                                    streSignature += '<span>UserName : ' + dsuserName + '</span></br>';
+                                    streSignature += '<span>Password : ' + dspwd + '</span></br>';
+                                    streSignature += '<span>Account Id : ' + dsaccountId + '</span>';
+
+                                    $("#eSignatureptd").append(streSignature);
+                                }
+                                else {
+                                    var key = parseBetween('<Key>', '</Key>', value);
+                                    var streSignature = '<span> Provider : ' + provider + '</span></br>';
+                                    streSignature += '<span>' + provider + ' Key : ' + key + '</span>';
+                                    $("#eSignatureptd").append(streSignature);
+
+                                }
+
+
+                            }
+
+                            function parseBetween(beginString, endString, originalString) {
+                                var beginIndex = originalString.indexOf(beginString);
+                                if (beginIndex === -1) {
+                                    return null;
+                                }
+                                var beginStringLength = beginString.length;
+                                var substringBeginIndex = beginIndex + beginStringLength;
+                                var substringEndIndex = originalString.indexOf(endString, substringBeginIndex);
+                                if (substringEndIndex === -1) {
+                                    return null;
+                                }
+                                return originalString.substring(substringBeginIndex, substringEndIndex);
+                            }
+                        </script>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <div id="dvSignature" style="display:none;">
+        <div class="modalbody">
+            <div id="addNewEntityFields">
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    <tr>
+                        <td class="f_head">Activation Key <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtActivationKey" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Provider</td>
+                        <td class="labelright">
+                            <ul class="f_list">
+                                <li>
+                                    <input id="rdEcho" type="radio" name="Signature" class="css-checkbox" onclick="DisableDocuSign()" value="Echo Sign" checked="checked" />
+                                    <label for="rdEcho" class="css-label">Adobe Echo Sign</label>
+                                </li>
+                                <li>
+                                    <input id="rdRight" type="radio" name="Signature" class="css-checkbox" onclick="DisableDocuSign()" value="Right Signature" />
+                                    <label for="rdRight" class="css-label">Right Signature</label>
+                                </li>
+
+
+                                <li>
+                                    <input id="rddocusign" type="radio" name="Signature" class="css-checkbox" onclick="EnableDocuSign()" value="Docu Sign" />
+                                    <label for="rddocusign" class="css-label">Docusign</label>
+                                </li>
+
+
+
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">API Key/Token <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtToken" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+
+
+                    <tr id="trusername">
+                        <td class="f_head">User Name <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtUserName" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+
+                    <tr id="trpassword">
+                        <td class="f_head">Password <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtPassword" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+                    <tr id="traccountid">
+                        <td class="f_head">Account ID <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtAccountID" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="dvActivation" style="display:none;">
+        <div class="modalbody">
+            <div id="addNewActivationFields">
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    <tr style="display:none;">
+                        <td class="f_head" colspan="2"><input id="txtRowKey" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Activation Key <small class="required">*</small></td>
+                        <td class="labelright">
+                            <input id="txtFeatureActivationKey" name="Token" type="text" class="f_inpt width70 validelement" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#dvSignature").dialog({
+               autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Document Signature Configuration",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        if (requiredValidator("addNewEntityFields")) {
+                            $("#loadingPage").fadeIn();
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature1?rowKey=' + "1" + '&activationKey=' + $("#txtActivationKey").val(),
+                                type: 'POST',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                async: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (data) {
+                                    if (data) {
+                                        var configuration = '';
+                                        var vProvider = $('input[type="radio"][name=Signature]:checked').val();
+                                        if (vProvider == 'Docu Sign') {
+                                            configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key><UserName>" + $("#txtUserName").val() + "</UserName><Password>" + $("#txtPassword").val() + "</Password><AccountID>" + $("#txtAccountID").val() + "</AccountID></Signature>").html();
+                                        } else {
+                                            configuration = $('<div/>').text("<Signature><Provider>" + vProvider + "</Provider><Key>" + $("#txtToken").val() + "</Key></Signature>").html();
+                                        }
+                                        var pKey = $('.cls_txtPartitionKey').val();
+                                        UpdateFeature("ON", pKey, "1", configuration);
+                                    }
+                                    else {
+                                        $("#txtActivationKey").addClass("error");
+                                        $("#loadingPage").fadeOut();
+                                    }
+                                },
+                                error: function (data) {
+                                    $("#loadingPage").fadeOut();
+                                }
+                            });
+
+                        }
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#dvActivation").dialog({
+               autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Provide Activation Key",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        if (requiredValidator("addNewActivationFields")) {
+                            $("#loadingPage").fadeIn();
+                            var pKey = $('.cls_txtPartitionKey').val();
+                            var rkey = $("#txtRowKey").val();
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature1?rowKey=' + rkey + '&activationKey=' + $("#txtFeatureActivationKey").val(),
+                                type: 'POST',
+                                dataType: 'json',
+                                'Content-Type': 'application/json',
+                                cache: false,
+                                async: false,
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                                success: function (data) {
+                                    if (data) {
+                                        UpdateFeature("ON", pKey, rkey, "");
+                                    }
+                                    else {
+                                        $("#txtFeatureActivationKey").addClass("error");
+                                        $("#loadingPage").fadeOut();
+                                    }
+                                },
+                                error: function (data) {
+                                    $("#loadingPage").fadeOut();
+                                }
+                            });
+                        }
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+
+
+        });
+
+
+
+        function EnableDocuSign() {
+            $('#trusername').show('fast');
+            //$('#div1').show('fast');
+            $('#trpassword').show('fast');
+            $('#traccountid').show('fast');
+            $('#txtAccountID').addClass("validelement");
+            $('#txtPassword').addClass("validelement");
+            $('#txtUserName').addClass("validelement");
+        }
+        function DisableDocuSign() {
+            $('#trusername').hide('fast');
+            //$('#div1').show('fast');
+            $('#trpassword').hide('fast');
+            $('#traccountid').hide('fast');
+
+            $('#txtAccountID').removeClass("validelement");
+            $('#txtPassword').removeClass("validelement");
+            $('#txtUserName').removeClass("validelement");
+
+        }
+
+        function fnUpdateStatus(item, newStatus) {
+
+            $("#txtFeatureActivationKey").val("");
+            var pKey = $('.cls_txtPartitionKey').val();
+            var rKey = item.parentNode.parentNode.id;
+            if (rKey == "1" && newStatus == "ON") {
+                $('#txtFeatureActivationKey').removeClass('error');
+                $('#txtActivationKey').removeClass('error');
+                $('#trusername').hide('fast');
+                //$('#div1').show('fast');
+                $('#trpassword').hide('fast');
+                $('#traccountid').hide('fast');
+
+                $('#txtAccountID').removeClass("validelement");
+                $('#txtPassword').removeClass("validelement");
+                $('#txtUserName').removeClass("validelement");
+
+                $("#dvSignature").dialog("open");
+            }
+            else if (newStatus == "ON") {
+                $('#txtFeatureActivationKey').removeClass('error');
+                $('#txtActivationKey').removeClass('error');
+                $("#txtRowKey").val(rKey);
+              $("#dvActivation").dialog("open");
+            }
+            else {
+                var featurename = item.id;
+                UpdateFeature(newStatus, pKey, rKey, "", featurename);
+            }
+        }
+
+        function UpdateFeature(newStatus, pKey, rKey, configuration, featurename) {
+            $("#loadingPage").fadeIn();
+            $.ajax({
+                url: '/Settings/UpdateFeature',
+                type: 'PUT',
+                dataType: 'json',
+                data: {
+                    Status: newStatus,
+                    PartitionKey: pKey,
+                    RowKey: rKey,
+                    Configuration: configuration,
+                    username: localStorage.UserName
+                },
+                cache: false,
+                success: function (status) {
+                    $.ajax({
+                        url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/feature',
+                        type: 'GET',
+                        dataType: 'json',
+                        'Content-Type': 'application/json',
+                        cache: false,
+                        async: false,
+                        headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                        success: function (data) {
+                            localStorage.setItem("eContractFeatures", JSON.stringify(data));
+                            location = "/Settings/ManageFeatures";
+                        },
+                        error: function () {
+                            $("#loadingPage").fadeOut();
+                        }
+                    });
+                    //if (featurename == "Business Area") {
+                    //    if (newStatus == "ON") {//if business area feature is turned on, add it to contract fields
+                    //        $.ajax({
+                    //            url: '/Settings/SaveContractField',
+                    //            type: 'POST',
+                    //            dataType: 'json',
+                    //            data: {
+                    //                FieldType: "Taxonomy",
+                    //                FieldDisplayName: "Business Area",
+                    //                FieldGroup: "Primary Fields",
+                    //                Required: true,
+                    //                Description: "Business Area",
+                    //                FieldHelp: true,
+                    //                HelpText: "Business Area",
+                    //            },
+                    //            cache: false,
+                    //            success: function (person) {
+                    //            }
+                    //        });
+                    //    } else {//if business area feature is turned off, delete it from contract fields
+                    //        $.ajax({
+                    //            url: '/Settings/DeleteContractField',
+                    //            type: 'Delete',
+                    //            dataType: 'json',
+                    //            data: {FieldName:"BusinessArea"},
+                    //            cache: false,
+                    //            success: function (data) {
+                    //            }
+                    //        });
+                    //    }
+                    //}
+                },
+                error: function () {
+                    $("#loadingPage").fadeOut();
+                }
+            });
+        }
+
+
+
+    </script>*@
+

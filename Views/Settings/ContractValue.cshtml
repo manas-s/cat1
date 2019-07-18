@@ -1,0 +1,246 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.CurrenciesEntity>
+
+@{
+    ViewBag.Title = "Contract Value";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading font-normal" colspan="2">
+            Contract Value (Financials) Display
+            <img src="~/Content/Images/help_training.png" alt="Alerts & Notification Settings" title="Setup Currencies, Display formats, Base currency and Conversion rates." />
+        </td>
+    </tr>
+    <tr>
+        <td class="labelleft">
+            <ul class="f_list">
+                <li>
+                    <input id="rdBaseCur" type="radio" class="css-checkbox" name="ContractValueDisplay" value="Display Contract Values in Base Currency" />
+                    <label for="rdBaseCur" class="css-label">Display Contract Values in Base Currency</label>
+                </li>
+
+                <li>
+                    <input id="rdActualCur" type="radio" class="css-checkbox" name="ContractValueDisplay" value="Display Contract Values in Actual Currency" />
+                    <label for="rdActualCur" class="css-label">Display Contract Values in Actual Currency</label>
+                </li>
+            </ul>
+
+        </td>
+        @*<td class="labelright" style="vertical-align:bottom; text-align:right;"><input id="btnSave" type="submit" value="Save" class="f_button_green_small" /></td>*@
+    </tr>
+    <tr>
+        <td class="pageheading font-normal" colspan="2">Display Style</td>
+    </tr>
+    <tr>
+        <td class="labelleft">
+            <ul class="f_list">
+                <li>
+                    <input id="rdUK" type="radio" class="css-checkbox" name="DisplayStyle" value="UK" />
+                    <label for="rdUK" class="css-label">1,234,567.89 (United Kingdom, United States, Hong Kong, Australia)</label>
+                </li>
+
+                <li>
+                    <input id="rdCAN" type="radio" class="css-checkbox" name="DisplayStyle" value="CAN" />
+                    <label for="rdCAN" class="css-label">1 234 567.89 (Canada, China, South Africa)</label>
+                </li>
+                <li>
+                    <input id="rdEU" type="radio" class="css-checkbox" name="DisplayStyle" value="EU" />
+                    <label for="rdEU" class="css-label">1.234.567,89 (Most of EU)</label>
+                </li>
+                @*<li>
+                    <input id="rdIND" type="radio" class="css-checkbox" name="DisplayStyle" value="IND" />
+                    <label for="rdIND" class="css-label">12,34,567.89 (India, South Asia)</label>
+                </li>*@
+            </ul>
+
+        </td>
+        <td class="labelright" style="vertical-align:bottom; text-align:right;"><input id="btnSave" type="submit" value="Save" class="f_button_green" /></td>
+    </tr>
+
+    <tr>
+        <td class="pageheading font-normal">Contract Currencies</td>
+        <td class="pageheading" align="right"><input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                           <thead>
+                                <tr>                                  
+                                    <th id="footleft" class="font-normal">
+                                        Currency
+                                        <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Abbreviation</th>
+                                    <th class="font-normal">Conversion Rate</th>
+                                    <th class="font-normal">Base Currency</th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customertable"></tbody>
+                                @*     @if (Model == null || Model.Count() == 0)
+                {
+                    <tr>There is no currency found.</tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                            <td id="CurrencyID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="Currency" style="display:none;">@Html.DisplayFor(modelItem => item.Currency)</td>
+                            <td align="center" class="openmenu">
+                                @Html.DisplayFor(modelItem => item.Currency)
+                                <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                            <td align="center">
+                                @Html.DisplayFor(modelItem => item.Abbreviation)
+                            </td>
+                            <td align="center" >
+                                @Html.DisplayFor(modelItem => item.TranslationRate)
+                            </td>
+                            <td align="center" >
+                                @Html.DisplayFor(modelItem => item.BaseCurrency)
+                            </td>
+                            <td align="center"><a id="@item.RowKey" href="javascript:void(0)" onclick="EditContractCurrency(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.RowKey" name="@item.Currency" href="javascript:void(0)" onclick="DeleteContractCurrency(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                        </tr>
+                    }
+                }
+            </tbody>*@
+
+
+</table>
+                    </div>
+
+                </div>
+                @*<table class="paginated width100" id="customertable">
+                    <thead>
+                        <tr>
+                            <th>Currency	</th>
+                            <th>Abbreviation</th>
+                            <th>Translation Rate</th>
+                            <th>Base Currency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>There is no currency found.</tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="CurrencyID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                    <td id="Currency" style="display:none;">@Html.DisplayFor(modelItem => item.Currency)</td>
+                                    <td class="openmenu">
+                                        @Html.DisplayFor(modelItem => item.Currency)
+                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td align="right" style="padding:5px;">
+                                        @Html.DisplayFor(modelItem => item.Abbreviation)
+                                    </td>
+                                    <td align="right" style="padding:5px;">
+                                        @Html.DisplayFor(modelItem => item.TranslationRate)
+                                    </td>
+                                    <td align="right" style="padding:5px;">
+                                        @Html.DisplayFor(modelItem => item.BaseCurrency)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>*@
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+
+
+<div id="AddEditCurrency" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2"  class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelleft"><input id="txtCurrencyID" name="CurrencyID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Currency<small class="required">*</small></td>
+                    <td class="labelleft"><input id="txtCurrency" name="Currency" type="text" maxlength="50" class="f_inpt width90 validelement" onchange="ReplaceSpecialCharacters(this);" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Abbreviation</td>
+                    <td class="labelleft"><input id="txtAbbreviation" name="Abbreviation" maxlength="10" type="text" class="f_inpt width90 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Base Currency</td>
+                    <td class="labelleft">
+                        <ul class="f_list">
+                            <li>
+                                <input id="rdBase" type="radio" class="css-checkbox BaseCurrencyConversion" name="BaseCurrency" value="Yes" />
+                                <label for="rdBase" class="css-label">Yes</label>
+                                <input id="rdActual" type="radio" class="css-checkbox BaseCurrencyConversion" name="BaseCurrency" checked="checked" value="No" />
+                                <label for="rdActual" class="css-label">No</label>
+                            </li>
+                        </ul>
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Conversion rate<small class="required">*</small></td>
+                    <td class="labelleft"><input id="txtTranslationRate" name="TranslationRate" maxlength="15" type="text" class="f_inpt width90 validelement" /></td>
+                <td><label id="lblconversionrate" class="css-label" style="margin-left: -50px;"></label></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @*<script src="~/Scripts/jquery.simplemodal-1.1.1.js" type="text/javascript"></script>*@
+    
+@Scripts.Render("~/Scripts/Contract365/Settings_ContractValue.js?" + DateTime.Now.GetHashCode())
+
+}

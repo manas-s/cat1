@@ -1,0 +1,303 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.LabelEntity>
+
+@{
+    ViewBag.Title = "Labels";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td colspan="2" class="pageheading font-normal">
+            Contract Record Labels
+            <img src="~/Content/Images/help_training.png" alt="Lables" title="Manage color coded Contract Record labels for quick identification and Search." />
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNewCategory" type="submit" value="Add Category" class="f_button_green_small" />&nbsp;<input id="btnAddNew" type="submit" value="Add Label" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="padding-top:5px;">
+            <div id="page-wrap">
+                <div class="inserch1" style="padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                            <thead>
+                                <tr>
+
+                                    <th id="footleft" class="font-normal">
+                                        Label
+                                        <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort3('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort3('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Created By</th>
+                                    <th id="datefootleft" class="font-normal">
+                                        Modified On
+                                        <a class=" search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop" style="display:none;">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort3('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort3('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody id="tblLabels"></tbody>
+                            @*      @if (Model == null || Model.Count() == 0)
+                                    {
+                                        <tr>No items found.</tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            if (item.LabelTitle == "")
+                                            {
+                                                <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9;">
+                                                    <td id="CategoryId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                                    <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => item.LabelCategory)</td>
+                                                    <td class="" style="vertical-align:top;" width="50%">
+                                                        <span style="padding-left:5px;">  @Html.DisplayFor(modelItem => item.LabelCategory)</span>
+                                                        <img src="../Content/Images/context_Menu.png" class="openCategorymenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                                    </td>
+                                                    <td align="center">@item.CreatedBy</td>
+                                                    <td align="center">@if (item.Modified.HasValue) { @item.Modified.Value.ToShortDateString(); }</td>
+                                                    <td align="center"><a id="@item.RowKey" href="javascript:void(0)" onclick="EditLabelCategory(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.RowKey" name="@item.LabelCategory" href="javascript:void(0)" onclick="DeleteLabelCategory(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+
+                                                    </tr>
+                                                foreach (var childitem in Model)
+                                                {
+                                                    if (childitem.LabelTitle != "" && childitem.LabelCategory == item.LabelCategory)
+                                                    {
+                                                        <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                            <td id="LabelId" style="display:none;">@Html.DisplayFor(modelItem => childitem.RowKey)</td>
+                                                            <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => childitem.LabelTitle)</td>
+                                                            <td class="" style="vertical-align:top;" width="50%">
+                                                                <span style="padding-left:5px;">
+                                                                    @Html.DisplayFor(modelItem => childitem.LabelTitle)
+                                                                </span>
+                                                                <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                                            </td>
+                                                            <td align="center">@childitem.CreatedBy</td>
+                                                            <td align="center">@if (childitem.Modified.HasValue){ @childitem.Modified.Value.ToShortDateString();}</td>
+                                                            <td align="center"><a id="@childitem.RowKey" href="javascript:void(0)" onclick="EditLabel(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@childitem.RowKey" name="@childitem.LabelTitle" href="javascript:void(0)" onclick="DeleteLabel(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                            else if (item.LabelTitle != "" && item.LabelCategory == "")
+                                            {
+                                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                    <td id="LabelId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                                    <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => item.LabelTitle)</td>
+                                                    <td class="" style="vertical-align:top;" width="50%">
+                                                        <span style="padding-left:5px;">
+                                                            @Html.DisplayFor(modelItem => item.LabelTitle)
+                                                        </span>
+                                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                                    </td>
+                                                    <td align="center">@item.CreatedBy</td>
+                                                    <td align="center">@if (item.Modified.HasValue) { @item.Modified.Value.ToShortDateString(); }</td>
+                                                    <td align="center"><a id="@item.RowKey" href="javascript:void(0)" onclick="EditLabel(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.RowKey" name="@item.LabelTitle" href="javascript:void(0)" onclick="DeleteLabel(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+                                </tbody>*@
+
+                        </table>
+                    </div>
+
+                </div>
+                @*<table class="tblgrid width100" id="tblLabels">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Label
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model == null || Model.Count() == 0)
+                                            {
+                                                <tr>No items found.</tr>
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    if (item.LabelTitle == "")
+                                                    {
+                                                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9;">
+                                                            <td id="CategoryId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                                            <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => item.LabelCategory)</td>
+                                                            <td class="" style="vertical-align:top;" width="50%">
+                                                                <span style="padding-left:5px;">  @Html.DisplayFor(modelItem => item.LabelCategory)</span>
+                                                                <img src="../Content/Images/context_Menu.png" class="openCategorymenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                                            </td>
+                                                        </tr>
+                                                        foreach (var childitem in Model)
+                                                        {
+                                                            if (childitem.LabelTitle != "" && childitem.LabelCategory == item.LabelCategory)
+                                                            {
+                                                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                                    <td id="LabelId" style="display:none;">@Html.DisplayFor(modelItem => childitem.RowKey)</td>
+                                                                    <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => childitem.LabelTitle)</td>
+                                                                    <td class="" style="vertical-align:top;" width="50%">
+                                                                        <span style="padding-left:5px;">
+                                                                            @Html.DisplayFor(modelItem => childitem.LabelTitle)</span>
+                                                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
+                                                    else if (item.LabelTitle != "" && item.LabelCategory == "")
+                                                    {
+                                                        <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                            <td id="LabelId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                                            <td id="Label" style="display:none;">@Html.DisplayFor(modelItem => item.LabelTitle)</td>
+                                                            <td class="" style="vertical-align:top;" width="50%">
+                                                                <span style="padding-left:5px;">
+                                                                    @Html.DisplayFor(modelItem => item.LabelTitle)</span>
+                                                                <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                    </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+
+                                    </table>*@
+
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+<!-- Right Click Menu -->
+<ul id="labelMenu" class="contextMenu">
+    <li class="defaultproperties FL_LabelRule" style="display:none;"><a href="#rule">Auto-Assign Rules</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="categoryMenu" class="contextMenu">
+    <li class="edit"><a href="#categoryedit">Edit</a></li>
+    <li class="delete"><a href="#categorydelete">Delete</a></li>
+</ul>
+<div id="AddEditLabel" style="display:none;">
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" class="width100">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtLabelId" name="LabelId" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Label Title
+                    <small class="required">*</small>
+                </td>
+
+                <td class="labelright"><input id="txtLabelTitle" maxlength="25" name="LabelTitle" type="text" onchange="ReplaceSpecialCharacters(this);" class="validelement f_inpt width99 validtitle" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Color</td>
+                <td class="labelright">
+                    <div class="click-nav width100">
+                        <ul class="no-js" style="z-index:999;">
+                            <li>
+                                <a href="javascript:void(0)" class="clicker" id="liSelectedLabel" style="background-color:#076565;"><span id="txtColor">076565</span><span class="demo-img"><img id="imgMenu" src="~/Content/Images/dp1-ddown.png" /></span></a>
+                                <ul class="scroll-lable">
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="l-red">&nbsp;</span>d9534f</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="l-blue">&nbsp;</span>5bc0de</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="l-grey">&nbsp;</span>777777</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="l-yellow">&nbsp;</span>f0ad4e</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="l-green">&nbsp;</span>5cb85c</a></li>
+                                    @*<li><a href="javascript:void(0)" class="selectColor"><span class="red">&nbsp;</span>076565</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="blue">&nbsp;</span>cb3828</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="green">&nbsp;</span>f7991d</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="orange">&nbsp;</span>0c669a</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="orange-2">&nbsp;</span>06334d</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="yellow">&nbsp;</span>93268f</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="brown">&nbsp;</span>f16596</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="brown-2">&nbsp;</span>78324b</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="purple">&nbsp;</span>1399cc</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="darkblue">&nbsp;</span>9ac93b</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="blue-1">&nbsp;</span>4bc8f6</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="green-1">&nbsp;</span>bd5a2a</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="green-2">&nbsp;</span>cbcb2b</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="green-3">&nbsp;</span>379a47</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="gray-1">&nbsp;</span>999999</a></li>
+                                    <li><a href="javascript:void(0)" class="selectColor"><span class="gray-2">&nbsp;</span>737373</a></li>*@
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Category
+                    <small class="required">*</small>
+                </td>
+                <td class="labelright">
+                    <select id="ddlLabelCategory" class="validelement f_inpt width100">
+                        <option value="0">--Select--</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div id="AddEditCategory" style="display:none;">
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" class="width100">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtCategoryId" name="LabelId" type="hidden" /><input id="hdCategoryName" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Category Name
+                    <small class="required">*</small>
+                </td>
+                <td class="labelright"><input id="txtCategoryName" maxlength="50" name="CategoryName" type="text" onchange="ReplaceSpecialCharacters(this);" class="validelement f_inpt width70 validtitle" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                </td>
+                <td class="labelright"><input type="checkbox" name="chkRestrictCategory" id="chkRestrictCategory" class="summary_Check" />Restrict Multiple Label Selection<span class="p-text help"> <img src="../Content/Images/input-help.png" title="Check this option if you want users to add only one label from this category. Contract Record(s) that are already labeled with more than one label from this category will remain unaffected."></span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_Label.js?" + DateTime.Now.GetHashCode())
+}

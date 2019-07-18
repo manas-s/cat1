@@ -1,0 +1,325 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.DocumentTemplateEntity>
+
+@{
+    ViewBag.Title = "Document Templates";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<style type="text/css">
+    #lblpointer:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+<table class="width95_a">
+    <tr>
+        <td class="pageheading">
+            Document Templates (Automation)
+            <img src="~/Content/Images/help_training.png" alt="Lables" title="Manage standard document templates (.dotx) and use for Document Automation." />
+        </td>
+        <td class="pageheading clDocTemp" align="right"><input id="btnBlankUploadTemplate" type="button" value="Add Blank Template" class="f_button_green_small tdblankdocument" style="display:none;margin-right: 10px;" /><input id="btnUploadTemplate" type="button" value="Add New" class="f_button_green_small" /></td>
+        <td class="pageheading clSumTemp" align="right" style="display:none"><input id="btnUploadSumTemplate" type="button" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+
+        <td>
+            <div id="liliDocTemp" class="pop_up_Harizondal" style="width: 120%;">
+                <ul>
+                    <li><a id="liDocTemp" href="javascript:void(0);" class="pop_up__Acti">Contract Document Templates</a></li>
+                    <li class="cllisumtemp" style="display:none"><a id="liSumTemp" href="javascript:void(0);" class="">Contract Cover Sheet Templates</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="clDocTemp">
+            <div id="page-wrap">
+                <table id="customertable" class="paginated width100">
+                    <thead>
+                        <tr>
+                            <th>Template Name	</th>
+                            <th>Document Type</th>
+                            <th>Uploaded By</th>
+                            <th>Uploaded Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="RowKey" style="display:none;">@item.RowKey</td>
+                                    <td id="TemplateName" style="display:none;">@item.TemplateName</td>
+                                    <td id="BlobDocumentURL" style="display:none;">@item.BlobDocumentURL</td>
+                                    <td id="IsBlankDocument" style="display:none;">@item.IsBlankDocument</td>
+                                    <td class="openmenu1">
+                                        <label id="lblpointer" onclick="ViewDoument('@item.BlobDocumentURL')"> @item.TemplateName</label>
+                                        @*<label id="lblpointer" onclick="javascript: window.open('@item.BlobDocumentURL','_self');"> @item.TemplateName</label>*@
+                                        @*@if (@item.IsBlankDocument == "Yes")
+                                            {
+                                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuBlankDocument margintop-2px" />
+                                            }
+                                            else
+                                            {*@
+                                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenu margintop-2px" />
+                                        @*  }*@
+
+                                    </td>
+                                    <td id="DocumentType">@item.DocumentType</td>
+                                    <td id="ModifiedBy">@item.ModifiedBy</td>
+                                    <td id="Modified">@(item.Modified == null ? "" : ((DateTime)item.Modified).ToString((string)ViewBag.DateFormat))</td>
+                                    <td id="Description" style="display:none;">@item.Description</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            @if (Model != null)
+            {
+                if (Model.Count() == 0)
+                {
+                    <p>No template found.</p>
+                }
+                else
+                {
+                    <br />
+                    <div class="pagination-holder clearfix margin-left-m20">
+                        <article id="compact-pagination"></article>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No template found.</p>
+            }
+        </td>
+        <td colspan="2" class="clSumTemp" style="display:none">
+            <div id="page-wrap">
+                <table class="paginated width100">
+                    <thead>
+                        <tr>
+                            <th>Template Name</th>
+                            <th>Contract Type</th>
+                            <th>Uploaded By</th>
+                            <th>Uploaded Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblSumTemp">
+                        @*@foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="RowKey" style="display:none;">@item.RowKey</td>
+                                    <td id="TemplateName" style="display:none;">@item.TemplateName</td>
+                                    <td id="BlobDocumentURL" style="display:none;">@item.BlobDocumentURL</td>
+                                    <td id="IsBlankDocument" style="display:none;">@item.IsBlankDocument</td>
+                                    <td class="openmenu1">
+                                        <label id="lblpointer" onclick="javascript: window.open('@item.BlobDocumentURL','_self');"> @item.TemplateName</label>
+                                        @if (@item.IsBlankDocument == "Yes")
+                                        {
+                                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuBlankDocument margintop-2px" />
+                                        }
+                                        else
+                                        {
+                                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenu margintop-2px" />
+                                        }
+
+                                    </td>
+                                    <td id="DocumentType">@item.DocumentType</td>
+                                    <td id="ModifiedBy">@item.ModifiedBy</td>
+                                    <td id="Modified">@(item.Modified == null ? "" : ((DateTime)item.Modified).ToString("MM/dd/yyyy"))</td>
+                                </tr>
+                            }*@
+
+                    </tbody>
+                </table>
+            </div>
+            @*@if (Model.Count() == 0)
+                {
+                    <p>No template found.</p>
+                }
+                else
+                {*@
+            <br />
+            <div class="pagination-holder clearfix margin-left-m20 ">
+                <article id="compact-paginationSummery"></article>
+            </div>
+            @*}*@
+        </td>
+    </tr>
+</table>
+
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="download"><a href="#download">Download</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="replace Manage"><a href="#replace">Replace Document</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!---manoj--->
+<ul id="myMenuBlankDocument" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="download"><a href="#download">Download</a></li>
+    @*<li class="edit"><a href="#edit">Edit</a></li>*@
+    <li class="replace Manage"><a href="#replace">Replace Document</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="myMenuSummeryDocument" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="download"><a href="#download">Download</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="replace Manage"><a href="#replace">Replace Template</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<!---manoj--->
+<div id="addEditTemplate" style="display:none;">
+    <div id="dvPopupHeadingTemplateName" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <span id="blankNote" style="background-color:yellow; display:none;">Note: This template will be assigned to all contract areas.</span>
+            @*<form method="post" enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <table id="tblUploadTemplate" cellpadding="2" cellspacing="2" class="width100 margin-top-10">
+                <tr class="clblankdocument">
+                    <td class="labelleft width40">Template Name<small class="required">*</small></td>
+                    <td class="f_list labelright width60">
+                        <input id="txtTemplateName" maxlength="50" name="TemplateName" type="text" title="Template Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width97 filecorevo validelement validtitle" />
+                        <input id="hdntxtTemplateName" name="hdntxtTemplateName" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft" style="vertical-align: top; display: table-cell;">Browse Template<small class="required">*</small></td>
+                    <td class="labelright"><input type="file" id="docTemplate" name="file" title="Document" class="f_inpt width97 padding_left_none validelement border-none" onchange="javascript:changeinupload(this);" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.template" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" maxlength="300" name="Description" rows="2" cols="20" class="f_text-box width98" style=" font-size: 14px; padding: 5px;"></textarea></td>
+                </tr>
+                <tr class="clblankdocument">
+                    <td class="labelleft" style="vertical-align: top; display: table-cell;">Document Type<small class="required">*</small></td>
+                    <td class="labelright">
+                        <select id="ddlDocumentType" name="DocumentType" title="Document Type" class="f_inpt width97 validelement">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="clblankdocument">
+                    <td class="labelleft width40">Contract Area(s)</td>
+                    <td class="labelright width60">
+                        <select id="ddlContractArea" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlContractArea" title='Contract Area' data-placeholder='Select Contract Area(s)'></select>
+                    </td>
+                </tr>
+            </table>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+<!---manoj--->
+<div id="addEditSumTemplate" style="display:none;">
+    <div id="dvPopupHeadingSumTemplateName" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewSumEntityFields">
+            @*<form method="post" enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <table id="tblUploadSumTemplate" cellpadding="2" cellspacing="2" class="width100">
+                <tr class="clSumTempReplace">
+                    <td class="labelleft width40">Template Name<small class="required">*</small></td>
+                    <td class="f_list labelright width60">
+                        <input id="txtSumTemplateName" maxlength="50" name="SumTemplateName" type="text" title="Template Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width97 filecorevo validelement validtitle" />
+                        <input id="hdntxtSumTemplateName" name="hdntxtSumTemplateName" type="hidden" />
+                    </td>
+                </tr>
+                <tr class="clSumBrowse">
+                    <td class="labelleft" style="vertical-align: top; display: table-cell;">Browse Template<small class="required">*</small></td>
+                    <td class="labelright"><input type="file" id="docSumTemplate" name="Sumfile" title="Document" class="f_inpt width97 padding_left_none validelement border-none" onchange="javascript:changeinupload(this);" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.template" /></td>
+                </tr>
+                <tr class="clSumTempReplace">
+                    <td class="labelleft width40">Contract Type<small class="required">*</small></td>
+                    <td class="labelright width60">
+                        <select id="ddlSumContractType" class='f_inpt width97 validelement' name="ddlSumContractType" title='Contract Type' data-placeholder='Select Contract Type'></select>
+                    </td>
+                </tr>
+            </table>
+            @*</form>*@
+        </div>
+        <input id="hdnSumTempContractType" name="hdnSumTempContractType" type="hidden" />
+        <input id="hdnSumTempRowKey" name="hdnSumTempRowKey" type="hidden" />
+        <input id="hdnSumTempName" name="hdnSumTempName" type="hidden" />
+    </div>
+</div>
+<!---manoj--->
+
+<div id="EditTemplate" style="display:none;">
+    <div class="modalbody">
+        <!---manoj--->
+        <div id="dvWarning" class="width98 bg-warning margin-top-5 " style="">
+            <p id="dvWarningTextTemp" class="margin-bottom-0">Note: By removing Contract Area, It will remove the document template from the Contract Area. As well as Document Template will be removed from Contract Record Type and Request Type even if it is set as Required.</p>
+        </div>
+        <!---manoj--->
+        <div id="addNewEntityFields">
+            @*<form method="post" enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <table id="tblUpdateTemplate" cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft width40">Template Name<span class="required">*</span></td>
+                    <td class="f_list labelright width60">
+                        <input id="txtEditTemplateName" name="TemplateName" maxlength="50" type="text" title="Template Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width97 filecorevo validelement validtitle" />
+                        <input id="hdntxtEditTemplateName" name="hdntxtEditTemplateName" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Description</td>
+                    <td class="labelright"><textarea id="txtEditDescription" maxlength="300" name="Description" rows="2" cols="20" class="f_text-box width98" style=" font-size: 14px; padding: 5px;"></textarea></td>
+                </tr>
+                <tr class="clblanktemplate">
+                    <td class="labelleft" style="vertical-align: top; display: table-cell;">Document Type<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlEditDocumentType" name="DocumentType" title="Document Type" class="f_inpt width98 validelement">
+                            <option value="0">--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="clblanktemplate">
+                    <td class="labelleft">Contract Area(s)</td>
+                    @*<td class="labelright"><span id="spnContractArea"></span></td>*@
+                    <td class="labelright">
+                        <select id="ddlEditContractArea" multiple="multiple" class='f_inpt width90 chosenmulti' title='Contract Area' data-placeholder='Select Contract Area(s)'></select>
+                    </td>
+                </tr>
+            </table>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+<div id="divReplaceDocument" style="display:none;">
+    <div class="modalbody">
+        <div>
+            @*<form enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+            <div style="padding:0px 30px 30px; overflow:hidden;">
+                <table id="tblReplaceDocument" class="width100" cellpadding="2" cellspacing="2">
+                    <tr id="trFileUploadBrowse">
+                        <td class="f_head" style="vertical-align: top; display: table-cell;">Browse File&nbsp;<small class="required">*</small></td>
+                        <td class="f_list"><input type="file" id="docToReplace" name="file" title="Document" class="f_inpt width80 validelement" onchange="javascript:changeinupload(this);" /></td>
+                    </tr>
+                </table>
+            </div>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+<input id="txtTemplateID" style="display:none;" />
+<input id="txtIsBlankDocument" style="display:none;" />
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_UploadTemplate.js?" + DateTime.Now.GetHashCode())
+
+}
+

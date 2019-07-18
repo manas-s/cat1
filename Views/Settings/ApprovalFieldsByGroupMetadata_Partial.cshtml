@@ -1,0 +1,182 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ApprovalSheetField>
+@using Corevo.eContracts365.General
+
+<script type="text/javascript" src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+<div id="page-wrap" class="admin-contrct-Field">
+    <table id='@ViewBag.Index' class="yui-grid width100">
+        <tr style="border-bottom: 1px solid #d1ecff; background-color:#fff; " class="nodrop nodrag">
+            <td style="display:none;">
+                <input type="text" id="GroupIdHdn" style="display:none;" value="@ViewBag.GroupID" />
+            </td>
+            <td id="GroupID" style="display:none;">@ViewBag.GroupID</td>
+            <td id="GroupName" style="display:none;">@ViewBag.DisplayName</td>
+            <td id="Index" style="display:none;">@ViewBag.Index</td>
+            <td>
+                @{
+                    var grpName = ViewBag.DisplayName;
+                    grpName = grpName.Replace("&amp;", "&");
+                    <span style="font-size: 18px; font-weight:normal; color: #6b6b6b;"> @grpName </span>
+                }
+                @if (grpName != "Contract Information")
+                {
+                    <label style="display:none;" id='GroupFieldCount'>@Model.Count()</label>
+                }
+            </td>
+            <td style="float: left; border:none; display:none;" class="f_list">
+                @if (@ViewBag.GroupName == "Contract Information")
+                {
+                    <input class="css1-checkbox" type="checkbox" id='@ViewBag.GroupID' onclick="showinformvalue(this);" disabled="disabled" /> <label class="css1-label" for='@ViewBag.GroupID'>Show in contract form.</label>
+                }
+                else
+                {
+                    <input class="css1-checkbox" type="checkbox" id='@ViewBag.GroupID' onclick="showinformvalue(this);" /> <label class="css1-label" for='@ViewBag.GroupID'>Show in contract form.</label>
+                }
+            </td>
+            @if (@ViewBag.GroupName == "Contract Information")
+            {
+                <td class="openmenuprimary clcustomenable" style="float: right; border: none;">
+                    @*<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />*@
+                </td>
+            }
+            else
+            {
+                if (@ViewBag.Index == @ViewBag.Count)
+                {
+
+                    if (@ViewBag.Count == "2")
+                    {
+                        <td class="openmenugroupnoupdown clcustomenable" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                        </td>
+
+                    }
+                    else
+                    {
+                        if (@ViewBag.GroupName == "Counterparty Information" || @ViewBag.GroupName == "Amendment Information")
+                        {
+                            <td class="openmenugroupnodowndelete clcustomenable" style="float: right; border: none;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="openmenugroupnodown clcustomenable" style="float: right; border: none;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                            </td>
+                        }
+                    }
+
+                }
+                else if (Int32.Parse(@ViewBag.Index) == 2)
+                {
+                    if (@ViewBag.GroupName == "Counterparty Information" || @ViewBag.GroupName == "Amendment Information")
+                    {
+                        <td class="openmenugroupnoupdelete clcustomenable" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="openmenugroupnoup clcustomenable" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                        </td>
+                    }
+                }
+                else
+                {
+                    if (@ViewBag.GroupName == "Counterparty Information" || @ViewBag.GroupName == "Amendment Information")
+                    {
+                        <td class="openmenugroupnodelete clcustomenable" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="openmenugroup clcustomenable" style="float: right; border: none;">
+                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="clcustomenable" />
+                        </td>
+                    }
+
+                }
+
+
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            var Displaynamecheck = item.FieldDisplayName.Replace("&amp;", "&");
+            do
+            {
+                Displaynamecheck = Displaynamecheck.Replace("&amp;", "&");
+            } while (Displaynamecheck.IndexOf("&amp;") > -1);
+
+            if ((item.FieldName == "ContractTitle") || (item.FieldName == "ContractType") || (item.FieldName == "BusinessArea"))
+            {
+                //disable drag drop for core fields
+                <tr id='@Html.DisplayFor(modelItem => item.FieldName)' style="border-bottom: 1px solid #d1ecff; " class="nodrop nodrag">
+                    <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => Displaynamecheck)</td>
+                    <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                    <td id="Description" style="display:none;">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td id="FieldHelp" style="display:none;">@Html.DisplayFor(modelItem => item.FieldHelp)</td>
+                    <td id="FieldRelatedTo" style="display:none;">@Html.DisplayFor(modelItem => item.FieldRelatedTo)</td>
+                    <td id="HelpText" style="display:none;">@Html.DisplayFor(modelItem => item.HelpText)</td>
+                    <td id="GroupName" style="display:none;">@ViewBag.GroupName</td>
+                    <td id="ChoiceValues" style="display:none;">@Html.DisplayFor(modelItem => item.ChoiceValues)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Displaynamecheck)<span class="alert-red">*</span>
+
+                    </td>
+
+                    <td class="openPrimarymenu clcustomenable" style="float: right; border: none;">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Default Field, only help text can be edited." class="clcustomenable" />
+                    </td>
+
+                </tr>
+            }
+            else
+            {
+                <tr id='@Html.DisplayFor(modelItem => item.FieldName)' style="border-bottom: 1px solid #d1ecff; ">
+                    <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                    <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => Displaynamecheck)</td>
+                    <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                    <td id="Description" style="display:none;">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td id="FieldHelp" style="display:none;">@Html.DisplayFor(modelItem => item.FieldHelp)</td>
+                    <td id="FieldRelatedTo" style="display:none;">@Html.DisplayFor(modelItem => item.FieldRelatedTo)</td>
+                    <td id="HelpText" style="display:none;">@Html.DisplayFor(modelItem => item.HelpText)</td>
+                    <td id="GroupName" style="display:none;">@ViewBag.GroupName</td>
+                    <td id="ChoiceValues" style="display:none;">@Html.DisplayFor(modelItem => item.ChoiceValues)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Displaynamecheck)
+
+                    </td>
+                    <td class="openmenu clcustomenable" style="float: right; border: none;">
+                        <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Initialise the first table (as before)
+        if(@ViewBag.Index!="")
+        {
+            $("#"+@ViewBag.Index).tableDnD();
+        }
+
+        //$("#dv").tableDnD();
+
+    });
+
+</script>

@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "BulkCounterpartyCreate";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading bordernone">Bulk Counterparties &nbsp;<img src="~/Content/Images/help_training.png" alt="Counterparty" title="Counterparty" /></td>
+        <td class="pageheading sub1" align="right"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="box_Summery">
+                <div id="divFileUpload" class="width100">
+                    <ul>
+                        <li>
+                            @*<input type="file" id="docContract" name="file" title="Document" class="validelement" />*@
+                            <input type="file" id="docCounterparty" name="file" title="excel file" class="validelement" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        </li>
+                        <li id="trcp-gbl">
+                            <div>
+
+                                Global or Regional<small style="color: red;display: inline;">&nbsp;*</small>
+
+                                <input type="radio" checked="" style="margin: 0px 0px 2px 5px;width: 10% !important;height: 13px !important;float: none !important;" name="IsGlobal" value="Yes">Global<input type="radio" style="margin: 0px 0px 2px 62px;width: 10%;height: 13px !important;float: none !important;" name="IsGlobal" value="No">Regional
+                            </div>
+                        </li>
+                        <li id="trcp-RgBusi" style="display:none;">
+                            <div>
+                                Business Area<small style="color: red;display: inline;">&nbsp;*</small>
+                                <input type="hidden" id="hdnOwnerofBusinessArea"><input type="hidden" id="hdnLocOwnerofBusinessArea"><input id="txtOwnerofBusinessArea" name="BusinessAreas" readonly="readonly" type="text" class="validelement" style="float: none !important;margin-left: 46px !important;">
+                                <a href="javascript:void(0)" class="linkText" id="Multi Choice(Browse)" title="MultiLine" onclick="ViewOwnerofBusinessArea(this)" style="float: none !important;">Browse</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);" id="btnImport" onclick="readexcelfile()" style="margin-top:10px;">Import From Excel</a>
+                            <a href="javascript:void(0);" id="btnImportCancel" style="margin-top:10px;">Clear</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <div id="page-wrap" style="margin-bottom: 10px; float: left;">
+                    <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated width100"></table>
+                </div>
+                <div id="btns" style="display: none; float: right;">
+                    <span id="imgCreating" style="display:none;">
+                        <img src="../Content/Images/icon/loading.gif"> Creating Contract(s)...
+                    </span>
+                    <a href="javascript:void(0);" id="btnCreateBulkCounterparty" onclick="bulkcounterpartycreate()">Create</a>
+                    <a id="btnCancel" href="javascript:void(0);">Cancel</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="browseBAOwners" class="k-content" style="display: none; text-align: left;">
+    <div style="border: 1px solid rgb(220, 220, 220); height: 480px; overflow-y: auto;">
+        <table id="example-basic-11" class="treetable">
+            <tbody id="tbodyBusinessArea11"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:10px;">
+        <div id="liSelectedBAOwners">
+        </div>
+        <label id="lblBusinessAreaOwners" style="display: none;"></label>
+    </div>
+
+    <input id="txtBAOwnerofRowkey" type="hidden" /><input id="txtBAOwnerofParent" type="hidden" /><input id="txtBAOwnerof" type="hidden" /><input id="txtBAOwnerofPath" type="hidden" />
+</div>
+@section Scripts {
+    <link href="~/Content/css/component1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.jui_dropdown.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.jui_dropdown.min.js"></script>
+    <script src="~/Scripts/NewChanges/dropdown_menu.js"></script>
+    <link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+    <link rel="stylesheet" href="/Content/css/jquery_002.css">
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+
+@Scripts.Render("~/Scripts/Contract365/Settings_BulkCounterpartyCreate.js?" + DateTime.Now.GetHashCode())
+}

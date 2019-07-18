@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Project Tasks";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<input id="hdnProjectName" style="display:none;" type="text" />
+<table class="width95_a">
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td class="pageheading" style="width:4%">
+            
+        </td>
+        <td class="pageheading" id="idLookupName"></td>
+        <td class="pageheading" align="right"><input id="btnAddNewLookup" type="button" value="Add New Task" class="f_button_green_small" /></td>
+    </tr>
+
+    @if (ViewBag.ProjectTasks != null)
+    {        
+        <tr>
+            <td colspan="4">
+                <div id="page-wrap">
+                    <table id="customLookupTable" class="paginated width100">
+                        <tr>
+                            <th>
+                                Task ID
+                            </th>
+
+                            <th>
+                                Task Description
+                            </th>
+                            <th>
+                                Manager(s)
+                            </th>
+                            <th>
+                                Start Date
+                            </th>
+                            <th>
+                                End Date
+                            </th>
+                        </tr>
+                        @foreach (var item in ViewBag.ProjectTasks)
+                        {
+                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                <td id="RowKey" style="display:none;">@item.RowKey</td>
+                                <td id="TaskID" style="display:none;">@item.TaskID</td>
+                                <td>
+                                    @item.TaskID
+                                    <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenu margintop-2px" />
+                                </td>
+                                <td>
+                                   @item.TaskDescription
+                                </td>
+                                <td>
+                                    @item.Manager
+                                </td>
+                                <td>
+                                    @if (item.StartDate != null) { 
+                                        @item.StartDate.ToString(ViewBag.DateFormat)  
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.EndDate != null)
+                                    {
+                                        @item.EndDate.ToString(ViewBag.DateFormat)
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <br />
+                <div class="pagination-holder clearfix margin-left-m20">
+                    <article id="compact-pagination"></article>
+                </div>
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tr><td colspan="2"><br/>No items found.</td></tr>
+    }
+
+</table>
+
+<!-- Context Menu -->
+<ul id="lookupMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<div id="AddEditLookup" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewLookup">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright">
+                        <input id="txtTaskRowKey" name="TaskRowKey" type="hidden" />
+                        <input id="txtProjectRowKey" name="ProjectRowKey" type="hidden" />
+                    </td>
+                </tr>                                    
+                <tr>
+                    <td class="labelright width30">Task ID<small class="required">&nbsp;*</small></td>
+                    <td class="labelright width70"><input id="txtTaskID" maxlength="100" name="TaskID" title="Task ID" type="text" class="f_inpt width98 validelement" /></td>
+                </tr>                
+                <tr>
+                    <td class="labelright width30">Task Description<small class="required">&nbsp;*</small></td>
+                    <td class="labelright width70"><textarea id="txtDescription" name="Description" rows="2" title="Task Description" cols="20" style=" height: 80px;" class="f_inpt width98 validelement"></textarea></td>
+                </tr>   
+                <tr>
+                    <td class="labelright width30">Manager<small class="required">&nbsp;*</small></td>
+                    <td class="labelright width70">
+                        <select class="f_inpt chosenmulti validmultiselect" title="Select User(s)" id="ddlManager" multiple data-placeholder='Select User(s)'></select>
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="labelright width30">Start Date</td>
+                    <td class="labelright width70"><input id="dtStartDate" name="StartDate" type="text" class="f_inpt width50 form-contro-Date validdate" /></td>
+                </tr>
+                <tr>
+                    <td class="labelright width30">End Date</td>
+                    <td class="labelright width70"><input id="dtEndDate" name="StartDate" type="text" class="f_inpt width50 form-contro-Date validdate" /></td>
+                </tr> 
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<link href="~/Content/css/wizard.css" rel="stylesheet" type="text/css">
+    <script src="~/Scripts/Contract365/Settings_ProjectTasks.js" type="text/javascript"></script>
+}
+

@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Workflow Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Workflow Settings <img src="../Content/Images/help_training.png" alt="WorkflowSettings" title="General options for Tasks assignment & Workflow routing."></td>
+    </tr>
+    @*<tr style="border-bottom:1px dashed #d3d1d1;">
+            <td class="pagesubheading padding_bottom_10px font_20">General Settings</td>
+            <td align="right">
+                <a href="javascript:void(0);" onclick="javascript: togglediv('trGeneralSettings', 'imgGeneralSetting');"><img src="../Content/Images/dp-ddown.png" title="Expand" id="imgGeneralSetting" /></a>
+            </td>
+        </tr>*@
+    <tr id="trGeneralSettings">
+        @*style="display:none"*@
+        <td colspan="2">
+            <table class="width100">
+                <tr>
+                    <td class="tableLeft width50 wf_padding">Default Duration Per Task</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="txtTaskDuration" maxlength="3" name="Format" type="text" class="f_inpt width30" />&nbsp;Days
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Task Delays</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="rdTaskDelaysNoAction" type="radio" name="TaskDelays" value="No Action" />
+                        <label for="rdTaskDelaysNoAction" class="css-label">No Action</label><br />
+                        <input id="rdTaskDelaysSendAlert" type="radio" name="TaskDelays" value="Send Delay Alert" />
+                        <label for="rdTaskDelaysSendAlert" class="css-label">Send Alert to Assignee every</label>
+                        <input id="txtTaskDelaysSendAlert" maxlength="3" type="text" class="f_inpt" disabled="disabled" />days<br />
+                        <input id="rdTaskDelaysCancelTask" type="radio" name="TaskDelays" value="Cancel Task" />
+                        <label for="rdTaskDelaysCancelTask" class="css-label">Cancel Task; Move to next Step</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Task Assignment with Out of Office</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="rdTaskOutOfOfficeReassign" type="radio" name="TaskOutOfOffice" value="Reassign to Delegated User" />
+                        <label for="rdTaskOutOfOfficeReassign" class="css-label">Reassign to Delegated User</label><br />
+                        <input id="rdTaskOutOfOfficeNone" type="radio" name="TaskOutOfOffice" value="None" />
+                        <label for="rdTaskOutOfOfficeNone" class="css-label">Continue</label>
+                        @*<input id="rdTaskOutOfOfficeCancelTask" type="radio" name="TaskOutOfOffice" value="Cancel Task" />
+                            <label for="rdTaskOutOfOfficeCancelTask" class="css-label">Cancel Task; Move to next Step</label><br />
+                            <input id="rdTaskOutOfOfficeSendAlert" type="radio" name="TaskOutOfOffice" value="Send an alert to Initiator" />
+                            <label for="rdTaskOutOfOfficeSendAlert" class="css-label">Send an alert to Initiator</label>*@
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Restart Workflow</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="rdWorkflowRestartFromEnd" type="radio" name="WorkflowRestart" value="Continue from where previously left" />
+                        <label for="rdWorkflowRestartFromEnd" class="css-label">Continue from where previously left</label><br />
+                        <input id="rdWorkflowRestartFromBegin" type="radio" name="WorkflowRestart" value="Restart from beginning" />
+                        <label for="rdWorkflowRestartFromBegin" class="css-label">Restart from beginning</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Conditional Workflow Conflict</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="rdWorkflowConflictDefault" type="radio" name="WorkflowConflict" value="Start Default Routing & Task Assignment" />
+                        <label for="rdWorkflowConflictDefault" class="css-label">Start Default Routing & Task Assignment</label><br />
+                        <input id="rdWorkflowConflictSelect" type="radio" name="WorkflowConflict" value="Pick from possible options" />
+                        <label for="rdWorkflowConflictSelect" class="css-label">Let initiator pick from possible options</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Workflow Initiator Routing Options</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="chkWorkflowRoutingReplaceParticipant" type="checkbox" name="WorkflowRoutingOptions" value="Allow replacing participants" />
+                        <label for="chkWorkflowRoutingReplaceParticipant" class="css-label">Allow modifying participants</label><br />
+                        <input id="chkWorkflowRoutingReplaceParticipantStage" type="checkbox" name="WorkflowRoutingOptions" value="Allow adding additional Stages" />
+                        <label for="chkWorkflowRoutingReplaceParticipantStage" class="css-label">Allow adding additional Stages</label><br />
+                        <input id="chkWorkflowRoutingReplaceAdminConfig" type="checkbox" name="WorkflowRoutingOptions" value="Allow over-ride of Admin Configuration" />
+                        <label for="chkWorkflowRoutingReplaceAdminConfig" class="css-label">Allow full over-ride of Admin Configuration</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Stop Workflow</td>
+                    <td class="tableRight width50 wf_padding">
+                        @*<input id="rdWorkflowEndAuto" type="checkbox" name="WorkflowEnd" value="Auto, when all tasks are completed" />
+                            <label for="rdWorkflowEndAuto" class="css-label">Auto, when all tasks are completed</label><br />*@
+                        <input id="rdWorkflowEndRejectsSerial" type="checkbox" name="WorkflowEnd" value="Serial-When a Participant Rejects (Approval)" />
+                        <label for="rdWorkflowEndRejectsSerial" class="css-label">When a Participant Rejects (Approval) In a Serial workflow</label><br />
+                        <input id="rdWorkflowEndRejectsParallel" type="checkbox" name="WorkflowEnd" value="Parallel-When a Participant Rejects (Approval)" />
+                        <label for="rdWorkflowEndRejectsParallel" class="css-label">When a Participant Rejects (Approval) In a Parallel workflow</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Set Task Action Comment as Mandatory for</td>
+                    <td class="tableRight width50 wf_padding">
+                        @*<input id="rdWorkflowEndAuto" type="checkbox" name="WorkflowEnd" value="Auto, when all tasks are completed" />
+                            <label for="rdWorkflowEndAuto" class="css-label">Auto, when all tasks are completed</label><br />*@
+                        <input id="rdOnApprove" type="checkbox" name="WorkflowTaskComment" value="Approve" />
+                        <label for="rdOnApprove" class="css-label">Task Approval</label><br />
+                        <input id="rdOnReject" type="checkbox" name="WorkflowTaskComment" value="Reject" />
+                        <label for="rdOnReject" class="css-label">Task Rejection</label><br />
+                        <input id="rdOnReview" type="checkbox" name="WorkflowTaskComment" value="Review" />
+                        <label for="rdOnReview" class="css-label">Task Review</label><br />
+                        <input id="rdOnReassign" type="checkbox" name="WorkflowTaskComment" value="Reassign" />
+                        <label for="rdOnReassign" class="css-label">Reassign Task</label><br />
+                        <input id="rdOnChangeRequest" type="checkbox" name="WorkflowTaskComment" value="Change Request" />
+                        <label for="rdOnChangeRequest" class="css-label">Request for Change</label><br />
+                        <input id="rdOnComplete" type="checkbox" name="WorkflowTaskComment" value="Complete" />
+                        <label for="rdOnComplete" class="css-label">Task Complete</label><br />
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableLeft width50 v_align_top wf_padding">Ad Hoc Workflow</td>
+                    <td class="tableRight width50 wf_padding">
+                        <input id="rdWorkflowAdHoc" type="checkbox" name="WorkflowAdHoc" style="float: left !important; margin-right: 5px;" />
+                        <label for="rdWorkflowAdHoc" class="css-label" style="display:block !important;">Allow Initiating Ad hoc workflows for Contract Record Approval, Request Approval and Document Review.</label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><br /></td>
+    </tr>
+    @*<tr style="border-bottom:1px dashed #d3d1d1;">
+            <td class="pagesubheading padding_bottom_10px font_20">Alert Settings</td>
+            <td align="right">
+                <a href="javascript:void(0);" onclick="javascript: togglediv('trAlertSettings', 'imgAlertSetting');"><img src="../Content/Images/dp-ddown.png" title="Expand" id="imgAlertSetting" /></a>
+            </td>
+        </tr>
+        <tr id="trAlertSettings" style="display:none">
+            <td colspan="2">
+                <table class="width100">
+                    <tr>
+                        <td class="tableLeft width50 wf_padding">Task Assignment</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertTaskAssignment" type="checkbox" name="AlertTaskAssignment" value="Assignee" checked="checked" disabled="disabled" />Assignee
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Workflow Completion and Outcome Digest</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertWorkflowCompletionInitiator" type="checkbox" name="AlertWorkflowCompletion" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                            <input id="chkAlertWorkflowCompletionAll" type="checkbox" name="AlertWorkflowCompletion" value="All Participants" />All Participants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Change Request (Contract Record or Document)</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertChangeRequestInitiator" type="checkbox" name="AlertChangeRequest" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                            <input id="chkAlertChangeRequestAssigned" type="checkbox" name="AlertChangeRequest" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">New version of document submitted</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertNewDocumentVersionInitiator" type="checkbox" name="AlertNewDocumentVersion" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                            <input id="chkAlertNewDocumentVersionAssigned" type="checkbox" name="AlertNewDocumentVersion" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">New Workflow Comment</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertWorkflowCommentInitiator" type="checkbox" name="AlertWorkflowComment" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                            <input id="chkAlertWorkflowCommentAssigned" type="checkbox" name="AlertWorkflowComment" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tableLeft width50 v_align_top wf_padding">Approval Workflow Rejection(Contract, Amendment, Renewal)</td>
+                        <td class="tableRight width50 wf_padding">
+                            <input id="chkAlertRejectionInitiator" type="checkbox" name="AlertRejection" value="Initiator" checked="checked" disabled="disabled" />Initiator
+                            <input id="chkAlertRejectionAssigned" type="checkbox" name="AlertRejection" value="Assigned & Task Completed Participants" />Assigned & Task Completed Participants
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>*@
+    <tr>
+        <td class="tableLeft"></td>
+        <td class="foot_right" align="right">
+            <br />
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_WorkflowSettings.js?" + DateTime.Now.GetHashCode())
+}
+

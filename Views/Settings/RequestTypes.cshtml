@@ -1,0 +1,324 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.RequestTypesEntity>
+
+@{
+    ViewBag.Title = "Request Types Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading font-normal">
+            Request Type Management
+            <img src="~/Content/Images/help_training.png" alt="Request Types" title="Manage Request Types, configure specific fields and assign to Contract Areas." />
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                            <thead>
+                                <tr>
+                                    <th class="font-normal">
+                                        Enable/Disable
+                                    </th>
+                                    <th id="footleft" class="font-normal">
+                                        Request Type
+                                        <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Assigned Contract Areas</th>
+                                    <th id="datefootleft" class="font-normal">
+                                        Created Date
+                                        <a class=" search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop" style="display:none;">
+                                            <div class=" sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requesttypetable"></tbody>
+                            @*  @if (Model == null || Model.Count() == 0)
+                                {
+                                    <tr>No items found.</tr>
+                                }
+                                else
+                                {*@
+                            @*   <tbody id="tblRequestType">
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <tr style="border-bottom:1px dotted #eeeaea;">
+                                            <td id="RequestTypeID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                            <td id="RequestType" style="display:none;">@Html.DisplayFor(modelItem => item.RequestType)</td>
+                                            @if (item.RequestType == "General")
+                                            {
+                                                <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                                                    <input id="@item.RowKey" name="@item.RowKey" type="checkbox" disabled class="css1-checkbox" value="@item.RequestType" checked="@item.Active" />
+                                                    <label for="@item.RowKey" class="css1-label"></label>
+                                                </td>
+                                                <td class="" style="vertical-align:top;" width="50%">
+                                                    <b> @Html.DisplayFor(modelItem => item.RequestType)</b>
+                                                    <img src="../Content/Images/context_Menu.png" class="openmenuGeneral margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                                                    <input id="@item.RowKey" name="@item.RowKey" type="checkbox" class="css1-checkbox" value="@item.RequestType" checked="@item.Active" />
+                                                    <label for="@item.RowKey" class="css1-label"></label>
+                                                </td>
+                                                <td class="" style="vertical-align:top;" width="50%">
+                                                    <b> @Html.DisplayFor(modelItem => item.RequestType)</b>
+                                                    <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                                                </td>
+                                            }
+
+
+
+                                            <td align="center">@item.Created</td>
+                                            <td align="center"><a id="@item.RowKey" href="javascript:void(0)" onclick="EditRequestType(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.RowKey" name="@item.RequestType" href="javascript:void(0)" onclick="    DeleteRequestType(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                                                        }*@
+                        </table>
+                    </div>
+
+                </div>
+                @*<table class="paginated width100">
+                        @if (Model == null || Model.Count() == 0)
+                                            {
+                            <tr>No items found.</tr>
+                                            }
+                        else
+                        {
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Enable/ Disable
+                                    </th>
+                                    <th>
+                                        Request Type
+                                    </th>
+                                    <th>
+                                        Summary
+                                    </th>
+                                </tr>
+                            </thead>
+                    <tbody id="customertable">
+                            @foreach (var item in Model)
+                            {
+                            <tr style="border-bottom:1px dotted #eeeaea;">
+                                <td id="RequestTypeID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                <td id="RequestType" style="display:none;">@Html.DisplayFor(modelItem => item.RequestType)</td>
+
+
+                                @if (item.RequestType == "General")
+                                {
+                                    <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                                        <input id="@item.RowKey" name="@item.RowKey" type="checkbox" disabled class="css1-checkbox" value="@item.RequestType" checked="@item.Active" />
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td class="" style="vertical-align:top;" width="50%">
+                                        <b> @Html.DisplayFor(modelItem => item.RequestType)</b>
+                                        <img src="../Content/Images/context_Menu.png" class="openmenuGeneral margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                                        <input id="@item.RowKey" name="@item.RowKey" type="checkbox" class="css1-checkbox" value="@item.RequestType" checked="@item.Active" />
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td class="" style="vertical-align:top;" width="50%">
+                                        <b> @Html.DisplayFor(modelItem => item.RequestType)</b>
+                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+
+                                    </td>
+                                }
+                                <td align="right" style="vertical-align: top;" width="45%">
+
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                                            }
+
+                                    </table>*@
+            </div>
+            <div class="pagination-holder clearfix margin-left-m20">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="metadata"><a href="#metadata">Metadata</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<ul id="myMenuGeneral" class="contextMenu">
+    <li class="metadata"><a href="#metadata">Metadata</a></li>
+</ul>
+
+<div id="AddEditRequestTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtRequestTypeID" name="RequestTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft width40">Request Type Name<span class="required">*</span></td>
+                    <td class="f_list labelright width60"><input id="txtRequestType" name="RequestType" type="text" maxlength="100" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width98 validelement validtitle" /></td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Transaction Type</td>
+                        <td class="labelright">
+                            <select id="ddlTransactionType" name="TransactionType" class="f_inpt width70">
+                                <option value="Select" selected="selected">--Select--</option>
+                                <option value="Buy-Side">Buy-Side</option>
+                                <option value="Sell-Side">Sell-Side</option>
+                                <option value="Legal/General Agreement">Legal/General Agreement</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Class</td>
+                        <td class="labelright">
+                            <select id="ddlRequestClass" name="RequestClass" class="f_inpt width70">
+                                <option value="Select" selected="selected">--Select--</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Master Agreement">Master Agreement</option>
+                                <option value="Sub-Request">Sub-Request</option>
+                            </select>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td class="labelleft">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" maxlength="300" name="Description" rows="2" cols="20" class="f_text-box width98" style=" font-size: 14px; padding: 5px;"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td class="labelleft">Contract Area(s)<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlContractArea" multiple="multiple" class='f_inpt width90 chosenmulti validmultiselect' name="ddlContractArea" title='Contract Area' data-placeholder='Select Contract Area(s)'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Required Document Template(s)</td>
+                    <td class="labelright">
+                        <select id="ddlDocumentTemplate" multiple="multiple" class='f_inpt width90 chosenmulti' name="DocumentTemplate" title='Document Template' data-placeholder='Document Template(s)'></select>
+                    </td>
+                </tr>
+                <!---manoj--->
+                <tr>
+                    <td class="labelleft">Required Document Type(s)</td>
+                    <td class="labelright">
+                        <select id="ddlDocumentType" multiple="multiple" class='f_inpt width90 chosenmulti' name="DocumentType" title='Document Type' data-placeholder='Document Type(s)'></select>
+
+                    </td>
+                </tr>
+                <!---manoj--->
+                @*<tr>
+                        <td class="f_head"></td>
+                        <td class="f_list">
+                            <input type="checkbox" name="RelatedToExistingContract" id="chkRelatedToExistingContract" class="css1-checkbox" value="RelatedToExistingContract" />
+                            <label for="chkRelatedToExistingContract" class="css1-label" style="margin:5px 0px 10px 10px !important">Request is related to existing contract.</label>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td></td>
+                    <td class="f_list">
+                        <input type="checkbox" name="AllowContractCreation" id="chkAllowContractCreation" class="css1-checkbox" value="AllowContractCreation" />
+                        <label for="chkAllowContractCreation" class="css1-label" style="margin-left:10px;">Allow creation of new Contract Record from request.</label>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Request Extensions</td>
+                        <td class="f_list">
+                            <input type="checkbox" name="Extendable" id="chkExtendable" class="css1-checkbox" value="Extendable" />
+                            <label for="chkExtendable" class="css1-label">Yes, Requests of this type can be extended.</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="f_list" style="padding-left: 20px;">
+                            <input id="chkExtensionApproval" disabled="disabled" name="ExtensionApproval" class="css1-checkbox" type="checkbox" value="ExtensionApproval" />
+                            <label for="chkExtensionApproval" class="css1-label">Extensions requires approvals.</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Renewals</td>
+                        <td class="f_list">
+                            <input type="checkbox" name="Renewable" id="chkRenewable" class="css1-checkbox" value="Renewable" />
+                            <label for="chkRenewable" class="css1-label">Yes, Requests of this type are renewable.</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head"></td>
+                        <td class="f_list" style="padding-left: 20px;">
+                            <input id="chkRenewalApproval" disabled="disabled" name="RenewalApproval" class="css1-checkbox" type="checkbox" value="RenewalApproval" />
+                            <label for="chkRenewalApproval" class="css1-label">Renewals requires approvals.</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Request Amendments</td>
+                        <td class="f_list">
+                            <input type="checkbox" name="Amendable" id="chkAmendable" class="css1-checkbox" value="Amendable" />
+                            <label for="chkAmendable" class="css1-label">Yes, Requests of this type can be amended.</label>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom:1px dashed #808080">
+                        <td class="f_head"></td>
+                        <td class="f_list" style="padding-left: 20px; padding-bottom: 10px;">
+                            <input id="chkAmendmentApproval" disabled="disabled" name="AmendmentApproval" class="css1-checkbox" type="checkbox" value="AmendmentApproval" />
+                            <label for="chkAmendmentApproval" class="css1-label">Amendments requires approvals.</label>
+                        </td>
+                    </tr>*@
+                @*<tr>
+                        <td class="f_head" style="padding-top: 10px;">Available for Organisations</td>
+                        <td class="f_list" id="AvailableOrganisations"></td>
+                    </tr>*@
+            </table>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/Contract365/Settings_RequestTypes.js?" + DateTime.Now.GetHashCode())

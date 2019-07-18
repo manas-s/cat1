@@ -1,0 +1,421 @@
+﻿@{
+    ViewBag.Title = "Contract Status";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a" id="tblContractStatus" style="margin-bottom:20px;">
+    @*Added from 2.4final to 2.4*@
+
+
+    <tr>
+        <td align="right" colspan="3">
+            <input id="btnSaveOrder1" type="button" value="Save Order" class="f_button_green_small" />
+
+
+        </td>
+    </tr>
+
+    @* auto status updates *@
+    <tr>
+        <td class="pageheading" colspan="3">Auto Status Updates</td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Update Record Status to 'Up for Renewal'<span class="required">*</span></td>
+        <td class="labelright" width="60%">
+            <input id="txtUpForRenewal" name="Format" maxlength="3" type="text" class="f_inpt width60 validnumber validelement allowonlynumbers" />&nbsp;days before renewal date  @*Bug id:eO37522*@
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Update Record Status to 'About to Expire'<span class="required">*</span></td>
+        <td class="labelright" width="60%">
+            <input id="txtAboutToExpire" maxlength="3" name="Format" type="text" class="f_inpt width60 validnumber validelement allowonlynumbers" />&nbsp;days before expiration date @*Bug id:eO37522*@
+        </td>
+    </tr>
+
+    <tr style="display:none">
+        <td class="f_head" align="right">Keep deleted contracts in Recycle bin for</td>
+        <td class="labelright" width="60%">
+            <input id="txtRecycleBinContracts" maxlength="3" name="Format" type="text" class="f_inpt width60  validnumber" />&nbsp;days
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Update Record Status to 'Active' on (Term) Start Date</td>
+        <td class="labelright" width="60%">
+            <div class="switch switch_enable enabled_slider switchSet">
+                <div class="Toggle" id="autoActiveSwitch" onclick="fnUpdateStatus(this)"></div>
+                <span class="switch_enable">Yes</span>
+                <span class="switch_disable">No</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Update Record Status to 'Expired' on (Term) End Date</td>
+        <td class="labelright" width="60%">
+            <div class="switch switch_enable enabled_slider switchSet">
+                <div class="Toggle" id="autoExpireSwitch" onclick="fnUpdateStatus(this)"></div>
+                <span class="switch_enable">Yes</span>
+                <span class="switch_disable">No</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">
+            Update Document Status(es) to 'Expired' when Contract Record is 'Expired'
+
+            (except Primay Document)
+
+        </td>
+        <td class="labelright" width="60%">
+            <div class="switch switch_enable enabled_slider switchSet">
+                <div class="Toggle" id="autoDocsExpireSwitch" onclick="fnUpdateStatus(this)"></div>
+                <span class="switch_enable">Yes</span>
+                <span class="switch_disable">No</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="3">
+            Status Management
+            <img src="/Content/Images/help_training.png" alt="contract status" title="Manage Contract Record status, and auto status update conditions.">
+        </td>
+
+
+
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div id="page-wrap">
+
+
+                <table class="tblgrid width100" id="tblStatus">
+                    <thead>
+                        <tr>
+                            <th>Visible	</th>
+                            <th>Status</th>
+                            <th>Transition</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tblPipelineStatus">
+
+
+                        <tr class="nodrop nodrag">
+                            <td colspan="3" class="pagesubheading">Pipeline Contracts</td>
+                        </tr>
+                        @if (ViewBag.Pipeline != null)
+                        {
+                            foreach (var item in ViewBag.Pipeline)
+                            {
+                                <tr style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="StatusID" style="display:none;">@item.RowKey</td>
+                                    <td id="ContractStatus" style="display:none;">@item.ContractStatus</td>
+
+                                    <td class="labelleft f_list" style="width: 20%;">
+                                        @if (item.ContractStatus == "Reviewed" || item.ContractStatus == "Awaiting Review" || item.ContractStatus == "Awaiting Approval" || item.ContractStatus == "Approved")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox FL_BackupConditionalwork" checked="@item.Active">
+                                        }
+                                        else if (item.ContractStatus == "Negotiation Complete" || item.ContractStatus == "In Negotiation")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox FL_BackupExternalSharing" checked="@item.Active">
+                                        }
+                                        else if (item.ContractStatus == "New")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" disabled="disabled" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        else if (item.ContractStatus == "Archived")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" disabled="disabled" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        else
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        @item.ContractStatus
+                                        <img class="openmenu" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td style="padding:5px;" id="tdTransition">
+                                        @item.Transition
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+
+                @*<table class="tblgrid width100" id="tblStatus">
+
+                        <thead>
+                            <tr>
+                                <th>Visible	</th>
+                                <th>Status</th>
+                                <th>Transition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="nodrop nodrag">
+                                <td colspan="3" class="pagesubheading">Pipeline Contracts</td>
+                            </tr>
+                            @foreach (var item in ViewBag.Pipeline)
+                            {
+                                <tr style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="StatusID" style="display:none;">@item.RowKey</td>
+                                    <td id="ContractStatus" style="display:none;">@item.ContractStatus</td>
+                                    <td class="labelleft f_list" style="width: 20%;">
+                                        <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox" checked="@item.Active">
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        @item.ContractStatus
+                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td style="padding:5px;" id="tdTransition">
+                                        @item.Transition
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>*@
+
+
+
+                <table class="tblgrid width100" id="tblFinalized">
+
+
+                    <tbody>
+
+
+                        <tr class="nodrop nodrag">
+                            <td colspan="3" class="pagesubheading">Finalized/Ready for Signature</td>
+                        </tr>
+                        @if (ViewBag.Current != null)
+                        {
+                            foreach (var item in ViewBag.Current)
+                            {
+                                <tr style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="StatusID" style="display:none;">@item.RowKey</td>
+                                    <td id="ContractStatus" style="display:none;">@item.ContractStatus</td>
+
+                                    <td class="labelleft f_list" style="width: 20%;">
+                                        @if (item.ContractStatus == "Signed" || item.ContractStatus == "Awaiting Signatures")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox FL_BackupDocumenteSignature" checked="@item.Active">
+                                        }
+                                        else if (item.ContractStatus == "Archived")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" disabled="disabled" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        else
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox" checked="@item.Active">
+                                        }
+
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        @item.ContractStatus
+                                        <img class="openmenu" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td style="padding:5px;" id="tdTransition">
+                                        @item.Transition
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+
+
+
+                <table class="tblgrid width100" id="tblInactiveContracts">
+
+                    <tbody>
+
+                        <tr class="nodrop nodrag">
+                            <td colspan="3" class="pagesubheading">Inactive Contracts</td>
+                        </tr>
+                        @if (ViewBag.Current != null)
+                        {
+                            foreach (var item in ViewBag.Inactive)
+                            {
+                                <tr style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="StatusID" style="display:none;">@item.RowKey</td>
+                                    <td id="ContractStatus" style="display:none;">@item.ContractStatus</td>
+
+                                    <td class="labelleft f_list" style="width: 20%;">
+                                        @if (item.ContractStatus == "Archived")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" disabled="disabled" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        else
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox" checked="@item.Active">
+
+                                        }
+
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        @item.ContractStatus
+                                        <img class="openmenu" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td style="padding:5px;" id="tdTransition">
+                                        @item.Transition
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+                <table class="tblgrid width100" id="tblPastContracts">
+                    <tbody>
+                        <tr style="display:none;">
+                            <td colspan="3" class="pagesubheading">Past Contracts</td>
+                        </tr>
+                        @if (ViewBag.Current != null)
+                        {
+                            foreach (var item in ViewBag.Past)
+                            {
+                                <tr style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="StatusID" style="display:none;">@item.RowKey</td>
+                                    <td id="ContractStatus" style="display:none;">@item.ContractStatus</td>
+
+                                    <td class="labelleft f_list" style="width: 20%;">
+                                        @if (item.ContractStatus == "Archived")
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" disabled="disabled" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        else
+                                        {
+                                            <input id="@item.RowKey" name="Status" value="@item.ContractStatus" type="checkbox" class="css1-checkbox" checked="@item.Active">
+                                        }
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td>
+                                    <td style="width: 60%;">
+                                        @item.ContractStatus
+                                        <img class="openmenu" src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                                    </td>
+                                    <td style="padding:5px;" id="tdTransition">
+                                        @item.Transition
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+
+
+            </div>
+            <br />
+        </td>
+    </tr>
+    <tr>
+        <td class="foot_right" align="right" colspan="3">
+            <input id="btnSaveProfile" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancelProfile" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+
+<div id="dvStatus" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table id="tblStatusForm" class="width100">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtStatusID" name="StatusID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Contract Status</td>
+                <td class="labelleft">
+                    <input id="txtStatus" maxlength="50" name="ContractStatus" disabled="disabled" type="text" class="f_inpt width80" />
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Contract Stage</td>
+                <td class="labelleft">
+                    <input id="txtStage" name="Stage" maxlength="50" disabled="disabled" type="text" class="f_inpt width80" />
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Description</td>
+                <td class="labelleft">
+                    <textarea id="txtDescription" name="Description" maxlength="300" rows="2" cols="20" class="f_text-box width80"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Transition</td>
+                <td class="labelleft">
+                    <ul class="f_list">
+                        <li>
+                            <input id="rdManual" type="radio" class="css-checkbox" name="Transition" checked="checked" value="Manual" />
+                            <label for="rdManual" class="css-label">Manual</label>
+                        </li>
+
+                        <li id="rdAutoli">
+                            <input id="rdAuto" type="radio" class="css-checkbox" name="Transition" value="Auto" />
+                            <label for="rdAuto" class="css-label">Auto</label>
+                        </li>
+                        <li style="display:none">
+                            <input id="rdOnDemand" type="radio" class="css-checkbox" name="Transition" value="Manual with Prompt" />
+                            <label for="rdOnDemand" class="css-label">Manual with Prompt</label>
+                        </li>
+
+                    </ul>
+
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_ContractStatus.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblStatus").tableDnD();
+        $("#tblFinalized").tableDnD();
+        $("#tblInactiveContracts").tableDnD();
+        $("#tblPastContracts").tableDnD();
+    });
+    //Rahul Bug id:eO37522
+    $('.allowonlynumbers').keydown(function (e) {
+        if (e.shiftKey || e.ctrlKey || e.altKey) {
+            e.preventDefault();
+        } else {
+            var key = e.keyCode;
+            if (!((key == 8) || (key == 46) || (key >= 35 && key <= 40) || (key >= 48 && key <= 57) || (key >= 96 && key <= 105))) {
+                e.preventDefault();
+            }
+        }
+    });
+    //Rahul
+</script>

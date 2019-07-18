@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - eContracts Account</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/kendo")*@
+    @Styles.Render("~/Content/settingscss")
+    @Scripts.Render("~/bundles/econtracts")
+    @RenderSection("scripts", required: false)
+    <style type="text/css">
+        body {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/NewChanges/popModal.js"></script>
+    <link type="text/css" rel="stylesheet" href="~/Content/css/popModal.css" />
+    <script type="text/javascript" src="~/Scripts/moment.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.cluetip.css" />
+    <script src="~/Scripts/jquery.cluetip.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/simplePagination.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.simplePagination.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    @*<!---manoj--->
+        <script type="text/javascript" src="~/Scripts/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="~/Content/sweetalert.css" />
+        <!---manoj--->*@
+</head>
+<body>
+    <div id="mainContent" class="maincontainer">
+        <div class="top_nav">
+            <div class="top_menu1bg admin_profile-Height">
+                <div class="top_nav_inner admin_profile-Height">
+                    <div class="inner_left logotop_settings">
+                        <div class="logoTop" style="display:none;">
+                            <small>
+                                <a href="javascript:void(0);" onclick="BackToO365()" class="logotop_back">Switch To Office 365</a>
+                                <a href="javascript:void(0)" onclick="BackToO365()"><img src="/Content/Images/switch-admin.png" /></a>
+                            </small>
+                        </div>
+                        @*<div class="logo_image"><a href="@Url.Action("Index", "Home")"><img src="~/Content/Images/logo.png" style="border-style:none;" alt="Contracts365" width="123" height="15" /></a></div>*@
+                        <a class="clearr" href="/Home" title=""><img class="FL_CompanyBrandingLogo" style="display:none" alt="logo" src="/Content/Images/logo.png" id="logoDashboard"></a>
+                    </div>
+                    <div class="inner_right">
+                        <div class="right_inner_icons admin_profile-Height">
+                            <ul id="menu" class="admin_settings-Pop admin_profile-Padding">
+                                @*<li class="borderLeft_none"><span><img style="margin:0px 5px;" src="~/Content/Images/admin-switch.png"  /></span></li>*@
+                                <li class="borderLeft_none">
+                                    <a href="/General/HelpDocuments" target="_blank" title="Help Documents" style="display:inline-block"><b class='help_1' style="margin-top:-19px;">&nbsp;</b></a>
+                                </li>
+                                <li class="borderLeft_none" style="padding:0 !important">
+                                    <a href="javascript:void(0)" id="popModal_settings" title="Navigate to"><b class="nav_1">&nbsp;</b></a>@*bug id:eO37468*@
+                                </li>
+                                @*<li><span><a href="@Url.Action("Alerts", "General")"><img style="margin:0px 5px;" src="~/Content/Images/alart_hov.png" /></a></span></li>
+                                    <li><span><a href="@Url.Action("Activity", "Activity")"><img style="margin:0px 5px;" src="~/Content/Images/task_hover.png" /></a></span></li>*@
+                                <li style="margin-right:5px;" class="borderLeft_none">
+                                    <span>
+                                        <a class="img-Height-Pro" href="javascript:void(0)" id="popModal_profile">
+                                            <img src="/Content/Images/my-proffil-logo.png" id="imgProfileLogo">
+                                        </a>
+                                        @*<img style="padding-right:5px;" src="~/Content/Images/profile_h.png" id="popModal_profile" />*@
+                                        @*<a href="javascript:void(0)" id="popModal_profilearr"><span id="userName"></span></a>*@
+                                    </span>
+                                </li>
+
+                                @*<li><span><img style="padding-right:5px;" src="~/Content/Images/icon1.png" /><a href="http://help-optimusbt.corevosoftware.wpengine.com/help-articles-cloud/" target="_blank">Help</a></span></li>
+                                    <li><span><img style="padding-right:5px;" src="~/Content/Images/icon2.png" /><a href="@Url.Action("Alerts", "General")">Alerts</a></span></li>
+                                    <li id="liSettings" style="display:none"><span><a href="@Url.Action("Index", "Settings")"><img style="padding-right:5px; height:14px;width:16px;" src="~/Content/Images/settings_hov.png" />Settings</a></span></li>
+                                    <li><a href="javascript:void(0)" id="art-vmenu">Hello <span id="userName"></span>&nbsp;<img src="@Url.Content("~/Content/Images/icon/arrow.png")" width="11" height="9" /></a></li>
+                                    @*<li>
+                                            <a href="@Url.Action("UserProfile", "General")">Hello <span id="userName"></span></a>
+
+                                        </li>*@
+                                @*<li style="border-style:none;padding-top:7px; padding-right:15px;"><a href="@Url.Action("Index", "Home")"><span><img src="~/Content/Images/home.png" /></span></a></li>*@
+
+                            </ul>
+                            <ul id="user-vmenu" class="headerdropAdmin" style="display:none">
+                                <li><img src="~/Content/images/icon/profile.png" /><a href="javascript:void(0)" onclick="UserProfile()">My Profile</a></li>
+                                <li><img src="~/Content/images/icon/signout.png" /><a href="@Url.Action("LogOut", "General")">Sign in as Different User</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="blue1">
+                <div class="blue1_left">ACCOUNT MANAGEMENT</div>
+                <div class="blue1_right">
+
+                </div>
+            </div>
+            <div class="content">
+                <div class="contentLeft contentleftacount">
+                    <div class="contentLeft1">
+                        <div class="cLeftacount" style="min-height:1520px;">
+                            <ul>
+                                @*<li>
+                                        <a id="Dashboard" href="javascript:void(0)">OVERVIEW</a>
+                                    </li>
+                                    <li>
+                                        <a id="Company" href="javascript:void(0)">&nbsp;&nbsp;Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a id="ContractRepository" href="javascript:void(0)">&nbsp;&nbsp;Notifications</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">ADMINISTRATION</a>
+                                    </li>*@
+                                <li>
+                                    <a href="@Url.Action("AccountSettings", "Accounts")" class="padding_left_20px">Account Settings</a>
+                                </li>
+                                @*<li>
+                                        <a id="Documents" href="@Url.Action("Subscription", "Accounts")">&nbsp;&nbsp;Subscriptions</a>
+                                    </li>*@
+                                <li>
+                                    <a href="@Url.Action("Resources", "Accounts")" class="padding_left_20px">Resources</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ManageFeatures", "Settings")" class="padding_left_20px">eContracts Add On Features </a>
+                                </li>
+                                @*<li>
+                                        <a id="Terms" href="javascript:void(0)">&nbsp;&nbsp;Payments</a>
+                                    </li>
+                                    <li>
+                                        <a id="Alerts" href="javascript:void(0)">REPORTS</a>
+                                    </li>
+                                    <li>
+                                        <a id="Terms" href="javascript:void(0)">&nbsp;&nbsp;Resource Usage</a>
+                                    </li>
+                                    <li>
+                                        <a id="Terms" href="javascript:void(0)">&nbsp;&nbsp;Transaction History</a>
+                                    </li>*@
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="contentRrigh">
+                    <div class="ccRight width80">
+                        <div id="dvWarning" class="width98 bg-warning margin-top-5" style="display:none">
+                            <p id="dvWarningText"></p>
+                        </div>
+                        <div>
+                            @RenderBody()
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div style="display:none">
+        <div id="contentsettings">
+            <ul class="settings admin_SeTTings">
+                <li class="settingsli settingsli_Admin" style="width:90%;"><h3 class="settSh3">Navigate to</h3></li>
+                <li class="settingsli settingsli_Admin Perm_AdminAccess">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img class="settingsimg" src="~/Content/Images/home_s.png"><small class="settingssmall">My Dashboard</small>
+                    </a>
+                </li>
+                <li id="liSettings" style="display:none" class="settingsli settingsli_Admin Perm_AccountAccess">
+                    <a href="@Url.Action("Index", "Settings")">
+                        <img class="settingsimg" src="/Content/Images/admin-icorn.png"><small class="settingssmall">eContracts Administration</small>
+                    </a>
+                </li>
+                <!-- For Global Contract Owner and Global Administrator-->
+                @*<li class="settingsli settingsli_Admin Perm_OrgAccess">
+                        <a href="@Url.Action("BusinessAreas", "Settings")">
+                            <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Organization Setup</small>
+                        </a>
+                    </li>*@
+                <!-- For Contract Area Administrator and Business Area Owner-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess1">
+                    <a href="@Url.Action("BusinessAreas", "General")">
+                        <img class="settingsimg" src="/Content/Images/organization-setup.png"><small class="settingssmall">Organization Setup</small>
+                    </a>
+                </li>
+                <!-- For Contract Area Administrator and Business Area Owner-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess Perm_GlobalInsight">
+                    <a href="javascript:baclickglobalreports()">
+                        <img class="settingsimg" src="/Content/Images/icon/global-reports.jpg"><small class="settingssmall">Global Insights</small>
+                    </a>
+                </li>
+                <!-- For switch to office 365-->
+                <li class="settingsli settingsli_Admin Perm_OrgAccess">
+                    <a href="javascript:BackToO365()">
+                        <img class="settingsimg" src="/Content/Images/switch.png"><small class="settingssmall">Switch To Office 365</small>
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    <div style="display:none">
+        <div id="contentprofile">
+            <ul>
+                <li class="profileli bordertopnone">
+                    <div class="overflow_hidden">
+                        <img class="profileimg" height="40" width="40" id="imgProfile" />
+                        @*<img class="profileimg" src="/Content/Images/my-proffil.png" />*@
+                        <small class="profilesmall margin-top-10">
+                            <b class="profileb"><span id="userFullName"></span></b>
+                        </small>
+                    </div>
+                    <div class="height-auto">
+                        <i class="profilei profile-indent"><span id="userDesignation"></span></i>
+                    </div>
+                </li>
+                <li class="profileli"><span class="profilespan"><a href="javascript:void(0)" onclick="UserProfile()">My Profile</a></span> <span class="profilespan rright"><a href="@Url.Action("LogOut", "General")">Log Out</a></span></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        @functions{
+ public string GetAntiForgeryToken()
+ {
+ string cookieToken, formToken;
+ AntiForgery.GetTokens(null, out cookieToken, out formToken);
+ return cookieToken + "," + formToken;
+ }
+ }
+
+    </script>
+    <input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />
+
+    <script src="~/Scripts/Contract365/_Layout_Account.js"></script>
+
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/spcontext")
+    @Scripts.Render("~/Scripts/jquery.contextmenu.js")
+    @Scripts.Render("~/Scripts/jquery.simplemodal-1.1.1.js")
+
+    <script type="text/javascript">
+        var vApiBaseSiteUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiBaseSiteUrl"]';
+        if ('@Session["UserName"]' == '' || '@Session["AccountID"]' == '') {
+            //$.post('/Settings/SetSession', { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+            //$.post("/Settings/SetSession", { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID }, function (sucess) {
+            //});
+            $.ajax({
+                url: '/Settings/SetSession',
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                },
+                data: {
+                    AccountID: localStorage.AccountID,
+                    SPHostUrl: localStorage.SPHostUrl,
+                    UserName: localStorage.UserName,
+                    APIKey: localStorage.APIKey,
+                    OEmail: localStorage.OEmail,
+                    UserTitle: localStorage.UserTitle,
+                    UserID: localStorage.UserID
+                },
+                cache: false,
+                success: function (person) {
+
+                }
+            });
+
+        }
+        $("#userName").html(localStorage.UserTitle);
+        $("#userFullName").html(localStorage.UserName);
+        $("#userDesignation").html(localStorage.UserType);
+        if (localStorage.UserType.indexOf("Global Contract Owner") >= 0 || localStorage.UserType.indexOf("Global Administrator") >= 0) {
+            $(".Perm_AccountAccess").css("display", "");
+            $(".Perm_OrgAccess").css("display", "");
+            $(".Perm_OrgAccess1").css("display", "none");
+        }
+        else if (localStorage.UserType.indexOf("Contract Area Administrator") >= 0 || localStorage.UserType.indexOf("Business Area Owner") >= 0) {
+            $(".Perm_AccountAccess").css("display", "none");
+            $(".Perm_OrgAccess").css("display", "none");
+            $(".Perm_OrgAccess1").css("display", "");
+        } else {
+            $(".Perm_OrgAccess1").css("display", "none");
+            $(".Perm_OrgAccess").css("display", "none");
+        }
+        $('#popModal_settings').click(function () {
+            $('#popModal_settings').popModal({
+                html: $('#contentsettings'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+        $('#popModal_profile').click(function () {
+
+            $('#popModal_profile').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+
+        $('#popModal_profilearr').click(function () {
+            $('#popModal_profilearr').popModal({
+                html: $('#contentprofile'),
+                placement: 'bottomRight',
+                showCloseBut: true,
+                onDocumentClickClose: true,
+                onDocumentClickClosePrevent: '',
+                inline: true,
+                overflowContent: false
+            });
+        });
+    </script>
+</body>
+</html>
+
+@*@section Scripts {
+        <script type="text/javascript">
+            alert(localStorage.UserName);
+        </script>
+    }*@

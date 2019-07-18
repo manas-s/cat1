@@ -1,0 +1,1348 @@
+﻿@{
+    ViewBag.Title = "Standard Milestones";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading">Standard Milestones</td>
+        <td class="pageheading" align="right"><input id="btnAddNewMilestone" type="button" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="page-wrap">
+                <table id="customertableMilestone" class="paginated width100">
+                    <thead>
+                        <tr>
+                            <th>Milestone Title	</th>
+                            <th>Milestone Type</th>
+                            <th>Contract Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customertableMilestoneBody">
+                        @if (ViewBag.Milestones != null)
+                        {
+                            foreach (var item in ViewBag.Milestones)
+                            {
+                                if (item.MilestoneTitle != "Start Date" && item.MilestoneTitle != "End Date" && item.MilestoneTitle != "Renewal Date")
+                                {
+                                    <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                        <td id="MilestoneID" style="display:none;">@item.RowKey</td>
+                                        <td id="MilestoneTitle" style="display:none;">@item.MilestoneTitle</td>
+                                        <td class="width36">
+                                            @item.MilestoneTitle
+                                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuMilestone margintop-2px" />
+                                        </td>
+                                        <td class="width27">
+                                            @item.MilestoneType
+                                        </td>
+                                        <td class="width36">
+                                            @item.ContractType
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr><td>No items found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationMilestone"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu-Milestone Types -->
+<ul id="myMenuMilestone" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="myMenuMilestoneDefault" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+
+<!-- Popup Window-Milestone Types -->
+<div id="addEditMilestone" style="display:none;">
+    <div id="dvPopupHeadingMilestoneType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewMilestone">
+            <table class="width100" cellpadding="2" cellspacing="2" width="90%">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelleft"><input id="txtMilestoneID" name="MilestoneID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Milestone Title <span class="required">*</span></td>
+                    <td><input id="txtMilestoneTitle" name="MilestoneTitle" maxlength="50" type="text" title="Milestone Title" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width90 validelement validtitle" /></td>
+                </tr>
+                <!--manoj-->
+                <tr>
+                    <td class="f_head">Milestone Type <span class="required">*</span></td>
+                    <td>
+                        <select id="ddlmilestonetype" title="Milestone Type" data-placeholder="--Select Type---" class="f_inpt width90 validelement"></select>
+                    </td>
+                </tr>
+                <!--manoj-->
+                <tr id="trMilestoneDate">
+                    <td class="f_head">Milestone Date</td>
+                    <td class="labelleft f_list">
+                        <input id="rdMilestoneDateUserEntry" type="radio" name="MilestoneDate" class="css-checkbox" onclick="milestonedatehide();" checked value="User Entry" />
+                        <label for="rdMilestoneDateUserEntry" class="css-label">User Entry</label>
+                        <input id="rdMilestoneDateAuto" type="radio" name="MilestoneDate" class="css-checkbox" onclick="milestonedateshow();" value="Auto" />
+                        <label for="rdMilestoneDateAuto" class="css-label">Auto</label>
+                    </td>
+                </tr>
+                <tr id="trMilestoneDateAuto" style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelleft f_list">
+                        <input id="txtMilestoneDate" name="RemindMilestoneDate" type="text" maxlength="3" class="f_inpt width20" /> days &nbsp;
+                        <select id="ddlReminderMilestoneDate" class="f_inpt width30">
+                            <option value="before">before</option>
+                            <option value="after">after</option>
+                        </select>
+                        <select id="ddlAllMilestone" class="f_inpt width30"></select>
+                    </td>
+                </tr>
+                <tr id="trUpdateAfterChange">
+                    <td class="f_head">Update After Change</td>
+                    <td class="labelleft f_list">
+                        <input id="rdUpdateAfterChangeYes" type="radio" name="UpdateAfterChange" class="css-checkbox" value="Yes" />
+                        <label for="rdUpdateAfterChangeYes" class="css-label">Yes</label>
+                        <input id="rdUpdateAfterChangeNo" type="radio" name="UpdateAfterChange" class="css-checkbox" checked value="No" />
+                        <label for="rdUpdateAfterChangeNo" class="css-label">No</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Milestone Owner(s)</td>
+                    <td class="labelleft width70">
+                        <select id="ddlMilestoneOwner" multiple="multiple" class="f_inpt width95_a nmailstone_h chosenmulti" data-placeholder="Select User(s)">
+                            <option value="{Contract Owner}">{Contract Owner}</option>
+                            <option value="{Contract Area Owner}">{Contract Area Owner}</option>
+                            <option value="{Business Area Owner}">{Business Area Owner}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Priority</td>
+                    <td class=" labelleft f_list">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="Priority" value="High" id="radioHigh" class="css-checkbox" />
+                                    <label for="radioHigh" class="css-label">High</label>
+                                </td>
+                                <td>
+                                    <input type="radio" name="Priority" value="Medium" id="radioMedium" class="css-checkbox" />
+                                    <label for="radioMedium" class="css-label">Medium</label>
+                                </td>
+                                <td>
+                                    <input type="radio" name="Priority" value="Low" id="radioLow" checked class="css-checkbox" />
+                                    <label for="radioLow" class="css-label">Low</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Show in Calendar</td>
+                    <td class="labelleft f_list">
+                        <input id="rdShowInCalendarYes" type="radio" name="ShowInCalendar" class="css-checkbox" checked value="Yes" />
+                        <label for="rdShowInCalendarYes" class="css-label">Yes</label>
+                        <input id="rdShowInCalendarNo" type="radio" name="ShowInCalendar" class="css-checkbox" value="No" />
+                        <label for="rdShowInCalendarNo" class="css-label">No</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Send Reminder To</td>
+                    <td class="labelleft width70">
+                        <select id="ddlSendReminderTo" multiple="multiple" class="f_inpt width95_a nmailstone_h chosenmulti" data-placeholder="Select User(s)">
+                            <option value="{Project Managers}">{Project Managers}</option>
+                            <option value="{Contract Owner}">{Contract Owner}</option>
+                            <option value="{Contract Record Creator}">{Contract Record Creator}</option>
+                            <option value="{Contract Area Admin}">{Contract Area Admin}</option>
+                            <option value="{Business Area Owner}">{Business Area Owner}</option>
+                            <option value="{Requestor}">{Requestor}</option>
+                            <option value="{Milestone Owner}">{Milestone Owner}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="trReminderMilestone">
+                    <td class="f_head">Reminders</td>
+                    <td class="labelleft">
+
+                        <select id="ddlReminder1" class="f_inpt width30">
+                            <option value="before">before</option>
+                            <option value="after">after</option>
+                        </select>
+                        <input id="txtReminder1" name="Remind1" type="text" maxlength="3" class="f_inpt width20" /> days
+                        <br />
+                        <select id="ddlReminder2" class="f_inpt width30">
+                            <option value="before">before</option>
+                            <option value="after">after</option>
+                        </select>
+                        <input id="txtReminder2" name="Remind2" type="text" maxlength="3" class="f_inpt width20" /> days
+                        <br />
+                        <select id="ddlReminder3" class="f_inpt width30">
+                            <option value="before">before</option>
+                            <option value="after">after</option>
+                        </select>
+                        <input id="txtReminder3" name="Remind3" type="text" maxlength="3" class="f_inpt width20" /> days
+                    </td>
+                </tr>
+                <tr id="trContractType">
+                    <td class="f_head">Contract Type(s)</td>
+                    <td class="f_list labelleft">
+                        <select id="ddlContractTypeList" name="ddlContractTypeList" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select Contract type(s)"></select>
+                    </td>
+                </tr>
+            </table>
+            <p id="inprocessMilestone" class="popup_save_progress" style="visibility:hidden;">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*Milestone Type*@
+    <script type="text/javascript">
+        var vCtypeCurrentPage = 1;
+        var SettingUserRole = "";
+        //Sridhar
+        var vContractTypesAll = "";
+        $(document).ready(function () {
+            $(".openmenuMilestone").contextMenu({ menu: 'myMenuMilestone', leftButton: true }, function (action, el, pos) { contextMenuWorkMilestone(action, el.parent("td").parent("tr"), pos); });
+            $(".openmenuMilestoneDefault").contextMenu({ menu: 'myMenuMilestoneDefault', leftButton: true }, function (action, el, pos) { contextMenuWorkMilestoneDefault(action, el.parent("td").parent("tr"), pos); });
+            //manoj
+            allowOnlyNumberInInputBox('txtMilestoneDate');
+            //manoj
+            $("#addEditMilestone").dialog({
+                autoOpen: false, closeText: "",
+                width: "60%",
+                title: "Milestone",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $("#loadingPage").fadeIn();
+                        $('.pop_up_Content_Green').parent().attr('disabled', 'disabled');
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        modalOnOpenMilestone();
+                    },
+                    Cancel: function () {
+                        arrmilestone = [];
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableMilestone tbody tr").length;
+
+            if (vCount > 5) {
+                vCtypeCurrentPage = getParameterByName("Currentpage");
+
+                if (vCtypeCurrentPage == null || vCtypeCurrentPage == "") {
+                    vCtypeCurrentPage = 1;
+                }
+
+                $('#compact-paginationMilestone').pagination({
+                    items: vCount,
+                    itemsOnPage: 20,
+                    currentPage: vCtypeCurrentPage,
+                    type: 'tbody',
+                    row: 'tr',
+                    typeID: 'customertableMilestoneBody',
+                    cssStyle: 'compact-theme'
+                });
+            } else {
+                $('#compact-paginationMilestone').css('display', 'none');
+            }
+            BindSettings();
+            BindPeople();
+            Bindmilestonetype();
+
+            allowOnlyNumberInInputBox('txtReminder1');
+            allowOnlyNumberInInputBox('txtReminder2');
+            allowOnlyNumberInInputBox('txtReminder3');
+            BindContractTypes();
+        });
+
+        $('#btnAddNewMilestone').click(function () {
+            $("#loadingPage").fadeIn();
+            BindDefaultMilestones('', '');
+            $("#txtMilestoneID").val("");
+            $("#txtMilestoneTitle").val("");
+            $("#txtMilestoneTitle").removeAttr('readonly');
+            $('input[type="radio"][id="rdMilestoneDateUserEntry"]').prop('checked', true);
+            $('#trMilestoneDateAuto').css('display', 'none');
+            $('#txtMilestoneDate').val("");
+            $('#trMilestoneDate').css('display', '');
+            $('#trUpdateAfterChange').css('display', '');
+            $('#ddlContractTypeList').val('').trigger('chosen:updated');
+            $('input[type="radio"][id="rdUpdateAfterChangeNo"]').prop('checked', true);
+            $('input[type="radio"][id="radioLow"]').prop('checked', true);
+            $('input[type="radio"][id="rdShowInCalendarYes"]').prop('checked', true);
+
+            //var vMilestoneOwner = $("#ddlMilestoneOwner").data("kendoMultiSelect");
+            //vMilestoneOwner.value([]);
+
+            //var vSendReminderTo = $("#ddlSendReminderTo").data("kendoMultiSelect");
+            //vSendReminderTo.value([]);
+            GetValuesAndAutoPopulate("ddlMilestoneOwner", "");
+            GetValuesAndAutoPopulate("ddlSendReminderTo", "");
+
+            $('#txtReminder1').val("");
+            $('#txtReminder2').val("");
+            $('#txtReminder3').val("");
+            $("#ddlReminder1").find('option[value="before"]').prop("selected", true);
+            $("#ddlReminder2").find('option[value="before"]').prop("selected", true);
+            $("#ddlReminder3").find('option[value="before"]').prop("selected", true);
+            $("#loadingPage").fadeOut();
+
+            $("#addEditMilestone").dialog("option", "title", "New Milestone");
+            $("#addEditMilestone").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+
+        });
+
+        function contextMenuWorkMilestone(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+
+                        var vCount = $("#customertableMilestone tbody tr").length;
+                        if (vCount > 5) {
+                            vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                        }
+
+                        var milestoneTitle = $(el).find("#MilestoneTitle").text();
+                        var milestoneID = $(el).find("#MilestoneID").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to delete <span style=\"font-weight:700\">'" + milestoneTitle + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   url: '/Settings/DeleteDefaultMilestone',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { milestoneid: milestoneID },
+                   cache: false,
+                   success: function (data) {
+                       ////alert(data);
+                       //swal("", data);
+                       //location = "/Settings/DefaultMilestones";
+
+
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                          function (confirmed) {
+                              if (confirmed) {
+                                  // location = "/Settings/DefaultMilestones";
+                                  location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                              }
+
+                          });
+
+                   }
+               });
+           }
+           return;
+       });
+
+                        //if (confirm("Are you sure you want to delete '" + milestoneTitle + "'?")) {
+                        //    $.ajax({
+                        //        url: '/Settings/DeleteDefaultMilestone',
+                        //        type: 'DELETE',
+                        //        dataType: 'json',
+                        //        data: { milestoneid: milestoneID },
+                        //        cache: false,
+                        //        success: function (data) {
+                        //            alert(data);
+                        //            location = "/Settings/DefaultMilestones";
+                        //        }
+                        //    });
+                        //}
+
+                        break;
+                    }
+                case "edit":
+                    {
+
+                        //var vCount = $("#customertableMilestone tbody tr").length;
+                        //if (vCount > 5) {
+                        //    vCtypeCurrentPage = $('#compact-pagination').pagination('getCurrentPage');
+                        //    alert(vCtypeCurrentPage + "1st")
+                        //}
+
+                        $("#loadingPage").fadeIn();
+                        var milestoneID = $(el).find("#MilestoneID").text();
+                        $.ajax({
+                            url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone?milestoneid=' + milestoneID,
+                            type: 'GET',
+                            dataType: 'json',
+                            headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                            "Content-Type": "application/json",
+                            cache: false,
+                            success: function (milestoneentity) {
+                                $("#txtMilestoneTitle").removeAttr('readonly');
+                                $("#txtMilestoneID").val(milestoneentity.RowKey);
+                                $("#txtMilestoneTitle").val(milestoneentity.MilestoneTitle);
+                                if (milestoneentity.MilestoneType != null && milestoneentity.MilestoneType != "") {
+                                    $("#ddlmilestonetype").val(milestoneentity.MilestoneType);
+                                }
+                                //var vMilestoneOwner = $("#ddlMilestoneOwner").data("kendoMultiSelect");
+                                //vMilestoneOwner.value(getselectedusers(milestoneentity.MilestoneOwner));
+                                //var vSendReminderTo = $("#ddlSendReminderTo").data("kendoMultiSelect");
+                                //vSendReminderTo.value(getselectedusers(milestoneentity.SendReminderTo));
+                                GetValuesAndAutoPopulate("ddlMilestoneOwner", milestoneentity.MilestoneOwner);
+                                GetValuesAndAutoPopulate("ddlSendReminderTo", milestoneentity.SendReminderTo);
+                                GetValuesAndAutoPopulate("ddlContractTypeList", milestoneentity.ContractType);
+                                $("#txtReminder1").val(milestoneentity.Reminder1);
+                                $("#txtReminder2").val(milestoneentity.Reminder2);
+                                $("#txtReminder3").val(milestoneentity.Reminder3);
+                                if (milestoneentity.Reminder1Condition != '') {
+                                    $("#ddlReminder1 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder1Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder1").val('before')
+                                }
+                                if (milestoneentity.Reminder2Condition != '') {
+                                    $("#ddlReminder2 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder2Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder2").val('before')
+                                }
+                                if (milestoneentity.Reminder3Condition != '') {
+                                    $("#ddlReminder3 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder3Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder3").val('before')
+                                }
+
+
+                                if (milestoneentity.Priority != '') {
+                                    $('input[name="Priority"][value="' + milestoneentity.Priority + '"]').prop('checked', true);
+                                }
+                                else {
+                                    $('input[name="Priority"][value="Low"]').prop('checked', true);
+                                }
+
+                                if (milestoneentity.ShowInCalendar != '') {
+                                    $('input[type="radio"][name="ShowInCalendar"][value="' + milestoneentity.ShowInCalendar + '"]').prop('checked', true);
+                                }
+                                else {
+                                    $('input[type="radio"][name="ShowInCalendar"][value="No"]').prop('checked', true);
+                                }
+
+                                if (milestoneentity.MilestoneDate != '') {
+                                    if (milestoneentity.MilestoneDate == "User Entry") {
+                                        $('input[name="MilestoneDate"][value="User Entry"]').prop('checked', true);
+                                        $('#trMilestoneDateAuto').css('display', 'none');
+                                        $('#txtMilestoneDate').val('');
+                                        BindDefaultMilestones(milestoneentity.MilestoneTitle, '');
+                                    } else {
+                                        $('input[name="MilestoneDate"][value="Auto"]').prop('checked', true);
+                                        $('#trMilestoneDateAuto').css('display', '');
+                                        var res = milestoneentity.MilestoneDate.split(";");
+                                        $('#txtMilestoneDate').val(res[0]);
+                                        $("#ddlReminderMilestoneDate option").filter(function (index) { return $(this).text() === res[1]; }).prop('selected', true);
+                                        BindDefaultMilestones(milestoneentity.MilestoneTitle, res[2]);
+                                    }
+                                }
+                                else {
+                                    $('#trMilestoneDateAuto').css('display', 'none');
+                                    $('input[name="MilestoneDate"][value="User Entry"]').prop('checked', true);
+                                    $('#txtMilestoneDate').val('');
+                                    BindDefaultMilestones(milestoneentity.MilestoneTitle, '');
+                                }
+                                if (milestoneentity.UpdateAfterChange != '') {
+                                    $('input[type="radio"][name="UpdateAfterChange"][value="' + milestoneentity.UpdateAfterChange + '"]').prop('checked', true);
+                                }
+                            },
+                            error: function (milestoneentity) {
+                                $("#loadingPage").fadeOut();
+                            },
+                            complete: function () {
+                                $(".validelement").each(function (index, element) {
+                                    $(element).removeClass("error");
+                                    $("#errormsg_" + element.id).remove();
+                                });
+
+                                $("#loadingPage").fadeOut();
+                                $('#trMilestoneDate').css('display', '');
+                                $('#trUpdateAfterChange').css('display', '');
+
+                                $("#addEditMilestone").dialog("option", "title", "Edit Milestone");
+                                $("#addEditMilestone").dialog("open");
+                            }
+                        });
+
+                        break;
+                    }
+            }
+        }
+
+        function contextMenuWorkMilestoneDefault(action, el, pos) {
+
+            switch (action) {
+                case "edit":
+                    {
+
+                        $("#loadingPage").fadeIn();
+                        var milestoneID = $(el).find("#MilestoneID").text();
+                        $.ajax({
+                            url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone?milestoneid=' + milestoneID,
+                            type: 'GET',
+                            dataType: 'json',
+                            headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                            "Content-Type": "application/json",
+                            cache: false,
+                            success: function (milestoneentity) {
+                                $("#txtMilestoneID").val(milestoneentity.RowKey);
+                                $("#txtMilestoneTitle").val(milestoneentity.MilestoneTitle);
+                                //var vMilestoneOwner = $("#ddlMilestoneOwner").data("kendoMultiSelect");
+                                //vMilestoneOwner.value(getselectedusers(milestoneentity.MilestoneOwner));
+                                GetValuesAndAutoPopulate("ddlMilestoneOwner", milestoneentity.MilestoneOwner);
+                                //var vSendReminderTo = $("#ddlSendReminderTo").data("kendoMultiSelect");
+                                //vSendReminderTo.value(getselectedusers(milestoneentity.SendReminderTo));
+                                GetValuesAndAutoPopulate("ddlSendReminderTo", milestoneentity.SendReminderTo);
+                                GetValuesAndAutoPopulate("ddlContractTypeList", milestoneentity.ContractType);
+                                $("#txtReminder1").val(milestoneentity.Reminder1);
+                                $("#txtReminder2").val(milestoneentity.Reminder2);
+                                $("#txtReminder3").val(milestoneentity.Reminder3);
+                                if (milestoneentity.Reminder1Condition != '') {
+                                    $("#ddlReminder1 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder1Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder1").val('before')
+                                }
+                                if (milestoneentity.Reminder2Condition != '') {
+                                    $("#ddlReminder2 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder2Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder2").val('before')
+                                }
+                                if (milestoneentity.Reminder3Condition != '') {
+                                    $("#ddlReminder3 option").filter(function (index) { return $(this).text() === milestoneentity.Reminder3Condition; }).prop('selected', true);
+                                }
+                                else {
+                                    $("#ddlReminder3").val('before')
+                                }
+
+
+                                if (milestoneentity.Priority != '') {
+                                    $('input[name="Priority"][value="' + milestoneentity.Priority + '"]').prop('checked', true);
+                                }
+                                else {
+                                    $('input[name="Priority"][value="Low"]').prop('checked', true);
+                                }
+
+                                if (milestoneentity.ShowInCalendar != '') {
+                                    $('input[type="radio"][name="ShowInCalendar"][value="' + milestoneentity.ShowInCalendar + '"]').prop('checked', true);
+                                }
+                                else {
+                                    $('input[type="radio"][name="ShowInCalendar"][value="No"]').prop('checked', true);
+                                }
+                                //if (milestoneentity.MilestoneDate != '') {
+                                //    if (milestoneentity.MilestoneDate == "User Entry") {
+                                //        $('input[name="MilestoneDate"][value="User Entry"]').prop('checked', true);
+                                //        $('#trMilestoneDateAuto').css('display', 'none');
+                                //        $('#txtMilestoneDate').val('');
+                                //        BindDefaultMilestones(milestoneentity.MilestoneTitle, '');
+                                //    } else {
+                                //        $('input[name="MilestoneDate"][value="Auto"]').prop('checked', true);
+                                //        $('#trMilestoneDateAuto').css('display', '');
+                                //        var res = milestoneentity.MilestoneDate.split(";");
+                                //        $('#txtMilestoneDate').val(res[0]);
+                                //        $("#ddlReminderMilestoneDate option").filter(function (index) { return $(this).text() === res[1]; }).prop('selected', true);
+                                //        BindDefaultMilestones(milestoneentity.MilestoneTitle, res[2]);
+                                //    }
+                                //}
+                                //else {
+                                //    $('#trMilestoneDateAuto').css('display', 'none');
+                                //    $('input[name="MilestoneDate"][value="User Entry"]').prop('checked', true);
+                                //    $('#txtMilestoneDate').val('');
+                                //    BindDefaultMilestones(milestoneentity.MilestoneTitle, '');
+                                //}
+                                $('#trMilestoneDateAuto').css('display', 'none');
+                                $('#txtMilestoneDate').val("");
+                                $('#trMilestoneDate').css('display', 'none');
+                                $('#trUpdateAfterChange').css('display', 'none');
+
+                                $("#txtMilestoneTitle").attr('readonly', 'readonly');
+                            },
+                            error: function (milestoneentity) {
+                                $("#loadingPage").fadeOut();
+                            },
+                            complete: function () {
+                                $(".validelement").each(function (index, element) {
+                                    $(element).removeClass("error");
+                                    $("#errormsg_" + element.id).remove();
+                                });
+                                $("#loadingPage").fadeOut();
+                                $("#addEditMilestone").dialog("option", "title", "Edit Milestone");
+                                $("#addEditMilestone").dialog("open");
+                            }
+                        });
+
+                        break;
+                    }
+            }
+        }
+
+        var arrmilestone = [];
+
+        function modalOnOpenMilestone(dialog) {
+            $('.pop_up_Content_Green').parent().attr('disabled', 'disabled');
+            $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+            var isformvalid = false;
+            if (requiredValidator('addNewMilestone')) {
+                var isduplicate = false;
+                //Sridhar
+                var isCTypeNotRelated = false;
+                var CTypeNotRelated = "";
+                var rdSelected = $("#rdMilestoneDateAuto:checked").length;
+                //Sridhar
+                isformvalid = true;
+                var arrMilestoneOwner = $("#ddlMilestoneOwner").val();
+                var vMilestoneOwner = '';
+                $(arrMilestoneOwner).each(function (i, item) {
+                    if (vMilestoneOwner == '') {
+                        vMilestoneOwner = item;
+                    }
+                    else {
+                        vMilestoneOwner += "; " + item;
+                    }
+                });
+
+                var arrSendReminderTo = $("#ddlSendReminderTo").val();
+                var vSendReminderTo = '';
+                $(arrSendReminderTo).each(function (i, item) {
+                    if (vSendReminderTo == '') {
+                        vSendReminderTo = item;
+                    }
+                    else {
+                        vSendReminderTo += "; " + item;
+                    }
+                });
+
+                var arrContractType = $("#ddlContractTypeList").val();
+                var vContractType = '';
+                $(arrContractType).each(function (i, item) {
+                    if (vContractType == '') {
+                        vContractType = item;
+                    }
+                    else {
+                        vContractType += "; " + item;
+                    }
+
+                    //Sridhar
+                    if (rdSelected > 0) {
+                        var ctypes = $.grep(vContractTypesAll, function (i) {
+                            return i.ContractType.toLowerCase().trim() == item.toLowerCase().trim()
+                        });
+                        if (ctypes.length > 0) {
+                            if (ctypes[0].Milestones == "" || typeof (ctypes[0].Milestones) == "undefined") {
+                                isCTypeNotRelated = true;
+                                if (CTypeNotRelated == "")
+                                    CTypeNotRelated = ctypes[0].ContractType.trim();
+                                else
+                                    CTypeNotRelated += "; " + ctypes[0].ContractType.trim();
+                            }
+                            else if (ctypes[0].Milestones.trim().indexOf($("#ddlAllMilestone").find('option:selected').val().trim()) < 0) {
+                                isCTypeNotRelated = true;
+                                if (CTypeNotRelated == "")
+                                    CTypeNotRelated = ctypes[0].ContractType;
+                                else
+                                    CTypeNotRelated += " ;" + ctypes[0].ContractType;
+                            }
+                        }
+                    }
+                    //Sridhar
+                });
+
+                var milestoneDate = $('input[name=MilestoneDate]:checked').val();
+                if (milestoneDate == "Auto") {
+                    milestoneDate = $("#txtMilestoneDate").val() + ';' + $("#ddlReminderMilestoneDate").find('option:selected').text() + ';' + $("#ddlAllMilestone").find('option:selected').text()
+                }
+
+                if ($("#txtMilestoneTitle").val() == "Start Date" || $("#txtMilestoneTitle").val() == "End Date" || $("#txtMilestoneTitle").val() == "Renewal Date") {
+                    $('input[type="radio"][name="UpdateAfterChange"][value="No"]').prop('checked', true);
+                    milestoneDate == "User Entry";
+                }
+
+                if (arrmilestone.length > 0) {
+                    var FileterMilestone = $.grep(arrmilestone, function (title, collection) {
+                        return (title.MilestoneTitle.toLowerCase() == $("#txtMilestoneTitle").val().toLowerCase());
+                    });
+                    if (FileterMilestone.length > 0) {
+                        if ($("#txtMilestoneID").val() != "") {
+                            if ($("#txtMilestoneID").val().trim() != FileterMilestone[0].RowKey) {
+                                isduplicate = true;
+                            }
+                        }
+                        else {
+                            isduplicate = true;
+                        }
+                    }
+                }
+                if (!isduplicate) {
+                    if (rdSelected > 0) {
+                        if (isCTypeNotRelated) { //Sridhar
+                            swal({
+                                title: '',
+                                text: "<span style=\"font-weight:700\">'" + CTypeNotRelated + "'</span> Contract Type(s) not related to <span style=\"font-weight:700\">'" + $("#ddlAllMilestone").find('option:selected').text() + "'</span> milestone, Are you sure you want to continue? ",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                html: true
+                            },
+                           function (confirmed) {
+                               if (confirmed) {
+                                   var MilestoneID = $("#txtMilestoneID").val();
+                                   if (MilestoneID != "") {
+
+                                       
+                                       $.ajax({
+                                           url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone?milestoneid=' + MilestoneID,
+                                           type: 'PUT',
+                                           dataType: 'json',
+                                           headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                           data: {
+                                               RowKey: MilestoneID,
+                                               MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                               MilestoneType: $("#ddlmilestonetype").val(),
+                                               MilestoneDate: milestoneDate,
+                                               UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                               MilestoneOwner: vMilestoneOwner,
+                                               Priority: $('input[name=Priority]:checked').val(),
+                                               ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                               ModifiedBy: localStorage.UserName,
+                                               SendReminderTo: vSendReminderTo,
+                                               Reminder1: $("#txtReminder1").val(),
+                                               Reminder2: $("#txtReminder2").val(),
+                                               Reminder3: $("#txtReminder3").val(),
+                                               ContractType: vContractType,
+                                               Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                               Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                               Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                           },
+                                           cache: false,
+                                           success: function (person) {
+                                               $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                               $('.ui-button-green-text').parent().removeAttr('disabled');
+                                               ////alert("Default Milestone Updated");
+                                               //swal("", "Default Milestone Updated");
+                                               //$("#addEditMilestone").dialog("close");
+                                               //location = "/Settings/DefaultMilestones";
+
+                                               var vCount = $("#customertableMilestone tbody tr").length;
+
+                                               if (vCount > 5) {
+                                                   vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                               }
+
+
+                                               //swal({
+                                               //    title: '',
+                                               //    text: "Default Milestone Updated",
+
+                                               //},
+                                               //function (confirmed) {
+                                               //    if (confirmed) {
+                                               $("#addEditMilestone").dialog("close");
+                                               // location = "/Settings/DefaultMilestones";
+                                               location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                               //    }
+
+                                               //});
+
+
+                                           },
+                                           complete: function () {
+                                               $("#loadingPage").fadeOut();
+                                               
+                                           }
+                                       });
+                                   }
+                                   else {
+                                       
+                                       $.ajax({
+                                           url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone',
+                                           type: 'POST',
+                                           dataType: 'json',
+                                           headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                           data: {
+                                               RowKey: $("#txtMilestoneID").val(),
+                                               MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                               MilestoneType: $("#ddlmilestonetype").val(),
+                                               MilestoneDate: milestoneDate,
+                                               UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                               MilestoneOwner: vMilestoneOwner,
+                                               Priority: $('input[name=Priority]:checked').val(),
+                                               ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                               CreatedBy: localStorage.UserName,
+                                               ModifiedBy: localStorage.UserName,
+                                               SendReminderTo: vSendReminderTo,
+                                               Reminder1: $("#txtReminder1").val(),
+                                               Reminder2: $("#txtReminder2").val(),
+                                               Reminder3: $("#txtReminder3").val(),
+                                               ContractType: vContractType,
+                                               Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                               Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                               Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                           },
+                                           cache: false,
+                                           success: function (person) {
+                                               $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                               $('.ui-button-green-text').parent().removeAttr('disabled');
+                                               ////alert('Default Milestone Created');
+                                               //swal("", "Default Milestone Created");
+                                               //$("#addEditMilestone").dialog("close");
+                                               //location = "/Settings/DefaultMilestones";
+
+
+                                               var vCount = $("#customertableMilestone tbody tr").length;
+                                               if (vCount > 5) {
+                                                   vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                               }
+
+
+                                               //  swal({
+                                               //      title: '',
+                                               //      text: "Default Milestone Updated",
+
+                                               //  },
+                                               //function (confirmed) {
+                                               //    if (confirmed) {
+                                               $("#addEditMilestone").dialog("close");
+                                               // location = "/Settings/DefaultMilestones";
+                                               location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                               //    }
+
+                                               //});
+
+
+
+
+
+
+
+                                           },
+                                           complete: function () { $("#loadingPage").fadeOut();  }
+                                       });
+                                   }
+                               }
+                           })
+                        }
+                        else {
+                            var MilestoneID = $("#txtMilestoneID").val();
+                            if (MilestoneID != "") {
+
+                                
+                                $.ajax({
+                                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone?milestoneid=' + MilestoneID,
+                                    type: 'PUT',
+                                    dataType: 'json',
+                                    headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                    data: {
+                                        RowKey: MilestoneID,
+                                        MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                        MilestoneType: $("#ddlmilestonetype").val(),
+                                        MilestoneDate: milestoneDate,
+                                        UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                        MilestoneOwner: vMilestoneOwner,
+                                        Priority: $('input[name=Priority]:checked').val(),
+                                        ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                        ModifiedBy: localStorage.UserName,
+                                        SendReminderTo: vSendReminderTo,
+                                        Reminder1: $("#txtReminder1").val(),
+                                        Reminder2: $("#txtReminder2").val(),
+                                        Reminder3: $("#txtReminder3").val(),
+                                        ContractType: vContractType,
+                                        Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                        Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                        Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                    },
+                                    cache: false,
+                                    success: function (person) {
+                                        $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                        $('.ui-button-green-text').parent().removeAttr('disabled');
+                                        ////alert("Default Milestone Updated");
+                                        //swal("", "Default Milestone Updated");
+                                        //$("#addEditMilestone").dialog("close");
+                                        //location = "/Settings/DefaultMilestones";
+
+                                        var vCount = $("#customertableMilestone tbody tr").length;
+
+                                        if (vCount > 5) {
+                                            vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                        }
+
+
+                                        //swal({
+                                        //    title: '',
+                                        //    text: "Default Milestone Updated",
+
+                                        //},
+                                        //function (confirmed) {
+                                        //    if (confirmed) {
+                                        $("#addEditMilestone").dialog("close");
+                                        // location = "/Settings/DefaultMilestones";
+                                        location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                        //    }
+
+                                        //});
+
+
+                                    },
+                                    complete: function () { $("#loadingPage").fadeOut();  }
+                                });
+                            }
+                            else {
+                                
+                                $.ajax({
+                                    url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                    data: {
+                                        RowKey: $("#txtMilestoneID").val(),
+                                        MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                        MilestoneType: $("#ddlmilestonetype").val(),
+                                        MilestoneDate: milestoneDate,
+                                        UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                        MilestoneOwner: vMilestoneOwner,
+                                        Priority: $('input[name=Priority]:checked').val(),
+                                        ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                        CreatedBy: localStorage.UserName,
+                                        ModifiedBy: localStorage.UserName,
+                                        SendReminderTo: vSendReminderTo,
+                                        Reminder1: $("#txtReminder1").val(),
+                                        Reminder2: $("#txtReminder2").val(),
+                                        Reminder3: $("#txtReminder3").val(),
+                                        ContractType: vContractType,
+                                        Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                        Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                        Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                    },
+                                    cache: false,
+                                    success: function (person) {
+                                        $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                        $('.ui-button-green-text').parent().removeAttr('disabled');
+                                        ////alert('Default Milestone Created');
+                                        //swal("", "Default Milestone Created");
+                                        //$("#addEditMilestone").dialog("close");
+                                        //location = "/Settings/DefaultMilestones";
+
+
+                                        var vCount = $("#customertableMilestone tbody tr").length;
+                                        if (vCount > 5) {
+                                            vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                        }
+
+
+                                        //  swal({
+                                        //      title: '',
+                                        //      text: "Default Milestone Updated",
+
+                                        //  },
+                                        //function (confirmed) {
+                                        //    if (confirmed) {
+                                        $("#addEditMilestone").dialog("close");
+                                        // location = "/Settings/DefaultMilestones";
+                                        location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                        //    }
+
+                                        //});
+
+
+
+
+
+
+
+                                    },
+                                    complete: function () { $("#loadingPage").fadeOut();  }
+                                });
+                            }
+                        }
+                    }
+                    else {
+                        var MilestoneID = $("#txtMilestoneID").val();
+                        if (MilestoneID != "") {
+
+                            
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone?milestoneid=' + MilestoneID,
+                                type: 'PUT',
+                                dataType: 'json',
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                data: {
+                                    RowKey: MilestoneID,
+                                    MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                    MilestoneType: $("#ddlmilestonetype").val(),
+                                    MilestoneDate: milestoneDate,
+                                    UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                    MilestoneOwner: vMilestoneOwner,
+                                    Priority: $('input[name=Priority]:checked').val(),
+                                    ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                    ModifiedBy: localStorage.UserName,
+                                    SendReminderTo: vSendReminderTo,
+                                    Reminder1: $("#txtReminder1").val(),
+                                    Reminder2: $("#txtReminder2").val(),
+                                    Reminder3: $("#txtReminder3").val(),
+                                    ContractType: vContractType,
+                                    Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                    Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                    Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                },
+                                cache: false,
+                                success: function (person) {
+                                    
+                                    $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                                    ////alert("Default Milestone Updated");
+                                    //swal("", "Default Milestone Updated");
+                                    //$("#addEditMilestone").dialog("close");
+                                    //location = "/Settings/DefaultMilestones";
+
+                                    var vCount = $("#customertableMilestone tbody tr").length;
+
+                                    if (vCount > 5) {
+                                        vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                    }
+
+
+                                    //swal({
+                                    //    title: '',
+                                    //    text: "Default Milestone Updated",
+
+                                    //},
+                                    //function (confirmed) {
+                                    //    if (confirmed) {
+                                    $("#addEditMilestone").dialog("close");
+                                    // location = "/Settings/DefaultMilestones";
+                                    location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                    //    }
+
+                                    //});
+
+
+                                },
+                                complete: function () { $("#loadingPage").fadeOut();  }
+                            });
+                        }
+                        else {
+                            
+                            $.ajax({
+                                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestone',
+                                type: 'POST',
+                                dataType: 'json',
+                                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging, username: localStorage.UserName },
+                                data: {
+                                    RowKey: $("#txtMilestoneID").val(),
+                                    MilestoneTitle: $("#txtMilestoneTitle").val(),
+                                    MilestoneType: $("#ddlmilestonetype").val(),
+                                    MilestoneDate: milestoneDate,
+                                    UpdateAfterChange: $('input[name=UpdateAfterChange]:checked').val(),
+                                    MilestoneOwner: vMilestoneOwner,
+                                    Priority: $('input[name=Priority]:checked').val(),
+                                    ShowInCalendar: $('input[type="radio"][name=ShowInCalendar]:checked').val(),
+                                    CreatedBy: localStorage.UserName,
+                                    ModifiedBy: localStorage.UserName,
+                                    SendReminderTo: vSendReminderTo,
+                                    Reminder1: $("#txtReminder1").val(),
+                                    Reminder2: $("#txtReminder2").val(),
+                                    Reminder3: $("#txtReminder3").val(),
+                                    ContractType: vContractType,
+                                    Reminder1Condition: $("#ddlReminder1").find('option:selected').text(),
+                                    Reminder2Condition: $("#ddlReminder2").find('option:selected').text(),
+                                    Reminder3Condition: $("#ddlReminder3").find('option:selected').text()
+                                },
+                                cache: false,
+                                success: function (person) {
+                                    $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                                    ////alert('Default Milestone Created');
+                                    //swal("", "Default Milestone Created");
+                                    //$("#addEditMilestone").dialog("close");
+                                    //location = "/Settings/DefaultMilestones";
+
+
+                                    var vCount = $("#customertableMilestone tbody tr").length;
+                                    if (vCount > 5) {
+                                        vCtypeCurrentPage = $('#compact-paginationMilestone').pagination('getCurrentPage');
+                                    }
+
+
+                                    //  swal({
+                                    //      title: '',
+                                    //      text: "Default Milestone Updated",
+
+                                    //  },
+                                    //function (confirmed) {
+                                    //    if (confirmed) {
+                                    $("#addEditMilestone").dialog("close");
+                                    // location = "/Settings/DefaultMilestones";
+                                    location = "/Settings/DefaultMilestones?Currentpage=" + vCtypeCurrentPage;
+                                    //    }
+
+                                    //});
+
+
+
+
+
+
+
+                                },
+                                complete: function () { $("#loadingPage").fadeOut();  }
+                            });
+                        }
+                    }
+                }
+                else {
+                    swal({
+                        title: '',
+                        text: "This title was already used. Please try another.",
+                    },
+            function (confirmed) {
+                if (confirmed) {
+                    $("#loadingPage").fadeOut();
+                    $("#txtMilestoneTitle").focus();
+                }
+            });
+                }
+            }
+            else {
+                $("#loadingPage").fadeOut();
+                $('.pop_up_Content_Green').parent().removeAttr('disabled');
+                $('.ui-button-green-text').parent().removeAttr('disabled');
+            }
+            return isformvalid;
+        }
+
+        function BindPeople() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/users',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    var v = $(data).length;
+                    var datalenght = data.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = data[i];
+                        var sRowKey = item.RowKey;
+                        var sUserName = item.UserName;
+                        var sEmail = item.EmailID;
+                        var article = '<option value="' + sUserName + '">' + sUserName + '</option>';
+                        $("#ddlMilestoneOwner").append(article);
+                        $("#ddlSendReminderTo").append(article);
+                        AddRolesddl("ddlSendReminderTo");
+                    }
+                    //$("#ddlMilestoneOwner").kendoMultiSelect().data("kendoMultiSelect");
+                    //$("#ddlSendReminderTo").kendoMultiSelect().data("kendoMultiSelect");
+                    $("#ddlMilestoneOwner").chosen();
+                    $("#ddlSendReminderTo").chosen();
+
+                    $('.chosenmulti').on('chosen:showing_dropdown', function (evt, params) {
+                        $('.result-selected').css('display', 'none');
+                    });
+                },
+                error:
+                    function (data) {
+                    }
+            });
+        }
+
+        function BindSettings() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/userrolesetting',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                async: false,
+                success: function (data) {
+                    if (data.length != 0) {
+                        SettingUserRole = data[0].UserRoleSetting;
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        }
+        function AddRolesddl(controlname) {
+            var roleoption = "";
+            if (SettingUserRole == "")
+                BindSettings();
+            var rolestype = SettingUserRole;
+            $(SettingUserRole).find('Roles').each(function () {
+                var role = $(this).find('Role').text();
+                if ($("#" + controlname + " option[value='[" + role + "]']").length == 0) {
+                    roleoption += '<option value="[' + role + ']">[' + role + ']</option>';
+                }
+            })
+            var html = $("#" + controlname).html();
+            html = roleoption + html;
+            $("#" + controlname).html(html);
+        }
+        function BindDefaultMilestones(obj, selectedtext) {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/milestones/defaultmilestoneall',
+                type: 'GET',
+                dataType: 'json',
+                'Content-Type': 'application/json',
+                cache: false,
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                success: function (data) {
+                    arrmilestone = data;
+                    $("#ddlAllMilestone").empty();
+                    var v = $(data).length;
+                    var datalenght = data.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = data[i];
+                        var sMilestone = item.MilestoneTitle;
+                        //Sridhar
+                        var sMilestoneRowKey = item.RowKey;
+                        //Sridhar
+                        if (obj != sMilestone) {
+                            var article
+                            if (sMilestone == selectedtext)
+                                article = '<option selected value="' + sMilestoneRowKey + '">' + sMilestone + '</option>';
+                            else
+                                article = '<option value="' + sMilestoneRowKey + '">' + sMilestone + '</option>';
+
+                            $("#ddlAllMilestone").append(article);
+                        }
+
+
+                    }
+                },
+                error:
+                    function (data) {
+                    }
+            });
+        }
+
+        function getselectedusers(users) {
+            var usersarr = [];
+            var res = users.split(";");
+            var reslength = res.length;
+            for (var i = 0; i < reslength; i++) {
+                usersarr.push(res[i].trim());
+            }
+
+            return usersarr;
+        }
+        function milestonedatehide() {
+            $("#trMilestoneDateAuto").hide();
+        }
+
+        function milestonedateshow() {
+            $("#trMilestoneDateAuto").show();
+        }
+
+        function GetValuesAndAutoPopulate(controlname, values) {
+
+            var multiarr = [];
+            var res = values != null ? values.split(";") : [];
+            var reslength = res.length;
+            var resValue = "";
+            for (var i = 0; i < reslength; i++) {
+                //   multiarr.push(res[i].trim());
+                resValue = res[i].trim();
+                if (resValue != "") {
+                    if ($('#' + controlname + ' option[value="' + resValue + '"]').length > 0 && multiarr.indexOf(resValue) == -1)
+                        multiarr.push(resValue);
+                }
+            }
+
+            ChosenOrder.setSelectionOrder($('#' + controlname), multiarr, true);
+        }
+
+
+
+
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        function BindContractTypes() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/contracttypes',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                async: true,
+                success: function (contracttypes) {
+                    vContractTypesAll = contracttypes;
+                    var datalenght = contracttypes.length;
+                    for (var i = 0; i < datalenght; i++) {
+                        var item = contracttypes[i];
+                        if (item.ContractType != "") {
+                            $("#ddlContractTypeList").append('<option value="' + item.ContractType.trim() + '">' + item.ContractType.trim() + '</option>')
+                        }
+
+                    }
+                    $("#ddlContractTypeList").chosen().trigger("chosen:updated");
+                }
+            });
+        }
+
+        function Bindmilestonetype() {
+            $.ajax({
+                url: '/Settings/GetMilestonetypes',
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                success: function (Milestonetypes) {
+                    $("#ddlmilestonetype").empty();
+                    $("#ddlmilestonetype").append('<option value=0>--Select--</option>');
+                    $(Milestonetypes).each(function (i, milestoneitem) {
+                        if (milestoneitem.TypeName != "") {
+                            $("#ddlmilestonetype").append('<option value="' + milestoneitem.TypeName.trim() + '">' + milestoneitem.TypeName.trim() + '</option>')
+                        }
+                    });
+                },
+                error: function (Milestonetypes) {
+                },
+            });
+        }
+    </script>
+}

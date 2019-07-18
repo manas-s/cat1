@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.WorkflowConfigurationsEntity>
+
+@{
+    ViewBag.Title = "Workflow Configuration List";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<div class="width100" id="dvWarning" style="display:none;">
+    <div class="bg-warning margin-top-5">
+        <p>This feature is currently disabled/unavailable for your account.</p>
+    </div>
+</div>
+<table class="width95_a FL_WF_Rule" style="display:none;">
+    <tr>
+        <td class="pageheading">
+            <span id="sWorkflowtype">  </span> <img src="../Content/Images/help_training.png" id="WorkflowHelptxt" alt="Lables" title="Setup Document Types and associate with Contract Areas and Contract Types. ">
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddDefault" type="button" value="Add Default" class="f_button_green_small" style="display:none;"/>&nbsp;<input id="btnAddNew" type="button" value="Add New" class="f_button_green_small"/></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <div id="page-wrap">
+                <table class="yui-grid paginated width100" id="customertable">
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                            <td id="WorkflowID" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="WorkflowTitle" style="display:none;">@Html.DisplayFor(modelItem => item.WorkflowTitle)</td>
+                            <td id="ContractArea" style="display:none;">@Html.DisplayFor(modelItem => item.ContractArea)</td>
+                            <td id="BusinessArea" style="display:none;">@Html.DisplayFor(modelItem => item.BusinessArea)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WorkflowTitle)
+                                @*@if (item.BusinessArea == "All")
+                                {
+                                    <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" />
+                                }
+                                else
+                                {*@
+                                    <img src="../Content/Images/context_Menu.png" class="openmenuAll margintop-2px" alt="Open Menu" title="Open Menu" />
+                                @*}*@
+                            </td>
+                            <td align="right" style="padding:5px;">
+                                @Html.DisplayFor(modelItem => item.BusinessArea)
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <span style="margin:20px;">No items found.</span>
+                    }
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+    <tr>
+</table>
+
+<!-- Edit Delete Popup Start -->
+
+<ul id="myMenuAll" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="duplicate"><a href="#duplicate">Duplicate</a></li>
+    <li class="review"><a href="#Document">Copy to Document</a></li> 
+    <li class="approve"><a href="#Amendment">Copy to Amendment</a></li>   
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="duplicate"><a href="#duplicate">Duplicate</a></li>
+</ul>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_WorkflowConfigurationList.js?" + DateTime.Now.GetHashCode())
+}

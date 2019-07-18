@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>  
+    @Styles.Render("~/Content/econtractscss")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/kendo")*@
+    @Scripts.Render("~/bundles/econtracts")
+</head>
+<body>
+    <div id="dvErrorBody" style="display:none;">
+        @RenderBody()
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //alert('accountID: ' + localStorage.AccountID + ', userName: ' + localStorage.UserName + ', APIKey:' + localStorage.APIKey + ', oEmail:' + localStorage.OEmail + ', userTitle: ' + localStorage.UserTitle + ', userID:' + localStorage.UserID + '');
+    @*if (@Session!=null && '@Session["UserName"]' != '') {
+        localStorage.UserName = decodeURI(unescape('@Session["UserName"]'));
+        localStorage.AccountID = '@System.Web.HttpContext.Current.Session["AccountID"]';
+        localStorage.APIKey = '@Session["APIKey"]';
+        localStorage.SPHostUrl = '@Session["SPHostUrl"]';
+        localStorage.UserTitle = '@Session["UserTitle"]';
+        localStorage.OEmail = decodeURI(unescape('@Session["OEmail"]'));
+        localStorage.UserID = '@Session["UserID"]';
+        localStorage.LoginTime = new Date();
+    }*@
+        //else if (localStorage.UserName != '' && typeof localStorage.UserName != 'undefined') {
+        //    $.post('/Settings/SetSession', { accountID: localStorage.AccountID, SPHostUrl: localStorage.SPHostUrl, userName: localStorage.UserName, APIKey: localStorage.APIKey, oEmail: localStorage.OEmail, userTitle: localStorage.UserTitle, userID: localStorage.UserID });
+        //    location = location;
+        //}
+    //else {
+        $('#dvErrorBody').css("display", "");
+    //}
+</script>

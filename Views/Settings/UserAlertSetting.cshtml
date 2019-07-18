@@ -1,0 +1,1038 @@
+﻿@{
+    ViewBag.Title = "UserAlertSetting";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<table class="width95_a" style="margin-bottom:20px;">
+    <tr>
+        <td class="pageheading">User subscribed Alerts &nbsp;<img src="~/Content/Images/help_training.png" alt="User subscribed Alerts" title="My Alerts and Notifications Settings|My Contracts- I'm part of the contract as creator, approver, Contract Owner, signee, reviewer or shared user.|Contract I Own- I'm a Contract Owner.|Task Notifications and Reminders are based on global contract and workflow administration settings." /></td>
+        <td class="pageheading" align="right"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table class="tblgrid width100 alert_setting_table" id="tblStatus">
+                <tbody>
+                    <tr id="trUnsubscribeAlertView">
+                        <td class="width40">
+                            <p style="color: rgb(63, 145, 204);">Subscribe for All Alerts &amp; Notifications</p>
+                        </td>
+                        <td id="tdUnsubscribeAlertView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewUnsubscribtion()">View Details</a></td>
+                    </tr>
+                    <tr id="trUnsubscribeAlertEdit" style="display:none">
+                        <td class="width40">
+                            <p style="color: rgb(63, 145, 204);">Subscribe for All Alerts &amp; Notifications</p>
+                        </td>
+                        <td id="tdUnsubscribe" class="width50 f_list text_small">
+
+                            <div>
+                                <div class="float_left">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkUnsubscribeAlertApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+                                <div class="float_left ">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable ">ON</span>
+                                        <span class="switch_disable ">OFF</span>
+                                        <input id="chkUnsubscribeAlertEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div><br />
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideUnsubscribtion()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trOwnershipView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Ownership Update Notification
+                        </td>
+                        <td id="tdOwnershipView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewOwnership()">View Details</a></td>
+                    </tr>
+                    <tr id="trOwnershipEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Ownership Update Notification
+                        </td>
+                        <td id="tdOwenership" class="width50 f_list text_small">
+
+                            <div>
+                                <div class="float_left app">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkOwenershipApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+                                <div class="float_left email">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkOwenershipEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div><br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+                            <input id="chkAssignedOwnership" name="AssignedOwnership" class="" type="checkbox" value="OwnershipAssigned" />
+                            <label for="chkAssignedOwnership" class=" margin-bottom-8px">I'm assigned Ownership of any Contract</label>
+                            <select id="ddlAssignedOwnershipF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select><br />
+                            <input id="chkChangedOwnership" name="ChangedOwnership" class="" type="checkbox" value="OwnershipChanged" />
+                            <label for="chkChangedOwnership" class=" margin-bottom-8px">Contract I own(ed) is reassigned to another user</label>
+                            <select id="ddlChangedOwnershipF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkAssignedRequestOwnership" name="AssignedRequestOwnership" class="" type="checkbox" value="RequestOwnershipAssigned" />
+                            <label for="chkAssignedRequestOwnership" class=" margin-bottom-8px">I'm assigned Ownership of any Request</label>
+                            <select id="ddlAssignedRequestOwnershipF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+
+                            <input id="chkChangedRequestOwnership" name="ChangedRequestOwnership" class="" type="checkbox" value="RequestOwnershipChanged" />
+                            <label for="chkChangedRequestOwnership" class=" margin-bottom-8px">Request I own(ed) is reassigned to another user</label>
+                            <select id="ddlChangedRequestOwnershipF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideOwnership()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trStatusView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Contract Status Update Notification
+                        </td>
+                        <td id="tdStatusView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewStatusUpdate()">View Details</a></td>
+                    </tr>
+                    <tr id="trStatusEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Contract Status Update Notification
+                        </td>
+                        <td id="tdStatus" class="width50 f_list text_small">
+
+                            <div>
+                                <div class="float_left app">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkStatusApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+
+                                <div class="float_left email">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkStatusEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+
+                            <input id="chkContractSigned" name="ContractSigned" class="" type="checkbox" value="ContractSigned" />
+                            <label for="chkContractSigned" class="">Contract gets Signed</label>
+                            <select id="ddlContractSigned" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                                @*<option value="All Contracts">All Contracts</option>*@
+                            </select>
+                            <select id="ddlContractSignedF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractActive" name="ContractActive" class="" type="checkbox" value="ContractActive" />
+                            <label for="chkContractActive" class="">Contract becomes Active</label>
+                            <select id="ddlContractActive" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                                @*<option value="All Contracts">All Contracts</option>*@
+                            </select>
+                            <select id="ddlContractActiveF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractRenewed" name="ContractRenewed" class="" type="checkbox" value="ContractRenewed" />
+                            <label for="chkContractRenewed" class="">Contract gets Renewed</label>
+                            <select id="ddlContractRenewed" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                                @*<option value="All Contracts">All Contracts</option>*@
+                            </select> 
+                            <select id="ddlContractRenewedF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractExpires" name="ContractExpires" class="" type="checkbox" value="ContractExpires" />
+                            <label for="chkContractExpires" class="">Contract Expires</label>
+                            <select id="ddlContractExpires" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                                @*<option value="All Contracts">All Contracts</option>*@
+                            </select>
+                            <select id="ddlContractExpiresF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractCancelled" name="ContractCancelled" class="" type="checkbox" value="ContractCancelled" />
+                            <label for="chkContractCancelled" class="">Contract gets Cancelled</label>
+                            <select id="ddlContractCancelled" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                            </select>
+                            <select id="ddlContractCancelledF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractUpRenewal" name="ContractUpRenewal" class="" type="checkbox" value="ContractUpRenewal" />
+                            <label for="chkContractUpRenewal" class="">Contract Up for Renewal</label>
+                            <select id="ddlContractUpRenewal" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                            </select>
+                            <select id="ddlContractUpRenewalF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractAboutExpire" name="ContractAboutExpire" class="" type="checkbox" value="ContractAboutExpire" />
+                            <label for="chkContractAboutExpire" class="">Contract About to Expire</label>
+                            <select id="ddlContractAboutExpire" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                            </select>
+                            <select id="ddlContractAboutExpireF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkContractArchived" name="ContractArchived" class="" type="checkbox" value="ContractArchived" />
+                            <label for="chkContractArchived" class="">Contract gets Archived</label>
+                            <select id="ddlContractArchived" class="f_selectbox">
+                                <option value="My Contracts">My Contracts</option>
+                                <option value="Contracts I Own">Contracts I Own</option>
+                            </select>
+                            <select id="ddlContractArchivedF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideStatusUpdate()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trRequestStatusView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Request Status Update Notification
+                        </td>
+                        <td id="tdRequestStatusView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewRequestStatusUpdate()">View Details</a></td>
+                    </tr>
+                    <tr id="trRequestStatusEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Request Status Update Notification
+                        </td>
+                        <td id="tdRequestStatus" class="width50 f_list text_small">
+
+                            <div>
+                                <div class="float_left app">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkReqStatusApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+
+                                <div class="float_left email">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkReqStatusEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+                            <input id="chkReqCompleted" name="RequsetCompleted" class="" type="checkbox" value="RequestCompleted" />
+                            <label for="chkReqCompleted" class="">Request gets Completed</label>
+
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideRequestStatusUpdate()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trDocumentNotView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Document Notification
+                        </td>
+                        <td id="tdDocNotView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewDocNotification()">View Details</a></td>
+                    </tr>
+                    <tr id="trDocumentNotEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Document Notification
+                        </td>
+                        <td id="tdDocNot" class="width50 f_list text_small">
+
+                            <div>
+                                <div class="float_left app">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkDocApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+                                <div class="float_left email">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_disable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkDocEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div><br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+                            <input id="chkDocStatusUpdate" name="DocStatusUpdate" class="" type="checkbox" value="DocStatusUpdated" />
+                            <label for="chkDocStatusUpdate" class=" margin-bottom-8px">Document Status Updated</label>
+                            <select id="ddlADocStatusUpdateF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select><br />
+                            <input id="chkDocPublished" name="DocPublished" class="" type="checkbox" value="DocumentPublished" />
+                            <label for="chkDocPublished" class=" margin-bottom-8px">Document Major Version Published</label>
+                            <select id="ddlDocPublishedF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkDocAdded" name="DocAdded" class="" type="checkbox" value="DocumentAdded" />
+                            <label for="chkDocAdded" class=" margin-bottom-8px">Document Added to Contract Record</label>
+                            <select id="ddlDocAddedF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideDocNotification()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trNewItemView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            New Items Notification
+                        </td>
+                        <td id="tdNewItemView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewNewItemNotf()">View Details</a></td>
+                    </tr>
+                    <tr id="trNewItemEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            New Items Notification
+                        </td>
+                        <td id="tdItem" class="width50 f_list text_small">
+                            <div>
+                                <div class="float_left app">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_enable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        @*   </div>
+                <div class="switch_options enabled_slider">
+                    <span class="switch_enable"> ON </span>
+                    <span class="switch_disable switchSet"> OFF </span>*@
+                                        <input id="chkNewItemApp" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+
+
+                                <div class="float_left email">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_enable enabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkNewItemEmail" type="hidden" class="switch_val" value="OFF" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+                            <input id="chkNewContract" name="NewContract" class="" type="checkbox" value="NewContract" />
+                            <label for="chkNewContract" class=" margin-bottom-8px">New Contract Record is Created</label>
+                            <select id="ddlNewContractF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                            <br />
+                            <input id="chkNewCounterparty" name="NewCounterparty" class="" type="checkbox" value="NewCounterparty" />
+                            <label for="chkNewCounterparty" class=" margin-bottom-8px">New Counterparty</label>
+                            <select id="ddlNewCounterpartyF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select><br />
+                            <input id="chkNewRequest" name="NewRequest" class="" type="checkbox" value="NewRequest" />
+                            <label for="chkNewRequest" class=" margin-bottom-8px">New Request is Created</label>
+                            <select id="ddlNewRequestF" class="f_selectbox" style="display:none;">
+                                @*<option value="0">Select</option>*@
+                                <option value="Immediately" selected>Immediately</option>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideNewItemNotf()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trTaskNotfView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Task Notification
+                        </td>
+                        <td id="tdTaskNotfView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewTaskNotf()">View Details</a></td>
+                    </tr>
+                    <tr id="trTaskNotfEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Task Notification
+                        </td>
+                        <td id="tdTask" class="width50 f_list text_small">
+                            <div>
+                                <div class="float_left">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_enable disabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkTaskApp" type="hidden" class="switch_val" value="ON" />
+                                    </div>
+                                </div>
+
+
+                                <div class="float_left ">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_enable disabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable">ON</span>
+                                        <span class="switch_disable">OFF</span>
+                                        <input id="chkTaskEmail" type="hidden" class="switch_val" value="ON" />
+                                    </div>
+                                </div>
+                                <div class="float_left ">
+                                    <span class="switch_lefttext">Frequency</span>
+                                    <select id="ddlTaskF" class="f_selectbox" disabled style="display:none;">
+                                        @* <option value="0">Select</option>*@
+                                        <option value="Immediately" selected>Immediately</option>
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+
+
+                            <input id="chkNewTask" disabled="disabled" name="NewTask" class="" type="checkbox" value="NewTask" checked="checked" />
+                            <label for="chkNewTask" class="">New Task is assigned to me</label>
+
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideTaskNotf()">Hide Details</a></td>
+                    </tr>
+
+                    <tr id="trRemindersView">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Reminders
+                        </td>
+                        <td id="tdRemindersView" class="width50 text_small">
+                            None
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="ViewReminders()">View Details</a></td>
+                    </tr>
+                    <tr id="trRemindersEdit" style="display:none">
+                        <td class="width40" style="color: rgb(63, 145, 204);">
+                            Reminders
+                        </td>
+                        <td id="tdReminders" class="width50 f_list text_small">
+                            <div>
+                                <div class="float_left">
+                                    <span class="switch_lefttext">In App Alert</span>
+                                    <div class="switch switch_enable disabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable ">ON</span>
+                                        <span class="switch_disable ">OFF</span>
+                                        <input id="chkRemindersApp" type="hidden" class="switch_val" value="ON" />
+                                    </div>
+                                </div>
+
+                                <div class="float_left ">
+                                    <span class="switch_lefttext">Email Notification</span>
+                                    <div class="switch switch_enable disabled_slider switchSet">
+                                        <div class="Toggle"></div>
+                                        <span class="switch_enable ">ON</span>
+                                        <span class="switch_disable ">OFF</span>
+                                        <input id="chkRemindersEmail" type="hidden" class="switch_val" value="ON" />
+                                    </div>
+                                </div>
+                                <div class="float_left ">
+                                    <span class="switch_lefttext">Frequency</span>
+                                    <select id="ddlRemindersF" class="f_selectbox" disabled style="display:none;">
+                                        @*<option value="0">Select</option>*@
+                                        <option value="Immediately" selected>Immediately</option>
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%;display:block;clear: both;" />
+
+
+                            <input id="chkRenewalReminders" style="display:none;" disabled="disabled" name="Reminders" class="" type="checkbox" value="RenewalReminders" checked="checked" />
+                            <label for="chkRenewalReminders" style="display:none;" class=" margin-bottom-8px">Renewal Reminders</label>
+                            <input id="chkExpirationReminders" style="display:none;" disabled="disabled" name="Reminders" class="" type="checkbox" value="ExpirationReminders" checked="checked" />
+                            <label for="chkExpirationReminders" style="display:none;" class=" margin-bottom-8px">Expiration Reminders</label>
+                            <input id="chkMilestoneReminders" disabled="disabled" name="Reminders" class="" type="checkbox" value="MilestoneReminders" checked="checked" />
+                            <label for="chkMilestoneReminders" class=" margin-bottom-8px">Renewal, Expiration & Milestone Reminders</label>
+                        </td>
+                        <td class="width10 text_align_right padding_right_10px"><a href="javascript:void(0);" class="linkText" onclick="HideReminders()">Hide Details</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="float_right1 padding_5px">
+                <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+                @*<input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />*@
+            </div>
+            <br />
+            <br />
+            <span style="font-size:12px;">
+                Note:<br />
+                My Contracts- I'm part of the contract as creator, approver, Contract Owner, signee, reviewer or shared user<br />
+                Contract I Own- I'm a Contract Owner<br />
+                Task Notifications and Reminders are based on global contract and workflow administration settings.
+            </span>
+            <br />
+        </td>
+    </tr>
+</table>
+
+<link rel="stylesheet" type="text/css" media="all" href="~/Content/slider.css">
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_UserAlertSetting.js?" + DateTime.Now.GetHashCode())
+    <script type="text/javascript">
+        var vUserAlert = null;
+        $(document).ready(function () {
+            $('.showtip').cluetip({ arrows: false, showTitle: false });
+            if (localStorage.UserType.indexOf("Global Contract Owner") >= 0) {
+                $("#ddlContractSigned").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractActive").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractRenewed").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractExpires").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractCancelled").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractUpRenewal").append("<option value='All Contracts'>All Contracts</option>");
+                $("#ddlContractAboutExpire").append("<option value='All Contracts'>All Contracts</option>");
+            }
+            //    $("#trNewItemView").css("display", "");
+            //    $("#trNewItemEdit").css("display", "");
+            //} else if (localStorage.UserType.indexOf("Business Area Owner") >= 0) {
+            //    $("#trNewItemView").css("display", "");
+            //    $("#trNewItemEdit").css("display", "");
+            //} else {
+            //    $("#trNewItemView").css("display", "none");
+            //    $("#trNewItemEdit").css("display", "none");
+            //}
+            UserAlert();
+           // BindUserAlert();
+            EnableSlider1();
+            DisableSlider();
+
+        });
+        var userid = getParameterByName("UserID");
+        function UserAlert() {
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/useralerts?userid=' + userid,
+                type: 'GET',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey },
+                cache: false,
+                async: false,
+                success: function (entity) {
+                    vUserAlert = entity;
+                    BindUserAlert();
+                }
+            });
+        }
+
+        function BindUserAlert() {
+            if (vUserAlert != null) {
+                
+                
+                HideOwnership();
+                HideStatusUpdate();
+                //if (localStorage.UserType.indexOf("Global Contract Owner") >= 0 || localStorage.UserType.indexOf("Business Area Owner") >= 0) {
+                //    HideNewItemNotf();
+                //}
+                HideTaskNotf();
+                HideReminders();
+                HideUnsubscribtion();
+                HideRequestStatusUpdate();
+                HideDocNotification();
+                ApplyPermissions();
+                $("#chkUnsubscribeAlertApp").change();
+                $("#chkUnsubscribeAlertEmail").change();
+                AdminSettings();
+            } else {
+                $("#tdOwnershipView").html("None");
+                $("#chkAssignedOwnership").attr("disabled", "disabled");
+                $("#chkChangedOwnership").attr("disabled", "disabled");
+                $("#tdStatusView").html("None");
+                $("#chkContractSigned").attr("disabled", "disabled");
+                $("#chkContractActive").attr("disabled", "disabled");
+                $("#chkContractRenewed").attr("disabled", "disabled");
+                $("#chkContractExpires").attr("disabled", "disabled");
+                $("#chkContractCancelled").attr("disabled", "disabled");
+                $("#chkContractUpRenewal").attr("disabled", "disabled");
+                $("#chkContractAboutExpire").attr("disabled", "disabled");
+                $("#chkContractArchived").attr("disabled", "disabled");
+                $("#ddlContractSigned").attr("disabled", "disabled");
+                $("#ddlContractActive").attr("disabled", "disabled");
+                $("#ddlContractRenewed").attr("disabled", "disabled");
+                $("#ddlContractExpires").attr("disabled", "disabled");
+                $("#ddlContractCancelled").attr("disabled", "disabled");
+                $("#ddlContractUpRenewal").attr("disabled", "disabled");
+                $("#ddlContractAboutExpire").attr("disabled", "disabled");
+                $("#tdNewItemView").html("None");
+                $("#chkNewContract").attr("disabled", "disabled");
+                $("#chkNewCounterparty").attr("disabled", "disabled");
+                $("#tdTaskNotfView").html("None");
+                $("#chkNewTask").attr("disabled", "disabled");
+                $("#tdRemindersView").html("None");
+                $("#chkRenewalReminders").attr("disabled", "disabled");
+                $("#chkExpirationReminders").attr("disabled", "disabled");
+                $("#chkMilestoneReminders").attr("disabled", "disabled");
+                $("#chkNewRequest").attr("disabled", "disabled");
+                $("#chkAssignedRequestOwnership").attr("disabled", "disabled");
+                $("#chkChangedRequestOwnership").attr("disabled", "disabled");
+                $("#tdRequestStatusView").html("None");
+                $("#chkReqCompleted").attr("disabled", "disabled");
+                $("#tdDocNotView").html("None");
+                $("#chkDocAdded").attr("disabled", "disabled");
+                $("#chkDocPublished").attr("disabled", "disabled");
+                $("#chkDocStatusUpdate").attr("disabled", "disabled");
+
+            }
+        }
+
+        $('#btnSave').click(function () {
+            $("#loadingPage").fadeIn();
+            var vUnsubscribe = "";
+            var vOwnershipUpdate = "";
+            var vOwnershipAssigned = "";
+            var vOwnershipChanged = "";
+            var vRequestUpdate = "";
+            var vRequestCompleted = "";
+            var vDocumentNotification = "";
+            var vDocumentAdded = "";
+            var vDocumentPublished = "";
+            var vDocStatusUpdated = "";
+            var vStatusUpdate = "";
+            var vStatusSigned = "";
+            var vStatusActive = "";
+            var vStatusRenewed = "";
+            var vStatusExpires = "";
+            var vStatusCancelled = "";
+            var vStatusUpRenewal = "";
+            var vStatusAboutExpire = "";
+            var vStatusArchive = "";
+            var vNewItems = "";
+            var vNewContract = "";
+            var vNewCounterparty = "";
+            var vNewRequest = "";
+            var vRequestOwnershipAssigned = "";
+            var vRequestOwnershipChanged = "";
+            var vTask = "App Alert; Email Notification";
+            var vTaskToMe = "Yes";
+            var vReminders = "App Alert; Email Notification";
+            var vRemindersRenewal = "Yes";
+            var vRemindersExpiration = "Yes";
+            var vRemindersMilestone = "Yes";
+
+            var vOwnershipAssignedFrequency = "";
+            var vOwnershipChangedFrequency = "";
+            var vRequestOwnershipAssignedFrequency = "";
+            var vRequestOwnershipChangedFrequency = "";
+            var vDocumentAddedFrequency = "";
+            var vDocumentPublishedFrequency = "";
+            var vDocStatusUpdatedFrequency = "";
+            var vStatusSignedFrequency = "";
+            var vStatusActiveFrequency = "";
+            var vStatusRenewedFrequency = "";
+            var vStatusExpiresFrequency = "";
+            var vStatusCancelledFrequency = "";
+            var vStatusUpRenewalFrequency = "";
+            var vStatusAboutExpireFrequency = "";
+            var vStatusArchiveFrequency = "";
+            var vNewContractFrequency = "";
+            var vNewCounterpartyFrequency = "";
+            var vNewRequestFrequency = "";
+            var vTaskFrequency = "";
+            var vRemindersFrequency = "";
+
+
+            if ($("#chkUnsubscribeAlertApp").val() == "ON") {
+                vUnsubscribe = "App Alert";
+            }
+            if ($("#chkUnsubscribeAlertEmail").val() == "ON") {
+                if (vUnsubscribe == "")
+                    vUnsubscribe = "Email Notification";
+                else
+                    vUnsubscribe += "; " + "Email Notification";
+            }
+
+            if ($("#chkOwenershipApp").val() == "ON") {
+                vOwnershipUpdate = "App Alert";
+            }
+            if ($("#chkOwenershipEmail").val() == "ON") {
+                if (vOwnershipUpdate == "")
+                    vOwnershipUpdate = "Email Notification";
+                else
+                    vOwnershipUpdate += "; " + "Email Notification";
+            }
+            if (vOwnershipUpdate != "") {
+                vOwnershipAssigned = $("#chkAssignedOwnership").is(':checked') ? 'Yes' : 'No';
+                vOwnershipChanged = $("#chkChangedOwnership").is(':checked') ? 'Yes' : 'No';
+                vRequestOwnershipAssigned = $("#chkAssignedRequestOwnership").is(':checked') ? 'Yes' : 'No';
+                vRequestOwnershipChanged = $("#chkChangedRequestOwnership").is(':checked') ? 'Yes' : 'No';
+                vOwnershipAssignedFrequency = $("#chkAssignedOwnership").is(':checked') ? $("#ddlAssignedOwnershipF").find('option:selected').text() == 'Select' ? '' : $("#ddlAssignedOwnershipF").find('option:selected').text() : '';
+                vOwnershipChangedFrequency = $("#chkChangedOwnership").is(':checked') ? $("#ddlChangedOwnershipF").find('option:selected').text() == 'Select' ? '' : $("#ddlChangedOwnershipF").find('option:selected').text() : '';
+                vRequestOwnershipAssignedFrequency = $("#chkAssignedRequestOwnership").is(':checked') ? $("#ddlAssignedRequestOwnershipF").find('option:selected').text() == 'Select' ? '' : $("#ddlAssignedRequestOwnershipF").find('option:selected').text() : '';
+                vRequestOwnershipChangedFrequency = $("#chkChangedRequestOwnership").is(':checked') ? $("#ddlChangedRequestOwnershipF").find('option:selected').text() == 'Select' ? '' : $("#ddlChangedRequestOwnershipF").find('option:selected').text() : '';
+            }
+
+            if ($("#chkDocApp").val() == "ON") {
+                vDocumentNotification = "App Alert";
+            }
+            if ($("#chkDocEmail").val() == "ON") {
+                if (vDocumentNotification == "")
+                    vDocumentNotification = "Email Notification";
+                else
+                    vDocumentNotification += "; " + "Email Notification";
+            }
+            if (vDocumentNotification != "") {
+                vDocumentAdded = $("#chkDocAdded").is(':checked') ? 'Yes' : 'No';
+                vDocumentPublished = $("#chkDocPublished").is(':checked') ? 'Yes' : 'No';
+                vDocStatusUpdated = $("#chkDocStatusUpdate").is(':checked') ? 'Yes' : 'No';
+
+                vDocumentAddedFrequency = $("#chkDocAdded").is(':checked') ? $("#ddlDocAddedF").find('option:selected').text() == 'Select' ? '' : $("#ddlDocAddedF").find('option:selected').text() : '';
+                vDocumentPublishedFrequency = $("#chkDocPublished").is(':checked') ? $("#ddlDocPublishedF").find('option:selected').text() == 'Select' ? '' : $("#ddlDocPublishedF").find('option:selected').text() : '';
+                vDocStatusUpdatedFrequency = $("#chkDocStatusUpdate").is(':checked') ? $("#ddlADocStatusUpdateF").find('option:selected').text() == 'Select' ? '' : $("#ddlADocStatusUpdateF").find('option:selected').text() : '';
+
+            }
+
+            if ($("#chkStatusApp").val() == "ON") {
+                vStatusUpdate = "App Alert";
+            }
+            if ($("#chkStatusEmail").val() == "ON") {
+                if (vStatusUpdate == "")
+                    vStatusUpdate = "Email Notification";
+                else
+                    vStatusUpdate += "; " + "Email Notification";
+            }
+            if (vStatusUpdate != "") {
+                vStatusSigned = $("#chkContractSigned").is(':checked') ? $("#ddlContractSigned").find('option:selected').text() : '';
+                vStatusActive = $("#chkContractActive").is(':checked') ? $("#ddlContractActive").find('option:selected').text() : '';
+                vStatusRenewed = $("#chkContractRenewed").is(':checked') ? $("#ddlContractRenewed").find('option:selected').text() : '';
+                vStatusExpires = $("#chkContractExpires").is(':checked') ? $("#ddlContractExpires").find('option:selected').text() : '';
+                vStatusCancelled = $("#chkContractCancelled").is(':checked') ? $("#ddlContractCancelled").find('option:selected').text() : '';
+                vStatusUpRenewal = $("#chkContractUpRenewal").is(':checked') ? $("#ddlContractUpRenewal").find('option:selected').text() : '';
+                vStatusAboutExpire = $("#chkContractAboutExpire").is(':checked') ? $("#ddlContractAboutExpire").find('option:selected').text() : '';
+                vStatusArchive = $("#chkContractArchived").is(':checked') ? $("#ddlContractArchived").find('option:selected').text() : '';
+
+                vStatusSignedFrequency = $("#chkContractSigned").is(':checked') ? $("#ddlContractSignedF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractSignedF").find('option:selected').text() : '';
+                vStatusActiveFrequency = $("#chkContractActive").is(':checked') ? $("#ddlContractActiveF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractActiveF").find('option:selected').text() : '';
+                vStatusRenewedFrequency = $("#chkContractRenewed").is(':checked') ? $("#ddlContractRenewedF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractRenewedF").find('option:selected').text() : '';
+                vStatusExpiresFrequency = $("#chkContractExpires").is(':checked') ? $("#ddlContractExpiresF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractExpiresF").find('option:selected').text() : '';
+                vStatusCancelledFrequency = $("#chkContractCancelled").is(':checked') ? $("#ddlContractCancelledF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractCancelledF").find('option:selected').text() : '';
+                vStatusUpRenewalFrequency = $("#chkContractUpRenewal").is(':checked') ? $("#ddlContractUpRenewalF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractUpRenewalF").find('option:selected').text() : '';
+                vStatusAboutExpireFrequency = $("#chkContractAboutExpire").is(':checked') ? $("#ddlContractAboutExpireF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractAboutExpireF").find('option:selected').text() : '';
+                vStatusArchiveFrequency = $("#chkContractArchived").is(':checked') ? $("#ddlContractArchivedF").find('option:selected').text() == 'Select' ? '' : $("#ddlContractArchivedF").find('option:selected').text() : '';
+            }
+
+            if ($("#chkReqStatusApp").val() == "ON") {
+                vRequestUpdate = "App Alert";
+            }
+            if ($("#chkReqStatusEmail").val() == "ON") {
+                if (vRequestUpdate == "")
+                    vRequestUpdate = "Email Notification";
+                else
+                    vRequestUpdate += "; " + "Email Notification";
+            }
+            if (vRequestUpdate != "") {
+                vRequestCompleted = $("#chkReqCompleted").is(':checked') ? 'Yes' : 'No';
+            }
+
+            if ($("#chkNewItemApp").val() == "ON") {
+                vNewItems = "App Alert";
+            }
+            if ($("#chkNewItemEmail").val() == "ON") {
+                if (vNewItems == "")
+                    vNewItems = "Email Notification";
+                else
+                    vNewItems += "; " + "Email Notification";
+            }
+            if (vNewItems != "") {
+                vNewContract = $("#chkNewContract").is(':checked') ? 'Yes' : 'No';
+                vNewCounterparty = $("#chkNewCounterparty").is(':checked') ? 'Yes' : 'No';
+                vNewRequest = $("#chkNewRequest").is(':checked') ? 'Yes' : 'No';
+                vNewContractFrequency = $("#chkNewContract").is(':checked') ? $("#ddlNewContractF").find('option:selected').text() == 'Select' ? '' : $("#ddlNewContractF").find('option:selected').text() : '';
+                vNewCounterpartyFrequency = $("#chkNewCounterparty").is(':checked') ? $("#ddlNewCounterpartyF").find('option:selected').text() == 'Select' ? '' : $("#ddlNewCounterpartyF").find('option:selected').text() : '';
+                vNewRequestFrequency = $("#chkNewRequest").is(':checked') ? $("#ddlNewRequestF").find('option:selected').text() == 'Select' ? '' : $("#ddlNewRequestF").find('option:selected').text() : '';
+
+            }
+
+
+            if ($("#chkTaskApp").val() == "ON") {
+                vTask = "App Alert";
+            }
+            if ($("#chkTaskEmail").val() == "ON") {
+                if (vTask == "")
+                    vTask = "Email Notification";
+                else
+                    vTask += "; " + "Email Notification";
+            }
+            if (vTask != "") {
+                vTaskToMe = $("#chkNewTask").is(':checked') ? 'Yes' : 'No';
+                vTaskFrequency = $("#chkNewTask").is(':checked') ? $("#ddlTaskF").find('option:selected').text() == 'Select' ? '' : $("#ddlTaskF").find('option:selected').text() : '';
+            }
+
+
+            if ($("#chkRemindersApp").val() == "ON") {
+                vReminders = "App Alert";
+            }
+            if ($("#chkRemindersEmail").val() == "ON") {
+                if (vReminders == "")
+                    vReminders = "Email Notification";
+                else
+                    vReminders += "; " + "Email Notification";
+            }
+            if (vReminders != "") {
+                vRemindersRenewal = $("#chkRenewalReminders").is(':checked') ? 'Yes' : 'No';
+                vRemindersExpiration = $("#chkExpirationReminders").is(':checked') ? 'Yes' : 'No';
+                vRemindersMilestone = $("#chkMilestoneReminders").is(':checked') ? 'Yes' : 'No';
+                vRemindersFrequency = $("#chkMilestoneReminders").is(':checked') ? $("#ddlRemindersF").find('option:selected').text() == 'Select' ? '' : $("#ddlRemindersF").find('option:selected').text() : '';
+            }
+
+            $.ajax({
+                url: vApiBaseSiteUrl +'/api/accounts/' + localStorage.AccountID + '/useralerts',
+                type: 'POST',
+                dataType: 'json',
+                headers: { 'eContracts-ApiKey': localStorage.APIKey, 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging },
+                data: {
+                    RowKey: userid,
+                    OwnershipUpdate: vOwnershipUpdate,
+                    OwnershipAssigned: vOwnershipAssigned,
+                    OwnershipChanged: vOwnershipChanged,
+                    RequestUpdate: vRequestUpdate,
+                    RequestCompleted: vRequestCompleted,
+                    DocumentNotification: vDocumentNotification,
+                    DocumentAdded: vDocumentAdded,
+                    DocumentPublished: vDocumentPublished,
+                    DocStatusUpdated: vDocStatusUpdated,
+                    StatusUpdate: vStatusUpdate,
+                    StatusSigned: vStatusSigned,
+                    StatusActive: vStatusActive,
+                    StatusRenewed: vStatusRenewed,
+                    StatusExpires: vStatusExpires,
+                    StatusCancelled: vStatusCancelled,
+                    StatusUpRenewal: vStatusUpRenewal,
+                    StatusAboutExpire: vStatusAboutExpire,
+                    StatusArchived: vStatusArchive,
+                    NewItems: vNewItems,
+                    NewContract: vNewContract,
+                    NewCounterparty: vNewCounterparty,
+                    Task: vTask,
+                    TaskToMe: vTaskToMe,
+                    Reminders: vReminders,
+                    RemindersRenewal: vRemindersRenewal,
+                    RemindersExpiration: vRemindersExpiration,
+                    RemindersMilestone: vRemindersMilestone,
+                    NewRequest: vNewRequest,
+                    RequestOwnershipAssigned: vRequestOwnershipAssigned,
+                    RequestOwnershipChanged: vRequestOwnershipChanged,
+                    Unsubscribe: vUnsubscribe,
+                    OwnershipAssignedFrequency: vOwnershipAssignedFrequency,
+                    OwnershipChangedFrequency: vOwnershipChangedFrequency,
+                    RequestOwnershipAssignedFrequency: vRequestOwnershipAssignedFrequency,
+                    RequestOwnershipChangedFrequency: vRequestOwnershipChangedFrequency,
+                    DocumentAddedFrequency: vDocumentAddedFrequency,
+                    DocumentPublishedFrequency: vDocumentPublishedFrequency,
+                    DocStatusUpdatedFrequency: vDocStatusUpdatedFrequency,
+                    StatusSignedFrequency: vStatusSignedFrequency,
+                    StatusActiveFrequency: vStatusActiveFrequency,
+                    StatusRenewedFrequency: vStatusRenewedFrequency,
+                    StatusExpiresFrequency: vStatusExpiresFrequency,
+                    StatusCancelledFrequency: vStatusCancelledFrequency,
+                    StatusUpRenewalFrequency: vStatusUpRenewalFrequency,
+                    StatusAboutExpireFrequency: vStatusAboutExpireFrequency,
+                    StatusArchivedFrequency: vStatusArchiveFrequency,
+                    NewContractFrequency: vNewContractFrequency,
+                    NewCounterpartyFrequency: vNewCounterpartyFrequency,
+                    NewRequestFrequency: vNewRequestFrequency,
+                    TaskFrequency: vTaskFrequency,
+                    RemindersFrequency: vRemindersFrequency
+                },
+                cache: false,
+                success: function (person) {
+                    vUserAlert = person;
+                    //alert("Alerts and Notifications Settings Saved");
+                    //  swal("", "Alerts and Notifications Settings Saved");
+                    $("#loadingPage").fadeOut();
+                    HideOwnership();
+                    HideStatusUpdate();
+                    HideDocNotification();
+                    HideRequestStatusUpdate();
+                    if (localStorage.UserType.indexOf("Global Contract Owner") >= 0 || localStorage.UserType.indexOf("Business Area Owner") >= 0) {
+                        HideNewItemNotf();
+                    }
+                    HideTaskNotf();
+                    HideReminders();
+                    HideUnsubscribtion();
+                    
+                    EnableSlider1();
+                    DisableSlider();
+
+                },
+                error: function (person) {
+                    $("#loadingPage").fadeOut();
+                }
+            });
+        });
+
+        $('#btnCancel').click(function () {
+            HideOwnership();
+            HideStatusUpdate();
+            HideDocNotification();
+            HideRequestStatusUpdate();
+            if (localStorage.UserType.indexOf("Global Contract Owner") >= 0 || localStorage.UserType.indexOf("Business Area Owner") >= 0) {
+                HideNewItemNotf();
+            }
+            HideTaskNotf();
+            HideReminders();
+            EnableSlider1();
+            DisableSlider();
+            HideUnsubscribtion();
+            
+        });
+
+    </script>
+
+}

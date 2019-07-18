@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Restore";
+  //  Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_Restore.js?" + DateTime.Now.GetHashCode())
+}
+<br />
+<section class="main">
+    <section class="wraper">
+        <div class="box_Report">
+            <div id="logFiltersForm" class="width100">
+                <table class="width95_a" id="tblReportFilters">
+                    <tbody>
+                        <tr>
+                            <td class="text labelleft" width="15%">Restore Type</td>
+                            <td class="labelleft" width="40%">
+                                <select id="ddlRestoreType" name="RestoreType" class="f_inpt_small width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="ConfigurationData">Configuration Data</option>
+                                    <option value="ReferenceData">Reference Data</option>
+                                    <option value="BusinessData">Business Data</option>
+                                    <option value="LogsData">Logs Data</option>
+                                </select>
+
+
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</section>
+<br>
+
+<div class="box_Summery" id="divRestoreConfiguration" style="display:none;">
+    <div id="divFileUploadConfiguration" class="width100">
+        <ul>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Configuration Data Zip</span>
+                <input type="file" id="docConfiguration" name="file" title="zip file" class="validelement" />
+            </li>
+        </ul>
+    </div>
+    <div id="btns" style="float: right;">
+        <span id="imgRestoreConfiguration" style="display:none;">
+            <img src="../Content/Images/icon/loading.gif">Restore Configuration(s)...
+        </span>
+        <a href="javascript:void(0);" id="btnRestoreConfiguration">Restore</a>
+        <a id="btnCancelConfiguration" onclick="cancelClick()" href="javascript:void(0);">Cancel</a>
+    </div>
+</div>
+
+<div class="box_Summery" id="divRestoreReference" style="display:none;">
+    <div id="divFileUploadReference" class="width100">
+        <ul>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Reference Data Zip</span>
+                <input type="file" id="docReference" name="file" title="zip file" class="validelement" />
+            </li>
+        </ul>
+    </div>
+    <div id="btns" style="float: right;">
+        <span id="imgRestoreReference" style="display:none;">
+            <img src="../Content/Images/icon/loading.gif">Restore Reference(s)...
+        </span>
+        <a href="javascript:void(0);" id="btnRestoreReference">Restore</a>
+        <a id="btnCancelReference" onclick="cancelClick()" href="javascript:void(0);">Cancel</a>
+    </div>
+</div>
+<div class="box_Summery" id="divRestoreBusiness" style="display:none;">
+    <div id="divFileUploadBusiness" class="width100">
+        <ul>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contracts Zip</span>
+                <input type="file" id="docContracts" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select RelatedContracts Zip</span>
+                <input type="file" id="docRelatedContracts" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contracts Data Zip</span>
+                <input type="file" id="docContractsData" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contract Documents Zip</span>
+                <input type="file" id="docContractDocuments" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contract Documents Data Zip</span>
+                <input type="file" id="docContractDocumentsData" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Milestones Data Zip</span>
+                <input type="file" id="docMilestonesData" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contract Terms Zip</span>
+                <input type="file" id="docContractTerms" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select User Permissions Zip</span>
+                <input type="file" id="docUserPermissions" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Workflows Zip</span>
+                <input type="file" id="docWorkflows" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Workflow History Zip</span>
+                <input type="file" id="docWorkflowHistory" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Workflow Data Zip</span>
+                <input type="file" id="docWorkflowData" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Notifications Zip</span>
+                <input type="file" id="docNotifications" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select User Activities Zip</span>
+                <input type="file" id="docUserActivities" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Requests Data Zip</span>
+                <input type="file" id="docRequestsData" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Request Documents Zip</span>
+                <input type="file" id="docRequestDocuments" name="file" title="zip file" class="validelement" />
+            </li>
+            <li>
+                <span style="float: left; width:44%; margin: 25px 10px 0px 0px ! important;">Select Contracts Features Data Zip</span>
+                <input type="file" id="docContractsFeaturesData" name="file" title="zip file" class="validelement" />
+            </li>
+        </ul>
+    </div>
+    <div id="btns" style="float: right;">
+        <span id="imgRestoreBusiness" style="display:none;">
+            <img src="../Content/Images/icon/loading.gif">Restore Business Data(s)...
+        </span>
+        <a href="javascript:void(0);" id="btnRestoreBusiness">Restore</a>
+        <a id="btnCancelBusiness" onclick="cancelClick()" href="javascript:void(0);">Cancel</a>
+    </div>
+</div>
+@*<div class="box_Summery" id="divRestoreLogs">
+        <form id="divFileUploadConfiguration">
+            <ul>
+                <li>
+                    <span style="float: left; width:40%; margin: 25px 10px 0px 0px ! important;">Select Configurations Zip</span>
+                    <input type="file" id="docConfiguration" name="file" title="zip file" class="validelement" />
+                </li>
+            </ul>
+        </form>
+        <div id="btns" style="float: right;">
+            <span id="imgRestoreReference" style="display:none;">
+                <img src="../Content/Images/icon/loading.gif">Restore Configuration(s)...
+            </span>
+            <a href="javascript:void(0);" id="btnRestoreConfiguration" onclick="bulkcontractcreate()">Restore</a>
+            <a id="btnCancelConfiguration" href="javascript:void(0);">Cancel</a>
+        </div>
+    </div>*@

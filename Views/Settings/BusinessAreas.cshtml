@@ -1,0 +1,777 @@
+﻿@{
+    ViewBag.Title = "Contract & Business Areas";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<style>
+        .k-icon {
+            width: 16px;
+        }
+        .hideUserAdmin
+        {
+            display:none !important;
+        }
+         .hideUserC
+        {
+            display:none !important;
+        }
+          .hideUserRO
+        {
+            display:none !important;
+        }
+           .hideUserFC
+        {
+            display:none !important;
+        }
+        .k-state-hover {
+            background-color:transparent !important;
+            color: #003F59 !important;
+        }
+        .k-state-focused {
+            background-color:transparent !important;
+            color: #003F59 !important;
+        }
+        .k-state-selected{
+            background-color:#ffffff !important;
+            color: #003F59 !important;
+        }
+        .k-state-selected, .k-button:active {
+        background-image: none, linear-gradient(to bottom, #ffffff 0px, #ffffff 100%);
+    }
+        .k-in {
+            cursor:default !important;
+            border:0px !important;
+        }
+        .hidden_div{
+    display: none;
+    }
+        .k-state-hover .hidden_div{
+    display : inline;
+    }
+        #tblDocLibraryProperties tr td input[type="radio"], #tblDocLibraryProperties tr td input[type="checkbox"] {
+    outline: none;
+    border-width:0!important;
+}
+        #tblNumbering p input{
+            outline: none;
+            border-width:0!important;
+        }
+
+        #tblLE th.sorting_disabled:last-child {
+   width: 23%!important;
+}
+#tblLE th {
+   height: 42px;
+}
+.f_list.dataTable.no-footer thead th:last-child, .f_list.dataTable.no-footer tbody td:last-child {
+   width: 25%!important;
+}
+#tblLE tr {
+   border-bottom: 1px solid #d1ecff;
+}
+#tblLE td {
+   vertical-align: middle;
+   border: none;
+}
+</style>
+<table class="width95_a">
+    <tr>
+
+        <td class="pageheading">Contract & Business Areas  <img title="Contract Area and Business Area Hierarchy" src="~/Content/Images/i-admin.png"></td>
+        <td class="pageheading" align="right"><input id="btnAddContractArea" type="button" value="Add Contract Area" class="f_button_green_small" /></td>
+    </tr>
+</table>
+
+<script src="/Scripts/jquery.validate.min.js"></script>
+@*<script src="/Scripts//jquery-ui-1.9.2.js"></script>*@
+<script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="/Scripts/spcontext.js"></script>
+<script src="/Scripts/jquery.contextmenu.js"></script>
+<script src="/Scripts/jquery.simplemodal-1.1.1.js"></script>
+<link rel="stylesheet" href="/Content/css/wizard.css" /> 
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<link rel="stylesheet" href="/Content/css/jquery.dataTables.min.css" />
+<script src="/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dataTables.min.js"></script>
+  
+<div id="example" class="k-content width95_a margin-top-bottom-20">
+    <div id="dialogEdit" title="Business Area" style="display:none; overflow-y: scroll;width:auto; ">
+        <span style="background-color:yellow">Note: Changes may take up to few hours to display in all places depending on number of Contract Records/Documents.</span>
+        <div class="formhead"><span class="formhead_left font_20">Summary</span></div>
+        <table id="tblSummary" cellpadding="2" cellspacing="2" class="width100">
+            <tr>
+                <td class="f_head">
+                    <label id="titleMain">Business Area Name</label><small class="required">*</small>
+                    <p style="display:none">
+                        <label id="baLocation"></label>
+                    </p>
+                </td>
+                <td class="f_list labelright width60">
+                    <input id="txtAction" type="text" style="display:none;" />
+                    <input id="txtBusinessAreaName" name="BusinessAreaName" onchange="ContractAreaNameChange(); ReplaceSpecialCharacters(this);" type="text" title="Business Area Name" maxlength="50" class="f_inpt width90 margin-bottom-2 validbusinessareaname validnumspec validtitle" />
+                    <img id="imgNameHelp1" src="/Content/Images/input-help.png">
+                    <input id="hdntxtBusinessAreaName" name="hdntxtBusinessAreaName" type="hidden" />
+                    <input id="hdntxtContractAreaName" name="hdntxtContractAreaName" type="hidden" />
+                    <input id="hdntxtBusinessAreaOwner" name="hdntxtBusinessAreaOwner" type="hidden" />
+                    <input id="hdntxtBusinessAreaPath" name="hdntxtBusinessAreaPath" type="hidden" />
+                    <input id="hdntxtParent" name="hdntxtParent" type="hidden" />
+                    <input id="hdntxtParentID" name="hdntxtParentID" type="hidden" />
+                    <input id="hdntxtCCusers" name="hdntxtCCusers" type="hidden" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    <label id="titleMainabb">Abbreviation</label>
+                    <p style="display:none">
+                        <label id="baLocation"></label>
+                    </p>
+                </td>
+                <td class="labelright">
+                    <input id="txtAction" type="text" style="display:none;" />
+                    <input id="txtBusinessAreaNameAbbreviation" name="BusinessAreaNameAbbrivation" type="text" maxlength="10" title="Business Area Name" class="f_inpt width90 margin-bottom-2" />
+                    <img id="imgNameHelp1abb" src="/Content/Images/input-help.png">
+                    @*<input id="hdntxtBusinessAreaName" name="hdntxtBusinessAreaName" type="hidden" />
+                        <input id="hdntxtContractAreaName" name="hdntxtContractAreaName" type="hidden" />
+                        <input id="hdntxtBusinessAreaOwner" name="hdntxtBusinessAreaOwner" type="hidden" />
+                        <input id="hdntxtBusinessAreaPath" name="hdntxtBusinessAreaPath" type="hidden" />
+                        <input id="hdntxtParent" name="hdntxtParent" type="hidden" />
+                        <input id="hdntxtParentID" name="hdntxtParentID" type="hidden" />*@
+                </td>
+            </tr>
+            <tr>
+                <td class="f_head">Description</td>
+                <td class="labelright">
+                    <textarea name="Description" id="txtDescription" title="Description" maxlength="300" rows="3" class="f_inpt_textarea width90"></textarea>
+                    <img id="imgNameHelp3" src="/Content/Images/input-help.png">
+                </td>
+            </tr>
+            @*<tr id="trDocLibName" style="display:none;">
+                <td class="f_head">Document Library Name</td>
+                <td class="labelright">
+                    <input id="txtDocLibName" type="text" maxlength="50" class="f_inpt width90 " />
+                </td>
+            </tr>*@
+            <tr id="trAdminOwner">
+                <td class="f_head">
+                    <label id="formOwner">Owner</label><small class="required">*</small>
+                </td>
+                <td class="labelright">
+                    <select class="f_inpt width90 chosenmulti validmultiselect" title="Select User(s)" id="ddlBusinessAreaOwner" multiple data-placeholder='Select User(s)'></select>
+                    <img id="imgNameHelp2" src="/Content/Images/input-help.png" style="padding-left: 10px;padding-top: 5px;">
+                </td>
+            </tr>
+        </table>
+        <div class="formhead margin-top-20" id="divDocSign"><span class="formhead_left font_20">Document eSignature</span><img id="" src="/Content/Images/input-help.png" title="Select user(s) from the dropdown to provide default CC for document signature."><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblDocSign', '', 'imgUserAccess');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgDocSign" /></a></span></div>
+
+        <table id="tblDocSign" cellpadding="2" cellspacing="2" class="width100">
+            <tr id="trCCUsers" style="width:40%">
+                <td class="f_head">
+                    <label>Default CC user(s)</label>
+                </td>
+                <td class="labelright" style="width:60%">
+                    <select class="f_inpt width90 chosenmulti" title="Select User(s)" id="ddlCCUsers" multiple data-placeholder='Select User(s)'></select>
+                    <img id="" src="/Content/Images/input-help.png" title="Select the Default CC user(s) from the list" style="padding-left: 10px;padding-top: 5px;"> @*eO310045*@
+                </td>
+            </tr>
+        </table>
+        <div class="formhead margin-top-20" id="divDocLibraryProperties"><span class="formhead_left font_20">Document Library Properties</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblDocLibraryProperties', '', 'imgDocLibrary');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgDocLibrary" /></a></span></div>                
+            <table id="tblDocLibraryProperties" cellpadding="2" cellspacing="2" class="width100">
+                @*Business Area Level Library Creation*@
+                <tr id="trDocLibArea">
+                    <td class="f_head">Document Library Creation</td>
+                    <td class="labelright">
+                        <input id="chkDocContractArea" type="radio" class="css-checkbox" name="docArea" checked value="ContractArea" />Contract Area &nbsp;
+                        <input id="chkDocBusinessArea" type="radio" class="css-checkbox" name="docArea" value="BusinessArea" />Business Area
+                    </td>
+                </tr>
+                @*Business Area Level Library Creation*@
+                <tr id="trDocLibName" style="display:none;">
+                    <td class="f_head">Document Library Name</td>
+                    <td class="labelright">
+                        <input id="txtDocLibName" type="text" maxlength="50" class="f_inpt width90 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Document Version History</td>
+                    <td class="labelright">
+                        <input id="chkVersionNo" type="radio" class="css-checkbox" name="docversion" value="No" />No versioning
+                        <br />
+                        <input id="chkVersionMajor" type="radio" class="css-checkbox" name="docversion" checked value="Major" />Create major versions Example: 1, 2, 3, 4
+                        <br />
+                        <input id="chkVersionAll" type="radio" class="css-checkbox" name="docversion" value="All" />Create major and minor versions Example: 1.0, 1.1, 1.2, 2.0
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Who should see minor versions this document library?</td>
+                    <td class="labelright">
+                        <input id="chkdocRead" type="radio" class="css-checkbox" name="docsecurity" checked value="Read" />Any user who can read items
+                        <br />
+                        <input id="chkdocEdit" type="radio" class="css-checkbox" name="docsecurity" value="Edit" />Only users who can edit items
+                        @*<br />
+                        <input id="chkdocApprove" type="radio" class="css-checkbox" name="docsecurity" value="Author" />Only users who can approve items (and the author of the item)*@
+                    </td>
+                </tr>
+                @*<tr>
+                    <td class="f_head">Require Check Out</td>
+                    <td class="labelright">
+                        <input id="chkCheckoutYes" type="radio" class="css-checkbox" name="doccheckout" value="Yes" />Yes
+                        <input id="chkCheckoutNo" type="radio" class="css-checkbox" name="doccheckout" checked value="No" />No
+                    </td>
+                </tr>*@
+                <tr>
+                    <td class="f_head">Default Document View</td>
+                    <td class="labelright">
+                        <input id="chkDocViewClient" type="radio" class="css-checkbox" name="docdefaultview" value="WordClient" />Desktop Client (Word, PowerPoint, Excel)
+                        <input id="chkDocViewOnline" type="radio" class="css-checkbox" name="docdefaultview" checked value="WordOnline" />Office Online
+                    </td>
+                </tr>
+                <tr style="display:none;">
+                    <td class="f_head">Allow external user to upload new versions of document(external share)?</td>
+                    <td class="labelright">
+                        <input id="chkExtUploadYes" type="radio" class="css-checkbox" name="docuploadexternal" value="Yes" />Yes
+                        <input id="chkExtUploadNo" type="radio" class="css-checkbox" name="docuploadexternal" checked="checked" value="No" />No
+                    </td>
+                </tr>
+            </table>                               
+        @*eO310045*@
+        <div class="formhead margin-top-20" id="divUserAccess"><span class="formhead_left font_20">User Access &amp; Permission</span><img id="imgNameHelp26" src="/Content/Images/input-help.png"><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblUserAccess', '', 'imgUserAccess');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgUserAccess" /></a></span></div>
+        <div id="tblUserAccess" class="width100">
+            <input id="chkInheritAllUser" name="chkInheritAllUser" disabled value="Inherit all users from parent business area" type="checkbox" class="css1-checkbox" />
+            <label for="chkInheritAllUser" id="chkInheritAllUserLabel" style="font-size:15px;">Inherit all users from parent business area</label>
+            <p class="margin-bottom-10">
+                Full Control User(s)<br />
+            </p>
+            <p>
+                <select id="ddlUserFC" multiple="multiple" class='f_inpt width90 nmailstone_h chosenmulti' name="ddlUserFC" title='user' data-placeholder='Select User(s)'></select>
+                <input id="hdntxtFullControlUsers" name="hdntxtFullControlUsers" type="hidden" />
+
+            </p>
+            <p class="margin-bottom-10">
+                Contribute User(s)<br />
+            </p>
+            <p>
+                <select id="ddlUserC" multiple="multiple" class='f_inpt width90 nmailstone_h chosenmulti' name="ddlUserC" title='user' data-placeholder='Select User(s)'></select>
+                <input id="hdntxtContributeUsers" name="hdntxtContributeUsers" type="hidden" />
+
+            </p>
+            <p class="margin-bottom-10">
+                Read Only User(s)<br />
+            </p>
+            <p>
+                <select id="ddlUserRO" multiple="multiple" class='f_inpt width90 nmailstone_h chosenmulti' name="ddlUserRO" title='user' data-placeholder='Select User(s)'></select>
+                <input id="hdntxtReadOnlyUsers" name="hdntxtReadOnlyUsers" type="hidden" />
+
+            </p>
+        </div>
+        <div class="formhead margin-top-20 FL_Workflow" id="divWorkflows" style="display:none"><span class="formhead_left font_20">Workflows</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblWorkflows', '', 'imgWF');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgWF" /></a></span></div>
+        <table id="tblWorkflows" cellpadding="2" cellspacing="2" class="width100 FL_Workflow" style="display:none">
+            <tr>
+                <td class="f_head">Contract Approval</td>
+                <td class="labelright width43">
+                    <select id="ddlApproval" class="f_inpt margin-bottom-2 width95" title="Contract Approval">
+                        <option value="0">--Select--</option>
+                    </select>
+
+                </td>
+                <td><img id="imgNameHelp15" src="/Content/Images/input-help.png"></td>
+                <td class="labelright width10 v_align_middle">
+                    <a href="javascript:void(0)" class="formhead_addnew-1" onclick="ManageWorkflows('Contract Approval');">Manage</a>
+                </td>
+                <td><img id="imgNameHelp19" src="/Content/Images/input-help.png"></td>
+            </tr>
+            <tr style="display:none;">
+                <td class="f_head">Renewal Approval</td>
+                <td class="labelright width43">
+                    <select id="ddlRenewal" class="f_inpt width95" title="Renewal Approval">
+                        <option value="0">--Select--</option>
+                    </select>
+                </td>
+                <td><img id="imgNameHelp16" src="/Content/Images/input-help.png"></td>
+                <td class="labelright width10 v_align_middle">
+                    <a href="javascript:void(0)" class="formhead_addnew-1" onclick="ManageWorkflows('Renewal Approval');">Manage</a>
+
+                </td>
+                <td><img id="imgNameHelp20" src="/Content/Images/input-help.png"></td>
+            </tr>
+            <tr>
+                <td class="f_head">Document Review</td>
+                <td class="labelright width43">
+                    <select id="ddlReview" class="f_inpt width95" title="Document Review">
+                        <option value="0">--Select--</option>
+                    </select>
+                </td>
+                <td><img id="imgNameHelp17" src="/Content/Images/input-help.png"></td>
+                <td class="labelright width10 v_align_middle">
+                    <a href="javascript:void(0)" class="formhead_addnew-1" onclick="ManageWorkflows('Document Review');">Manage</a>
+
+                </td>
+                <td><img id="imgNameHelp21" src="/Content/Images/input-help.png"></td>
+            </tr>
+            <tr class="FL_Requests" style="display:none">
+                <td class="f_head">Request Approval</td>
+                <td class="labelright width43">
+                    <select id="ddlRequest" class="f_inpt width95" title="Request Approval">
+                        <option value="0">--Select--</option>
+                    </select>
+                </td>
+                <td><img id="imgNameHelp18" src="/Content/Images/input-help.png"></td>
+                <td class="labelright width10 v_align_middle">
+                    <a href="javascript:void(0)" class="formhead_addnew-1" onclick="ManageWorkflows('Request Approval');">Manage</a>
+
+                </td>
+                <td><img id="imgNameHelp22" src="/Content/Images/input-help.png"></td>
+            </tr>
+            <tr>
+                <td class="f_head">Amendment Approval</td>
+                <td class="labelright width43">
+                    <select id="ddlAmendmentApproval" class="f_inpt width95" title="Amendment Approval">
+                        <option value="0">--Select--</option>
+                    </select>
+                </td>
+                <td><img id="imgNameHelp23" src="/Content/Images/input-help.png"></td>
+                <td class="labelright width10 v_align_middle">
+                    <a href="javascript:void(0)" class="formhead_addnew-1" onclick="ManageWorkflows('Amendment Approval');">Manage</a>
+
+                </td>
+                <td><img id="imgNameHelp24" src="/Content/Images/input-help.png"></td>
+            </tr>
+        </table>
+        @*<div class="formhead" id="divAlerts"><span class="formhead_left">Alerts</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('', '', 'imgAlerts');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgAlerts" /></a></span></div>*@
+
+        <div class="formhead margin-top-20" id="divDefaultProperties"><span class="formhead_left font_20">Default Properties</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblDefaultProperties', '', 'imgDefault');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgDefault" /></a></span></div>
+        <table id="tblDefaultProperties" cellpadding="2" cellspacing="2" class="width100">
+            <!---manoj--->
+            @*<tr>
+                <td class="f_head">Configure Contract Type<small class="required">*</small></td>
+                <td class="labelright f_list">
+                    <select id="ddlCnfcontracttype" class="f_inpt width90" title="Configure Contract Type">
+                        <option value="0">--Select--</option>
+                        <option value="default">Default to General</option>
+                        <option value="configure">Configure for This Area</option>
+                    </select>
+                    <img id="imgNameHelp23" src="/Content/Images/input-help.png">
+                </td>
+            </tr>*@
+            <!---manoj-->
+            <tr style="display:none">
+                <td class="f_head">Legal Entity</td>
+                <td class="labelright f_list">
+                    <select id="ddlLegalEntity" class="f_inpt width90" title="Legal Entity">
+                        <option value="0">--Select--</option>
+                    </select>
+                    <img id="imgNameHelp4" src="/Content/Images/input-help.png">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="f_head">Legal Entity<small class="required">*</small></td>
+                <td class="labelright">
+                    <input id="txtLegalEntity" title="Legal entity" maxlength="300" rows="3" class="f_inpt width83 margin-bottom-2 validelement" readonly='readonly' type='text' />
+
+                    <img id="imgLegalEntity" title="Select appropriate legal entity from the list." src="/Content/Images/input-help.png" />
+                   
+                    <span class="orgsetup_addnew"><a href="javascript:void(0);" class="formhead_addnew-1" onclick="ViewLegalentity();">Browse</a></span>
+                </td> 
+
+            </tr>
+           
+            <tr>
+                <td class="f_head">Contract Currency<small class="required">*</small></td>
+                <td class="labelright f_list">
+                    <select id="ddlCurrency" class="f_inpt margin-bottom-2 width90" title="Currency">
+                        <option value="0">--Select--</option>
+                    </select>
+                    <img id="imgNameHelp5" src="/Content/Images/input-help.png">
+                </td>
+            </tr>
+        </table>
+        <div class="formhead margin-top-20" id="divNumbering"><span class="formhead_left font_20">Contract Numbering</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('tblNumbering', '', 'imgNumbering');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgNumbering" /></a></span></div>
+        <div id="tblNumbering" class="width100">
+            <p class="margin-bottom-0">
+                <input id="rdNumManual" type="radio" name="ContractNumber" onclick="javascript:changegenerateoption(this);" class="css-checkbox" checked value="Manual" />
+                <label for="rdNumManual" style="font-size:15px;">Allow user to assign Contract Record Number manually</label>
+                <img id="imgNameHelp6" src="/Content/Images/input-help.png">
+            </p>
+            <p class="margin-bottom-0">
+                <input id="rdNumAutoNonEdit" type="radio" name="ContractNumber" onclick="javascript:changegenerateoption(this);" class="css-checkbox" value="Auto-NonEdit" />
+                <label for="rdNumAutoNonEdit" style="font-size:15px;">Auto generate Contract Record Numbers for all Contract Records (non-editable by user)</label>
+                <img id="imgNameHelp7" src="/Content/Images/input-help.png"><br/>
+                <label id="lblautogenerate" style="font-style:italic; color:#000000; display:none">For example,{User Entry}{Separator}{CreatedDate}{Separator}{Autoincrement} : for CON/12122013/550</label> 
+            </p>
+            <p class="margin-bottom-0">
+                <input id="rdNumAuto" type="radio" name="ContractNumber" onclick="javascript:changegenerateoption(this);" class="css-checkbox" value="Auto" />
+                <label for="rdNumAuto" style="font-size:15px;">Auto generate Contract Record Numbers on demand (editable by user)</label>
+                <img id="imgNameHelp8" src="/Content/Images/input-help.png">
+            </p>
+            <p class="margin-bottom-0" id="pAutoNumber" style="display:none;">
+                <label class="required">Auto generate Contract Record Number option is disabled since Contract Record Number format is not set.(<a href="javascript:navigatetonumberingscheme();">Click here..</a> to set the format)</label>
+                <img style="display:none" id="imgNameHelp9" src="/Content/Images/input-help.png">
+            </p>
+        </div>
+        <div class="formhead margin-top-20" id="divContractTypes"><span class="formhead_left font_20">Contract Area Settings</span><span class="formhead_right"><a href="javascript:void(0);" onclick="javascript: togglediv('spnContractTypes', '', 'imgContractTypes');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgContractTypes" /></a></span></div>
+        <div id="spnContractTypes">
+            <div class="formhead margin-top-20" id="divContractTypes"><span class="formhead_left admn-Bussines-Color">Available Contract Record Type(s)<small class="required">*</small></span><span class="formhead_right"></span></div>
+            <div id="spnContractTypes">
+                <select id="ddlContractType" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlContractType" title='Contract Type' data-placeholder='Select Contract Types'></select>
+                <img id="imgNameHelp10" src="/Content/Images/input-help.png">
+                <span class="orgsetup_addnew clconfiguredisable"><a href="javascript:void(0);" class="formhead_addnew-1" onclick="addcontracttype();">Add New</a></span>
+            </div>
+            <div class="formhead margin-top-20 FL_Requests" id="divRequestTypes" style="display:none"><span class="formhead_left admn-Bussines-Color">Available Request Type(s)<small class="required">*</small></span><span class="formhead_right"></span></div>
+            <div id="spnRequestTypes" class="FL_Requests" style="display:none">
+                <select id="ddlRequestType" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlRequestType" title='Request Type' data-placeholder='Select Request Types'></select>
+                <img id="imgNameHelp11" src="/Content/Images/input-help.png">
+                <span class="orgsetup_addnew clconfiguredisable"><a href="javascript:void(0);" class="formhead_addnew-1" onclick="addrequesttype();">Add New</a></span>
+            </div>
+            <div class="formhead margin-top-20 FL_Automation" id="divDocTemplates" style="display:none"><span class="formhead_left admn-Bussines-Color">Available Document Template(s)<label id="lblwarnigmsgTemp" style="font-style: italic; color: rgb(0, 0, 0);display:none">(Note:By removing Document Template, It will be removed from Contract Record Type and Request Type available for this Contract Area even if it is set as required)</label></span><span class="formhead_right"></span></div>
+            <div id="spnDocTemplates" class="FL_Automation" style="display:none">
+                <select id="ddlDocTemplates" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlDocTemplates" title='Document Templates' data-placeholder='Select Document Templates'></select>
+                <img id="imgNameHelp12" src="/Content/Images/input-help.png">
+                <span class="orgsetup_addnew"><a href="javascript:void(0);" class="formhead_addnew-1" onclick="adddocumenttemplate();">Add New</a></span>
+            </div>
+            <div class="formhead margin-top-20" id="divDocTypes"><span class="formhead_left admn-Bussines-Color">Available Document Type(s)<small class="required">*</small><label id="lblwarnigmsgType" style="font-style: italic; color: rgb(0, 0, 0);display:none">(Note:By removing Document Type, It will be removed from Contract Record Type and Request Type available for this Contract Area even if it is set as required)</label></span><span class="formhead_right"></span></div>
+            <div id="spnDocTypes" style="overflow: initial !important">
+                <select id="ddlDocTypes" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlDocTypes" title='Document Types' data-placeholder='Select Document Types'></select>
+                <img id="imgNameHelp13" src="/Content/Images/input-help.png">
+                <span class="orgsetup_addnew"><a href="javascript:void(0);" class="formhead_addnew-1" onclick="adddocumenttype();">Add New</a></span>
+            </div>
+        </div>
+    </div>
+    <table id="example-basic-1" style="border:1px solid #dcdcdc;" class="treetable">
+        @*<thead>
+                <tr>
+                    <th>Business Area</th>
+                    <th>Owner</th>
+                    <th>Add</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>*@
+        <tbody id="tbodyBusinessArea">
+            <tr data-tt-id="asdasd" class="branch expanded">
+                <td class="treeHead">
+                    <span class="indenter" style="padding-left: 5px;"></span>
+                    <img src="/Content/Images/icon/globset.png" style="cursor:default" title="Global Contract Area" />
+                    <span style="padding-left:10px;vertical-align: middle;" title="Global Contract Area">
+                        Global
+                        &nbsp;<img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuglobal" />
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @*<script src="~/Scripts/Contract365/Settings_BusinessAreas.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+</div>
+
+<div id="addEditDocumentType" style="display:none;">
+    <div id="dvPopupHeadingDocumentType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtDocumentTypeID" name="DocumentTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Document Type <small class="required">*</small></td>
+                    <td class="labelright"><input id="txtDocumentType" onchange="ReplaceSpecialCharacters(this);" maxlength="50" name="DocumentType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="addEditTemplate" style="display:none;">
+    <div id="dvPopupHeadingTemplateName" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            @*<form method="post" enctype="multipart/form-data" action="~/Home/DefaultView">
+                @Html.AntiForgeryToken()*@
+                <table id="tblUploadTemplate" cellpadding="2" cellspacing="2" class="width100">
+                    <tr>
+                        <td class="f_head">Template Name<small class="required">*</small></td>
+                        <td class="f_list">
+                            <input id="txtTemplateName" name="TemplateName" onchange="ReplaceSpecialCharacters(this);" maxlength="50" type="text" title="Template Name" class="f_inpt width80 validelement validtitle" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head" style="vertical-align: top; display: table-cell;">Browse Template<small class="required">*</small></td>
+                        <td class="f_list"><input type="file" id="docTemplate" name="file" title="Document" class="f_inpt width80 validelement" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.template" /></td>
+                    </tr>
+                    <tr>
+                        <td class="f_head" style="vertical-align: top; display: table-cell;">Document Type<small class="required">*</small></td>
+                        <td class="f_list">
+                            <select id="ddlDocumentType" name="DocumentType" title="Document Type" class="f_inpt width80 validelement">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+<div id="AddEditContractTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTypeID" name="ContractTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Contract Type Name<span class="required">*</span></td>
+                    <td class="labelright"><input id="txtContractType" onchange="ReplaceSpecialCharacters(this);" maxlength="50" name="ContractType" type="text" class="f_inpt width70 validelement" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Transaction Type<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlTransactionType" name="TransactionType" class="f_inpt width70 validelement">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option value="Buy-Side">Buy-Side</option>
+                            <option value="Sell-Side">Sell-Side</option>
+                            <option value="Legal/General Agreement">Legal/General Agreement</option>
+                        </select>
+                    </td>
+                </tr>
+                @*<tr>
+                    <td class="f_head">Contract Class<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlContractClass" name="ContractClass" class="f_inpt width70 validelement">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Master Agreement">Master Agreement</option>
+                            <option value="Sub-Contract">Sub-Contract</option>
+                        </select>
+                    </td>
+                </tr>*@
+                <tr>
+                    <td class="f_head">Default Term Type</td>
+                    <td class="labelright">
+                        <select id="ddlContractTermType" name="ContractTermType" class="f_inpt width70 ">
+                            @*<option value="0" selected="selected">--Select--</option>
+                            <option value="Fixed Term">Fixed Term</option>
+                            <option value="Evergreen / Perpetual">Evergreen / Perpetual</option>
+                            <option value="Renewable">Renewable</option>
+                            <option value="Executed / Performance">Executed / Performance</option>*@
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" name="Description" maxlength="300" rows="2" cols="20" class="f_text-box width70"></textarea></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Extensions</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Extendable" id="chkExtendable" class="css1-checkbox" value="Extendable" />
+                        <label for="chkExtendable" class="css1-label">Yes, Contracts of this type can be extended.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkExtensionApproval" disabled="disabled" name="ExtensionApproval" class="css1-checkbox" type="checkbox" value="ExtensionApproval" />
+                        <label for="chkExtensionApproval" class="css1-label">Extensions requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Renewals</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Renewable" id="chkRenewable" class="css1-checkbox" value="Renewable" />
+                        <label for="chkRenewable" class="css1-label">Yes, Contracts of this type are renewable.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left: 20px;">
+                        <input id="chkRenewalApproval" disabled="disabled" name="RenewalApproval" class="css1-checkbox" type="checkbox" value="RenewalApproval" />
+                        <label for="chkRenewalApproval" class="css1-label">Renewals requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head">Contract Amendments</td>
+                    <td class="f_list">
+                        <input type="checkbox" name="Amendable" id="chkAmendable" class="css1-checkbox" value="Amendable" />
+                        <label for="chkAmendable" class="css1-label">Yes, Contracts of this type can be amended.</label>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px dashed #808080; display:none">
+                    <td class="f_head"></td>
+                    <td class="f_list" style="padding-left: 20px; padding-bottom: 10px;">
+                        <input id="chkAmendmentApproval" disabled="disabled" name="AmendmentApproval" class="css1-checkbox" type="checkbox" value="AmendmentApproval" />
+                        <label for="chkAmendmentApproval" class="css1-label">Amendments requires approvals.</label>
+                    </td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head" style="padding-top: 10px;">Available for Organisations</td>
+                    <td class="f_list" id="AvailableOrganisations"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="AddEditRequestTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtRequestTypeID" name="RequestTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Request Type Name <small class="required">*</small></td>
+                    <td class="labelright"><input id="txtRequestType" onchange="ReplaceSpecialCharacters(this);" maxlength="50" name="RequestType" type="text" class="f_inpt width70 validelement " /></td>
+                </tr>
+               
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright"><textarea id="txtDescription" name="Description" rows="2" maxlength="300" cols="20" class="f_text-box width70"></textarea></td>
+                </tr>
+
+                @*<tr style="border-bottom:1px dashed #808080">
+                    <td class="f_head">Contract Area</td>
+                    <td class="labelright">
+                        <select id="ddlContractArea" multiple="multiple" class='f_inpt width90 chosenmulti' name="ddlContractArea" title='Contract Area' data-placeholder='Select Contract Area(s)'></select>
+                    </td>
+                </tr>*@
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="AddEditDialogGlobal" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div>
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head" >Contract Area Name</td>
+                    <td class="labelright" width="55%"><input id="txt" maxlength="50" disabled value="Global" type="text" class="f_inpt width90" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        <label>Global Contract Owner(s)</label>
+                    </td>
+                    <td class="labelright">
+                        <select class="f_inpt width90 chosenmulti" title="Select User(s)" id="ddlGlobalContractOwners" multiple data-placeholder='Select'></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+@**Harshitha*@
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;margin-top: -10px !important;">
+    <span>Please select the contract area/business area where you want to move this business area.</span>
+    <div id="loadBA"></div>
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+    <input id="txtBusinessAreaDescription" type="hidden" />
+</div>
+
+<div id="browseLegalEntity">
+   
+    <div id="dvCPExistingLegalEntity" class="width100">
+        @*<article style="width:100%; text-align:center;">
+                <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchCounterparty();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchCounterparty();">Clear</a>
+            </article>*@
+        <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+            <div id="listLEWrapper">
+                @*<table id="tblCounterparties"></table>*@
+            </div>
+            @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+                    <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').attr('checked', false);">Unselect All</a>
+                </span>*@
+            <div id="loadGenLegalEntity"></div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationLegalEntity"></article>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedLegalEntity">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+<div id="deletingPage" style="display:none;">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Deleting...
+        </p>
+    </div>
+</div>
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="addnew"><a href="#add">Add</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+    <li class="duplicate"><a href="#duplicate">Duplicate</a></li>
+</ul>
+<ul id="myMenuBusinessArea" class="contextMenu">
+    <li class="addnew"><a href="#add">Add</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+    <li class="mail"><a href="#move">Move</a></li>
+   
+</ul>
+
+<ul id="myMenuGlobal" class="contextMenu">
+    <li class="edit"><a href="#manage">Manage</a></li>
+</ul>
+<input id="txtRowKey" type="text" style="display:none;" />
+<input id="txtParentID" type="text" style="display:none;" />
+
+<ul id="myMenuGeneral" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+
+<script src="/Scripts/chosen.jquery.js" type="text/javascript"></script>
+<script src="/Scripts/prism.js"></script>
+<style>
+    .chosen-container{
+        width: 90% !important;
+    }
+    .default{
+        width:250px !important;
+    }
+</style>
+<script type="text/javascript">
+    var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': { allow_single_deselect: true },
+        '.chosen-select-no-single': { disable_search_threshold: 10 },
+        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+    $(".ui-dialog .ui-dialog-content").css("overflow", "visible");
+    $(".ui-dialog").css("overflow", "inherit");
+</script>
+
+@section Scripts {
+<script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Settings_BusinessAreas.js?" + DateTime.Now.GetHashCode())
+}

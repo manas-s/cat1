@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "General Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<table class="width95_a" style="margin-bottom:20px;" id="tblGeneralSettings">
+    <tr style="display:none">
+        <td class="pageheading" colspan="2">
+            General Settings
+            <img src="~/Content/Images/help_training.png" alt="Contract Types" title="Configure a standard numbering scheme for all Contract Records. " />
+        </td>
+    </tr>
+    <tr>
+        <td class="pageheading" colspan="2">General Settings <img src="~/Content/Images/help_training.png" alt="General Settings" title="Configure general settings. " /></td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Default Amendment</td>
+        <td class="labelright" width="70%">
+            <input id="rdDefaultAmendmentYes" type="radio" name="DefaultAmendment" class="css-checkbox" value="Yes" />
+            <label for="rdDefaultAmendmentYes" class="css-label margin-right8">Completed</label>
+            <input id="rdDefaultAmendmentNo" type="radio" name="DefaultAmendment" class="css-checkbox" value="No" />
+            <label for="rdDefaultAmendmentNo" class="css-label margin-right8">Not Completed</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Contract Relationship Scope</td>
+        <td class="labelright" width="70%">
+            <select class="f_inpt width50 margin-left-10 validelement" name="ContractRelationshipScope" id="ddlContractRelationshipScope">
+                <option value="Only with Business Area">Only within Business Area</option>
+                <option value="Contract Area">Only within Contract Area</option>
+                <option value="System Level">System Level Contract Records</option>
+            </select>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Counterparty Relationship Scope</td>
+        <td class="labelright" width="70%">
+            <select class="f_inpt width50 margin-left-10 validelement" name="CounterpartyRelationshipScope" id="ddlCounterpartyRelationshipScope">
+                <option value="Only with Business Area">Only within Business Area</option>
+                <option value="Contract Area">Only within Contract Area</option>
+                <option value="System Level">System Level Contract Records</option>
+            </select>
+        </td>
+
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Display Alerts for Missing information</td>
+        <td class="labelright" width="70%">
+            <input id="rdDisplayMissinginformationYes" type="radio" name="MissingInformation" class="css-checkbox" value="Yes" />
+            <label for="rdDisplayMissinginformationYes" class="css-label margin-right8">Yes</label>
+            <input id="rdDisplayMissinginformationNo" type="radio" name="MissingInformation" class="css-checkbox" value="No" />
+            <label for="rdDisplayMissinginformationNo" class="css-label margin-right8">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Restrict high Security tagging <img title="Restrict uploading documents,Contracts etc with restricted security tags." alt="Restrict High Security Tags" src="../Content/Images/help_training.png"></td>
+        <td class="labelright" width="70%">
+            <input id="rdRestrictHighSecurityYes" type="radio" name="RestrictHighSecurity" class="css-checkbox" value="Yes" />
+            <label for="rdRestrictHighSecurityYes" class="css-label margin-right8">Yes</label>
+            <input id="rdRestrictHighSecurityNo" type="radio" name="RestrictHighSecurity" class="css-checkbox" value="No" />
+            <label for="rdRestrictHighSecurityNo" class="css-label margin-right8">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Authorize Signatory(ies)</td>
+        <td class="labelright" width="70%">
+            <input id="rdAuthorizeSignContractType" type="radio" name="AuthorizedSignatory" class="css-checkbox" value="By Contract Type" />
+            <label for="rdAuthorizeSignContractType" class="css-label margin-right8">By Contract Type</label>
+            <input id="rdAuthorizeSignLegalEntity" type="radio" name="AuthorizedSignatory" class="css-checkbox" checked value="By Legal Entity" />
+            <label for="rdAuthorizeSignLegalEntity" class="css-label margin-right8">By Legal Entity</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="70%">
+            <input type="checkbox" name="chAuthSignRestriction" id="chkAuthSignRestrict" checked="" class="summary_Check">
+            <label for="chAuthSignRestriction" class="summary_Check_Right margin-top-min5">Restrict authorized signatory picker to the above selection</label>
+        </td>
+    </tr>
+    @*<tr>
+        <td class="f_head" align="right">Enable Obligations - Pipeline</td>
+        <td class="labelright" width="70%">
+            <input id="rdEnableObligationsYes" type="radio" name="EnableObligationsPipeline" class="css-checkbox" value="Yes" />
+            <label for="rdEnableObligationsYes" class="css-label margin-right8">Yes</label>
+            <input id="rdEnableObligationsNo" type="radio" name="EnableObligationsPipeline" class="css-checkbox" value="No" />
+            <label for="rdEnableObligationsNo" class="css-label margin-right8">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Enable Milestones - Pipeline</td>
+        <td class="labelright" width="70%">
+            <input id="rdEnableMilestonesYes" type="radio" name="EnableMilestonesPipeline" class="css-checkbox" value="Yes" />
+            <label for="rdEnableMilestonesYes" class="css-label margin-right8">Yes</label>
+            <input id="rdEnableMilestonesNo" type="radio" name="EnableMilestonesPipeline" class="css-checkbox" value="No" />
+            <label for="rdEnableMilestonesNo" class="css-label margin-right8">No</label>
+        </td>
+    </tr>*@
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSaveProfile" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancelProfile" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>
+
+@*<div id="dvKeywords" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table class="tblgrid width100" id="tblKeywords">
+                <tr>
+                    <th>Keyword</th>
+                    <th>Description</th>
+                </tr>
+                <tr><td>{CreatedDate}</td><td>Created Date</td></tr>
+                <tr><td>{Autoincrement}</td><td>Auto increment no</td></tr>
+            </table>
+        </div>
+    </div>*@
+
+@section Scripts {
+    <script src="~/Scripts/Contract365/Settings_GeneralSettings.js" type="text/javascript"></script>
+    @*<script src="~/Scripts/chosen.order.jquery.min.js"></script>*@
+}

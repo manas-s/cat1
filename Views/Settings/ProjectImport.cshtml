@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Project Import";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<style>
+    #tbBulkControls td {
+        min-width:180px;
+    }
+
+</style>
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading" style="width:4%">
+            
+        </td>   
+        <td class="pageheading">
+            Project Import
+            <img src="~/Content/Images/help_training.png" alt="Import project from excel" title="Import project from excel" />
+        </td>
+    </tr>
+</table>
+<br/>
+<div>    
+    <div id="divFileUpload" class="width100">
+        <ul>
+            <li>
+                <input type="file" id="docCounterparty" name="file" title="excel file" class="validelement" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a href="javascript:void(0);" id="btnImport" onclick="readexcelfile()" class="f_button_green_small" style="margin-top:10px;">Read Excel</a>
+                <a href="javascript:void(0);" id="btnImportCancel" class="f_button_white_small" style="margin-top:10px;">Clear</a>
+            </li>
+        </ul>
+
+    </div>
+    <div id="page-wrap" style="overflow:auto; height:500px;">
+        <table class="paginated width100" id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;"></table>
+    </div>
+    <span id="imgCreating" style="display:none;">
+        <img src="../Content/Images/icon/loading.gif"> Importing Project(s)...
+    </span>
+    <div id="btns" style="display: none; margin:20px 0;">        
+        <a href="javascript:void(0);" id="btnCreateBulkCounterparty" class="f_button_green_small" onclick="importprojects()">Import From Excel</a>
+        <a id="btnCancel" href="javascript:void(0);" class="f_button_white_small">Cancel</a>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_ProjectImport.js?" + DateTime.Now.GetHashCode())
+}

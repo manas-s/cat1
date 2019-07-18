@@ -1,0 +1,3482 @@
+﻿@{
+    ViewBag.Title = "Standard Lookup Values";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<table class="width95_a">
+
+
+    <tr>
+        <td class="pageheading font-normal">
+            Metadata Field Lookups (Standard)
+            <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Manage options for Standard lookups in eContracts.">
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNewLookup" type="submit" value="Add New" style="display:none;" class="f_button_green_small"></td>
+    </tr>
+
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Milestone Types" style="color:#000;">
+                                Milestone Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Milestonlink" onclick="Milestonfields()" style="margin-left: -9px;" milestoneystemfields">Milestone Types</a>*@
+                        </td>
+
+                    </tr>
+
+
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    <!-- Milestone Types -->
+    @*<tr class="collapseMilestonetype">
+            <td class="pageheading">Milestone Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewMilestoneType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseMilestonetype">
+            <td colspan="4">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableMilestone" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footleft">
+                                         Milestone Type <a class="search-btn" id="trigger" onclick="ShowDiv();" href="javascript:void(0)"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="drop" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search" id="txtmilestone"><input class="myButton" onclick="TableSearch('txtmilestone', 'customertableMilestone');" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0)" onclick="SortTableAtoZ('customertableMilestone');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="SortTableZtoA('customertableMilestone');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (ViewBag.MilestoneTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.MilestoneTypes)
+                                        {
+                                            <tr id="row">
+                                                <td align="center" id="MilestoneType">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditMilestoneType(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeleteMilestonetype(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No items found.</td></tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationMilestone"></article>
+                </div>
+            </td>
+        </tr>*@
+
+
+
+    @*</tr>*@
+
+
+
+
+
+
+
+
+    <!-- Pricing Type -->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Contract Pricing Types" style="color:#000;">
+                                Contract Pricing Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Pricinglink" onclick="Pricingfields()" style="margin-left: -9px;" id=" Pricingsystemfields">Contract Pricing Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    @*  <tr class="collapsePricingtype">
+            <td class="pageheading">Contract Pricing Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewPricingType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapsePricingtype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertablePriceType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footPriceType">
+                                            Contract Pricing Type <a class="search-btn" id="triggerPriceType" onclick="ShowDiv();" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropPriceType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.PricingTypes != null)
+                                    {
+                                        if (ViewBag.PricingTypes.Count > 0)
+                                        {
+                                            foreach (var item in ViewBag.PricingTypes)
+                                            {
+                                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                    <td id="PricingType" align="center">@item.TypeName</td>
+                                                    <td align="center">  @item.CreatedBy  </td>
+                                                    <td align="center">@item.Modified</td>
+                                                    <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditPricing_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeletePricing_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td>No Pricing Type found.</td></tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Pricing Type found.</td></tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationPriceType"></article>
+                </div>
+            </td>
+        </tr>*@
+    <!-- Billing Frequency -->
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Billing Frequency" style="color:#000;">
+                                Billing Frequency
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Billinglink" style="margin-left: -9px;" onclick="Billingfields()">Billing Frequency</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    @*<tr class="collapseBillingtype">
+
+            <td class="pageheading">Billing Frequency</td>
+            <td class="pageheading" align="right"><input id="btnAddNewBillingFrequency" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseBillingtype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableBillFreq" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footBillFreq">
+                                            Billing Frequency<a class=" search-btn" id="triggerBillFreq" onclick=" showdiv();" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropBillFreq" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.BillingFrequency != null)
+                                    {
+                                        if (ViewBag.BillingFrequency.Count > 0)
+                                        {
+                                            foreach (var item in ViewBag.BillingFrequency)
+                                            {
+                                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                    <td align="center" id="BillingFrequency">@item.TypeName</td>
+                                                    <td align="center">  @item.CreatedBy  </td>
+                                                    <td align="center">@item.Modified</td>
+                                                    <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditBilling_Frequency(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeleteBilling_Frequency(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td>No Billing Frequency found.</td></tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Billing Frequency found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationBillFreq"></article>
+                </div>
+            </td>
+        </tr>*@
+    <!-- Obligation Types -->
+
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Obligation Types" style="color:#000;">
+                                Obligation Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Obligationlink" style="margin-left: -9px;" onclick="Obligationfields()">Obligation Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    @*<tr class="collapseObligationtype">
+            <td class="pageheading">Obligation Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewObligationType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseObligationtype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableOblType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footOblType">
+                                            Obligation Type <a class="search-btn" id="triggerOblType" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropOblType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.ObligationTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.ObligationTypes)
+                                        {
+                                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                <td id="ObligationType" align="center">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditObligation_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeleteObligation_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Obligation Type found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationOblType"></article>
+                </div>
+            </td>
+        </tr>*@
+    <!-- Amendment Types -->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Amendment Types" style="color:#000;">
+                                Amendment Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Amendmentlink" style="margin-left: -9px;" onclick="Amendmentfields()">Amendment Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    @*<tr class="collapseAmendmenttype">
+            <td class="pageheading">Amendment Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewAmendmentType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseAmendmenttype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableAmendType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footAmendType">
+                                            Amendment Types <a class="search-btn" id="triggerAmendType" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropAmendType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.AmendmentTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.AmendmentTypes)
+                                        {
+                                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                <td id="AmendmentType" align="center">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditAmendment_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeleteAmendment_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Amendment Type found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationAmendType"></article>
+                </div>
+            </td>
+        </tr>*@
+    <!-- Counterparty Types -->
+    @*<tr>
+            <td>
+                <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                    <table>
+
+                        <tr>
+                            <td><a class="Counterpartytlink" style="margin-left: -9px;" onclick="Counterpartyfields()">Counterparty Types</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr class="collapseCounterpartytype">
+
+            <td class="pageheading">Counterparty Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewCounterpartyType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseCounterpartytype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <table id="customertableCounterparty" class="paginated width100">
+                        <tbody>
+                            @if (ViewBag.CounterpartyTypes != null)
+                            {
+                                foreach (var item in ViewBag.CounterpartyTypes)
+                                {
+                                    <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                        <td id="CounterpartyType" style="display:none;">@item.TypeName</td>
+                                        <td>
+                                            @item.TypeName
+                                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuCounterpartyType margintop-2px" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td>No Counterparty Type found.</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationCounterparty"></article>
+                </div>
+            </td>
+        </tr>*@
+
+
+    <!-- Term Category -->
+    @*<tr>
+            <td class="pageheading">Term Categories</td>
+            <td class="pageheading" align="right"><input id="btnAddNewTermCat" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="page-wrap">
+                    <table id="customertableTermCategory" class="paginated width100">
+                        <tbody>
+                            @if (ViewBag.TermCategories != null)
+                            {
+                                foreach (var item in ViewBag.TermCategories)
+                                {
+                                    <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                        <td id="TermsCategory" style="display:none;">@item.TypeName</td>
+                                        <td>
+                                            @item.TypeName
+                                            <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" class="openmenuTermCat margintop-2px" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td>No Term Category found.</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationTermCategory"></article>
+                </div>
+            </td>
+        </tr>*@
+    <!-- Payment Types -->
+
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Payment Types" style="color:#000;">
+                                Payment Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Paymentlink" style="margin-left: -9px;" onclick="Paymentfields()">Payment Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    @*<tr class="collapsePaymenttype">
+
+            <td class="pageheading">Payment Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewPaymentType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapsePaymenttype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertablePaymentType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footPaymentType">
+                                            Payment Types <a class="search-btn" id="triggerPaymentType" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropPaymentType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.PaymentTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.PaymentTypes)
+                                        {
+                                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                <td id="PaymentType" align="center">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditPayment_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="DeletePayment_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Payment Type found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationPaymentType"></article>
+                </div>
+            </td>
+        </tr>*@
+
+
+
+    <!-- Unit Types -->
+
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Unit Types" style="color:#000;">
+                                Unit Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Unitlink" style="margin-left: -9px;" onclick="Unitfields()">Unit Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    @*<tr class="collapseUnittype">
+
+            <td class="pageheading">Unit Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewUnitType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseUnittype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableUnitType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footUnitType">
+                                            Unit Type <a class="search-btn" id="triggerUnitType" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropUnitType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.UnitTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.UnitTypes)
+                                        {
+                                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                <td id="UnitType" align="center">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditUnit_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="    DeleteUnit_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Unit Type found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationUnitType"></article>
+                </div>
+            </td>
+        </tr>*@
+
+    <!-- Licence Types -->
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Licence Types" style="color:#000;">
+                                Licence Types
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    <!-- Area of Modification -->
+
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Area of Modification / Deviation" style="color:#000;">
+                                Area of Modification / Deviation
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <!-- Procurement Category -->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Procurement Category" style="color:#000;">
+                                Procurement Category
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <!-- Send Notices for -->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Send Notices for" style="color:#000;">
+                                Send Notices for
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <!--  Remedies / Damages -->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Remedies / Damages" style="color:#000;">
+                                Remedies / Damages
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    @*<tr class="collapseLicencetype">
+
+            <td class="pageheading">Licence Types</td>
+            <td class="pageheading" align="right"><input id="btnAddNewLicenceType" type="button" value="Add New" class="f_button_green_small" /></td>
+        </tr>
+        <tr class="collapseLicencetype">
+            <td colspan="2">
+                <div id="page-wrap">
+                    <div class="fields-table">
+
+                        <div class="table-sec">
+                            <table id="customertableLicenceType" cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                                <thead>
+                                    <tr>
+                                        <th id="footLicenceType">
+                                            Licence Type <a class="search-btn" id="triggerLicenceType" href="javascript:void(0);"><span><img src="../Content/Images/arrow_white.png" alt="" title=""></span></a>
+                                            <div class="search-sec" id="dropLicenceType" style="display:none;">
+
+                                                <input type="text" value="" placeholder="Search"><input class="myButton" type="submit" value="">
+                                                <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0);"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                            </div>
+
+                                        </th>
+                                        <th>Created By</th>
+                                        <th>Modified On</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.LicenceTypes != null)
+                                    {
+                                        foreach (var item in ViewBag.LicenceTypes)
+                                        {
+                                            <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                                <td id="LicenceType" align="center">@item.TypeName</td>
+                                                <td align="center">  @item.CreatedBy  </td>
+                                                <td align="center">@item.Modified</td>
+                                                <td align="center"><a id="@item.TypeName" href="javascript:void(0)" onclick="EditLicence_Type(this);"><img src="../Content/Images/CM_edit.png" alt="" title="edit"></a> <a id="d_@item.TypeName" href="javascript:void(0)" onclick="    DeleteLicence_Type(this);"><img src="../Content/Images/CM_remove.png" alt="" title="delete"></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td>No Licence Type found.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="pagination-holder clearfix">
+                    <article id="compact-paginationLicenceType"></article>
+                </div>
+            </td>
+        </tr>*@
+
+    <!--manoj-->
+    <!--Clause Category-->
+    <tr>
+        <td>
+            <div style="padding: 10px 10px; text-align: left; border-bottom: 1px solid #d1ecff;">
+                <table>
+
+                    <tr>
+                        <td>
+                            <a href="~/Settings/StandardLookupValues?lookupname=Clause Category" style="color:#000;">
+                                Clause Category
+                            </a>
+                            <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                            @*<a class="Licencelink" style="margin-left: -9px;" onclick="Licencefields()">Licence Types</a>*@
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <!--Clause Category-->
+    <!--manoj-->
+
+
+</table>
+
+<!-- Right Click Menu-Payment Type -->
+<ul id="myMenuPaymentType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    @*<li class="delete"><a href="#delete">Delete</a></li>*@
+</ul>
+
+<!-- Popup Window-Payment Type -->
+<div id="addEditPaymentType" style="display:none;">
+    <div id="dvPopupHeadingPaymentType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtPaymentTypeID" name="PaymentTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Payment Type <small class="required">*</small></td>
+                <td class="labelright"><input id="txtPaymentType" maxlength="100" name="PaymentType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Right Click Menu-Term Category -->
+<ul id="myMenuTermCat" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Term Category -->
+<div id="addEditTermCat" style="display:none;">
+    <div id="dvPopupHeadingTermCat" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtTermCatID" name="TermCatID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Term Category</td>
+                <td class="labelright"><input id="txtTermCat" name="TermCat" type="text" class="f_inpt width80" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- Right Click Menu-Milestone Types -->
+<ul id="myMenuMilestoneType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Milestone Types -->
+<div id="addEditMilestoneType" style="display:none;">
+    <div id="dvPopupHeadingMilestoneType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtMilestoneTypeID" name="MilestoneTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Milestone Type
+                    <small class="required">*</small>
+                </td>
+                <td class="labelright"><input id="txtMilestoneType" maxlength="100" name="MilestoneType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Right Click Menu-Pricing Types -->
+<ul id="myMenuPricingType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Pricing Types -->
+<div id="addEditPricingType" style="display:none;">
+    <div id="dvPopupHeadingPricingType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtPricingTypeID" maxlength="100" name="PricingTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Pricing Type<small class="required">*</small></td>
+                <td class="labelright"><input id="txtPricingType" name="PricingType" maxlength="100" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Right Click Menu-Billing Frequency -->
+<ul id="myMenuBillingFrequency" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Billing Frequency -->
+<div id="addEditBillingFrequency" style="display:none;">
+    <div id="dvPopupHeadingBillingFrequency" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtBillingFrequencyID" name="BillingFrequencyID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Billing Frequency<small class="required">*</small></td>
+                <td class="labelright"><input id="txtBillingFrequency" maxlength="100" name="BillingFrequency" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- Right Click Menu-Obligation Type -->
+<ul id="myMenuObligationType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Obligation Type -->
+<div id="addEditObligationType" style="display:none;">
+    <div id="dvPopupHeadingObligationType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtObligationTypeID" name="ObligationTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Obligation Type<small class="required">*</small></td>
+                <td class="labelright"><input id="txtObligationType" maxlength="100" name="ObligationType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Right Click Menu-Unit Type -->
+<ul id="myMenuUnitType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Unit Type -->
+<div id="addEditUnitType" style="display:none;">
+    <div id="dvPopupHeadingUnitType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtUnitTypeID" name="UnitTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Unit Type <small class="required">*</small> </td>
+                <td class="labelright"><input id="txtUnitType" maxlength="100" name="UnitType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!-- Right Click Menu-Amendment Type -->
+<ul id="myMenuAmendmentType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Amendment Type -->
+<div id="addEditAmendmentType" style="display:none;">
+    <div id="dvPopupHeadingAmendmentType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtAmendmentTypeID" name="AmendmentTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">
+                    Amendment Type
+                    <small class="required">*</small>
+                </td>
+                <td class="labelright"><input id="txtAmendmentType" maxlength="100" name="AmendmentType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Right Click Menu-Counterparty Type -->
+@*<ul id="myMenuCounterpartyType" class="contextMenu">
+        <li class="edit"><a href="#edit">Edit</a></li>
+        <li class="delete"><a href="#delete">Delete</a></li>
+    </ul>*@
+
+<!-- Popup Window-Counterparty Type -->
+@*<div id="addEditCounterpartyType" style="display:none;">
+        <div id="dvPopupHeadingCounterpartyType" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table cellpadding="2" cellspacing="2" width="90%">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtCounterpartyTypeID" name="CounterpartyTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Counterparty Type <small class="required">*</small> </td>
+                    <td class="labelright"><input id="txtCounterpartyType" maxlength="100" name="CounterpartyType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>*@
+
+<!-- Right Click Menu-Licence Type -->
+<ul id="myMenuLicenceType" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<!-- Popup Window-Licence Type -->
+<div id="addEditLicenceType" style="display:none;">
+    <div id="dvPopupHeadingLicenceType" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <table cellpadding="2" cellspacing="2" width="90%">
+            <tr>
+                <td class="f_head"></td>
+                <td class="labelright"><input id="txtLicenceTypeID" name="LicenceTypeID" type="hidden" /></td>
+            </tr>
+            <tr>
+                <td class="f_head">Licence Type <small class="required">*</small></td>
+                <td class="labelright"><input id="txtLicenceType" maxlength="100" name="LicenceType" type="text" class="f_inpt width80 validelement validtitle" /></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<ul id="lookupMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Manage</a></li>
+    @*<li class="delete"><a href="#delete">Delete</a></li>*@
+</ul>
+@section Scripts {
+    <script src="~/Scripts/Contract365/Settings_LookupValues.js" type="text/javascript"></script>
+    @*Payment Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenu").contextMenu({ menu: 'lookupMenu', leftButton: true }, function (action, el, pos) { contextMenu(action, el.parent("td").parent("tr"), pos); });
+
+            Milestonfields();
+            Pricingfields();
+            Billingfields();
+            Obligationfields();
+            Amendmentfields();
+            Counterpartyfields();
+            Paymentfields();
+            Unitfields();
+            Licencefields();
+            $(".collapseLicencetype").hide();
+            $(".openmenuPaymentType").contextMenu({ menu: 'myMenuPaymentType', leftButton: true }, function (action, el, pos) { contextMenuWorkPaymentType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditPaymentType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Payment Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SavePaymentType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertablePaymentType tbody tr").length;
+            $('#compact-paginationPaymentType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertablePaymentType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewPaymentType').click(function () {
+            $("#txtPaymentTypeID").val("");
+            $("#txtPaymentType").val("");
+            $("#addEditPaymentType").dialog("option", "title", "New Payment Type");
+            $("#addEditPaymentType").dialog("open");
+        });
+
+        function contextMenuWorkPaymentType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var paymentType = $(el).find("#PaymentType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + paymentType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeletePaymentType", "Settings")',
+                   url: '/Settings/DeletePaymentType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { paymentType: paymentType },
+                   cache: false,
+                   success: function (data) {
+                       //swal("", data);
+                       ////alert(data);
+                       //location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                           function (confirmed) {
+                               if (confirmed) {
+                                   location = "/Settings/LookupValues";
+                               }
+
+                           });
+
+                   }
+               });
+           }
+           return;
+       });
+
+                        @*if (confirm("Are you sure you want to delete '" + paymentType + "'?")) {
+                        $.ajax({
+                            url: '@Url.Action("DeletePaymentType", "Settings")',
+                            url: '/Settings/DeletePaymentType',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: { paymentType: paymentType },
+                            cache: false,
+                            success: function (data) {
+                                alert(data);
+                                location = "/Settings/LookupValues";
+                            }
+                        });
+                    }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var paymentType = $(el).find("#PaymentType").text();
+                        $("#txtPaymentTypeID").val(paymentType);
+                        $("#txtPaymentType").val(paymentType);
+                        $("#addEditPaymentType").dialog("option", "title", "Edit Payment Type");
+                        $("#addEditPaymentType").dialog("open");
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function DeletePayment_Type(val) {
+            var paymentType = "";
+            paymentType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + paymentType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+function (confirmed) {
+    if (confirmed) {
+        $.ajax({
+            //url: '@Url.Action("DeletePaymentType", "Settings")',
+            url: '/Settings/DeletePaymentType',
+            type: 'DELETE',
+            dataType: 'json',
+            headers: {
+                'AntiReqVerificationToken': $("#forgeryToken").val()
+            },
+            data: { paymentType: paymentType },
+            cache: false,
+            success: function (data) {
+                swal({
+                    title: '',
+                    text: data,
+
+                },
+                    function (confirmed) {
+                        if (confirmed) {
+                            location = "/Settings/LookupValues";
+                        }
+
+                    });
+
+            }
+        });
+    }
+    return;
+});
+        }
+        function EditPayment_Type(obj) {
+            var paymentType = obj.id;
+            $("#txtPaymentTypeID").val(paymentType);
+            $("#txtPaymentType").val(paymentType);
+            $("#addEditPaymentType").dialog("option", "title", "Edit Payment Type");
+            $("#addEditPaymentType").dialog("open");
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function SavePaymentType() {
+            if (requiredValidator('addEditPaymentType', false)) {
+                if ($("#txtPaymentType").val() == "") {
+                    //  alert("Enter PaymentType.")
+                    swal("", "Enter PaymentType.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SavePaymentType", "Settings")',
+                        url: '/Settings/SavePaymentType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldPaymentType: $("#txtPaymentTypeID").val(),
+                            NewPaymentType: $("#txtPaymentType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //swal("", person.Message);
+                            ////alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+
+                            },
+                               function (confirmed) {
+                                   if (person.Success == true) {
+                                       location = "/Settings/LookupValues";
+                                   }
+                                   else {
+                                       $('.ui-button-green-text').parent().removeAttr('disabled');
+                                   }
+
+                               });
+
+
+
+                            if (!($("#addEditPaymentType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+    @*Term Category*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuTermCat").contextMenu({ menu: 'myMenuTermCat', leftButton: true }, function (action, el, pos) { contextMenuWorkTermCat(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditTermCat").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Term Category",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveTermCat();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableTermCategory tbody tr").length;
+            $('#compact-paginationTermCategory').pagination({
+                items: vCount,
+                itemsOnPage: 5,
+                typeID: 'customertableTermCategory',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewTermCat').click(function () {
+            $("#txtTermCatID").val("");
+            $("#txtTermCat").val("");
+            $("#addEditTermCat").dialog("option", "title", "New Term Category");
+            $("#addEditTermCat").dialog("open");
+        });
+
+        function contextMenuWorkTermCat(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var termsCategory = $(el).find("#TermsCategory").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + termsCategory + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteTermCategory", "Settings")',
+                   url: '/Settings/DeleteTermCategory',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { termCat: termsCategory },
+                   cache: false,
+                   success: function (data) {
+                       //alert(data);
+                       swal("", data);
+                       location = "/Settings/LookupValues";
+                   }
+               });
+           }
+           return;
+       });
+
+                        @*if (confirm("Are you sure you want to delete '" + termsCategory + "'?")) {
+                        $.ajax({
+                            //url: '@Url.Action("DeleteTermCategory", "Settings")',
+                            url: '/Settings/DeleteTermCategory',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: { termCat: termsCategory },
+                            cache: false,
+                            success: function (data) {
+                                alert(data);
+                                location = "/Settings/LookupValues";
+                            }
+                        });
+                    }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var termsCategory = $(el).find("#TermsCategory").text();
+                        $("#txtTermCatID").val(termsCategory);
+                        $("#txtTermCat").val(termsCategory);
+                        $("#addEditTermCat").dialog("option", "title", "Edit Term Category");
+                        $("#addEditTermCat").dialog("open");
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+
+        function SaveTermCat() {
+            if ($("#txtTermCat").val() == "") {
+                //  alert("Enter Term Category.")
+                swal("", "Enter Term Category.");
+                $('.ui-button-green-text').parent().removeAttr('disabled');
+            }
+            else {
+                $.ajax({
+                    //url: '@Url.Action("SaveTermCategory", "Settings")',
+                    url: '/Settings/SaveTermCategory',
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                    },
+                    data: {
+                        OldTermCat: $("#txtTermCatID").val(),
+                        NewTermCat: $("#txtTermCat").val()
+                    },
+                    cache: false,
+                    success: function (person) {
+                        //alert(person.Message);
+                        swal("", person.Message);
+                        if (person.Success == true) {
+                            location = "/Settings/LookupValues";
+                        }
+                        else {
+                            $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                        if (!($("#addEditTermCat").dialog("isOpen")))
+                            $('.ui-button-green-text').parent().removeAttr('disabled');
+
+                    }
+                });
+            }
+        }
+    </script>
+
+
+    @*Milestone Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuMilestoneType").contextMenu({ menu: 'myMenuMilestoneType', leftButton: true }, function (action, el, pos) { contextMenuWorkMilestoneType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditMilestoneType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Milestone Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveMilestoneType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableMilestone tbody tr").length;
+            $('#compact-paginationMilestone').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableMilestone',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewMilestoneType').click(function () {
+            $("#txtMilestoneTypeID").val("");
+            $("#txtMilestoneType").val("");
+            $("#addEditMilestoneType").dialog("option", "title", "New Milestone Type");
+            $("#addEditMilestoneType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkMilestoneType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var milestoneType = $(el).find("#MilestoneType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + milestoneType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteMilestoneType", "Settings")',
+                   url: '/Settings/DeleteMilestoneType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { milestoneType: milestoneType },
+                   cache: false,
+                   success: function (data) {
+                       //swal("", data);
+                       ////alert(data);
+                       //location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                         function (confirmed) {
+                             if (confirmed) {
+                                 location = "/Settings/LookupValues";
+                             }
+
+                         });
+
+                   }
+               });
+           }
+           return;
+       });
+
+                        @*if (confirm("Are you sure you want to delete '" + milestoneType + "'?")) {
+                        $.ajax({
+                            //url: '@Url.Action("DeleteMilestoneType", "Settings")',
+                            url: '/Settings/DeleteMilestoneType',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: { milestoneType: milestoneType },
+                            cache: false,
+                            success: function (data) {
+                                alert(data);
+                                location = "/Settings/LookupValues";
+                            }
+                        });
+                    }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var milestoneType = $(el).find("#MilestoneType").text();
+                        $("#txtMilestoneTypeID").val(milestoneType);
+                        $("#txtMilestoneType").val(milestoneType);
+                        $("#addEditMilestoneType").dialog("option", "title", "Edit Milestone Type");
+                        $("#addEditMilestoneType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function EditMilestoneType(obj) {
+            //  var milestoneType = $(el).find("#MilestoneType").text();
+            var milestoneType = obj.id;
+            $("#txtMilestoneTypeID").val(milestoneType);
+            $("#txtMilestoneType").val(milestoneType);
+            $("#addEditMilestoneType").dialog("option", "title", "Edit Milestone Type");
+            $("#addEditMilestoneType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function DeleteMilestonetype(val) {
+
+            var milestoneType = "";
+            milestoneType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + milestoneType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+function (confirmed) {
+    if (confirmed) {
+        $.ajax({
+            //url: '@Url.Action("DeleteMilestoneType", "Settings")',
+            url: '/Settings/DeleteMilestoneType',
+            type: 'DELETE',
+            dataType: 'json',
+            headers: {
+                'AntiReqVerificationToken': $("#forgeryToken").val()
+            },
+            data: { milestoneType: milestoneType },
+            cache: false,
+            success: function (data) {
+                //swal("", data);
+                ////alert(data);
+                //location = "/Settings/LookupValues";
+                swal({
+                    title: '',
+                    text: data,
+
+                },
+                  function (confirmed) {
+                      if (confirmed) {
+                          location = "/Settings/LookupValues";
+                      }
+
+                  });
+
+            }
+        });
+    }
+    return;
+});
+
+
+        }
+        function SaveMilestoneType() {
+            if (requiredValidator('addEditMilestoneType', false)) {
+                if ($("#txtMilestoneType").val() == "") {
+                    // alert("Enter Milestone Type.")
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveMilestoneType", "Settings")',
+                        url: '/Settings/SaveMilestoneType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldMilestoneType: $("#txtMilestoneTypeID").val(),
+                            NewMilestoneType: $("#txtMilestoneType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+
+                            //  swal("", person.Message);
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+                            },
+                                function (confirmed) {
+                                    if (person.Success == true) {
+                                        location = "/Settings/LookupValues";
+                                    }
+                                    else {
+                                        $('.ui-button-green-text').parent().removeAttr('disabled');
+                                    }
+
+                                });
+
+
+                            //// alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+
+
+                            if (!($("#addEditMilestoneTypeaddEditPricingType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+
+    </script>
+
+    @*Pricing Type*@
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".openmenuPricingType").contextMenu({ menu: 'myMenuPricingType', leftButton: true }, function (action, el, pos) { contextMenuWorkPricingType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditPricingType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Pricing Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SavePricingType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertablePriceType tbody tr").length;
+            $('#compact-paginationPriceType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertablePriceType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewPricingType').click(function () {
+            $("#txtPricingTypeID").val("");
+            $("#txtPricingType").val("");
+            $("#addEditPricingType").dialog("option", "title", "New Pricing Type");
+            $("#addEditPricingType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkPricingType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var pricingType = $(el).find("#PricingType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + pricingType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeletePricingType", "Settings")',
+                   url: '/Settings/DeletePricingType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { pricingType: pricingType },
+                   cache: false,
+                   success: function (data) {
+                       // swal("", data);
+                       //// alert(data);
+                       // location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                        function (confirmed) {
+                            if (confirmed) {
+                                location = "/Settings/LookupValues";
+                            }
+
+                        });
+
+                   }
+               });
+           }
+           return;
+       });
+
+
+                        @*if (confirm("Are you sure you want to delete '" + pricingType + "'?")) {
+                        $.ajax({
+                            //url: '@Url.Action("DeletePricingType", "Settings")',
+                            url: '/Settings/DeletePricingType',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: { pricingType: pricingType },
+                            cache: false,
+                            success: function (data) {
+                                alert(data);
+                                location = "/Settings/LookupValues";
+                            }
+                        });
+                    }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var pricingType = $(el).find("#PricingType").text();
+                        $("#txtPricingTypeID").val(pricingType);
+                        $("#txtPricingType").val(pricingType);
+                        $("#addEditPricingType").dialog("option", "title", "Edit Pricing Type");
+                        $("#addEditPricingType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+
+        function SavePricingType() {
+            if (requiredValidator('addEditPricingType', false)) {
+                if ($("#txtPricingType").val() == "") {
+                    //alert("Enter Pricing Type.")
+                    swal("", "Enter Pricing Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SavePricingType", "Settings")',
+                        url: '/Settings/SavePricingType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldPricingType: $("#txtPricingTypeID").val(),
+                            NewPricingType: $("#txtPricingType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            // swal("", person.Message);
+                            //alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+                            },
+                               function (confirmed) {
+                                   if (person.Success == true) {
+                                       location = "/Settings/LookupValues";
+                                   }
+                                   else {
+                                       $('.ui-button-green-text').parent().removeAttr('disabled');
+                                   }
+
+                               });
+
+
+
+                            if (!($("#addEditPricingType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+        function EditPricing_Type(obj) {
+            var pricingType = obj.id;
+            $("#txtPricingTypeID").val(pricingType);
+            $("#txtPricingType").val(pricingType);
+            $("#addEditPricingType").dialog("option", "title", "Edit Pricing Type");
+            $("#addEditPricingType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function DeletePricing_Type(val) {
+            var pricingType = "";
+            pricingType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + pricingType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+function (confirmed) {
+    if (confirmed) {
+        $.ajax({
+            //url: '@Url.Action("DeletePricingType", "Settings")',
+            url: '/Settings/DeletePricingType',
+            type: 'DELETE',
+            dataType: 'json',
+            headers: {
+                'AntiReqVerificationToken': $("#forgeryToken").val()
+            },
+            data: { pricingType: pricingType },
+            cache: false,
+            success: function (data) {
+                swal({
+                    title: '',
+                    text: data,
+
+                },
+                 function (confirmed) {
+                     if (confirmed) {
+                         location = "/Settings/LookupValues";
+                     }
+
+                 });
+
+            }
+        });
+    }
+    return;
+});
+        }
+    </script>
+
+    @*Billing Frequency*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuBillingFrequency").contextMenu({ menu: 'myMenuBillingFrequency', leftButton: true }, function (action, el, pos) { contextMenuWorkBillingFrequency(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditBillingFrequency").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Billing Frequency",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveBillingFrequency();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableBillFreq tbody tr").length;
+            $('#compact-paginationBillFreq').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableBillFreq',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewBillingFrequency').click(function () {
+            $("#txtBillingFrequencyID").val("");
+            $("#txtBillingFrequency").val("");
+            $("#addEditBillingFrequency").dialog("option", "title", "New Billing Frequency");
+            $("#addEditBillingFrequency").dialog("open");
+
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkBillingFrequency(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var billingFrequency = $(el).find("#BillingFrequency").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + billingFrequency + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+                   function (confirmed) {
+                       if (confirmed) {
+                           $.ajax({
+                               //url: '@Url.Action("DeleteBillingFrequency", "Settings")',
+                               url: '/Settings/DeleteBillingFrequency',
+                               type: 'DELETE',
+                               dataType: 'json',
+                               headers: {
+                                   'AntiReqVerificationToken': $("#forgeryToken").val()
+                               },
+                               data: { billingFrequency: billingFrequency },
+                               cache: false,
+                               success: function (data) {
+                                   // swal("", data);
+                                   //// alert(data);
+                                   // location = "/Settings/LookupValues";
+                                   swal({
+                                       title: '',
+                                       text: data,
+
+                                   },
+                                     function (confirmed) {
+                                         if (confirmed) {
+                                             location = "/Settings/LookupValues";
+                                         }
+
+                                     });
+
+                               }
+                           });
+                       }
+                       return;
+                   });
+
+                        @*if (confirm("Are you sure you want to delete '" + billingFrequency + "'?")) {
+                            $.ajax({
+                                //url: '@Url.Action("DeleteBillingFrequency", "Settings")',
+                                url: '/Settings/DeleteBillingFrequency',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                data: { billingFrequency: billingFrequency },
+                                cache: false,
+                                success: function (data) {
+                                    alert(data);
+                                    location = "/Settings/LookupValues";
+                                }
+                            });
+                        }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var billingFrequency = $(el).find("#BillingFrequency").text();
+                        $("#txtBillingFrequencyID").val(billingFrequency);
+                        $("#txtBillingFrequency").val(billingFrequency);
+                        $("#addEditBillingFrequency").dialog("option", "title", "Edit Billing Frequency");
+                        $("#addEditBillingFrequency").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function EditBilling_Frequency(obj) {
+            var billingFrequency = obj.id;
+            $("#txtBillingFrequencyID").val(billingFrequency);
+            $("#txtBillingFrequency").val(billingFrequency);
+            $("#addEditBillingFrequency").dialog("option", "title", "Edit Billing Frequency");
+            $("#addEditBillingFrequency").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function DeleteBilling_Frequency(val) {
+            var billingFrequency = "";
+            billingFrequency = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + billingFrequency + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteBillingFrequency", "Settings")',
+                   url: '/Settings/DeleteBillingFrequency',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { billingFrequency: billingFrequency },
+                   cache: false,
+                   success: function (data) {
+                       // swal("", data);
+                       //// alert(data);
+                       // location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                         function (confirmed) {
+                             if (confirmed) {
+                                 location = "/Settings/LookupValues";
+                             }
+
+                         });
+
+                   }
+               });
+           }
+           return;
+       });
+        }
+        function SaveBillingFrequency() {
+            if (requiredValidator('addEditBillingFrequency', false)) {
+                if ($("#txtBillingFrequency").val() == "") {
+                    // alert("Enter Billing Frequency.")
+                    swal("", "Enter Billing Frequency.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveBillingFrequency", "Settings")',
+                        url: '/Settings/SaveBillingFrequency',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldBillingFrequency: $("#txtBillingFrequencyID").val(),
+                            NewBillingFrequency: $("#txtBillingFrequency").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //swal("", person.Message);
+                            ////  alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+                            },
+                                 function (confirmed) {
+                                     if (person.Success == true) {
+                                         location = "/Settings/LookupValues";
+                                     }
+                                     else {
+                                         $('.ui-button-green-text').parent().removeAttr('disabled');
+                                     }
+
+                                 });
+
+                            if (!($("#addEditBillingFrequency").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+    @*Obligation Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuObligationType").contextMenu({ menu: 'myMenuObligationType', leftButton: true }, function (action, el, pos) { contextMenuWorkObligationType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditObligationType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Obligation Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveObligationType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableOblType tbody tr").length;
+            $('#compact-paginationOblType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableOblType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewObligationType').click(function () {
+            $("#txtObligationTypeID").val("");
+            $("#txtObligationType").val("");
+            $("#addEditObligationType").dialog("option", "title", "New Obligation Type");
+            $("#addEditObligationType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkObligationType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var obligationType = $(el).find("#ObligationType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + obligationType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+                   function (confirmed) {
+                       if (confirmed) {
+                           $.ajax({
+                               //url: '@Url.Action("DeleteObligationType", "Settings")',
+                               url: '/Settings/DeleteObligationType',
+                               type: 'DELETE',
+                               dataType: 'json',
+                               headers: {
+                                   'AntiReqVerificationToken': $("#forgeryToken").val()
+                               },
+                               data: { obligationType: obligationType },
+                               cache: false,
+                               success: function (data) {
+                                   // swal("", data);
+                                   //// alert(data);
+                                   // location = "/Settings/LookupValues";
+                                   swal({
+                                       title: '',
+                                       text: data,
+
+                                   },
+                                      function (confirmed) {
+                                          if (confirmed) {
+                                              location = "/Settings/LookupValues";
+                                          }
+
+                                      });
+
+                               }
+                           });
+                       }
+                       return;
+                   });
+
+                        @*if (confirm("Are you sure you want to delete '" + obligationType + "'?")) {
+                            $.ajax({
+                                //url: '@Url.Action("DeleteObligationType", "Settings")',
+                                url: '/Settings/DeleteObligationType',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                data: { obligationType: obligationType },
+                                cache: false,
+                                success: function (data) {
+                                    alert(data);
+                                    location = "/Settings/LookupValues";
+                                }
+                            });
+                        }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var obligationType = $(el).find("#ObligationType").text();
+                        $("#txtObligationTypeID").val(obligationType);
+                        $("#txtObligationType").val(obligationType);
+                        $("#addEditObligationType").dialog("option", "title", "Edit Obligation Type");
+                        $("#addEditObligationType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function EditObligation_Type(obj) {
+            var obligationType = obj.id;
+            $("#txtObligationTypeID").val(obligationType);
+            $("#txtObligationType").val(obligationType);
+            $("#addEditObligationType").dialog("option", "title", "Edit Obligation Type");
+            $("#addEditObligationType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function DeleteObligation_Type(val) {
+            var obligationType = "";
+            obligationType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + obligationType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteObligationType", "Settings")',
+                   url: '/Settings/DeleteObligationType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { obligationType: obligationType },
+                   cache: false,
+                   success: function (data) {
+                       // swal("", data);
+                       //// alert(data);
+                       // location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                          function (confirmed) {
+                              if (confirmed) {
+                                  location = "/Settings/LookupValues";
+                              }
+
+                          });
+
+                   }
+               });
+           }
+           return;
+       });
+        }
+        function SaveObligationType() {
+            if (requiredValidator('addEditObligationType', false)) {
+                if ($("#txtObligationType").val() == "") {
+                    // alert("Enter Obligation Type.")
+                    swal("", "Enter Obligation Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveObligationType", "Settings")',
+                        url: '/Settings/SaveObligationType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldObligationType: $("#txtObligationTypeID").val(),
+                            NewObligationType: $("#txtObligationType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //swal("", person.Message);
+                            //// alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+                            swal({
+                                title: '',
+                                text: person.Message,
+                            },
+                               function (confirmed) {
+                                   if (person.Success == true) {
+                                       location = "/Settings/LookupValues";
+                                   }
+                                   else {
+                                       $('.ui-button-green-text').parent().removeAttr('disabled');
+                                   }
+
+                               });
+
+
+
+                            if (!($("#addEditObligationType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+    @*Amendment Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuAmendmentType").contextMenu({ menu: 'myMenuAmendmentType', leftButton: true }, function (action, el, pos) { contextMenuWorkAmendmentType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditAmendmentType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Amendment Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveAmendmentType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableAmendType tbody tr").length;
+            $('#compact-paginationAmendType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableAmendType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewAmendmentType').click(function () {
+            $("#txtAmendmentTypeID").val("");
+            $("#txtAmendmentType").val("");
+            $("#addEditAmendmentType").dialog("option", "title", "New Amendment Type");
+            $("#addEditAmendmentType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkAmendmentType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var amendmentType = $(el).find("#AmendmentType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + amendmentType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+                   function (confirmed) {
+                       if (confirmed) {
+                           $.ajax({
+                               //url: '@Url.Action("DeleteAmendmentType", "Settings")',
+                               url: '/Settings/DeleteAmendmentType',
+                               type: 'DELETE',
+                               dataType: 'json',
+                               headers: {
+                                   'AntiReqVerificationToken': $("#forgeryToken").val()
+                               },
+                               data: { amendmentType: amendmentType },
+                               cache: false,
+                               success: function (data) {
+                                   // swal("", data);
+                                   //// alert(data);
+                                   // location = "/Settings/LookupValues";
+                                   swal({
+                                       title: '',
+                                       text: data,
+
+                                   },
+                                        function (confirmed) {
+                                            if (confirmed) {
+                                                location = "/Settings/LookupValues";
+                                            }
+
+                                        });
+
+                               }
+                           });
+                       }
+                       return;
+                   });
+
+                        @*if (confirm("Are you sure you want to delete '" + amendmentType + "'?")) {
+                            $.ajax({
+                                //url: '@Url.Action("DeleteAmendmentType", "Settings")',
+                                url: '/Settings/DeleteAmendmentType',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                data: { amendmentType: amendmentType },
+                                cache: false,
+                                success: function (data) {
+                                    alert(data);
+                                    location = "/Settings/LookupValues";
+                                }
+                            });
+                        }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var amendmentType = $(el).find("#AmendmentType").text();
+                        $("#txtAmendmentTypeID").val(amendmentType);
+                        $("#txtAmendmentType").val(amendmentType);
+                        $("#addEditAmendmentType").dialog("option", "title", "Edit Amendment Type");
+                        $("#addEditAmendmentType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function DeleteAmendment_Type(val) {
+            var amendmentType = "";
+            amendmentType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + amendmentType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteAmendmentType", "Settings")',
+                   url: '/Settings/DeleteAmendmentType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { amendmentType: amendmentType },
+                   cache: false,
+                   success: function (data) {
+                       // swal("", data);
+                       //// alert(data);
+                       // location = "/Settings/LookupValues";
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                            function (confirmed) {
+                                if (confirmed) {
+                                    location = "/Settings/LookupValues";
+                                }
+
+                            });
+
+                   }
+               });
+           }
+           return;
+       });
+        }
+        function EditAmendment_Type(obj) {
+            var amendmentType = obj.id;
+            $("#txtAmendmentTypeID").val(amendmentType);
+            $("#txtAmendmentType").val(amendmentType);
+            $("#addEditAmendmentType").dialog("option", "title", "Edit Amendment Type");
+            $("#addEditAmendmentType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function SaveAmendmentType() {
+            if (requiredValidator('addEditAmendmentType', false)) {
+                if ($("#txtAmendmentType").val() == "") {
+                    //alert("Enter Amendment Type.")
+                    swal("", "Enter Amendment Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveAmendmentType", "Settings")',
+                        url: '/Settings/SaveAmendmentType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldAmendmentType: $("#txtAmendmentTypeID").val(),
+                            NewAmendmentType: $("#txtAmendmentType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //swal("", person.Message);
+                            //// alert(person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+
+                            },
+                               function (confirmed) {
+                                   if (person.Success == true) {
+                                       location = "/Settings/LookupValues";
+                                   }
+                                   else {
+                                       $('.ui-button-green-text').parent().removeAttr('disabled');
+                                   }
+
+                               });
+
+                            if (!($("#addEditAmendmentType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+    @*Counterparty Type*@
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $(".openmenuCounterpartyType").contextMenu({ menu: 'myMenuCounterpartyType', leftButton: true }, function (action, el, pos) { contextMenuWorkCounterpartyType(action, el.parent("td").parent("tr"), pos); });
+
+                $("#addEditCounterpartyType").dialog({
+                   autoOpen: false, closeText: "",
+                    width: "50%",
+                    title: "Counterparty Type",
+                    modal: true,
+                    buttons: {
+                        "Save": function () {
+                            $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                            SaveCounterpartyType();
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                var vCount = $("#customertableCounterparty tbody tr").length;
+                $('#compact-paginationCounterparty').pagination({
+                    items: vCount,
+                    itemsOnPage: 5,
+                    typeID: 'customertableCounterparty',
+                    cssStyle: 'compact-theme'
+                });
+            });
+
+
+            $('#btnAddNewCounterpartyType').click(function () {
+                $("#txtCounterpartyTypeID").val("");
+                $("#txtCounterpartyType").val("");
+                $("#addEditCounterpartyType").dialog("option", "title", "New Counterparty Type");
+                $("#addEditCounterpartyType").dialog("open");
+
+                $(".validelement").each(function (index, element) {
+                    $(element).removeClass("error");
+                    $("#errormsg_" + element.id).remove();
+                });
+            });
+
+            function contextMenuWorkCounterpartyType(action, el, pos) {
+
+                switch (action) {
+                    case "delete":
+                        {
+                            var counterpartyType = $(el).find("#CounterpartyType").text();
+                            swal({
+                                title: '',
+                                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + counterpartyType + "'</span>?",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                html: true
+                            },
+                       function (confirmed) {
+                           if (confirmed) {
+                               $.ajax({
+                                   //url: '@Url.Action("DeleteCounterpartyType", "Settings")',
+                                   url: '/Settings/DeleteCounterpartyType',
+                                   type: 'DELETE',
+                                   dataType: 'json',
+                                   data: { counterpartyType: counterpartyType },
+                                   cache: false,
+                                   success: function (data) {
+                                       //swal("", data);
+                                       ////alert(data);
+                                       //location = "/Settings/LookupValues";
+                                       swal({
+                                           title: '',
+                                           text: data,
+
+                                       },
+                                         function (confirmed) {
+                                             if (confirmed) {
+                                                 location = "/Settings/LookupValues";
+                                             }
+
+                                         });
+
+                                   }
+                               });
+                           }
+                           return;
+                       });
+
+
+                            break;
+                        }
+                    case "edit":
+                        {
+                            var counterpartyType = $(el).find("#CounterpartyType").text();
+                            $("#txtCounterpartyTypeID").val(counterpartyType);
+                            $("#txtCounterpartyType").val(counterpartyType);
+                            $("#addEditCounterpartyType").dialog("option", "title", "Edit Counterparty Type");
+                            $("#addEditCounterpartyType").dialog("open");
+
+                            $(".validelement").each(function (index, element) {
+                                $(element).removeClass("error");
+                                $("#errormsg_" + element.id).remove();
+                            });
+                            break;
+                        }
+                }
+            }
+
+            function SaveCounterpartyType() {
+                if (requiredValidator('addEditCounterpartyType', false)) {
+                    if ($("#txtCounterpartyType").val() == "") {
+                        // alert("Enter Counterparty Type.")
+                        swal("", "Enter Counterparty Type.");
+                        $('.ui-button-green-text').parent().removeAttr('disabled');
+                    }
+                    else {
+                        $.ajax({
+                            //url: '@Url.Action("SaveCounterpartyType", "Settings")',
+                            url: '/Settings/SaveCounterpartyType',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                OldCounterpartyType: $("#txtCounterpartyTypeID").val(),
+                                NewCounterpartyType: $("#txtCounterpartyType").val()
+                            },
+                            cache: false,
+                            success: function (person) {
+                                //swal("", person.Message);
+                                ////alert(person.Message);
+
+                                //if (person.Success == true) {
+                                //    location = "/Settings/LookupValues";
+                                //}
+                                //else {
+                                //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                                //}
+
+                                swal({
+                                    title: '',
+                                    text: person.Message,
+
+                                },
+                                 function (confirmed) {
+                                     if (person.Success == true) {
+                                         location = "/Settings/LookupValues";
+                                     }
+                                     else {
+                                         $('.ui-button-green-text').parent().removeAttr('disabled');
+                                     }
+
+                                 });
+
+
+
+                                if (!($("#addEditCounterpartyType").dialog("isOpen")))
+                                    $('.ui-button-green-text').parent().removeAttr('disabled');
+
+                            }
+                        });
+                    }
+                }
+            }
+        </script>*@
+
+    @*Unit Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".openmenuUnitType").contextMenu({ menu: 'myMenuUnitType', leftButton: true }, function (action, el, pos) { contextMenuWorkUnitType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditUnitType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Unit Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveUnitType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableUnitType tbody tr").length;
+            $('#compact-paginationUnitType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableUnitType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewUnitType').click(function () {
+            $("#txtUnitTypeID").val("");
+            $("#txtUnitType").val("");
+            $("#addEditUnitType").dialog("option", "title", "New Unit Type");
+            $("#addEditUnitType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkUnitType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var unitType = $(el).find("#UnitType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + unitType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+                   function (confirmed) {
+                       if (confirmed) {
+                           $.ajax({
+                               //url: '@Url.Action("DeleteUnitType", "Settings")',
+                               url: '/Settings/DeleteUnitType',
+                               type: 'DELETE',
+                               dataType: 'json',
+                               headers: {
+                                   'AntiReqVerificationToken': $("#forgeryToken").val()
+                               },
+                               data: { unitType: unitType },
+                               cache: false,
+                               success: function (data) {
+                                   // swal("", data);
+                                   //// alert(data);
+                                   // location = "/Settings/LookupValues";
+                                   swal({
+                                       title: '',
+                                       text: data,
+
+                                   },
+                                    function (confirmed) {
+                                        if (confirmed) {
+                                            location = "/Settings/LookupValues";
+                                        }
+
+                                    });
+
+                               }
+                           });
+                       }
+                       return;
+                   });
+
+                        @*if (confirm("Are you sure you want to delete '" + unitType + "'?")) {
+                            $.ajax({
+                                //url: '@Url.Action("DeleteUnitType", "Settings")',
+                                url: '/Settings/DeleteUnitType',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                data: { unitType: unitType },
+                                cache: false,
+                                success: function (data) {
+                                    alert(data);
+                                    location = "/Settings/LookupValues";
+                                }
+                            });
+                        }*@
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var unitType = $(el).find("#UnitType").text();
+                        $("#txtUnitTypeID").val(unitType);
+                        $("#txtUnitType").val(unitType);
+                        $("#addEditUnitType").dialog("option", "title", "Edit Unit Type");
+                        $("#addEditUnitType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function DeleteUnit_Type(val) {
+            var unitType = "";
+            unitType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + unitType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   //url: '@Url.Action("DeleteUnitType", "Settings")',
+                   url: '/Settings/DeleteUnitType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { unitType: unitType },
+                   cache: false,
+                   success: function (data) {
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                        function (confirmed) {
+                            if (confirmed) {
+                                location = "/Settings/LookupValues";
+                            }
+
+                        });
+
+                   }
+               });
+           }
+           return;
+       });
+        }
+        function EditUnit_Type(obj) {
+            var unitType = obj.id;
+            $("#txtUnitTypeID").val(unitType);
+            $("#txtUnitType").val(unitType);
+            $("#addEditUnitType").dialog("option", "title", "Edit Unit Type");
+            $("#addEditUnitType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function SaveUnitType() {
+            if (requiredValidator('addEditUnitType', false)) {
+                if ($("#txtUnitType").val() == "") {
+                    //  alert("Enter Unit Type.")
+                    swal("", "Enter Unit Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        //url: '@Url.Action("SaveUnitType", "Settings")',
+                        url: '/Settings/SaveUnitType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldUnitType: $("#txtUnitTypeID").val(),
+                            NewUnitType: $("#txtUnitType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            ////  alert(person.Message);
+                            //swal("", person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+
+                            },
+                              function (confirmed) {
+                                  if (person.Success == true) {
+                                      location = "/Settings/LookupValues";
+                                  }
+                                  else {
+                                      $('.ui-button-green-text').parent().removeAttr('disabled');
+                                  }
+
+                              });
+
+                            if (!($("#addEditUnitType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+
+    @*Licence Type*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $(".openmenuLicenceType").contextMenu({ menu: 'myMenuLicenceType', leftButton: true }, function (action, el, pos) { contextMenuWorkLicenceType(action, el.parent("td").parent("tr"), pos); });
+
+            $("#addEditLicenceType").dialog({
+                autoOpen: false, closeText: "",
+                width: "50%",
+                title: "Licence Type",
+                modal: true,
+                buttons: {
+                    "Save": function () {
+                        $('.ui-button-green-text').parent().attr('disabled', 'disabled');
+                        SaveLicenceType();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var vCount = $("#customertableLicenceType tbody tr").length;
+            $('#compact-paginationLicenceType').pagination({
+                items: vCount,
+                itemsOnPage: 10,
+                typeID: 'customertableLicenceType',
+                cssStyle: 'compact-theme'
+            });
+        });
+
+
+        $('#btnAddNewLicenceType').click(function () {
+            $("#txtLicenceTypeID").val("");
+            $("#txtLicenceType").val("");
+            $("#addEditLicenceType").dialog("option", "title", "New Licence Type");
+            $("#addEditLicenceType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        });
+
+        function contextMenuWorkLicenceType(action, el, pos) {
+
+            switch (action) {
+                case "delete":
+                    {
+                        var licenceType = $(el).find("#LicenceType").text();
+                        swal({
+                            title: '',
+                            text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + licenceType + "'</span>?",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            html: true
+                        },
+                   function (confirmed) {
+                       if (confirmed) {
+                           $.ajax({
+                               url: '/Settings/DeleteLicenceType',
+                               type: 'DELETE',
+                               dataType: 'json',
+                               headers: {
+                                   'AntiReqVerificationToken': $("#forgeryToken").val()
+                               },
+                               data: { licenceType: licenceType },
+                               cache: false,
+                               success: function (data) {
+                                   swal({
+                                       title: '',
+                                       text: data,
+
+                                   },
+                                   function (confirmed) {
+                                       if (confirmed) {
+                                           location = "/Settings/LookupValues";
+                                       }
+
+                                   });
+
+
+                                   //  swal("", data);
+                                   //alert(data);
+                                   //  location = "/Settings/LookupValues";
+                               }
+                           });
+                       }
+                       return;
+                   });
+
+                        //if (confirm("Are you sure you want to delete '" + licenceType + "'?")) {
+                        //    $.ajax({
+                        //        url: '/Settings/DeleteLicenceType',
+                        //        type: 'DELETE',
+                        //        dataType: 'json',
+                        //        data: { licenceType: licenceType },
+                        //        cache: false,
+                        //        success: function (data) {
+                        //            alert(data);
+                        //            location = "/Settings/LookupValues";
+                        //        }
+                        //    });
+                        //}
+
+                        break;
+                    }
+                case "edit":
+                    {
+                        var licenceType = $(el).find("#LicenceType").text();
+                        $("#txtLicenceTypeID").val(licenceType);
+                        $("#txtLicenceType").val(licenceType);
+                        $("#addEditLicenceType").dialog("option", "title", "Edit Licence Type");
+                        $("#addEditLicenceType").dialog("open");
+
+                        $(".validelement").each(function (index, element) {
+                            $(element).removeClass("error");
+                            $("#errormsg_" + element.id).remove();
+                        });
+                        break;
+                    }
+            }
+        }
+        function DeleteLicence_Type(val) {
+            var licenceType = "";
+            licenceType = (val.id).slice(2);
+            swal({
+                title: '',
+                text: "Are you sure you want to <span style=\"font-weight:700\">delete '" + licenceType + "'</span>?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                html: true
+            },
+       function (confirmed) {
+           if (confirmed) {
+               $.ajax({
+                   url: '/Settings/DeleteLicenceType',
+                   type: 'DELETE',
+                   dataType: 'json',
+                   headers: {
+                       'AntiReqVerificationToken': $("#forgeryToken").val()
+                   },
+                   data: { licenceType: licenceType },
+                   cache: false,
+                   success: function (data) {
+                       swal({
+                           title: '',
+                           text: data,
+
+                       },
+                       function (confirmed) {
+                           if (confirmed) {
+                               location = "/Settings/LookupValues";
+                           }
+
+                       });
+
+                   }
+               });
+           }
+           return;
+       });
+        }
+        function EditLicence_Type(obj) {
+            var licenceType = obj.id;
+            $("#txtLicenceTypeID").val(licenceType);
+            $("#txtLicenceType").val(licenceType);
+            $("#addEditLicenceType").dialog("option", "title", "Edit Licence Type");
+            $("#addEditLicenceType").dialog("open");
+
+            $(".validelement").each(function (index, element) {
+                $(element).removeClass("error");
+                $("#errormsg_" + element.id).remove();
+            });
+        }
+        function SaveLicenceType() {
+            if (requiredValidator('addEditLicenceType', false)) {
+                if ($("#txtLicenceType").val() == "") {
+                    //alert("Enter Licence Type.")
+                    swal("", "Enter Licence Type.");
+                    $('.ui-button-green-text').parent().removeAttr('disabled');
+                }
+                else {
+                    $.ajax({
+                        url: '/Settings/SaveLicenceType',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'AntiReqVerificationToken': $("#forgeryToken").val(), 'eContracts-RestrictionHeader': localStorage.RestrictHighSecurityTagging
+                        },
+                        data: {
+                            OldLicenceType: $("#txtLicenceTypeID").val(),
+                            NewLicenceType: $("#txtLicenceType").val()
+                        },
+                        cache: false,
+                        success: function (person) {
+                            //// alert(person.Message);
+                            //swal("", person.Message);
+                            //if (person.Success == true) {
+                            //    location = "/Settings/LookupValues";
+                            //}
+                            //else {
+                            //    $('.ui-button-green-text').parent().removeAttr('disabled');
+                            //}
+
+                            swal({
+                                title: '',
+                                text: person.Message,
+
+                            },
+                              function (confirmed) {
+                                  if (person.Success == true) {
+                                      location = "/Settings/LookupValues";
+                                  }
+                                  else {
+                                      $('.ui-button-green-text').parent().removeAttr('disabled');
+                                  }
+
+                              });
+
+
+                            if (!($("#addEditLicenceType").dialog("isOpen")))
+                                $('.ui-button-green-text').parent().removeAttr('disabled');
+                        }
+                    });
+                }
+            }
+        }
+
+
+        function Milestonfields() {
+            var ObjMilestone = $(".Milestonlink");
+            $(".collapseMilestonetype").slideToggle();
+
+            var title = $('.Milestonlink').attr('title');
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+        }
+
+        function Pricingfields() {
+            var ObjPricing = $(".Pricinglink");
+            $(".collapsePricingtype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+        }
+
+
+
+        function Billingfields() {
+            var ObjBilling = $(".Billinglink");
+            $(".collapseBillingtype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+        }
+        function Obligationfields() {
+            var ObjObligation = $(".Obligationlink");
+            $(".collapseObligationtype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+        }
+        function Amendmentfields() {
+            var ObjAmendment = $(".Amendmentlink");
+            $(".collapseAmendmenttype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+        }
+        function Counterpartyfields() {
+            var ObjCounterparty = $(".Counterpartytlink");
+            $(".collapseCounterpartytype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+
+        }
+
+        function Paymentfields() {
+            var ObjPayment = $(".Paymentlink");
+            $(".collapsePaymenttype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapseUnittype").hide();
+            $(".collapseLicencetype").hide();
+
+
+        }
+        function Unitfields() {
+            var ObjUnit = $(".Unitlink");
+            $(".collapseUnittype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+
+
+        }
+        function Licencefields() {
+            var ObjLicence = $(".Licencelink");
+            $(".collapseLicencetype").slideToggle();
+
+            $(".collapseMilestonetype").hide();
+            $(".collapsePricingtype").hide();
+            $(".collapseBillingtype").hide();
+            $(".collapseObligationtype").hide();
+            $(".collapseAmendmenttype").hide();
+            $(".collapseCounterpartytype").hide();
+            $(".collapsePaymenttype").hide();
+            $(".collapseUnittype").hide();
+        }
+    </script>
+}
+

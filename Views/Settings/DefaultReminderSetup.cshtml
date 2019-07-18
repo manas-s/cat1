@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Default Reminder Setup";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_DefaultReminderSetup.js?" + DateTime.Now.GetHashCode())
+}
+<table id="tblGlobalSettings" class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Default Reminder Setup
+            <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Setup default reminders for Contract Renewals and Expirations."></td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Milestone Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderMilestone" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderMilestone" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head" align="right">Document Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderDocument" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderDocument" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right">Term Reminders</td>
+        <td class="labelright" width="60%">
+            <select id="ddl1ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt1ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl2ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt2ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="f_head" align="right"></td>
+        <td class="labelright" width="60%">
+            <select id="ddl3ReminderRenewal" class="f_inpt width20" style="color:black;">
+                <option value="before">before</option>
+                <option value="after">after</option>
+            </select>
+            <input id="txt3ReminderRenewal" maxlength="3" name="Format" type="text" class="f_inpt width30 validnumber" />
+            <span style="position:relative;top:8px;">days</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="f_head"></td>
+        <td class="foot_right" align="right">
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+        </td>
+    </tr>
+</table>

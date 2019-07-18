@@ -1,0 +1,1178 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractFieldsEntity>
+@using Corevo.eContracts365.General
+
+@{
+    ViewBag.Title = "Contract Fields";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<link href="~/Content/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/confirm.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/Scripts/jquery.tablednd.0.7.min.js"></script>
+<style type="text/css">
+    div:first-of-type div.up {
+        visibility: hidden;
+        clear: both;
+    }
+
+    div:last-of-type div.down {
+        visibility: hidden;
+    }
+
+    div.main {
+        clear: both;
+    }
+
+    .up {
+        float: left;
+    }
+
+    .down {
+        float: left;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.up').click(function () {
+            var parent = $(this).parent();
+            parent.insertBefore(parent.prev());
+        });
+        $('.down').click(function () {
+            var parent = $(this).parent();
+            parent.insertAfter(parent.next());
+        });
+    });
+</script>
+<table class="width95_a">
+    <tr>
+        <td class="pageheading"><h4 style="font-weight: 500;">Basic Metadata Fields <img src="/Content/Images/help_training.png" alt="Custom Lookup Values" title="Setup basic Metadata fields for all Contract Record Types."></h4></td>
+        <td class="pageheading" align="right">
+            <input id="btnSaveFieldOrder" type="button" value="Save Order" class="f_button_green" />
+            <input id="btnNewGroup" type="button" value="Create New Group" class="f_button_green" style="display:none;" />
+            <input id="btnNewField" type="button" value="Create New Field" class="f_button_green" />
+        </td>
+    </tr>
+</table>
+<br />
+<div class="width95_a">
+    <div style="float:left; width:63%;">
+        <p style="background-color:#59a1d5; color:#ffffff">Contract Field Groups and Selected Fields</p>
+        <div>
+            <table id="tblMetadata" class="width100">
+                @{
+                    if (ViewBag.GroupNames != null)
+                    {
+                        int counter = 1;
+                        foreach (var name in ViewBag.GroupNames)
+                        {
+                            <tr>
+                                <td id="@name">
+                                    @Html.Action("ContractsFieldsinGroup", "Settings", new { fieldGroup = @name, index = @counter })
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    }
+                }
+            </table>
+        </div>
+    </div>
+    <div class="available_fields">
+        <p style="background-color:#59a1d5; color:#ffffff">Available / Unselected Fields</p>
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="basicfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Identifiers</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgbasicfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="basicfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Basic / Identifiers
+                            item.FieldName == "Project" || item.FieldName == "Description" || item.FieldName == "ContractNumber" || item.FieldName == "ContractClass" || item.FieldName == "Status")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Basic</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="contractingpartiesfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Contracting Parties</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgcontractingpartiesfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="contractingpartiesfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Contracting Parties
+                            item.FieldName == "LegalEntity" || item.FieldName == "Counterparty" || item.FieldName == "CompanyProfile")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">ContractingParties</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="primarydocumentfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Primary Contract Document</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgprimarydocumentfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="primarydocumentfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Primary Contract Document Fields
+                           item.FieldName == "OriginatingParty" || item.FieldName == "IsCompanyTemplate" || item.FieldName == "AreasofModification" || item.FieldName == "TemplateModificationNotes" || item.FieldName == "DocumentPhyicalLocation")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">PrimaryContractDocument</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="contracttermfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Contract Term (Timelines)</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgcontracttermfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="contracttermfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.FieldName == "ContractTermType")
+                    {
+                        @Html.Hidden("txtContractTermTypeExisit", "false");
+                    }
+                    if (
+                        //update contract term(timelines) group length while adding new field into this group in JS File
+                            item.FieldName == "ContractTermType" || item.FieldName == "ContractTermNotes" || item.FieldName == "StartDate" || item.FieldName == "TermEndDate" || item.FieldName == "EndDate"
+                            || item.FieldName == "RequiresAuth" || item.FieldName == "RenewalConfirmParticipants"
+                            || item.FieldName == "CounterpartyNotices" || item.FieldName == "CounterpartyNoticesRenewal" || item.FieldName == "CounterpartyNoticesCancel" || item.FieldName == "NextEvaluationDate")
+                    //update contract term(timelines) group length while adding new field into this group in JS File
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">ContractTerm</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="peopleandpermissionfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">People & Permissions</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgpeopleandpermissionfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="peopleandpermissionfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //People & Permissions Fields
+                            item.FieldName == "ContractManagers" || item.FieldName == "Approvers" || item.FieldName == "Reviewers"
+                            || item.FieldName == "PrimaryAuthors" || item.FieldName == "PrimaryNegotiators" || item.FieldName == "SharedwithInternal"
+                            || item.FieldName == "RequestSubmittedby" || item.FieldName == "Requestor" || item.FieldName == "CustomPermission")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">PeoplePermissions</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="relatedrequestfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Related Request / Contract</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgrelatedrequestfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="relatedrequestfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Related Request
+                            item.FieldName == "RelatedRequests" || item.FieldName == "RelatedContracts")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">RelatedRequest</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="signaturerelatedfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Signature Related</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgsignaturerelatedfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="signaturerelatedfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Signature Related
+                            item.FieldName == "Signees" || item.FieldName == "ExternalSignees" || item.FieldName == "LastSignatureDate"
+                            || item.FieldName == "SignatureStatus" || item.FieldName == "CounterpartySignatureInformation" || item.FieldName == "CompanySignatureInformation"
+                            || item.FieldName == "WitnessSignatureInformation")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">SignatureRelated</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="formalnoticefields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Notice Related</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgformalnoticefields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="formalnoticefields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Formal Notices & Representatives Fields
+                            item.FieldName == "SendNoticesfor" || item.FieldName == "AddressforNoticeCounterparty" || item.FieldName == "LegalNoticeUserCounterparty"
+                            || item.FieldName == "LegalNoticeEmailIDCounterparty" || item.FieldName == "LegalNoticeFacsimilieCounterparty" || item.FieldName == "AddressforNoticeCompany"
+                            || item.FieldName == "LegalNoticeUserCompany" || item.FieldName == "LegalNoticeEmailIDCompany" || item.FieldName == "LegalNoticeFacsimilieCompany")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">FormalNotice</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="financialsfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Financials</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgfinancialsfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="financialsfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                            //Financials Fields
+                            item.FieldName == "ContractPricingType" || item.FieldName == "BillingFrequency" || item.FieldName == "PaymentType"
+                            //|| item.FieldName == "PaymentMethod" || item.FieldName == "ContractCurrency" || item.FieldName == "ContractValue" || item.CustomFieldsGroupName == "FinancialCustomFields"
+                            || item.FieldName == "PaymentMethod" || item.FieldName == "ContractCurrency" || item.FieldName == "ContractValue" 
+                            )
+                    {
+                        var classnametobind = (item.FieldName != "ContractPricingType" && item.FieldName != "BillingFrequency" && item.FieldName != "PaymentType" && item.FieldName != "PaymentMethod" && item.FieldName != "ContractCurrency" && item.FieldName != "ContractValue") ? "openmenu" : "openmenunodelete";
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Financials</td>
+                            <td class=@Html.DisplayFor(modelItem => classnametobind) style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="revenuerelatedfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Revenue Related</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgrevenuerelatedfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="revenuerelatedfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Revenue Related Fields
+                            item.FieldName == "ProductorServiceDescription" || item.FieldName == "EstimatedTotalRevenue" || item.FieldName == "EstimatedYearlyRevenue"
+                            || item.FieldName == "RevenueMinimumCommitment" || item.FieldName == "RevenueBestCase" || item.FieldName == "OutstandingRevenue"
+                            || item.FieldName == "RevenueTillDate" || item.FieldName == "TaxExempt")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">RevenueRelated</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="procurementrelatedfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Procurement Related</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgprocurementrelatedfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="procurementrelatedfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Procurement Related Fields
+                            item.FieldName == "PurposeofProcurement" || item.FieldName == "ProcurementCategory" || item.FieldName == "SourceofFunds"
+                            || item.FieldName == "EstimatedTotalSpend" || item.FieldName == "EstimatedYearlySpend" || item.FieldName == "MinimumSpendCommitment"
+                            || item.FieldName == "OutstandingSpend" || item.FieldName == "SpendTillDate")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">ProcurementRelated</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="disputesremediesfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">Disputes & Remedies</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+            <img src="../Content/Images/e-close.png" title="Collapse" id="imgdisputesremediesfields" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="disputesremediesfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Disputes & Remedies Fields
+                            item.FieldName == "GoverningLaw" || item.FieldName == "DurationforRemedy" || item.FieldName == "RemediesorDamages"
+                            || item.FieldName == "ActiveDispute" || item.FieldName == "DisputeorRemedyNotes" || item.FieldName == "ArbirtrationNotes"
+                           )
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">DisputesRemedies</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+            }
+
+        </table>
+
+
+
+        @*<div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="systemfields()">
+                <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left; margin-bottom: 10px; ">System Fields</span>
+                <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name can be edited." />
+                <img src="../Content/Images/e-close.png" title="Collapse" id="imgsystemfields" style="float: right; margin-top:5px;">
+            </div>
+            <table class="yui-grid width100" style="margin-bottom: 10px;" id="systemfields">
+                @foreach (var item in Model)
+                {
+                    if (
+
+
+                            //System Fields
+
+                            item.FieldName == "Project" || item.FieldName == "Description" || item.FieldName == "ContractNumber"
+                            || item.FieldName == "Counterparty" || item.FieldName == "CompanyProfile" || item.FieldName == "OriginatingParty"
+                            || item.FieldName == "StartDate" || item.FieldName == "RenewalDate"
+                            || item.FieldName == "EndDate" || item.FieldName == "Status" || item.FieldName == "ContractManagers"
+                            || item.FieldName == "Signees" || item.FieldName == "ExternalSignees" || item.FieldName == "ContractValue"
+                            || item.FieldName == "ContractTermType" || item.FieldName == "ApprovedBy" || item.FieldName == "ReviewedBy"
+                            || item.FieldName == "RelatedContracts" || item.FieldName == "RelatedRequests" || item.FieldName == "CustomPermission")
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">System</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+            <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="standardfields()">
+                <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left;margin-bottom: 10px;">Standard Fields</span>
+                <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be added to the Contract Record Type and the field display name and field type can be edited." />
+                <img src="../Content/Images/e-close.png" id="imgstandardfields" title="Collapse" style="float: right; margin-top:5px;">
+            </div>
+            <table class="yui-grid width100" style="margin-bottom: 10px;" id="standardfields">
+                @foreach (var item in Model)
+                {
+                    if (
+                        //Standard Fields
+                            item.FieldName == "GoverningLaw" || item.FieldName == "LicenceType" || item.FieldName == "NumberofLicenses"
+                            || item.FieldName == "BillingAmount" || item.FieldName == "BillingFrequency" || item.FieldName == "PaymentType"
+                            || item.FieldName == "EventTitle" || item.FieldName == "EventLocation" || item.FieldName == "EventDate"
+                            || item.FieldName == "DeliveryLocation" || item.FieldName == "DeliveryDate" || item.FieldName == "ContractPricingType"
+                            || item.FieldName == "PlaceofPerformance" || item.FieldName == "DateofPerformance" || item.FieldName == "SummaryofServices"
+                            || item.FieldName == "DocumentPhyicalLocation"
+                            )
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Standard</td>
+                            <td class="openmenunodelete" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+            <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="customfields()">
+                <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left;margin-bottom: 10px;">Custom Fields</span>
+                <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be created, edited and deleted." />
+                <img src="../Content/Images/e-close.png" id="imgcustomfields" title="Collapse" style="float: right; margin-top:5px;">
+            </div>
+            <table class="yui-grid width100" style="margin-bottom: 10px;" id="customfields">
+                @foreach (var item in Model)
+                {
+                    if (
+                        //System Fields
+                            item.FieldName == "Project" || item.FieldName == "Description" || item.FieldName == "ContractNumber"
+                            || item.FieldName == "Counterparty" || item.FieldName == "CompanyProfile" || item.FieldName == "OriginatingParty"
+                            || item.FieldName == "StartDate" || item.FieldName == "RenewalDate"
+                            || item.FieldName == "EndDate" || item.FieldName == "Status" || item.FieldName == "ContractManagers"
+                            || item.FieldName == "Signees" || item.FieldName == "ExternalSignees" || item.FieldName == "ContractValue"
+                            || item.FieldName == "ContractTermType" || item.FieldName == "ApprovedBy" || item.FieldName == "ReviewedBy"
+                            || item.FieldName == "RelatedContracts" || item.FieldName == "RelatedRequests" || item.FieldName == "CustomPermission"
+                        //Standard Fields
+                            || item.FieldName == "GoverningLaw" || item.FieldName == "LicenceType" || item.FieldName == "NumberofLicenses"
+                            || item.FieldName == "BillingAmount" || item.FieldName == "BillingFrequency" || item.FieldName == "PaymentType"
+                            || item.FieldName == "EventTitle" || item.FieldName == "EventLocation" || item.FieldName == "EventDate"
+                            || item.FieldName == "DeliveryLocation" || item.FieldName == "DeliveryDate" || item.FieldName == "ContractPricingType"
+                            || item.FieldName == "PlaceofPerformance" || item.FieldName == "DateofPerformance" || item.FieldName == "SummaryofServices" || item.FieldName == "DocumentPhyicalLocation")
+                    {
+
+                    }
+                    else
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Custom</td>
+                            <td class="openmenu" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>*@
+
+        <div style="margin-bottom: 10px; cursor:pointer; clear:both; border-bottom: 1px solid #b1b1b1; overflow: hidden;" onclick="customfields()">
+            <span style="font-weight: 500;font-size: 16px;color: #6b6b6b;float: left;margin-bottom: 10px;">Custom / User Created</span>
+            <img src="../Content/Images/i-admin.png" style="float: left; margin-top:5px;margin-left: 5px;" title="These fields can be created, edited and deleted." />
+            <img src="../Content/Images/e-close.png" id="imgcustomfields" title="Collapse" style="float: right; margin-top:5px;">
+        </div>
+        <table class="yui-grid width100" style="margin-bottom: 10px;" id="customfields">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (
+                        //Basic / Identifiers
+                            item.FieldName == "Project" || item.FieldName == "Description" || item.FieldName == "ContractNumber" || item.FieldName == "ContractClass" || item.FieldName == "Status"
+                        //Contracting Parties
+                            || item.FieldName == "LegalEntity" || item.FieldName == "Counterparty" || item.FieldName == "CompanyProfile"
+                        //Primary Contract Document Fields
+                            || item.FieldName == "OriginatingParty" || item.FieldName == "IsCompanyTemplate" || item.FieldName == "AreasofModification"
+                            || item.FieldName == "AreasofModification" || item.FieldName == "TemplateModificationNotes" || item.FieldName == "DocumentPhyicalLocation"
+                        //Contract Term Fields
+                            || item.FieldName == "ContractTermType" || item.FieldName == "ContractTermNotes" || item.FieldName == "StartDate" || item.FieldName == "TermEndDate" || item.FieldName == "EndDate"
+                            || item.FieldName == "RequiresAuth" || item.FieldName == "RenewalConfirmParticipants"
+                            || item.FieldName == "CounterpartyNotices" || item.FieldName == "CounterpartyNoticesRenewal" || item.FieldName == "CounterpartyNoticesCancel" || item.FieldName == "NextEvaluationDate"
+                        //People & Permissions Fields
+                            || item.FieldName == "ContractManagers" || item.FieldName == "Approvers" || item.FieldName == "Reviewers"
+                            || item.FieldName == "PrimaryAuthors" || item.FieldName == "PrimaryNegotiators" || item.FieldName == "SharedwithInternal"
+                            || item.FieldName == "RequestSubmittedby" || item.FieldName == "Requestor" || item.FieldName == "CustomPermission"
+                        //Related Request
+                            || item.FieldName == "RelatedRequests" || item.FieldName == "RelatedContracts"
+                        //Signature Related
+                            || item.FieldName == "Signees" || item.FieldName == "ExternalSignees" || item.FieldName == "LastSignatureDate"
+                            || item.FieldName == "SignatureStatus" || item.FieldName == "CounterpartySignatureInformation" || item.FieldName == "CompanySignatureInformation"
+                            || item.FieldName == "WitnessSignatureInformation"
+                        //Formal Notices & Representatives Fields
+                            || item.FieldName == "SendNoticesfor" || item.FieldName == "AddressforNoticeCounterparty" || item.FieldName == "LegalNoticeUserCounterparty"
+                            || item.FieldName == "LegalNoticeEmailIDCounterparty" || item.FieldName == "LegalNoticeFacsimilieCounterparty" || item.FieldName == "AddressforNoticeCompany"
+                            || item.FieldName == "LegalNoticeUserCompany" || item.FieldName == "LegalNoticeEmailIDCompany" || item.FieldName == "LegalNoticeFacsimilieCompany"
+                        //Financials Fields
+                            || item.FieldName == "ContractPricingType" || item.FieldName == "BillingFrequency" || item.FieldName == "PaymentType"
+                            || item.FieldName == "PaymentMethod" || item.FieldName == "ContractCurrency" || item.FieldName == "ContractValue"
+                        //Revenue Related Fields
+                            || item.FieldName == "ProductorServiceDescription" || item.FieldName == "EstimatedTotalRevenue" || item.FieldName == "EstimatedYearlyRevenue"
+                            || item.FieldName == "RevenueMinimumCommitment" || item.FieldName == "RevenueBestCase" || item.FieldName == "OutstandingRevenue"
+                            || item.FieldName == "RevenueTillDate" || item.FieldName == "TaxExempt"
+
+                         //Procurement Related Fields
+                            || item.FieldName == "PurposeofProcurement" || item.FieldName == "ProcurementCategory" || item.FieldName == "SourceofFunds"
+                            || item.FieldName == "EstimatedTotalSpend" || item.FieldName == "EstimatedYearlySpend" || item.FieldName == "MinimumSpendCommitment"
+                            || item.FieldName == "OutstandingSpend" || item.FieldName == "SpendTillDate"
+
+                          //Disputes & Remedies Fields
+                            || item.FieldName == "GoverningLaw" || item.FieldName == "DurationforRemedy" || item.FieldName == "RemediesorDamages"
+                            || item.FieldName == "ActiveDispute" || item.FieldName == "DisputeorRemedyNotes" || item.FieldName == "ArbirtrationNotes"
+
+                        //System Fields
+                        //item.FieldName == "Project" || item.FieldName == "Description" || item.FieldName == "ContractNumber"
+                        //|| item.FieldName == "Counterparty" || item.FieldName == "CompanyProfile" || item.FieldName == "OriginatingParty"
+                        //|| item.FieldName == "StartDate" || item.FieldName == "RenewalDate"
+                        //|| item.FieldName == "EndDate" || item.FieldName == "ContractManagers"
+                        //|| item.FieldName == "Signees" || item.FieldName == "ExternalSignees" || item.FieldName == "ContractValue"
+                        //|| item.FieldName == "ContractTermType" || item.FieldName == "ApprovedBy" || item.FieldName == "ReviewedBy"
+                        //|| item.FieldName == "RelatedContracts" || item.FieldName == "RelatedRequests" || item.FieldName == "CustomPermission"
+                        //Standard Fields
+                        //|| item.FieldName == "GoverningLaw" || item.FieldName == "LicenceType" || item.FieldName == "NumberofLicenses"
+                        //|| item.FieldName == "BillingAmount" || item.FieldName == "BillingFrequency" || item.FieldName == "PaymentType"
+                        //|| item.FieldName == "EventTitle" || item.FieldName == "EventLocation" || item.FieldName == "EventDate"
+                        //|| item.FieldName == "DeliveryLocation" || item.FieldName == "DeliveryDate" || item.FieldName == "ContractPricingType"
+                        //|| item.FieldName == "PlaceofPerformance" || item.FieldName == "DateofPerformance" || item.FieldName == "SummaryofServices" || item.FieldName == "DocumentPhyicalLocation"
+                        )
+                    {
+
+                    }
+                    else
+                    {
+                        <tr id="row" style="border-bottom: 1px dotted #eeeaea; background-color: #D9D9D9; ">
+                            <td id="ContractFieldId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                            <td id="FieldDisplayName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldDisplayName)</td>
+                            <td id="FieldName" style="display:none;">@Html.DisplayFor(modelItem => item.FieldName)</td>
+                            <td id="FieldType" style="display:none;">@Html.DisplayFor(modelItem => item.FieldType)</td>
+                            <td id="CustomFieldsGroupName" style="display:none;">@Html.DisplayFor(modelItem => item.CustomFieldsGroupName)</td>
+                            <td>
+                                <span style="padding: 5px 5px 5px 5px;display: block;" title="@Html.DisplayFor(modelItem => item.Description)"> @Html.DisplayFor(modelItem => item.FieldDisplayName)</span>
+                            </td>
+                            <td id="FieldTypeGroup" style="display:none;">Custom</td>
+                            <td class="openmenu" style="float:right;margin-right: 5px;">
+                                <img src="../Content/Images/context_Menu.png" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </table>
+
+
+
+
+
+    </div>
+    <div id="dialogOrder" style="display:none;">
+        @*@foreach (var name in ViewBag.GroupNames)
+            {
+                @Html.Action("ContractsFieldsinGroup", "Settings", new { fieldGroup = @name })
+            }*@
+    </div>
+    <div id="dialogAddGroup" style="display:none;">
+        <div class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table width="100%" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td class="f_head" width="40%"></td>
+                    <td class="labelright" width="60%"><input id="txtGroupEntityID" name="GroupEntityID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none;">
+                    <td class="f_head">
+                        Order
+                    </td>
+                    <td class="labelright">
+                        <input id="txtGroupOrder" name="GroupEntityID" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Group
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtGroupName" class="f_inpt width100 validelement" title="Field Group" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Description</td>
+                    <td class="labelright">
+                        <textarea id="txtGroupDescription" class="f_inpt width100" style=" height: 80px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Show in Contract Form
+                    </td>
+                    <td class="f_list labelright">
+                        <input name="chkShowInContractForm" class="css1-checkbox" id="chkShowInContractForm" type="checkbox">
+                        <label class="css1-label" for="chkShowInContractForm"></label>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head"></td>
+                        <td class="labelright">
+                            <input id="btnSaveGroup" type="submit" value="Save" class="buttoncss" />
+                            <input id="btnCancel" type="submit" value="Cancel" class="buttoncss modalClose" />
+                        </td>
+                    </tr>*@
+            </table>
+        </div>
+    </div>
+
+    <div id="dialogAddField" style="display:none;">
+        <div class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <table width="100%" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td width="30%">
+                        <input type="text" id="ContractFieldIdHdn" style="display:none;" />
+                        <input type="text" id="CustomFinancialFieldHdsn" style="display:none;" />
+                    </td>
+                    <td width="70%"></td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Type<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldType" onchange="changevalues(this);" class="f_inpt width100 validelement" title="Field Type" disabled>
+                            <option value="0">--Select--</option>
+                            <option value="Single Line Text">Single Line Text</option>
+                            <option value="Multi Line Text">Multi Line Text</option>
+                            <option value="Date">Date</option>
+                            <option value="Choice">Choice</option>
+                            <option value="User">User</option>
+                            <option value="Multi- Choice (Dropdown)">Multi- Choice (Dropdown)</option>
+                            <option value="Multi- Choice (Browse)">Multi- Choice (Browse)</option>
+                            <option value="File Upload">File Upload</option>
+                            <option value="Value / Financials">Value / Financials</option>
+                            <option value="Lookup">Lookup</option>
+                            <option value="Lookup (Multi Select)">Lookup (Multi Select)</option>
+                            <option value="Number">Number</option>
+                            <option value="Phone Number">Phone Number</option>
+                            <option value="Yes/No">Yes/No</option>
+                            @*<option value="Duration">Duration</option>*@
+                            <option value="Email">Email</option>
+                            @*<option value="Lookup">Lookup</option>*@
+                            <!---manoj--->
+                            <!---for hyperlink--->
+                            <option value="Hyperlink">Hyperlink</option>
+                            <!---for hyperlink--->
+                            <!---manoj--->
+                            <option value="Taxonomy">Office 365 Sharepoint Taxonomy</option>
+                        </select>
+                        <div><label id="lblinformationtext" style="display:none">This field type will not appear in Edit Contract</label></div>                        
+                    </td>
+                </tr>              
+                <tr id="trFinancialfield" style="display:none;">
+                    <td></td>
+                    <td class="f_list labelright">
+                        <input name="chkFinancialfield" class="css1-checkbox" id="chkFinancialfield" type="checkbox">
+                        <label class="css1-label" for="chkFinancialfield">Add as a Financial field</label>
+                    </td>
+                </tr>
+                <tr id="trNumberFormatField" style="display:none;">
+                    <td class="f_head">
+                        Number Format<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlNumberFormat" class="f_inpt width100" title="Number Format">
+                            <option value="Number">Number</option>
+                            <option value="Number-D">Decimal</option>
+                            <option value="Number-P">Percent</option>
+                            <option value="Number-PD">Decimal Percent</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="trFieldName">
+                    <td class="f_head">
+                        Field Name
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtFieldName" class="f_inpt width100" disabled title="Field Name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Field Display Name<span class="required">*</span>
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtFieldDisplayName" maxlength="50" onchange="ReplaceSpecialCharacters(this);" onkeyup="TextReplace()" class="f_inpt width100 validelement startswithalphabets" title="Field Display Name" />
+                    </td>
+                </tr>
+                <tr id="trFieldComment" style="display:none;">
+                    <td class="f_head">
+                        Display 'Comment Box' For
+                    </td>
+                    <td class="f_list labelright">
+                        <input name="chkYes" class="css1-checkbox" id="chkYes" type="checkbox" onclick="chkYesNoClick()">
+                        <label class="css1-label" for="chkYes" style="margin-right:4%;">Yes</label>
+                        <input name="chkNo" class="css1-checkbox" id="chkNo" type="checkbox" onclick="chkYesNoClick()">
+                        <label class="css1-label" for="chkNo" style="margin-right:58%;">No</label>
+                        <input name="chkCommentRequired" class="css1-checkbox" id="chkCommentRequired" type="checkbox">
+                        <label class="css1-label" for="chkCommentRequired">Required</label>
+                    </td>
+                </tr>
+                <!---manoj--->
+                <!---for hyperlink--->
+                <tr class="cldefaulturl">
+                    <td class="f_head">
+                        Default URL
+                        <span class="p-text help"> <img src="../Content/Images/input-help.png" title="Add default URL link, to be auto populated​ ​​​in​ ​hyperlink field​ ​​inside create/edit/closeout contract record form."></span>
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtdefaulturl" maxlength="2083" onchange="ReplaceTagSymbol(this);" title="Default URL" placeholder="http://www." class="f_inpt fullwidth" />
+                        @*<input type="text" id="txtFieldName" style="display:none" class="f_inpt fullwidth" />*@
+                    </td>
+                </tr>
+                <!---for hyperlink--->
+                <!---manoj--->
+                <tr id="trFieldNameAdd" style="display: none;">
+                    <td class="f_head">
+                        Field Name
+                    </td>
+                    <td class="labelright">
+                        <input type="text" id="txtFieldNameAdd" class="f_inpt width100" disabled title="Field Name" />
+                    </td>
+                </tr>
+                <tr style="display:none;">
+                    <td class="f_head">
+                        Field Group
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldGroup" class="f_inpt width100">
+                            <option value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="trfieldorder" style="display:none;">
+                    <td class="f_head">
+                        Order
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFieldOrder" class="f_inpt width100"></select>
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Required</td>
+                        <td class="f_list labelright">
+                            <input name="chkRequired" class="css1-checkbox" id="chkRequired" type="checkbox">
+                            <label class="css1-label" for="chkRequired"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f_head">Show Field In</td>
+                        <td class="f_list labelright">
+                            <input name="chkShowInCreate" class="css1-checkbox" id="chkShowInCreate" type="checkbox">
+                            <label class="css1-label" for="chkShowInCreate">Create Form</label>
+                            <input name="chkShowInEdit" class="css1-checkbox" id="chkShowInEdit" type="checkbox">
+                            <label id="lbleditform" class="css1-label" for="chkShowInEdit">Edit Form</label>
+                        </td>
+                    </tr>*@
+                <!---manoj--->
+                <tr>
+                    <td class="f_head">
+                        New/Pipeline<span class="p-text help"> <img src="../Content/Images/input-help.png" title="Set up this field as Visible/Hidden/Required for Creating/Editing a Contract Record in Pipeline."></span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlnewcontractform" class="f_inpt width100">
+                            <option value="Show">Show</option>
+                            <option value="Hide">Hide</option>
+                            <option value="Required">Required</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Add/Finalize<span class="p-text help"> <img src="../Content/Images/input-help.png" title="Set up this field as Visible/Hidden/Required for Finalizing a Contract Record and Creating/Editing a Finalized Contract."></span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlpipelinecontractform" class="f_inpt width100">
+                            <option value="Show">Show</option>
+                            <option value="Hide">Hide</option>
+                            <option value="Required">Required</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">
+                        Closeout(Edit)<span class="p-text help"> <img src="../Content/Images/input-help.png" title="Set up this field as Visible/Hidden/Required for Contract Closeout."></span>
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlFinalizedcontractform" class="f_inpt width100">
+                            <option value="Show">Show</option>
+                            <option value="Hide">Hide</option>
+                            <option value="Required">Required</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <!---manoj--->
+                @*//ENH485  Featured metadata*@
+                <tr id="trfeatureMetadata">     
+                    <td class="f_head">Featured Metadata<span class="p-text help"><img src="../Content/Images/input-help.png" title="Set up this field as Visible/Hidden in Featured Metadata section."></span></td>
+                    <td class="f_list labelright">
+                        <input name="chkFeatured" class="css1-checkbox" id="chkFeatured" type="checkbox">
+                        <label class="css1-label" for="chkFeatured"></label>
+                    </td>
+                </tr>
+                <tr id="trDescription">
+                    <td class="f_head">Description</td>
+                    <td class="labelright">
+                        <textarea id="txtDescription" onchange="ReplaceTagSymbol(this);" maxlength="300" class="f_inpt width100" style=" height: 80px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Field Help</td>
+                    <td class="f_list labelright">
+                        <input name="chkHelp" class="css1-checkbox" id="chkHelp" type="checkbox">
+                        <label class="css1-label" for="chkHelp"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Help Text</td>
+                    <td class="labelright">
+                        <textarea id="txtHelpText" maxlength="300" onchange="ReplaceTagSymbol(this);" class="f_inpt width100" style=" height: 80px;" title="Help Text"></textarea>
+                    </td>
+                </tr>
+                <tr id="ddlContracttype">
+                    <td class="f_head">Contract Record Type(s)</td>
+
+                    <td class="f_list labelright">
+                        <select id="ddlContractTypeList" name="ddlContractTypeList" multiple="multiple" class="f_inpt width90 chosenmulti" data-placeholder="Select Contract Record Type(s)"></select>
+                        @* <input name="chkDefaultField" class="css1-checkbox" id="chkDefaultField" type="checkbox">*@
+                        <label class="css1-label" for="ddlContractTypeList"></label>
+                    </td>
+                </tr>
+
+                <tr style="display:none;">
+                    <td class="f_head">Default Field</td>
+
+                    <td class="f_list labelright">
+                        <input name="chkDefaultField" class="css1-checkbox" id="chkDefaultField" type="checkbox">
+                        <label class="css1-label" for="chkDefaultField"></label>
+                    </td>
+                </tr>
+                <tr id="trchoicesvalues" style="display:none;">
+                    <td class="f_head">
+                        Choice Values
+                    </td>
+                    <td class="labelright">
+                        @*Anand - eO310933*@
+                        <textarea id="txtChoicesValues" class="f_inpt width100" onchange="ReplaceTagSymbol(this);" style="height: 80px;" title="Choice Values : Type each choice on a separate line"></textarea>
+                    </td>
+                </tr>
+                <tr id="trlookupvalues" style="display:none;">
+                    <td class="f_head" id="trlookupvaluesid">
+                        Lookup
+                    </td>
+                    <td class="labelright">
+                        <select id="ddlLookupType" class="f_inpt width100"></select>
+                        <span class="css1-label" id="txtLookupTable"></span>
+                    </td>
+                </tr>
+                <tr id="AllTypeUpdate" style="display:none">
+                    <td class="f_head">Update all Contract Record Types</td>
+                    <td class="f_list labelright">
+                        <input name="chkAllTypeUpdate" class="css1-checkbox" id="chkAllTypeUpdate" type="checkbox">
+                        <label class="css1-label" for="chkAllTypeUpdate"></label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="browseContractType">
+        <ul id="menuSMultiple" class="f_list"></ul>
+        <div id="dvCPExistingContractType" class="width100">
+            <p class="text1" style="padding: 0px 10px 10px 10px;">You can select one or more Contract Record Type from below and link to this Contract Record field.</p>
+            <article style="width:100%; text-align:center;">
+                <input id="txtSearchBox" class="f_inpt cl width80 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchContractType();" src="@Url.Content("~/Content/Images/search_over.png")" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchContractType();">Clear</a>
+            </article>
+            <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+                <span id="spnfinacialvalue" style="display:none" class="alert-red">* Contract Value cannot be added to the Contract Record Type which transaction type is "Legal/General Agreement"</span>
+                <table id="tblContractType"></table>
+                @*<span id="spCounterpartiesUnselect" class='right-float padding_left_5px'>
+                        <a class="linkText" href="javascript:void(0)" onclick="$('input:checkbox[name=Counterparty]').attr('checked', false);">Unselect All</a>
+                    </span>*@
+            </div>
+            <div id="loadGenContractType"></div>
+            <div>
+                <div class="pagination-holder clearfix" id="dvctypepagination">
+                    <article id="compact-paginationContractType"></article>
+                </div>
+                <div id="dvpagehide" class="width20 float_right1 result_count">
+                    <span id="spResult"></span>
+                </div>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;display:none;">
+                <div id="liSelectedContractType">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--manoj-->
+    <div id="dialogcontracttypelist" style="display:none;">
+        <div class="modalheader"><span style="background-color:#59a1d5; color:#ffffff">Note: Select All to remove this Field from Basic Metadata and Contract Record Type(s) Metadata, else it will be removed only from selected Contract Record Type(s) Metadata and not from Basic Metadata.</span></div>
+        <div class="modalbody">
+            <table width="100%" id="tblcontracttypelist" cellpadding="2" cellspacing="2"></table>
+        </div>
+    </div>
+    <!--manoj-->
+    <!-- Right Click Menu -->
+    <ul id="myMenu" class="contextMenu">
+        <li class="template"><a href="#add">Add</a></li>
+        <li class="edit"><a href="#edit">Edit</a></li>
+        <li class="delete"><a href="#delete">Delete</a></li>
+    </ul>
+    <ul id="myMenuNoDelete" class="contextMenu">
+        <li class="template"><a href="#add">Add</a></li>
+        <li class="edit"><a href="#edit">Edit</a></li>
+    </ul>
+
+    <!-- Primary Field Menu -->
+    <ul id="primaryMenu" class="contextMenu">
+        @*<li class="order"><a href="#orderfields">Order</a></li>*@
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+
+    <!-- Group Menu -->
+    <ul id="groupMenu" class="contextMenu">
+        @*<li class="order"><a href="#orderfields">Order</a></li>*@
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">Delete</a></li>
+        <li class="moveup"><a href="#groupup">Move Up</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+    <!-- Group Menu -->
+    <ul id="groupMenuNoUp" class="contextMenu">
+        @*<li class="order"><a href="#orderfields">Order</a></li>*@
+        <li class="edit"><a href="#groupedit">Edit</a></li>
+        <li class="delete"><a href="#groupdelete">Delete</a></li>
+        <li class="movedown"><a href="#groupdown">Move Down</a></li>
+    </ul>
+    <!-- Right Click Menu -->
+    <ul id="myMenumainfield" class="contextMenu">
+        <li class="edit"><a href="#mainfieldedit">Edit</a></li>
+        <li class="remove"><a href="#remove">Remove</a></li>
+    </ul>
+    <ul id="myPrimaryMenumainfield" class="contextMenu">
+        <li class="edit"><a href="#edit">Edit</a></li>
+        @*<li class="remove"><a href="#remove">Remove</a></li>*@
+    </ul>
+
+    <!---manoj--->
+    <!---Hidden Field(s)--->
+    <input id="txtGlobalUpdate" type="hidden" />
+    <input id="txtDeleteFieldName" type="hidden" />
+    <input id="txtContractTermTypeExisit" type="hidden" />
+    <!---Hidden Field(s)--->
+    <!---manoj--->
+
+</div>
+
+
+
+@Scripts.Render("~/Scripts/Contract365/Settings_ContractFields.js?" + DateTime.Now.GetHashCode())
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Initialise the first table (as before)
+        //$("#tblFields").tableDnD();
+        //$('#tblFields').tableDnD({
+        //    onDrop: function (table, row) {
+
+        //    },
+        //    dragHandle: ".dragHandle"
+        //});
+        //$("#tblFields tr").hover(function () {
+        //    $(this.cells[0]).addClass('showDragHandle');
+        //}, function () {
+        //    $(this.cells[0]).removeClass('showDragHandle');
+        //});
+    });
+
+</script>

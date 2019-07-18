@@ -1,0 +1,187 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ContractApprovalSheetsEntity>
+@{
+    ViewBag.Title = "Contract Approval Sheets Settings";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<table id="tblParent" class="width95_a">
+    <tr>
+        <td class="pageheading font-normal">
+            Summary & Approval Sheet
+            <img src="~/Content/Images/help_training.png" alt="Contract Record Types" title="Configure key information for Approver." />
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                <div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                    <input id="txtSearchBox" placeholder="Search" type="text" />
+                    <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                </div>
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                            <thead>
+                                <tr>
+                                    <th id="footleft" class="font-normal">
+                                        Summary Information / Document
+                                        <a class=" search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc');"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal" style="width: 300px !important; word-wrap: break-word;">Assigned Contract Types</th>
+                                    @*<th class="font-normal">Type</th>*@
+                                    <th id="datefootleft" class="font-normal">
+                                        Created Date
+                                        <a class=" search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate');"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contractapprovalsheetstable"></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="metadata"><a href="#metadata">Metadata</a></li>
+    @*<li class="uploadtemplate"><a href="#uploadtemplate">Upload Template</a></li>*@
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+
+<div id="AddEditContractApprovalSheet" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractApprovalSheetID" name="ContractApprovalSheetID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtApprovalSheetTemplateID" name="ApprovalSheetTemplateID" type="hidden" /></td>
+                </tr>       
+                <tr style="display:none">
+                    <td class="f_head">Type<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlApprovalSheetType" name="ApprovalSheetType" class="f_inpt width98dot5">
+                            <option value="0">--Select--</option>
+                            <option selected value="Approval Sheet">Approval Sheet</option>
+                            <option value="Cover Sheet" style="display:none">Cover Sheet</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Summary Sheet Name<span class="required">*</span></td>
+                    <td class="f_list labelright width60"><input id="txtContractApprovalSheet" maxlength="100" onchange="ReplaceSpecialCharacters(this);" name="ContractType" type="text" class="f_inpt width98dot5 validelement validtitle" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Assigned Contract Type(s)<span class="required">*</span></td>
+                    <td class="labelright">
+                        <select id="ddlContractTypes" multiple="multiple" class='f_inpt width90 chosenmulti validuser' name="ContractType" title='Available Contract Type(s)' data-placeholder='Select Contract Record Type(s)'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Template</td>
+                    <td class="labelright">
+                        <div class="clSummaryBrowse">
+                            <input type="file" id="docSummaryTemplate" name="Summaryfile" title="Document" class="f_inpt width97 padding_left_none border-none" onchange="javascript:changeinupload(this);" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.template" />
+                        </div>
+                        <div class="clSummaryTempDetails" id="SummaryTempExistingActions">
+
+                        </div>
+
+                    </td>
+                </tr>
+                @*<tr>
+                        <td class="f_head">Default Approval Sheet <img src="/Content/Images/help_training.png" alt="Is Default Approval Sheet" title="This Approval Sheet will be considered while triggering Default workflows for this Contract Type."></td>
+                        <td class="labelright">
+                            <input type="checkbox" name="IsDefault" id="chkIsDefault" class="css1-checkbox" value="Yes" />
+                        </td>
+                    </tr>*@
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="addEditApprovalSheetTemplate" style="display:none;">
+    <div id="dvPopupHeadingSumTemplateName" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewSumEntityFields">
+            <table id="tblUploadSumTemplate" cellpadding="2" cellspacing="2" class="width100">
+                @*<tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtApprovalSheetTemplateID" name="ApprovalSheetTemplateID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtApprovalSheetID" name="ApprovalSheetID" type="hidden" /></td>
+                </tr>
+                <tr style="display:none">
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtApprovalSheetName" name="ApprovalSheetName" type="hidden" /></td>
+                </tr>*@
+                <tr class="clSumTempDetails">
+                    <td class="labelleft">Template Name</td>
+                    <td class="f_list labelright" id="SumTempExistingActions"></td>
+                </tr>
+                <tr class="clSumTempReplace">
+                    <td class="labelleft width40">Template Name<small class="required">*</small></td>
+                    <td class="f_list labelright width60">
+                        <input id="txtSumTemplateName" maxlength="50" name="SumTemplateName" type="text" title="Template Name" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width97 filecorevo validelement validtitle" />
+                        <input id="hdntxtSumTemplateName" name="hdntxtSumTemplateName" type="hidden" />
+                    </td>
+                </tr>
+                <tr class="clSumBrowse">
+                    <td class="labelleft" style="vertical-align: top; display: table-cell;">Browse Template<small class="required">*</small></td>
+                    <td class="labelright"><input type="file" id="docSumTemplate" name="Sumfile" title="Document" class="f_inpt width97 padding_left_none validelement border-none" onchange="javascript:changeinupload(this);" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.template" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!---manoj--->
+@section scripts{
+    @Scripts.Render("~/Scripts/Contract365/Settings_ContractApprovalSheets.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/tree.jquery.js"></script>
+    <link href="~/Content/css/jqtree.css" rel="stylesheet" />
+}
+

@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Contract Term Types";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table id="tblParent" class="width95_a">
+    <tr>
+        <td class="pageheading font-normal">
+            Contract Term Type Management
+            <img src="~/Content/Images/help_training.png" alt="Contract Types" title="Manage Contract Term Types." />
+        </td>
+        @*<td class="pageheading" align="right"><input id="btnAddNew" type="submit" value="Add New" class="f_button_green_small" style="display:none;" /></td>*@
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+                @*<div class="inserch1" style=" padding-left: 20px;margin-top: 1px; margin-bottom: 4px;">
+                        <input id="txtSearchBox" placeholder="Search" type="text" />
+                        <a href="javascript:void(0);"><img src="/Content/Images/search1.png" onclick="search()" /></a>
+                    </div>*@
+                <div class="selectFIlterItem margin-left-m20">
+                    <div id="liFiltersSearchText">
+
+                    </div>
+                    <div id="liFiltersStatus">
+
+                    </div>
+                    <div id="liFiltersType">
+
+                    </div>
+                </div>
+
+                <div class="fields-table">
+
+                    <div class="table-sec">
+                        <table cellpadding="0" cellspacing="0" border="0" class="paginated width100">
+                            <thead>
+                                <tr>
+                                    <th class="font-normal">
+                                        Enable/Disable
+                                    </th>
+                                    <th id="footleft" class="font-normal">
+                                        Contract Term Type
+                                        <a class="search-btn" id="trigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="drop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('asc')"><img src="../Content/Images/sort_az.png" width="18" height="18"> Sort A to Z</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('desc');"><img src="../Content/Images/sort_za.png" width="18" height="18"> Sort Z to A</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">
+                                        Modified By
+                                    </th>
+                                    <th id="datefootleft" class="font-normal">
+                                        Modified Date
+                                        <a class="search-btn" id="datetrigger" href="javascript:void(0);">
+                                            <span><img src="../Content/Images/down_arrow.png" alt="" title=""></span>
+                                        </a>
+                                        <div class="search-sec" id="datedrop" style="display:none;">
+                                            <div class="sort_arrow"><a href="javascript:void(0)" onclick="TableSort('ascdate')"><img src="../Content/Images/sort_az.png" width="18" height="18">Oldest - Newest</a></div> <div class="sort_arrow"><a href="javascript:void(0)" onclick="    TableSort('descdate');"><img src="../Content/Images/sort_za.png" width="18" height="18">Newest - Oldest</a></div>
+                                        </div>
+                                    </th>
+                                    <th class="font-normal">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contracttermtypestable"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="AddEditContractTermTypes" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtContractTermTypeID" name="ContractTermTypeID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Term Type Name<span class="required">*</span></td>
+                    <td class="f_list labelright width60"><input id="txtContractTermType" maxlength="100" name="ContractTermType" type="text" class="f_inpt width98dot5 validelement startswithalphabets validtitle" readonly /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Term Type Display Name<span class="required">*</span></td>
+                    <td class="labelright"><input id="txtContractTermTypeDisplay" maxlength="100" name="ContractTermTypeDisplay" type="text" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width98dot5 validelement startswithalphabets validtitle" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Help Text</td>
+                    <td class="labelright"><textarea id="txtHelpText" maxlength="300" class="f_inpt width98dot5" style=" height: 80px;" title="Help Text"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Enabled</td>
+                    <td class="f_list labelright">
+                        <input id="chkEnabled" name="Enabled" type="checkbox" value="Enabled" />
+                        <label class="css1-label" for="chkEnabled"></label>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/Contract365/Settings_ContractTermTypes.js?" + DateTime.Now.GetHashCode())

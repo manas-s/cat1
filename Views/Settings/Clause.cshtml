@@ -1,0 +1,536 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_SettingsHeader.cshtml";
+}
+<style>
+    .nicEdit-main{
+        width:auto !important;
+    }
+</style>
+        <div class="container-fluid page_bg clearfix">
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 left-content">
+        <div class="gw-sidebar">
+            <div id="gw-sidebar" class="gw-sidebar">
+                <h5 class="col-lg-12">Clause Templates<span class="add_grp"><a href="javascript:void(0);" id="btnAddClauseGroup"><i class="fa fa-plus-square" title="New Clause Templates" style="cursor:pointer;margin-right:5px;margin-left: -12px;"></i>Add</a></span></h5>
+                <div class="nano-content">
+                    <ul class="gw-nav gw-nav-list" id="groupleftnav"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 left-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix middle-content">
+                    <div style="margin-left: 15px;vertical-align: middle !important;margin-top: 10px;"><a href="javascript:void(0);" class="back-btn" onclick="BackToList();"><img src="/Content/Images/go-back.png" style="vertical-align: middle;"> <span style="vertical-align: middle;">Go Back</span></a><div style="float:right"><a onclick="" class="" style="font-size:12px; " href="javascript:redirectclausedb()">View Clause(A-Z) </a> | <a onclick="" class="" style="font-size:12px;pointer-events: none;color: gray;" href="">View Clause Templates </a></div></div>
+                    @*<div style="margin-left: 15px;"><a href="javascript:void(0);" class="back-btn" onclick="BackToList();"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a></div>*@
+                    <div class="col-lg-12 header_text2 clearfix">
+                        <div class="col-lg-7 col-md-8 col-sm-8 col-xs-6" style="margin-top:8px;" id="dvheader"></div>
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 pull-right search-box">
+                            <div class="input-group">
+                                <input type="text" id="txtsearchclause" class="form-control" placeholder="Search" name="q">
+                                <div class="input-group-btn">
+                                    @*<a href="javascript:void(0);" onclick="javascript: applyFilter();"><i class="fa fa-search"></i></a>*@
+                                    <button id="btnsearchclause" class="btn btn-default" onclick="javascript: void (0);" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix left-content">
+                    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6  middle-content" id="middlediv">
+                        <div class="clearfix no_padding middle-inner-header">
+                            <span id="btnspnback" style="display:none"><span style="clear: both;width: 100%;float: left;margin-bottom: 10px;"><a href="javascript:void(0)" onclick="callback()"><img src="/Content/Images/arrow-goback.png"><b>Go Back</b></a></span><img style="vertical-align:top" src="../Content/Images/gry_file.png"><span id="hdrtitle"></span><span id="hdrID" style="display:none"></span></span>
+                            <div class="col-lg-2 col-md-4 col-sm-6 pull-left no_padding" style="width:60%;" id="divGroupName">
+                                <span><img src="~/Content/Images/blue_folder.png"><span id="groupNameHead" style="padding-left: 10px;"></span></span>
+                                <div id="dropdowngroupmenu" class="dropdown">
+                                    <span id="groupNameID"></span>
+                                    <img src="../Content/Images/context_Menu.png" id="dropdowngroupmenupublish" alt="Open Menu" title="Open Menu" class="openmenuGroupPublish" style="display :none; cursor:pointer; margin-top:4px">
+                                    <img src="../Content/Images/context_Menu.png" id="dropdowngroupmenuunpublish" alt="Open Menu" title="Open Menu" class="openmenuGroupUnpublish" style="display :none;cursor:pointer;margin-top:4px">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-6 pull-right" style="width:38%">
+                                <div class="middle-head-icons text-right">
+                                    <ul>
+                                        <li><span><a href="javascript:void(0);"><i class="fa fa-plus-square" id="btnviewprvClauseGroup" title="View Preview Clause Template" style="cursor:pointer; display:none;"></i></a></span><span class="add_grp"><a href="javascript:void(0)" style="font-size: 12px; float:left; margin-right:9px; " id="btnAddClauseLanguage" class="hideIfNone"><i class="fa fa-plus-square" style="margin-right:5px;"></i>Create New Clause</a><a href="javascript:void(0)" style="font-size:12px;float:left;" id="btnAddExisitingLanguage" class="hideIfNone"><i class="fa fa-plus-square" style="margin-right:5px;"></i>Add Existing Clause</a></span><span class="add_grp"><a href="javascript:addalterfromview()" style="font-size:12px; display:none" id="btnAddAlternateLanguage"><i class="fa fa-plus-square" style="margin-right:5px;"></i>Add Alternate Lanugage</a></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="middle-inner" id="divGroupDetails">
+                            <div class="middle-content">
+                                <ul>
+                                    <li>
+                                        @*<span>Clause(s)</span><a href="javascript:void(0)" id="btnAddClauseLanguage"><i class="fa fa-plus-square"></i> Add</a>*@
+                                        @*<a href="javascript:void(0)" id="btnAddClauseLanguage"><i class="fa fa-plus-square"></i> Add</a>*@
+                                        <ul class="gw-submenu" id="middleLanguage"></ul>
+                                    </li>
+                                    <li style="display:none">
+                                        <span>Assigned Contract Types (<span id="countcontracttype">0</span>)</span><a href="javascript:void(0);" id="btnAddContractType"><i class="fa fa-plus-square"></i> Add</a>
+                                        <ul class="gw-submenu" id="middleContractType">
+                                            <li>No items found.</li>
+                                        </ul>
+                                    </li>
+                                    @*<li>
+                                    <span>Assigned Document Templates (<span id="countdoctemplate">0</span>)</span><a href="javascript:void(0);" id="btnAddContractTemplate"><i class="fa fa-plus-square"></i> Add</a>
+                                    <ul class="gw-submenu" id="middleDocumentTemplate">
+                                        <li>No items found.</li>
+                                    </ul>
+                                </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="middle-inner" id="divLanguageAndAlternativeLanguage" style="display:none;">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 right-content no_padding" id="rightdiv">
+                        <div class="right-inner">
+                            <div class="tab-sec">
+                                <ul class="nav nav-tabs">
+                                    <li class="col-md-12 col-sm-6 active" id="hometab"><a data-toggle="tab" href="#home">Clause Template Info</a></li>
+                                    <li style="display:none" class="col-md-6 col-sm-6"><a data-toggle="tab" href="#rightComments"><span><img src="~/Content/Images/comment.png"></span> Comments <span class="comments" id="cmtCount">0</span></a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane fade in active">
+                                        <table>
+                                            <tr class="info clearfix">
+                                                <td>Title</td>
+                                                <td id="rightGroupTitle"> -- </td> </td>
+                                            </tr>
+                                            <tr class="info clearfix" style="display:none">
+                                                <td>Categories</td>
+                                                <td id="rightCategories"> -- </td> </td>
+                                            </tr>
+                                            <tr style="display:none" class="info clearfix">
+                                                <td>ID</td>
+                                                <td id="rightID"> -- </td> </td>
+                                            </tr>
+                                            <tr class="info clearfix">
+                                                <td>Created by</td>
+                                                <td id="rightCreatedBy"> -- </td> </td>
+                                            </tr>
+                                            <tr class="info clearfix">
+                                                <td>Created</td>
+                                                <td id="rightCreated"> -- </td> </td>
+                                            </tr>
+                                            <tr class="info clearfix">
+                                                <td>Last Edit</td>
+                                                <td id="rightModified"> -- </td> </td>
+                                            </tr>
+                                            <tr style="display:none" class="info clearfix">
+                                                <td>Status</td>
+                                                <td id="rightIsActive"> -- </td> </td>
+                                            </tr>
+                                            <tr class="info clearfix">
+                                                <td>Instructions</td>
+                                                <td id="rightInstruction"> -- </td> </td>
+                                            </tr>
+                                            <tr style="display:none" class="info clearfix">
+                                                <td>Usage Published</td>
+                                                <td id="rightUsedInContract"> -- </td> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="rightComments" class="tab-pane fade">
+                                        <textarea id="txtComment" name="Comment" rows="2" class="clausetxtarea margintop10px validelement"></textarea>
+                                        <p>
+                                            <a class="pop_up_Content_Green margintop10px" href="javascript:void(0)" id="btnPost">Post</a>
+                                        </p>
+                                        <ul id="tblComments" class="clausecomment"></ul>
+                                        <a id="aCommentsMore" class="alertbox_status1A" href="javascript:void(0);" style="display:none;" onclick="ShowAllComment()">Show more</a>
+                                        <a id="aCommentsLess" style="display:none;" class="alertbox_status1A" href="javascript:void(0);" onclick="ShowLessComment()">Show less</a>
+                                    </div>
+                                </div>
+                                <div id="middlesection" style="margin-top: 10px; border-top: solid 1px #ccc; padding-top: 10px;">
+                                    <div class="clause_right_header"><span style="margin-right:8px;">Assigned Document Templates (<span id="countdoctemplate">0</span>)</span><span class="add_grp"><a href="javascript:void(0);" id="btnAddContractTemplate" class="add_link_a hideIfNone"><i class="fa fa-plus-square"></i> Add</a></span></div>
+                                    <ul class="gw-submenu" id="middleDocumentTemplate">
+                                        <li>No items found.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</div>
+
+    <ul id="menuGroupPublish" class="contextMenu">
+        <li class="duplicate"><a href="#duplicate">Duplicate Template</a></li>
+        @*<li class="remove"><a href="#remove">Deactivate</a></li>*@
+        @*<li class="remove"><a href="#publish">Publish</a></li>*@
+        <li class="edit"><a href="#edit">Edit</a></li>
+        <li class="delete"><a href="#delete">Delete</a></li>
+    </ul>
+    <ul id="menuGroupUnpublish" class="contextMenu">
+        <li class="duplicate"><a href="#duplicate">Duplicate Template</a></li>
+        @*<li class="remove"><a href="#remove">Deactivate</a></li>*@
+        @*<li class="remove"><a href="#unpublish">Unpublish</a></li>*@
+        <li class="edit"><a href="#edit">Edit</a></li>
+        <li class="delete"><a href="#delete">Delete</a></li>
+    </ul>
+    <ul id="menuLanguagePublish" class="contextMenu">
+        @*<li class="duplicate"><a href="#textcopy">Duplicate Language</a></li>*@
+        @*<li class="template"><a href="#txtaddalternative">Add Alternative Language</a></li>*@
+        @*<li class="remove"><a href="#textremove">Deactivate</a></li>*@
+        @*<li class="remove"><a href="#textpublish">Publish</a></li>*@
+        <li class="template"><a href="#textview">View Clause</a></li>
+        <li class="edit">@*<a href="#textedit">Edit</a>*@</li>
+        <li class="delete"><a href="#textdelete">Remove</a></li>
+    </ul>
+    <ul id="menuLanguageUnpublish" class="contextMenu">
+        @*<li class="duplicate"><a href="#textcopy">Duplicate Language</a></li>*@
+        @*<li class="template"><a href="#txtaddalternative">Add Alternative Language</a></li>*@
+        @*<li class="remove"><a href="#textremove">Deactivate</a></li>*@
+        @*<li class="remove"><a href="#textunpublish">Unpublish</a></li>*@
+        <li class="template"><a href="#textview">View Clause</a></li>
+        @*<li class="edit"><a href="#textedit">Edit</a></li>*@
+        <li class="delete"><a href="#textdelete">Remove</a></li>
+    </ul>
+    <ul id="menuCT" class="contextMenu">
+        <li class="edit"><a href="#ctedit">Edit</a></li>
+        <li class="delete"><a href="#ctdelete">Delete</a></li>
+    </ul>
+    <ul id="menuDT" class="contextMenu">
+        <li class="edit"><a href="#dtedit">Edit</a></li>
+        <li class="delete"><a href="#dtdelete">Delete</a></li>
+    </ul>
+<!---manoj-->
+<ul id="menualternatelang" class="contextMenu">
+    <li class="duplicate"><a href="#dduplicatelang">Duplicate Clause</a></li>
+    <li class="remove"><a href="#dmakedefault">Make as Default</a></li>
+    @*<li class="edit"><a href="#dcopytogrp">Copy to another Group</a></li>
+    <li class="edit"><a href="#dmovetogrp">Move to another Group</a></li>*@
+    <li class="delete"><a href="#ddeletelang">Delete</a></li>
+</ul>
+<ul id="menudefaultlang" class="contextMenu">
+    <li class="duplicate"><a href="#dduplicatelang">Duplicate Clause</a></li>
+    @*<li class="edit"><a href="#dcopytogrp">Copy to another Group</a></li>*@
+    @*<li class="edit"><a href="#dmovetogrp">Move to another Group</a></li>*@
+</ul>
+<!---manoj-->
+
+    <div id="AddEditGroup" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div id="addNewEntityFields">
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    <tr>
+                        <td class="labelright width40 v_aligment"></td>
+                        <td class="labelright width60 "><input id="txtGroupRowKey" name="GroupRowKey" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Template Title<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60"><input id="txtGroupTitle" maxlength="100" name="GroupTitle" type="text" class="f_inpt width98 validelement" /></td>
+                    </tr>                   
+                    <tr>
+                        <td class="labelright width40 v_aligment">Instruction</td>
+                        <td class="labelright width60"><textarea id="txtInstruction" name="Instruction" rows="2" cols="20" style=" height: 80px;" class="f_inpt width98"></textarea></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">ID<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60"><input id="txtIDGroup" name="ID" type="text" class="f_inpt width98" /></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">
+                            Status
+                        </td>
+                        <td class="labelright">
+                            <select id="ddlStatus" class="f_inpt width98" title="Status">
+                                <option value="Yes">Active</option>
+                                <option value="No">Inactive</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">
+                            Publish Status
+                        </td>
+                        <td class="labelright">
+                            <select id="ddlPublishStatus" class="f_inpt width98" title="Publish Status">
+                                <option value="Yes">Publish</option>
+                                <option value="No">Unpublish</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">Categories<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60">
+                            <select class="f_inpt width98 chosenmulti customchosen" name="groupcategory" id="ddlGroupCategory" multiple data-placeholder='Select Category'>
+                                @*<option value="Remedies">Remedies</option>
+                                <option value="General Provisions">General Provisions</option>
+                                <option value="Payment Related">Payment Related</option>*@
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="AddEditLanguage" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div>
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    <tr>
+                        <td class="labelright width40 v_aligment"></td>
+                        <td class="labelright width60"><input id="txtLanguageRowKey" name="LanguageRowKey" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Clause Title<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60"><input id="txtLanguageTitle" maxlength="100" name="LanguageTitle" type="text" class="f_inpt width98 validelement" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Clause Text<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60 width-fixed"><textarea id="txtLanguageText" name="LanguageText" rows="2" cols="20" style=" height: 60px;" class="f_inpt width98 validelement"></textarea></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">ID<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60"><input id="txtIDLanguage" type="text" class="f_inpt width98" /></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">
+                            Status
+                        </td>
+                        <td class="labelright width60">
+                            <select id="ddlStatus" class="f_inpt width98" title="Status">
+                                <option value="Yes">Active</option>
+                                <option value="No">Inactive</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">
+                            Publish Status
+                        </td>
+                        <td class="labelright width60">
+                            <select id="ddlPublishStatuslanguage" class="f_inpt width98" title="Publish Status">
+                                <option value="Yes">Publish</option>
+                                <option value="No">Unpublish</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Category<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60">
+                            <select class="f_inpt width98 chosenmulti customchosen validmultiselect" name=" tremcategory" id="ddlTremCategory" multiple data-placeholder='Select'>
+                                @*<option value="Remedies">Remedies</option>
+                                <option value="General Provisions">General Provisions</option>
+                                <option value="Payment Related">Payment Related</option>*@
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">Keyword</td>
+                        <td class="labelright width60"><input id="txtKeyWordLanguage" type="text" class="f_inpt width98" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Usage Instruction</td>
+                        <td class="labelright width60"><textarea id="txtInstructionLanguage" name="InstructionLanguageText" rows="2" cols="20" style=" height: 60px;" class="f_inpt width98"></textarea></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">Description</td>
+                        <td class="labelright width60"><textarea id="txtDescriptionLanguage" name="DescriptionLanguageText" rows="2" cols="20" style=" height: 60px;" class="f_inpt width98"></textarea></td>
+                    </tr>
+                    <tr style="display:none">
+                        <td class="labelright width40 v_aligment">Tips</td>
+                        <td class="labelright width60"><textarea id="txtTipsLanguage" name="TipsLanguageText" rows="2" cols="20" style=" height: 60px;" class="f_inpt width98"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Mutually Exclusive With</td>
+                        <td class="labelright width60">                           
+                            <select class="f_inpt width98 chosenmulti customchosen" name="ExclusiveWith" id="ddlExclusiveWith" multiple data-placeholder='Select'></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Mutually Inclusive With</td>
+                        <td class="labelright width60">                            
+                            <select class="f_inpt width98 chosenmulti customchosen" name="InclusiveWith" id="ddlInclusiveWith" multiple data-placeholder='Select'></select>
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="AddAlternativeLanguage" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div>
+                <table cellpadding="2" cellspacing="2" class="width100">
+                    <tr>
+                        <td class="labelright width40 v_aligment"></td>
+                        <td class="labelright width60"><input id="txtDefaultLanguageRowKey" type="hidden" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelright width40 v_aligment">Clause Text<small class="required">&nbsp;*</small></td>
+                        <td class="labelright width60 width-fixed"><textarea id="txtAlternativeLanguage" name="AlternativeLanguage" rows="2" cols="20" style=" height: 88px;" class="f_inpt width98 validelement"></textarea></td>
+                    </tr>                    
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="AddEditContractType" style="display:none;">
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <div class="modalbody">
+            <div class="modal-body-left col-lg-2 col-md-3 col-sm-12">
+                <p>Contract Types</p>
+            </div>
+            <div class="modal-body-right col-lg-10 col-md-9 col-sm-12">                
+                <select class="f_inpt chosenmulti customchosen" name="ContractTypes" id="ddlContractTypes" multiple data-placeholder='Select'></select>
+                <div class="radio" style="display:none">
+                    <label>
+                        <input type="radio" name="optradio" value="No" checked>
+                        Make available for tagging to Contracts with these Contract Types.
+                    </label>
+                </div>
+                <div class="radio" style="display:none">
+                    <label>
+                        <input type="radio" name="optradio" value="Yes">
+                        Make available for tagging and Auto tag following Terms &amp; Clauses
+                    </label>
+                </div>
+                <div class="select-contract clearfix" id="cTypeLanguage">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="AddEditContractTemplate" style="display:none;">
+        <input type="hidden" autofocus="autofocus" />
+        <div id="dvPopupHeading" class="modalheader"><span></span></div>
+        <label id="tempmsg" style="display:none;">No document template available</label>
+        <div class="modalbody" id="contracttemplatemaindiv">            
+            <div class="modal-body-left col-lg-2 col-md-3 col-sm-12">
+                <p>Templates</p>
+            </div>
+            <div class="modal-body-right col-lg-10 col-md-9 col-sm-12">
+                <select class="f_inpt chosenmulti customchosen" name="ContractTemplate" id="ddlContractTemplate" multiple data-placeholder='Select'></select>
+                <div class="radio" style="display:none">
+                    <label>
+                        <input type="radio" name="optradioTemp" value="No" checked>
+                        Make available for tagging to Contracts with these Templates.
+                    </label>
+                </div>
+                <div class="radio" style="display:none">
+                    <label>
+                        <input type="radio" name="optradioTemp" value="Yes">
+                        Make available for tagging and Auto tag following Terms &amp; Clauses
+                    </label>
+                </div>
+                <div class="select-contract clearfix" id="cTempLanguage">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!---manoj--->
+<div id="AddExisitingClause" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div>
+            <ul id="liexisitingclause">
+
+            </ul>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-pagination-Clause" style="display:none;"></article>
+        </div>
+    </div>
+</div>
+<!---manoj--->
+
+<div id="AddExisitingClause" style="height:auto !important; display: none; overflow-y: auto;">
+    <div id="dvPopupHeadingClause" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        @*<div class="bg-warning">
+            <p>You can select one or more existing clause from below and link to this Template.</p>
+        </div>*@
+        <article id="right">
+            <input id="txtSearchBoxClause" class="f_inpt cl width70 padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: ViewClause();" src="@Url.Content("~/Content/Images/search_over.png")" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxClause').val(''); ViewClause();">Clear</a>
+        </article>
+        <div id="page-wrap" class="f_list">
+            <table id="liexisitingclause">
+
+            </table>
+        </div>
+    </div>
+    @*<div id="loadContract"></div>*@
+    <div class="pagination-holder clearfix">
+        <article id="compact-pagination-Clause" class="margin-left-m20"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedclause">
+        </div>
+    </div>
+</div>
+
+    <div id="addTermsClauselibpopup" style="display:none; height:600px; ">
+        <div id="dvPopupHeadingDocument" class="pop_up_Head">
+            <h1></h1>
+        </div>
+        <div id="addNewDocument" class="pop_up_Content" style="overflow-y: auto; height: 415px;">
+            <div class="pop_up_Content_Left">
+                <ul id="leftTabTermsClause">
+                </ul>
+            </div>
+            <div class="middle-inner" id="liGroupTermsClause">
+
+            </div>
+            @*<div class="pop_up_Content_Right poPup_Form pop-up-space" style="overflow:visible;min-height: 424px !important;">
+                <div class="middle-inner" id="liGroupTermsClause">
+
+                </div>
+                <div id="tblExistingDocumentPaging" class="pagination-holder clearfix" style="display:none;">
+                    <article id="compact-paginationDocument"></article>
+                </div>
+                <span id="idDocUploadInProgress" style="display: none; padding-left: 35%;">
+                    <img src="/Content/Images/loading.gif" /> Uploading Document...
+                </span>
+                <span id="spInProgress" style="display:none; padding-left:30%;">
+                    <img src="/Content/Images/loading.gif" /> 
+                </span>
+            </div>*@
+        </div>
+    </div>
+
+    <div id="loadingPage" style="display:none;">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+
+<!--manoj-->
+<div id="browseexisitingclause" style="display:none;overflow-y: auto;">
+    @*<p class="text1" style="padding: 0px 10px 10px 10px;">You can select one or more clause from below and link to this template.</p>*@
+    <article style="width:100%; text-align:center;">
+        <input id="txtSearchBox" class="f_inpt cl  padding_right_20px"  type="text" style="text-wrap:none;width:93% !important" placeholder="Type to Search" />
+        <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:-2px; " onclick="javascript: SearchExisitingClause();" src="@Url.Content("~/Content/Images/search_over.png")" />
+        <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBox').val(''); SearchExisitingClause();">Clear</a>
+    </article>
+    <div id="page-wrap" class="conter_Picker-txt" style="margin-bottom: 10px;">
+        <table id="tblexisitingclause"></table>
+    </div>
+    <div id="loadexisitingclause"></div>
+    <div class="pagination-holder clearfix">
+        <article id="compact-paginationexisitingclause"></article>
+    </div>
+    <div class="selectFIlterItem" style="margin-bottom:15px;">
+        <div id="liSelectedexisitingclause">
+        </div>
+    </div>
+</div>
+<!--manoj-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->  
+    @*<script src="/Scripts/modernizr-2.6.2.js"></script>*@
+
+    <script src="/Scripts/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/nicEdit-latest.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/chosen.jquery.js" type="text/javascript"></script>
+    <script src="~/Scripts/moment.js" type="text/javascript"></script>
+    @Scripts.Render("~/Scripts/corevo.validate.js")
+    @Scripts.Render("~/Scripts/jquery.contextmenu.js")
+    @Scripts.Render("~/Scripts/Contract365/Settings_Clause.js?" + DateTime.Now.GetHashCode())

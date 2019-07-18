@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "LogsHistory";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+@section Scripts {
+<link href="~/Content/daterangepicker1.css" rel="stylesheet" type="text/css" />
+@*<link href="~/Content/css/styesheet.css" rel="stylesheet" type="text/css" />*@
+    
+    @Scripts.Render("~/Scripts/Contract365/Settings_ErrorLogsHistory.js?" + DateTime.Now.GetHashCode())
+<script src="~/Scripts/NewChanges/moment.js" type="text/javascript"></script>
+<script src="~/Scripts/NewChanges/daterangepicker.js" type="text/javascript"></script>
+}
+<br />
+<section class="main">
+    <section class="wraper">
+        <div class="box_Report">
+            <div id="logFiltersForm" class="width100">
+                <table class="width95_a" id="tblReportFilters">
+                    <tbody>
+
+                        <tr>
+                            <td class="text labelleft" width="15%">Type</td>
+                            <td class="labelleft">
+                                <select id="ddlLogType" name="LogType" class="f_inpt_small width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="201">Application</option>
+                                    <option value="202">UserAudit</option>
+                                    <option value="203">System</option>
+                                    <option value="204">Account</option>
+                                </select>
+                            </td>
+                            <td class="text labelleft" width="15%">Priority</td>
+                            <td class="labelleft">
+                                <select id="ddlLogPriority" name="LogPriority" class="f_inpt_small width70">
+                                    <option value="0" selected="selected">--Select--</option>
+                                    <option value="1001">Critical</option>
+                                    <option value="1002">Error</option>
+                                    <option value="1004">Warnings</option>
+                                    <option value="1">Information</option>
+                                </select>
+                            </td>
+                        </tr>
+                        @*<tr>
+                        <td class="text labelleft" width="15%">Date</td>
+                        <td class="labelleft">
+                            <input type="text" name="daterange" id="txtDateFromTo" class="report-Filter-DatePicker">
+
+                        </td>
+
+                    </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <table class="width95_a"><tr><td class="text labelleft"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()" class="pop_up_Content_White">Apply</a> <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td>
+             <td style="float: right;"><a href="javascript:void(0);" onclick="PastLogsHistory()">Past Logs History</a></td></tr></table>
+        </div>
+    </section>
+</section>
+
+
+<br />
+<div id="page-wrap">
+    <table class="paginated width95_a" id="Errorlogshistorytable">
+      
+    </table>
+
+</div>
+<div class="pagination-holder clearfix">
+    <article id="compact-pagination"></article>
+</div>
+

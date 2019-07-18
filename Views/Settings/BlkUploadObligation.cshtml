@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "BlkUploadObligation";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading bordernone">Obligations &nbsp;<img src="~/Content/Images/help_training.png" alt="Counterparty" title="Counterparty" /></td>
+        <td class="pageheading sub1" align="right"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <section class="tab-menu-and-tab-info row-group" style="border: 1px solid #DDD;">
+                <div class="box_Summery" style="width: 100% !important;margin-top: 0px;padding: 0px !important;">
+                    <div class="tab-menu col12 no-pad">
+                        <ul class="borderTop_Right_none width100" style="border-bottom:1px solid #ddd !important;margin-bottom:0 !important;">
+                            <li style="float:left;margin-bottom: 0px !important;width:auto !important;"><a href="javascript:void(0);" style="border-radius: 0px; margin-right: 0px; margin-bottom: 0px !important; padding-left: 10px; padding-right: 10px;border-bottom:none;" id="tabUpload" class="contracttab active" onclick="ShowTabDetail('Upload')"><img src="/Content/Images/summary.png"> <span class="m-off">Upload</span></a></li>
+                            <li style="float:left;margin-bottom: 0px !important;width:auto !important;"><a href="javascript:void(0);" style="border-radius: 0px; margin-right: 0px; margin-bottom: 0px !important; padding-left: 10px; padding-right: 10px;border-bottom:none;" id="tabUpdate" class="contracttab disabled" onclick="ShowTabDetail('Update');"><img style="width:16px; height:16px;" src="/Content/Images/activity.png"> <span class="m-off">Update</span></a></li>
+                            <li style="float:left;margin-bottom: 0px !important;width:auto !important;border-right:1px solid #ddd;"><a href="javascript:void(0);" style="border-radius: 0px; margin-right: 0px; margin-bottom: 0px !important; padding-left: 10px; padding-right: 10px;border-bottom:none;" id="tabMapping" class="contracttab disabled" onclick="ShowTabDetail('Mapping');"><img src="/Content/Images/obligation.png"> <span class="m-off">Mapping</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-info col12" style="clear:both;">
+                        <div id="tabUploadDetail" class="info-box-main-body row-group">
+                            <div id="divFileUpload" class="width100">
+                                <ul style="width:100% !important;">
+                                    <li style="padding:20px;margin:0px;">
+                                        <label style="float:left;padding-right: 20px;padding-top: 8px;font-size:14px;">Date:</label>
+                                        <input style="margin-top:0px;width:24.5% !important;" type="text" id="dtObligationDate" placeholder="Obligation Date" class="f_inpt obligation_box" />
+
+                                    </li>
+                                    <li style="padding-left:20px !important">
+                                        <input style="margin:0px;width:24.5% !important;" type="file" id="docObligationActuals" name="file" title="excel file" class="validelement" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li style="padding-left:20px;">
+                                        <a href="javascript:void(0);" id="btnImport" onclick="readexcelfile()" style="margin-top:10px;">Import From Excel</a>
+                                        <a href="javascript:void(0);" id="btnImportCancel" style="margin-top:10px;">Clear</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="tabUpdateDetail" class="info-box-main-body row-group" style="display:none;clear:both;">
+                        <div class="col12 no-pad pad-top pad-bot">
+                            <div class="row-group pad-top pad-bot">
+                                <label id="lblNoofItems" style="float:left;padding-right: 20px;padding-top: 8px;font-size:14px;padding-left: 20px;width: 100%;"></label>
+                                <label id="lblNoofCounterparty" style="float:left;padding-right: 20px;padding-top: 8px;font-size:14px;padding-left: 20px;width: 100%;">Date:</label>
+
+                            </div>
+                        </div>
+                        <div id="dvContractWorkflows" class="width97">
+                            <ul>
+                                <li style="padding-left:20px;">
+                                    <a href="javascript:void(0);" id="btnQuickUpdate" style="margin-top:10px;">Quick Update</a>
+                                    <a href="javascript:void(0);" id="btnUpdate" style="margin-top:10px;">Update</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="tabMappingDetail" class="info-box-main-body row-group" style="display:none;clear:both;">
+                        <div class="row-group  pad-top">
+                            <div style="margin-top: 20px;margin-left:20px; float: left;width:100%">
+                                <span style="font-size:14px;">CounterParty</span>
+                                <select id='ddlCounterparty' onchange='ddlselectchange(this);' class='f_inpt width20' title='field'>
+                                   <option value="0">--Select--</option>
+                                </select>
+                                <span style="font-size:14px;">Contracts</span>
+                                <select id='ddlContracts' onchange='ddlselectchange(this);' class='f_inpt width20' title='field'>
+                                    <option value="0">--Select--</option>
+                                </select>
+                                <span style="font-size:14px;">Obligations</span>
+                                <select id='ddlObligations' onchange='ddlselectchange(this);' class='f_inpt width20' title='field'>
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                            <div id="page-wrap" style="margin-bottom: 10px; float: left;">
+                                <table id="tbBulkControls" style="margin-top: 20px; margin-bottom: 20px;" class="paginated width100"></table>
+                            </div>
+                            <div id="btns" style="display: none; float: right;">
+                                <span id="imgCreating" style="display:none;">
+                                    <img src="../Content/Images/icon/loading.gif"> Creating Contract(s)...
+                                </span>
+                                <a href="javascript:void(0);" id="btnCreateBulkCounterparty" onclick="bulkcounterpartycreate()">Create</a>
+                                <a id="btnCancel" href="javascript:void(0);">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+@section scripts{
+
+
+
+    @Scripts.Render("~/Scripts/Contract365/Settings_BlkUploadObligation.js?" + DateTime.Now.GetHashCode())
+
+    <style>
+        .ui-datepicker-calendar {
+            display: none !important;
+        }
+
+        .disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+}

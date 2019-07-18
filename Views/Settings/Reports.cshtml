@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.ReportsEntity>
+@using Corevo.eContracts365.General
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<table class="width95_a">
+    <tr>
+        <td class="pageheading" colspan="2">Reports Configuration<img src="~/Content/Images/help_training.png" alt="Canned Report Configuration" title="Configure views, filters and audience for (Global Insights) Reports." /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="page-wrap" class="f_list">
+                <table class="width100">
+                    <tbody>
+                        <tr class="reportborder">
+                            <td id="RptID" style="display:none;">1</td>
+                            <td class="openmenu css1-label">
+                                Contract Summary
+                                <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                        <tr class="reportborder">
+                            <td id="RptID" style="display:none;">2</td>
+                            <td class="openmenu css1-label">
+                                Upcoming Renewal
+                                <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                        <tr class="reportborder">
+                            <td id="RptID" style="display:none;">3</td>
+                            <td class="openmenu css1-label">
+                                Contract Financial
+                                <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                        @*<tr class="reportborder">
+                                <td id="RptID" style="display:none;">4</td>
+                                <td class="openmenu css1-label">
+                                    Contract Activity
+                                    <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                                </td>
+                            </tr>*@
+                        <tr class="reportborder">
+                            <td id="RptID" style="display:none;">5</td>
+                            <td class="openmenu css1-label">
+                                Contract Ownership
+                                <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                        <tr class="reportborder">
+                            <td id="RptID" style="display:none;">6</td>
+                            <td class="openmenu css1-label">
+                                Expirations &amp; Terminations
+                                <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                            </td>
+                        </tr>
+                        @*<tr class="reportborder">
+                                <td id="RptID" style="display:none;">7</td>
+                                <td class="openmenu css1-label">
+                                    Contract Milestone
+                                    <img src="../Content/Images/context_Menu.png" class="margintop-2px" alt="Open Menu" title="Open Menu" />
+                                </td>
+                            </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <br />
+        </td>
+    </tr>
+</table>
+<ul id="myMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Edit</a></li>
+</ul>
+<div id="addEditReport" style="display:none;">
+    <div id="dvPopupHeadingReport" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewEntityFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelleft1">
+                        <input id="txtReportID" name="ReportID" type="hidden" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Report Title</td>
+                    <td class="labelleft1" colspan="3"><label id="txtReportTitle" class="f_inpt" style="width:300px;" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Report Filters</td>
+                    <td class="labelleft1">
+                        <label>Available Fields (not selected)</label>
+                        <select id="from_select_list" multiple="multiple" name="from_select_list" size="8" class="reportselectbox">
+                            @*@if (ViewData["ContractColumns"] != null)
+                            {
+                                foreach (var item in ViewData["ContractColumns"] as Corevo.eContracts365.TableEntities.IContractsEntity)
+                                {
+                                    <option value=@item.Key>@item.Key</option>
+                                }
+                            }*@
+                        </select>
+                    </td>
+                    <td>
+                        <a id="moveright" title="Move Right" href="javascript:void(0)" onclick="move_list_items('from_select_list','to_select_list');"><img src="../Content/Images/icon/play.png" /></a>
+                        <br /><br />
+                        <a id="moveleft" title="Move Left" href="javascript:void(0)" onclick="move_list_items('to_select_list','from_select_list');" style="margin-right:15px;"><img src="../Content/Images/icon/play-left.png" /></a>
+                    </td>
+                    <td>
+                        <label>Selected as Report Filters</label>
+                        <select id="to_select_list" multiple="multiple" name="to_select_list" size="8" class="reportselectbox"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head" width="150px">Report Columns</td>
+                    <td class="labelleft1">
+                        <label>Available Fields (not selected)</label>
+                        <select id="from_select_list1" multiple="multiple" name="from_select_list1" size="8" class="reportselectbox">
+                            @*@if (ViewData["ContractColumns"] != null)
+                            {
+                                foreach (var item in ViewData["ContractColumns"] as IEnumerable<Corevo.eContracts365.TableEntities.ContractFieldsEntity>)
+                                {
+                                    <option value=@item.FieldName>@item.FieldDisplayName</option>
+                                }
+                            }*@
+                        </select>
+                    </td>
+                    <td>
+                        <a id="moveright1" title="Move Right" href="javascript:void(0)" onclick="move_list_items('from_select_list1','to_select_list1');"><img src="../Content/Images/icon/play.png" /></a>
+                        <br /><br />
+                        <a id="moveleft1" title="Move Left" href="javascript:void(0)" onclick="move_list_items('to_select_list1','from_select_list1');" style="margin-right:15px;"><img src="../Content/Images/icon/play-left.png" /></a>
+                    </td>
+                    <td>
+                        <label>Selected Columns in Report View</label>
+                        <select id="to_select_list1" multiple="multiple" name="to_select_list1" size="8" class="reportselectbox"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f_head">Audience</td>
+                    <td class="f_list" id="checkboxes">
+                        <input id="chkContractAdministrators" name="ContractAdministrators" value="ContractAdministrators" type="checkbox" class="css1-checkbox" />
+                        <label for="chkContractAdministrators" class="css1-label">Contract Administrators</label>
+                        <br/>
+                        <input id="chkContractManagers" name="ContractManagers" value="ContractManagers" type="checkbox" class="css1-checkbox" />
+                        <label for="chkContractManagers" class="css1-label">Contract Managers</label>
+                        <br/>
+                        <input id="chkBusinessOwners" name="BusinessOwners" value="BusinessOwners" type="checkbox" class="css1-checkbox" />
+                        <label for="chkBusinessOwners" class="css1-label">Business Owners</label>
+                        <br/>
+                        <input id="chkApproverReviewer" name="ApproverReviewer" value="ApproverReviewer" type="checkbox" class="css1-checkbox" />
+                        <label for="chkApproverReviewer" class="css1-label">Approvers / Reviewers</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    
+<script src="~/Scripts/Contract365/Settings_Reports.js" type="text/javascript"></script>
+
+}

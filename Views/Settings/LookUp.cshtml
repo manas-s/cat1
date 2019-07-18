@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Corevo.eContracts365.TableEntities.CustomLookUpEntity>
+
+@{
+    ViewBag.Title = "Custom Lookup Values";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+<table class="width95_a">
+    <tr>
+        <td class="pageheading font-normal">
+            Metadata Field Lookups (Custom)
+            <img src="~/Content/Images/help_training.png" alt="Custom Lookup Values" title="Create and manage Custom (user created) lookups." />
+        </td>
+        <td class="pageheading" align="right"><input id="btnAddNewLookup" type="submit" value="Add New" class="f_button_green_small" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding-top:5px;">
+            <div id="page-wrap">
+
+
+                <table class="paginated width100" id="customLookupTable">
+                        @if (Model == null || Model.Count() == 0)
+                        {
+                            <tr>No items found.</tr>
+                        }
+                        else
+                        {                            
+                            foreach (var item in Model)
+                            {
+                                <tr id="row" style="border-bottom:1px dotted #eeeaea;">
+                                    <td id="LookUpId" style="display:none;">@Html.DisplayFor(modelItem => item.RowKey)</td>
+                                    <td id="LookUp" style="display:none;">@Html.DisplayFor(modelItem => item.LookupName)</td>
+
+                                    @*<td align="center" style="vertical-align: middle;" class="f_list" width="5%">
+                                        <input id="@item.RowKey" name="@item.RowKey" type="checkbox" class="css1-checkbox" value="@item.ProjectName" />
+                                        <label for="@item.RowKey" class="css1-label"></label>
+                                    </td*@
+                                    <td class="" style="vertical-align:top;" width="50%">
+                                        <a href="~/Settings/CustomLookupValues?lookupname=@HttpUtility.UrlEncode(item.LookupName)" style="color:#000;">
+                                            @Html.DisplayFor(modelItem => item.LookupName)
+                                        </a>
+                                        <img src="../Content/Images/context_Menu.png" class="openmenu margintop-2px" alt="Open Menu" title="Open Menu" /><br />
+                                        @*@Html.DisplayFor(modelItem => item.TransactionType)&nbsp;|&nbsp;@Html.DisplayFor(modelItem => item.ContractClass)*@
+                                    </td>
+
+                                    <td align="right" style="vertical-align: top;" width="45%">
+                                        @*@Html.DisplayFor(modelItem => item.Summary)*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+                </table>
+            </div>
+            <div class="pagination-holder clearfix margin-left-m20">
+                <article id="compact-pagination"></article>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- Right Click Menu -->
+<ul id="lookupMenu" class="contextMenu">
+    <li class="edit"><a href="#edit">Manage</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+<div id="AddEditLookup" style="display:none;">
+    <div id="dvPopupHeading" class="modalheader"><span></span></div>
+    <div class="modalbody">
+        <div id="addNewLookup">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="f_head"></td>
+                    <td class="labelright"><input id="txtLookupID" name="LookupID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="f_head">Lookup Name <span class="required">*</span></td>
+                    <td class="labelright"><input id="txtLookupName" maxlength="100" name="LookupName" type="text" onchange="ReplaceSpecialCharacters(this);" class="f_inpt width70 validelement" /></td>
+                </tr>
+                @*<tr>
+                    <td class="f_head">Fields</td>
+                    <td class="labelright"><textarea id="txtFields" name="Fields" rows="2" cols="20" class="f_text-box width70"></textarea></td>
+                </tr>*@
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Contract365/Settings_Lookup.js" type="text/javascript"></script>
+}

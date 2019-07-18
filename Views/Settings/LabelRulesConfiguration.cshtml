@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "LabelRuleConfiguration";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+<script src="/Scripts/chosen.jquery.js" type="text/javascript"></script>
+<script src="/Scripts/prism.js"></script>
+<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/Content/css/screen.css" media="screen">
+<link rel="stylesheet" href="/Content/css/jquery_002.css">
+<style>
+    .chosen-container {
+        width: 95% !important;
+    }
+
+    .chosen-choices {
+        margin: 6px 0px 0 0 !important;
+    }
+</style>
+<input type="hidden" id="hdLabelID" value="" />
+<input type="hidden" id="hdLabelName" value="" />
+<table class="width95_a" id="tblLabelRule">
+    <tr>
+        <td class="pageheading" colspan="2"><span id="sLabelRuletype"></span></td>
+    </tr>
+    <tr style="border-bottom:1px dashed #d3d1d1;">
+        <td class="pagesubheading padding_bottom_10px font_20 padding_top_20px">Auto-Assign Rules</td>
+        @*<td align="right">
+            <a href="javascript:void(0);" onclick="javascript: togglediv('trSummary', 'imgSummary');"><img src="../Content/Images/dp-dup.png" title="Collapse" id="imgSummary" /></a>
+        </td>*@
+    </tr>
+    
+    <tr id="trSummary">
+        <td colspan="2">
+            <table class="width100">
+                <tr>
+                    <td class="tableLeft width20">Label Name</td>
+                    <td class="tableRight width80">
+                        <label id="txtLabelName" maxlength="100" name="Label Name" style="color: grey;font-size: larger;" type="text" class="width60 margin-bottom-2 "></label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!---manoj--->
+    <tr id="trconditionnote" style="display:none">
+        <td colspan="2">
+            <div id="dvWarning" class="width98 bg-warning margin-top-5 ">
+                <p id="dvWarningText" class="margin-bottom-0">Note: Multiple Labels from same label category will be auto assigned to contract record(s), if conditions are met.</p>
+            </div>
+        </td>
+    </tr>
+        <!---manoj--->
+
+</table>
+<table class="width95_a">
+    <tr>
+        <td class="tableLeft">
+            <a href="javascript:void(0)" class="linkText padding_left_20px" onclick="AddAssignment()">Add Conditional Label Rule</a>
+        </td>
+        <td class="foot_right" align="right"></td>
+    </tr>
+    <tr>
+        <td class="tableLeft"></td>
+        <td class="foot_right padding_bottom_20px" align="right">
+            <br />
+            <input id="btnSave" type="submit" value="Save" class="f_button_green" />
+            <input id="btnCancel" type="submit" value="Cancel" class="f_button_grey" />
+            <br />
+        </td>
+    </tr>
+</table>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Contract365/Settings_LabelRulesConfiguration.js?" + DateTime.Now.GetHashCode())
+}
+
+
+
+
+

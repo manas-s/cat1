@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ExportContractsandMetadata";
+    Layout = "~/Views/Shared/_Layout_Settings.cshtml";
+}
+
+
+<br />
+<br />
+<ul>
+    <li>
+        <div><b>Email</b></div>
+        <span><input type="text" /></span>
+    </li>
+</ul>
+
+<div class="pop_up_Content_Bottom">
+    <a href="javascript:void(0)" id="btnExport">Export Contracts & Metadata</a>
+    <a class="pop_up_Content_White" href="javascript:void(0)">Cancel</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $('#btnExport').click(function () {
+            $("#loadingPage").fadeIn();
+
+            $.ajax({
+                url: '/Settings/GetExportContractsandMetadata',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    //alert("Successfully Exported Contracts & Metadata");
+                    swal("", "Successfully Exported Contracts & Metadata");
+                    $("#loadingPage").fadeOut();
+                }
+            });
+        });
+
+
+
+    </script>
+}
+
+
