@@ -1,0 +1,180 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-family: "Segoe UI Regular WestEuropean","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+	margin:0;
+	padding:0;
+	color:#8b8c8c;
+	font-size:14px;	
+}
+
+.pop-content-head{
+	color: #44a6d8;
+    font-family: Roboto,Arial,Helvetica,sans-serif !important;
+    font-size: 18px;
+	font-weight:normal;
+}
+.metadata {
+    margin-bottom: 35px;
+}
+.meta-left {
+    float: left;
+    margin-right: 2%;
+    width: 48%;
+}
+.meta-right {
+    float: left;
+    margin-left: 2%;
+    width: 48%;
+}
+.meta-label, .documents{
+    color: #515253;
+    font-family: "Segoe UI Regular WestEuropean","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+	border-bottom: 1px solid #c2c2c2;
+}
+.meta-label label:last-child {
+    float: right;
+}
+.meta-label label:first-child {
+    color:#8b8c8c;
+}
+.meta-label:last-child {
+    border: medium none;
+}
+.meta-content {
+    border-bottom: 1px solid #c2c2c2;
+}
+.documents-text {
+    float: left;
+}
+.documents-text > span {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: -5px;
+}
+.documents-img {
+    float: left;
+    margin-right: 5px;
+}
+.documents-list {
+    float: left;
+	width:33%;
+	margin-bottom: 30px;
+}
+.documents a.view, .financial a.view, .timeline a.view{
+    background-color: #fff;
+    color: #4e4e4e;
+    float: right;
+    font-family: "Segoe UI Regular WestEuropean","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    margin-top: -6px;
+    padding: 0 0 0 13px;
+    text-decoration: none;
+}
+.financial a.view{
+	margin-top:-12px;	
+}
+
+.renewable {
+    border: 1px solid #959595;
+    padding: 1%;
+	margin-bottom:2%;
+}
+.renewable .renewable-head {
+    border-bottom: 1px solid #959595;
+    color: #959595;
+    font-family: "Segoe UI Regular WestEuropean","Segoe UI","Segoe WP",Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    margin: 0;
+	padding-bottom:5px;
+}
+.renewable-head > span {
+    font-weight: bold;
+    margin-left: 5px;
+    vertical-align: top;
+}
+.renewable-content-row {
+    padding: 15px 0;
+}
+.start-date-left {
+    float: left;
+}
+.start-date-left label:first-child, .start-date-right label:first-child {
+    margin-right: 33px;
+}
+.start-date-left label:last-child, .start-date-right label:last-child {
+    font-weight: bold;
+}
+.start-date-right {
+    float: right;
+}
+.milestone-table th, .people-content table th{
+    text-align: left;
+}
+.milestone-table td, .milestone-table th, .people-content table td, .people-content table th {
+    border-bottom: 1px solid #c2c2c2;
+    line-height: 34px;
+}
+.milestone-table table tbody tr:last-child td, .people-content table tbody tr:last-child td {
+    border: medium none;
+}
+.timeline {
+    border-bottom: 1px solid #959595;
+    padding-bottom: 5px;
+}
+.user-text {
+    float: left;
+    margin-top: 5px;
+}
+.user-img {
+    float: left;
+    margin-right: 10px;
+}
+.user-text > span {
+    display: block;
+    line-height: normal;
+	font-weight:bold;
+	font-size:15px;
+}
+.user-text > small {
+    line-height: normal;
+	font-size:14px;
+}
+.user {
+    padding: 10px 0;
+}
+.pop-btn {
+    padding-top: 150px;
+    position: relative;
+    text-align: center;
+}
+.pop-btn button {
+    border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    min-width: 150px;
+    padding: 10px;
+	font-size:15px;
+	text-transform:none;
+}
+.pop-btn button.btn-view{
+	background-color:#94c05a;	
+}
+.pop-btn button.btn-close{
+	background-color:#CCC;	
+}
+
+@media only screen and (min-width:1024px) and (max-width:1224px) {
+	.documents-list {
+    float: left;
+    font-size: 14px;
+    margin-bottom: 30px;
+    width: 49%;
+}
+.meta-label, .documents {
+    font-size: 12px;
+}	
+}

@@ -1,0 +1,34 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+*{
+	/* [disabled]margin:0; */
+	padding: 0;
+}
+a{text-decoration:none;}
+img{border:none;}
+body{ font-family: 'Roboto', sans-serif;}
+/*--------------------menu------------------*/
+.meaan{width:100%; overflow:hidden; float:left;color:#fff;}
+.meaan1{width:100%; overflow:hidden; padding: 20px 0 0;}
+.meaan1 b{font-size:18px; color:#29324a; font-weight:normal; margin:0 20px 20px;}
+.mean-width{width:47%; overflow:hidden; float:left; border-right:1px dotted #CCC; margin:20px 20px 0 20px%;}
+.mean-width1{ border-right:none; }
+
+/*--------------------menu-register------------------*/
+.reg { margin:0; float:right;padding:0; margin:0 20px 0 0; border-radius:5px;}
+.reg ul{ margin:0; }
+.reg li{list-style:none;margin-top:0px;}
+.reg li a{color:#949494 !important; border:1px solid #d6d6d6; padding: 5px 8px  !important;background:#f7f7f7 !important;display:block; text-align:center; border-radius:5px; font-size:11px;}
+.reg li a:hover{color:#fff !important; background:#44a6d8!important;}
+
+/*--------------------up load file------------------*/
+.bottomupload{float:left; margin:0 20px 20px 20px; }
+.bottomupload a{color:#44a6d8 !important; font-size:13px;}
+.bottomupload a:hover{ color:#343f5c !important;}
+.reg a{color:#fff !important;}
+.bottomupload small{color:#c8c8c8;}
+
+.cbp-hrsub-inner{border-top:1px solid #dcdcdc; margin:15px 0 0 0 !important; margin: 10px 20px !important; border-bottom:1px solid #dcdcdc;}
+.line-h {margin:15px 0 0 0;}
+.line-h li{margin:0 0 5px 0;}
+.regCancel{float:right;}

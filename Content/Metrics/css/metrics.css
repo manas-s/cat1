@@ -1,0 +1,110 @@
+﻿.cont-piechat-container {
+    height: auto;
+    margin: 20px 0;
+}
+
+.cont-piechat-Left {
+    width: 49%;
+    float: left;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.number-Cont {
+    min-height: 50px;
+    padding: 20px 20px 0px;
+    border-bottom: 1px solid #DCDCDC;
+    margin-left: -10px;
+}
+
+    .number-Cont > h1 {
+        color: #777;
+        font-size: 18px;
+        padding: 0px 0px 20px;
+        float: left;
+        width: 60%;
+        line-height: 27px;
+    }
+
+.number-Cont-Right {
+    float: right;
+    padding-right: 20px !important;
+}
+
+    .number-Cont-Right > span {
+        font-size: 14px;
+        color: #B4B3B3;
+        margin-right: 10px;
+        vertical-align: top;
+    }
+
+.number-Cont-Pie {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.number-Cont-Pie-Left {
+    float: left;
+    width: 25%;
+    height: auto;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.number-Cont-Pie-Right {
+    float: left;
+    width: 69%;
+    height: auto;
+}
+
+.number-Cont-Pie-Left > ul {
+    margin-top: 20px;
+    border-right: 1px solid #ddd;
+}
+
+    .number-Cont-Pie-Left > ul > li .pie-Result {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 5px;
+        color: #B4B3B3;
+    }
+
+    .number-Cont-Pie-Left > ul > li .pie-Value {
+        font-size: 18px;
+        display: block;
+    }
+
+    .number-Cont-Pie-Left > ul > li {
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+.flt-right {
+    float: right;
+}
+
+.pie-color {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.number-Cont-Pie-Left > ul > li > div {
+    float: left;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 800px) {
+    .cont-piechat-Left {
+        width: 100%;
+        float: left;
+    }
+}
+.i_cursor {
+        cursor: pointer;
+}

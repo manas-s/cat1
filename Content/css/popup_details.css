@@ -1,0 +1,864 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #838282;
+}
+
+img {
+    border: none;
+}
+
+/*body{background-color:#fff; font-family: 'Roboto', sans-serif;}*/
+
+.poPup_Deatil {
+    width: 50%;
+    margin: 20px auto;
+    border: 1px solid #CCC;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.poPup_Deatil_Head {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 20px 0;
+}
+
+    .poPup_Deatil_Head b {
+        float: left;
+        width: 48%;
+        overflow: hidden;
+        font-size: 19px;
+        font-weight: normal;
+        color: #29324a;
+    }
+
+    .poPup_Deatil_Head span {
+        float: right;
+        overflow: hidden;
+        width: 48%;
+    }
+
+        .poPup_Deatil_Head span img {
+            float: right;
+        }
+
+.pOp_Cont {
+    width: 100%;
+    overflow: hidden;
+    background-color: #fdfdfd;
+    margin: 0 -20px;
+    padding: 20px 10px;
+    border: solid 1px #3099e4;
+}
+
+    .pOp_Cont li {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 8px 0;
+    }
+
+    .pOp_Cont p {
+        float: left;
+        width: 48%;
+        overflow: hidden;
+        color: #838282;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 16px;
+    }
+
+    .pOp_Cont span {
+        float: right;
+        width: 48%;
+        overflow: hidden;
+        color: #b4b3b3;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 16px;
+    }
+
+.pOp_Cont_Close a {
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    color: #878787 !important;
+    border-radius: 5px;
+    color: #ffffff;
+    float: left;
+    font-size: 14px;
+    margin: 15px 15px 2px 0;
+    padding: 5px 10px;
+}
+
+    .pOp_Cont_Close a:hover {
+        background-color: #44a6d8;
+        border-radius: 5px;
+        color: #ffffff !important;
+        float: left;
+        font-size: 14px;
+    }
+
+
+.poPup_Form {
+    width: 50%;
+    margin: 20px auto;
+    border: 1px solid #CCC;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.poPup_Form_Head {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 20px 0;
+}
+
+.poPup_Form_Head1 {
+    width: 100%;
+    overflow: hidden;
+}
+
+.poPup_Form_Head b {
+    float: left;
+    width: 48%;
+    overflow: hidden;
+    font-size: 19px;
+    font-weight: normal;
+    color: #29324a;
+}
+
+.poPup_Form_Head span {
+    float: right;
+    overflow: hidden;
+    width: 48%;
+}
+
+    .poPup_Form_Head span img {
+        float: right;
+    }
+
+.poPup_Form_Head p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #838282;
+    margin: 10px 0;
+}
+
+.poPup_Form_Title1 {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+    .poPup_Form_Title1 b {
+        color: #29324a;
+        font-size: 16px;
+        font-weight: normal;
+        width: 100%;
+        border-bottom: 1px solid #999;
+        padding: 0 0 10px 0;
+        display: block;
+    }
+
+.poPup_Form_Field {
+    /*clear: both;*/
+    float: left;
+    width: 100%;
+}
+    .poPup_Form_Field div {
+        height: 100%;
+    }
+
+    .poPup_Form_Field input {
+        background: none repeat scroll 0 0 #fff;
+        border-radius: 0;
+        width: 42%;
+    }
+
+    .poPup_Form_Field select {
+        border: 1px solid #cdcdcd;
+        height: 30px;
+        width: 46.7%;
+        color: #999;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+    }
+
+    .poPup_Form_Field li { /*clear: both;*/
+        /*height: 100%;*/
+        margin: 0 0 10px;
+    }
+
+    .poPup_Form_Field p {
+        width: 48%;
+        overflow: hidden;
+        float: left;
+        margin: 5px 0 0 0;
+        line-height: 18px;
+    }
+
+        .poPup_Form_Field p small {
+            color: red;
+            padding: 0 5px;
+            float: left;
+        }
+
+        .poPup_Form_Field p b {
+            float: left;
+            font-weight: normal;
+            color: #939393;
+            font-size: 15px;
+            margin: -1px 0 0 0;
+            padding: 0 0 2px 0;
+            line-height: 18px;
+        }
+
+        .poPup_Form_Field p img {
+            padding: 0 0 0 5px;
+            float: left;
+        }
+
+    .poPup_Form_Field div select {
+        height: 30px;
+        width: 99%;
+        border: 1px solid #cdcdcd;
+    }
+
+    .poPup_Form_Field div input {
+        background-color: #fff;
+        border: 1px solid #cdcdcd;
+        border-radius: 0;
+        height: 30px;
+        padding: 0 0 0 .5%;
+        width: 98%;
+        color: #999;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+    }
+
+.poPup_Browse {
+    width: 83%;
+}
+
+.poP-up-SelecT {
+    width: 98% !important;
+}
+
+.poPup_Form_Field div {
+    width: 48%;
+    float: left;
+    /*margin: 2px 0 0 0;*/
+}
+
+/*.poPup_Form_Field div div {
+     width: 100%!important; 
+}*/
+.poPup_Form_Upload input {
+    border: none !important;
+}
+
+.poPup_Form_Browse {
+    float: left;
+}
+
+.poPup_Form_Field div textarea {
+    background-color: #fff;
+    border: 1px solid #cdcdcd;
+    border-radius: 0;
+    height: 70px;
+    width: 96.8%;
+    padding: 5px;
+    font-size: 13px;
+    color: #999;
+    font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.multiselect {
+    border: 1px solid #cdcdcd;
+    float: left;
+    height: 30px;
+    width: 47.4%;
+}
+
+.poPup_Form_radio {
+    width: 48%;
+    overflow: hidden;
+    float: left;
+}
+
+    .poPup_Form_radio input {
+        float: left;
+        width: auto !important;
+    }
+
+    .poPup_Form_radio small {
+        float: left;
+        color: #777;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 3px 0px;
+        padding: 0 5px;
+    }
+
+.check {
+    width: 10px !important;
+}
+
+.textBox_1 {
+    width: 98%;
+}
+
+.poPup_Form_Field_RadioBorder {
+    border: medium none !important;
+}
+
+.poPup_Browse_1 {
+    background-color: #fff;
+    border-radius: 0;
+    width: 82% !important;
+}
+
+
+.summary_Check {
+    float: left;
+    width: 16px !important;
+    border: none !important;
+}
+
+.summary_Check_Right {
+    float: left;
+    margin: -6px 0 0 10px;
+}
+
+.workflow_Check_Right {
+    float: left;
+    margin: 7px 0 0 10px;
+}
+
+.summary_Save_cancel {
+    margin: -20px 0;
+}
+
+@media screen and (max-width: 36em) {
+    .pOp_Cont p {
+        color: #838282;
+        float: left;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .pOp_Cont span {
+        color: #b4b3b3;
+        float: right;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 5px;
+        line-height: 18px;
+    }
+}
+
+
+.a-Workflow-height + div > ul > li > input {
+    height: 28px !important;
+}
+
+.height32 {
+    height: 32px !important;
+}
+
+.margin-top-min10 {
+    margin-top: -10px !important;
+}
+
+/*Override the popup width and margin Post notes in contract->approve*/
+.NotesNicedit {
+}
+
+.nicEdit-panelContain > div {
+    margin: 0 !important;
+}
+
+.nicEdit-button-undefined nicEdit-button-hover {
+    width: auto;
+}
+
+.nicEdit-panelContain > div > div {
+    margin-bottom: 0;
+    margin: 0 !important;
+}
+
+.nicEdit-panelContain > .nicEdit-panel > div > .nicEdit-selectContain > div {
+    width: auto;
+    margin: 0 !important;
+}
+
+.nicEdit-panel {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.nicEdit-panelContain > .nicEdit-panel > div {
+    width: auto;
+    margin: 0 !important;
+}
+
+.nicEdit-main div {
+    width: 100% !important;
+}
+
+.nicEdit-main p {
+    width: auto !important;
+    display: block;
+    clear: both;
+    float: none !important;
+    line-height: 18px;
+    overflow: visible !important;
+}
+
+.nicEdit-main b {
+    font-weight: bold !important;
+    float:none !important;
+}
+
+.nicEdit-main strong {
+    font-weight: 600 !important;
+}
+
+.nicEdit-main em {
+    font-style: italic;
+}
+
+.nicEdit-main i {
+    font-style: italic;
+}
+
+.nicEdit-main h1 {
+    font-weight: bold !important;
+    font-size: 24px !important;
+}
+
+.nicEdit-main h2 {
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.nicEdit-main h3 {
+    font-weight: bold !important;
+    font-size: 14px !important;
+}
+
+.nicEdit-main h4 {
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+.nicEdit-main h5 {
+    font-weight: bold !important;
+    font-size: 10px !important;
+}
+
+.nicEdit-main h6 {
+    font-weight: bold !important;
+    font-size: 8px !important;
+}
+
+.nicEdit-main ol {
+    /*display: inline-block !important;*/
+    /* prevents the bullets being forced off the left-hand side, but still allows padding to be applied */
+    list-style-type: decimal !important;
+    list-style-position: inside !important;
+    margin:15px !important;
+}
+
+    .nicEdit-main ol li {
+        list-style: decimal !important;
+        margin:15px !important;
+    }
+
+.nicEdit-main ul {
+    /*display: inline-block !important;*/ /* prevents the bullets being forced off the left-hand side, but still allows padding to be applied */
+    list-style-type: circle !important;
+    list-style-position: inside !important;
+    margin:15px !important;
+}
+
+    .nicEdit-main ul li {
+        list-style: circle !important;
+        margin:15px !important;
+    }
+
+.nicEdit-buttonContain div {
+    width: inherit !important;
+}
+
+
+
+.taskcomment b {
+    font-weight: bold !important;
+    float:inherit;
+}
+
+.taskcomment strong {
+    font-weight: 600 !important;
+}
+
+.taskcomment em {
+    font-style: italic;
+}
+
+.taskcomment i {
+    font-style: italic;
+}
+
+.documents-1 {
+   overflow: initial;
+}
+.taskcomment ul li {
+   list-style: outside none circle;
+   margin-left: 14px;
+   overflow: initial;
+   /*text-align: left;*/
+   border:none;
+}
+.taskcomment ol li {
+   list-style: outside none decimal;
+   margin-left: 14px;
+   overflow: initial;
+   /*text-align: left !important;*/
+   border:none;
+}
+
+
+
+
+
+
+/*-------permission-new-popup-----------*/
+
+
+.share-pop-up-1 {
+    width: 97%; /*overflow:hidden;*/
+    background-color: #fff;
+    padding: 20px 0;
+    height: auto;
+}
+
+    .share-pop-up-1 > h4 {
+        margin-bottom: 15px;
+        font-size: 16px;
+        color: #555;
+        font-weight: 500;
+    }
+
+.share-pop-up-left {
+    width: 12%;
+    float: left;
+}
+
+.share-pop-up-1 > ul > li > .share-pop-up-Middle {
+    width: 65%;
+    float: left;
+}
+
+    /*.share-pop-up-Middle > div{ width:100%;    float: left;}
+ .share-pop-up-Middle > div > p{margin-right:5px;   float: left;}
+ .share-pop-up-Middle > div >span{ float: left;}*/
+
+    .share-pop-up-1 > ul > li > .share-pop-up-Middle > div {
+        width: 100%;
+        float: left;
+    }
+
+        .share-pop-up-1 > ul > li > .share-pop-up-Middle > div > p {
+            margin-right: 5px;
+            float: left;
+        }
+
+        .share-pop-up-1 > ul > li > .share-pop-up-Middle > div > span {
+            float: left;
+            color: #b1b1b1;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+    .share-pop-up-1 > ul > li > .share-pop-up-Middle > p {
+        font-size: 15px;
+        color: #888;
+    }
+
+    .share-pop-up-1 > ul > li > .share-pop-up-Middle > span {
+        color: #b1b1b1;
+        font-size: 13px;
+    }
+
+.share-pop-up-Right {
+    float: right;
+    color: #999;
+    font-size: 15px;
+}
+
+    .share-pop-up-Right > a {
+        color: #44a6d8;
+    }
+
+        .share-pop-up-Right > a:hover {
+            color: #44a6d8;
+            opacity: .7;
+        }
+
+    .share-pop-up-Right > span > select {
+        float: left;
+        margin-right: 5px;
+        border: 1px solid #C3C3C3;
+    }
+
+    .share-pop-up-Right > span > img {
+    }
+
+.share-pop-up-1 > ul {
+    border-top: 1px solid #f1f1f1;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .share-pop-up-1 > ul > li {
+        border-bottom: 1px solid #f1f1f1;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+
+.pop-Bottom {
+    background-color: #f1f1f1; /*padding:10px; overflow:hidden;*/
+    float: left;
+    width: 97.4%;
+    padding: 10px;
+    overflow: visible !important;
+}
+
+    .pop-Bottom > span {
+        font-size: 14px;
+        color: #888;
+        display: block;
+    }
+
+    .pop-Bottom > div {
+        margin-top: 10px;
+    }
+
+        .pop-Bottom > div > input {
+            height: 28px;
+            border: 1px solid #c3c3c3;
+            width: 70%;
+        }
+
+        .pop-Bottom > div > span > a {
+            border: 1px solid #c3c3c3;
+            padding: 3px 8px;
+        }
+
+            .pop-Bottom > div > span > a:hover {
+                border: 1px solid #C3C3C3;
+                background-color: #fff;
+                padding: 3px 8px;
+            }
+
+            .pop-Bottom > div > span > a > small {
+                margin: 0px 5px;
+                color: #888;
+            }
+
+        .pop-Bottom > div > span {
+            margin-top: 5px;
+            float: right;
+        }
+
+    .pop-Bottom > .bot-Button {
+        float: left;
+        padding-bottom: 10px;
+    }
+
+        .pop-Bottom > .bot-Button > span {
+            margin-right: 10px;
+            float: left;
+        }
+
+            .pop-Bottom > .bot-Button > span:first-child a {
+                background-color: #44a6d8;
+                color: #fff;
+                border: none;
+            }
+
+            .pop-Bottom > .bot-Button > span:nth-child(2) a {
+                background-color: #fff;
+                color: #888;
+                border: none;
+            }
+
+            .pop-Bottom > .bot-Button > span > a {
+                padding: 0px 8px 3px;
+                border-radius: 5px;
+            }
+
+                .pop-Bottom > .bot-Button > span > a:hover {
+                    padding: 0px 8px 3px;
+                    border-radius: 5px;
+                }
+
+    .pop-Bottom > div > span > select {
+        border: 1px solid #C3C3C3;
+    }
+
+.invite-Peop-mul-sel > .chosen-container {
+    width: 100% !important;
+}
+
+.invite-Peop-Span > select {
+    height: 30px;
+    width: 100%;
+}
+
+.cp-check {
+    border: none;
+    float: left;
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 5px;
+}
+
+.divBottom-div {
+    float: left;
+    width: 100%;
+}
+
+.div-float-left {
+    float: left;
+    width: 50%;
+}
+
+.div-float-right {
+    float: right;
+    width: 33%;
+    margin: 4px 7% 0 0;
+}
+
+.span-permission {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contrct-Permission-scroll {
+    height: 295px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    border: 1px solid #ddd !important;
+}
+
+.contrct-People-Permission-scroll {
+    height: 190px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    border: 1px solid #ddd !important;
+}
+
+.permission-option > li > .share-pop-up-Right {
+    width: 18.5%;
+}
+
+.share-Add-Butt {
+    float: right;
+    margin-top: 28px;
+}
+
+    .share-Add-Butt > a {
+        color: rgb(68, 166, 216);
+        border: medium none;
+        padding: 3px 8px;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+
+
+.hideUserlocal {
+    display: none !important;
+}
+
+
+/*New css for share document for negosiation popup*/
+
+#trAutoUpdateStatusShareDoc td.f_head::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 1px;
+}
+
+#trAutoUpdateStatusShareDoc td.f_head {
+    display: table-cell;
+    line-height: normal;
+}
+
+    #trAutoUpdateStatusShareDoc td.f_head input[type="checkbox"] {
+        margin-top: 4px;
+    }
+
+#trAutoUpdateStatusShareDoc td label.margin-top-min5.summary_Check_Right {
+    margin: 0 0 0 10px !important;
+    text-align: left;
+}
+
+
+.nicEdit-main .TableContainer {margin-left:3px;}
+.nicEdit-main .Table {
+    width: auto !important;
+}
+
+
+#listDocuments.border-left i a {
+    margin: 0 5px;
+}
+#listDocuments.border-left i img {
+    vertical-align: bottom;
+}
+
+#listDocuments.border-left i img.doc_type {
+    margin-right: 5px;
+}
+
+#trDisclose td.f_head::after,
+#trDiscloseCon td.f_head::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 1px;
+}
+
+#trDisclose td.f_head,
+#trDiscloseCon td.f_head {
+    display: table-cell;
+    line-height: normal;
+}
+
+#trDisclose td.f_head input[type="checkbox"],
+#trDiscloseCon td.f_head input[type="checkbox"] {
+    margin-top: 4px;
+}
+
+#trDisclose td label.margin-top-min5.summary_Check_Right,
+#trDiscloseCon td label.margin-top-min5.summary_Check_Right {
+    margin: 0 0 0 10px !important;
+    text-align: left;
+}

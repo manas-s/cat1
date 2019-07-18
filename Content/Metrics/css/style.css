@@ -1,0 +1,287 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{
+	margin:0;
+	padding:0;
+	font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+	background:#fff;	
+}
+ul, li {
+	padding:0;
+	margin:0;
+	list-style:none;	
+}
+*{
+	margin:0;
+	padding:0;	
+}
+.clear{
+	clear:both;
+}
+
+.matrics-container{
+	max-width:1200px;
+	margin:0 auto;	
+}
+.matrics-header {
+    background-color: #ed7d31;
+    color: #fff;
+    margin-bottom: 2%;
+    padding: 0.3% 2%;
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	-o-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+	display:none;
+}
+
+.m-matrics-left {
+    float: left;
+    width: 20%;
+}
+
+.m-dashboard {
+    background-color: #337AB7;
+    color: #fff;
+    padding: 3%;
+}
+.m-dashboard span {
+    display: block;
+    float: left;
+    padding-top: 6px;
+    width: 20%;
+}
+
+.m-left-menu {
+    background-color: #f1f1f1;
+  /*  box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.3);
+	-webkit- box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.3);
+	-moz- box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.3);
+	-o- box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.3);*/
+}
+
+.m-left-menu li a {
+    border-top: 1px solid #b6b6b6;
+    color: #337ab7;
+    display: block;
+    font-size: 14px;
+    padding: 5%;
+    text-decoration: none;
+}
+.m-left-menu li a:hover {
+    background-color: #eee;
+/*    box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.1) inset;
+	-webkit-box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.1) inset;
+	-moz-box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.1) inset;
+	-o-box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.1) inset;*/
+}
+/***************right************/
+.m-matrics-right-header {
+    border-bottom: 1px solid #c0bebe;
+    padding-bottom: 1%;
+ margin-bottom: 1%;
+}
+.m-matrics-right {
+    float: left;
+    padding-left: 3%;
+    width: 76%;
+    border-left: 1px solid #b6b6b6;
+}
+
+.m-status {
+    float: left;
+    width: 50%;
+}
+
+.m-status {
+    float: left;
+    width: 70%;
+}
+
+.m-matrics-right-header > h1 {
+    color: #49a4e6;
+    font-size: 16px;
+    padding: 1% 0;
+    text-transform: uppercase;
+}
+.m-buttonm label, .m-calender label {
+    position: relative;
+    display: inline;
+}
+.m-buttonm input[type="button"] {
+	color:#333;
+	font-size:15px;
+	margin-right:5px;
+	border:1px solid #b6b6b6;
+	cursor:pointer;
+	padding:0.5% 6% 0.5% 1%;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+
+.m-buttonm a {
+	color:#333;
+	font-size:15px;
+	margin-right:5px;
+	border:1px solid #b6b6b6;
+	cursor:pointer;
+	padding:0.5% ;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+.m-buttonm label i {
+    position: absolute;
+    right: 11px;
+    top: 4px;
+}
+.m-calender {
+    float: right;
+    width: 30%;
+	text-align:right;
+}
+.m-calender > select {
+    margin:0px;
+}
+.m-calender input[type="text"] {
+	width:150px;
+	height:25px;
+	padding:1%;
+	color:#333;
+	border:1px solid #b6b6b6;
+}
+.m-calender label i {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+}
+
+.wrapper-dropdown-2 {
+    cursor: pointer;
+    float: right;
+    margin: 0 10px 0 auto;
+    outline: medium none;
+    padding: 0px 5px;
+    position: relative;
+    width: 61%;
+}
+
+.wrapper-dropdown-2:after {
+    border-color: grey transparent;
+    border-style: solid;
+    border-width: 6px 6px 0;
+    content: "";
+    height: 0;
+    margin-top: -1px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+}
+.m-graph-left, .m-graph-right  {
+    float: left;
+    width: 47%;
+	box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    background: #fff;
+	padding:1%;
+    /*min-height: 502px;*/
+    /*height: 450px;*/
+       padding-bottom: 500em;
+   margin-bottom: -500em;
+}
+.m-hraph-info {
+    float: left;
+	width:50%;
+	color: #808080;
+	font-size:14px;
+}
+.m-graph-right {
+    float: right;
+}
+.m-graph-content-a i {
+    padding: 0% 2%;
+	float:right;
+}
+.m-graph-content-a {
+    float: right;
+    width: 50%;
+	color: #808080;
+	font-size:14px;
+}
+.m-graph-content-m > img {
+    height: auto;
+    width: 100%;
+}
+.m-graph-content-m {
+    padding: 3% 0;
+}
+.m-graph-content-f{
+	text-align:right;
+    padding-bottom:2%;	
+}
+.m-graph-content-f > input[type="button"] {
+	padding:2%;
+	background-color:#44A6D8;
+	color:#fff;
+	cursor:pointer;
+	border:none;
+}
+.m-graph-content {
+    margin: 0 0 2% 0;
+    overflow: hidden;
+   width: 100%;
+}
+.m-dashboard > h1 {
+    font-size: 16px;
+	padding: 4px 8px;
+    cursor: pointer;
+}
+.m-dashboard > h1 > label {
+    color:#fff;
+     margin: 0 !important;
+}
+.m-dashboard > h1 > img {
+    float: right; padding: 4px 0px;
+}
+.active2 {
+    border-right: 4px solid #428bca;
+}
+.metrics_filter {
+    height: 20px !important;
+    font-size: 12px;
+    width: 65% !important;
+    margin-top: 0px;
+}
+.matric_icon_color{color:#808080 !important;}
+@media only screen and (min-width: 901px) and (max-width: 980px){
+.m-hraph-info, .m-graph-content-a {
+    font-size: 12px;
+}
+}
+@media only screen and (max-width: 900px){
+.m-matrics-left {
+    float: left;
+    width: 100%;
+}
+.m-matrics-right {
+    float: left;
+    padding: 3%;
+    width: 94%;
+}
+.m-left-menu li a {
+    padding: 1% 5%;
+}
+}
+
+.m-buttonm {
+    position: relative;
+    float: left;
+    width: 377px;
+}

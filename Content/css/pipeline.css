@@ -1,0 +1,52 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+a {outline:none; text-decoration:none}
+.wraper-body {width:100%;}
+.wraper-body-content {padding:10px;}
+.content-col {width:25%; float:left; }
+.col-con { padding:10px;}
+.col-cont-hea { width:100%; background-color:#44A6D8;  }
+.col-cont-hed-body { height:40px; padding:7px; overflow:hidden;}
+.col-cont-hea-left {width:80%; float:left;}
+.col-cont-hea-right {width:20%; float:right; text-align:right; padding-top:18px;}
+
+.col-con-data-body-main { clear:both; width:100%;}
+.col-con-data-body {padding:7px; margin:7px 0px; border:1px solid #dddddd;}
+.col-con-data-body:hover {background-color:#f8f8f8;}
+.Contract-info-box-main {}
+.Contract-info-head-box {padding-bottom:2px; width:100%; display:table;}
+.Contract-info-head-left {float:left; width:80%;}
+.Contract-info-head-right {float:right; width:20%; text-align:right; padding-top:3px;}
+.Contract-info-content-box {clear:both; width:100%;}
+.more-contract-data-body { border: 1px solid #dddddd;margin: 7px 0; }
+.more-contract {text-align:center; color:#dddddd;}
+.lod-mor-btn {display:block; background-color:#f6f6f6; color:#CCC; text-align:center; padding: 3px;}
+.lod-mor-btn:hover, .lod-mor-btn:focus, .lod-mor-btn:active {display:block; background-color:#f6f6f6; color:#999999; text-align:center; padding: 3px;}
+
+.alert-text {
+    background-color: #44a6d8;color: #fff;display: block;float: right;font-size: 14px;font-weight: bold; height: 23px;padding:2px 0px;position: relative;text-align: center; width: 30px;
+	border-radius: 65px; 
+}
+
+/* Style -------------------------------------*/
+.col-cont-hed { font-size:17px; font-weight:normal; color:#ffffff; text-decoration:none;}
+.hed-info { font-size:13px; font-weight:normal; color:#ffffff;}
+.hed-info span{ font-size:12px; font-weight:normal; color:#999999;}
+.head-text {font-size:15px; font-weight:normal; color:#777777; text-decoration:none;line-height: 20px;}
+.head-text span img{ margin-bottom: -3px;}
+p {font-size:13px; font-weight:normal; color:#999999; text-decoration:none;line-height: 18px;}
+
+.success { background-color:#f0fff1;}
+.danger { background-color:#fff0f0;}
+.warning { background-color:#ffffe5;}
+.blue {background-color:#44a6d8;}
+
+
+
+@media only screen and (max-width:766px){
+.content-col { border-bottom: 1px solid #dddddd; width: 100%;}
+.col-con { border-right:none;}
+	
+}
+

@@ -1,0 +1,188 @@
+﻿/* CSS Document */
+body{
+	margin:0;
+	padding:0;
+	font-family: "Segoe UI", Arial, Helvetica, sans-serif;	
+}
+*{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.clearfix:after {
+    content: " ";
+    display: table;
+	clear: both;
+}
+/**************ContractStandards***********/
+.form-group {
+    margin-bottom: 15px;
+}
+.results-controls{
+	float: left;
+    padding: 0 1%;
+    width: 32%;
+}
+.search-result{
+	float: left;
+    padding: 0 1%;
+    width: 64%;
+}
+.panel-library{
+	padding:0 15px;	
+}
+.panel-library > .panel-heading{
+	padding:10px 15px;
+	border-bottom:1px solid #ccc;	
+}
+.panel-heading h1{
+	font-size: 36px;
+	margin-bottom: 10px;
+    margin-top: 20px;
+	color: inherit;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.panel-body {
+    padding: 15px;
+}
+.search-term span {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+}
+.right{
+	float:right;
+}
+.sort-filter h5, .filter-by-contract h5, h4{
+	font-size: 14px;
+	margin-bottom: 10px;
+    margin-top: 10px;
+	color: inherit;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.sort-filter .form-group button {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+	background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+    position: relative;
+	margin-left: 0;
+}
+
+.sort-filter .form-group button:hover, .sort-filter .form-group button:focus{
+	background-color: #5cb85c;
+    border-color: #4cae4c;
+	opacity:0.65;
+	color:#fff;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #eee -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.divided-2-columns {
+    -moz-column-count: 2;
+	-webkit-column-count:2;
+	column-count:2;
+    min-height: 200px;
+}
+.search-result-nav > li {
+    float: left;
+    margin-bottom: -1px;
+	display: block;
+    position: relative;
+}
+.search-result-nav {
+    border-bottom: 1px solid #ddd;
+}
+.panel-body a{
+	color: #337ab7;
+	text-decoration:none;
+}
+.search-result-nav > li > a {
+    display: block;
+    padding: 10px 15px;
+    position: relative;
+}
+.search-result-nav > li.active > a, .search-result-nav > li.active > a:focus, .search-result-nav > li.active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #ddd #ddd transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #555;
+    cursor: default;
+}
+.search-result-nav > li > a {
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    line-height: 1.42857;
+    margin-right: 2px;
+}
+.search-result-nav > li.disabled > a {
+    color: #777;
+}
+.search-result-content{
+	border-bottom: 1px solid lightgrey;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    padding: 20px;	
+}
+.h4, h4 {
+    font-size: 18px;
+}
+.search-result-clauses p {
+    margin: 0 0 10px;
+}
+.search-result-clauses .label-primary {
+    background-color: #337ab7;
+}
+.search-result-clauses .label-success {
+    background-color: #5cb85c;
+}
+.search-result-clauses .label {
+    border-radius: 0.25em;
+    color: #fff;
+    display: inline;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.2em 0.6em 0.3em;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+.search-result-content li {
+    border-bottom: 1px solid lightgrey;
+}

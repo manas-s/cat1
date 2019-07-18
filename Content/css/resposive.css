@@ -1,0 +1,2476 @@
+
+@media only screen and (min-width: 600px) and (max-width: 640px) {
+    .alertbox_status_contDeat ul p {
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1280px) {
+    .obl-Start-due {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+/*@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .ctdivLeft {
+        float: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;*/
+
+@media only screen and (min-width: 280px) and (max-width: 320px) {
+    .margin-left-2perc {
+        margin-left: -6% !important;
+    }
+
+    .contextMenu {
+        position: absolute;
+        width: auto;
+        z-index: 99999;
+        left: 45% !important;
+    }
+}
+
+@media screen and (max-width: 36em) {
+    .profile-Picfull > a > img {
+        height: 40px;
+        width: 40px;
+        padding-right: 10px;
+    }
+
+    .bg-warning {
+        background: none repeat scroll 0 0 #ffffb9;
+        border: 1px solid #fddd5b;
+        clear: both;
+        color: #6c6c6c;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        padding: 5px 5%;
+        width: 90%;
+    }
+
+    .toDoConten {
+        float: left;
+        margin: 0;
+        width: 100%;
+    }
+
+    .toDoConten1 {
+        float: right;
+        margin: 10px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .todos span {
+        border: 1px solid #dddddd !important;
+    }
+
+        .todos span:last-child {
+            border-left: none !important;
+        }
+
+    .saveView a {
+        color: #838282;
+        font-size: 12px;
+        margin-right: 20px;
+        position: absolute;
+        right: 0;
+        top: 67px;
+    }
+
+    .activity_left {
+        float: left;
+        width: 100%;
+    }
+
+    .newCont1 {
+        float: left !important;
+        margin: 0 !important;
+    }
+
+    .newCont {
+        float: left !important;
+        margin: -35px 0 0 -4px;
+    }
+
+    .Wating_renewal {
+        background-color: #e67665;
+        clear: both;
+        display: block;
+        margin: 0 0 0 20px;
+        overflow: hidden;
+        padding: 5px;
+    }
+
+    .obligation_box {
+        margin: 0 0 10px;
+        width: 100%;
+    }
+
+    .obligation_Cancel {
+        float: inherit;
+        margin: 0;
+    }
+
+    .settingsli {
+        border-right: medium none !important;
+        border-top: 1px solid #f1f1f1;
+        float: left;
+        overflow: hidden;
+        padding: 2px 10px 4px !important;
+        width: 92%;
+    }
+
+    .cbp-hrmenu5 .cbp-hrsub {
+        background: none repeat scroll 0 0 #fff;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        display: none;
+        margin: 0 1px;
+        position: absolute;
+        right: 0;
+        width: 78%;
+        z-index: 1012;
+    }
+
+    .cbp-hrsub-INNer {
+        border-bottom: 1px solid #dcdcdc;
+        border-top: 1px solid #dcdcdc;
+        margin: 20px 0 !important;
+        padding: 25px 0 0 !important;
+    }
+
+    .newCont a {
+        background-color: #44a6d8;
+        border-radius: 5px !important;
+        color: #fff;
+        float: right;
+        font-size: 14px;
+        height: 15px !important;
+        margin: 7px 0 0 !important;
+        padding: 5px 10px;
+    }
+
+    .toDoTextText {
+        float: left;
+        width: 98%;
+    }
+
+    .toDoTextRight {
+        float: left;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .nEwaDD button {
+        display: none;
+    }
+
+    .logoTop small {
+        display: none;
+    }
+
+    .clearr {
+        display: none;
+    }
+
+    .logoTop b {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .logo {
+        overflow: hidden;
+        width: 14%;
+    }
+    /*search*/
+    .search {
+        display: inline-block;
+        position: inherit;
+    }
+
+    .search_box:checked ~ .search_form {
+        height: 32px;
+        padding: 5px;
+        right: 20px;
+        top: 30px;
+        transform: translateY(0px);
+        transition: transform 150ms cubic-bezier(0.2, 0.465, 0.295, 0) 0s, visibility 300ms ease 0ms;
+        width: 213px;
+    }
+
+    .search_form {
+        position: absolute;
+        right: 0;
+        top: 28px;
+        z-index: 10;
+    }
+
+    .logoRight li img {
+        width: 13px;
+    }
+    /*search--end*/
+
+    nav {
+        display: none;
+    }
+
+    .dl-menuwrapper {
+        display: block;
+    }
+
+    .pipe {
+        border-radius: 5px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .pipe-green {
+        background-color: #93c05a;
+        margin: 20px 0;
+    }
+
+    .pipe-Red {
+        background-color: #e67665;
+        margin: 0 0 0px 0;
+    }
+
+    .status_Left {
+        overflow: hidden;
+        width: 99.1%;
+    }
+
+    .profileimg {
+        display: none;
+        float: left;
+    }
+
+    .Contract-Value {
+        margin: 20px 0 0;
+        overflow: hidden;
+        width: 99.1%;
+    }
+
+    .my-Alerts {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+
+    .alertbox_status ul p {
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    .alertbox_status ul b {
+        border-radius: 5px;
+        color: #fff;
+        float: left;
+        font-size: 12px;
+        margin: 5px 0 0 15px;
+        padding: 5px;
+    }
+
+
+    .my-Alerts h1 {
+        font-size: 16px;
+        width: 40%;
+    }
+
+
+    .my_Alersmargin {
+        border-radius: 5px;
+        float: right;
+        margin: 20px 0;
+        overflow: hidden;
+        width: 99%;
+    }
+
+    .my-Alerts1 {
+        border-bottom: 1px solid #dcdcdc;
+        min-height: 50px;
+        overflow: hidden;
+        padding: 12px 20px 0;
+    }
+
+
+    .alertbox_status_Right h1 {
+        color: #777777;
+        float: left;
+        font-size: 18px;
+        line-height: 27px;
+        padding: 0 0 5px;
+        width: 100%;
+    }
+
+    .my-AlertsLeft h1 {
+        color: #777;
+        font-size: 18px;
+        padding: 0px 0px 20px;
+        float: left;
+        width: 30%;
+        line-height: 27px;
+    }
+
+    .dashcalanderstatus_Left h1 {
+        font-size: 17px !important;
+    }
+
+    .todos span a {
+        color: #9c9c9c;
+        float: left;
+        font-size: 13px;
+        line-height: 30px;
+        padding: 0 3px;
+    }
+
+    .todos span {
+        border: 1px solid #dddddd;
+        float: left;
+    }
+
+    .todos {
+        float: left;
+        width: 100%;
+        margin: 0 0 12px;
+        display: none;
+    }
+
+    .todos1 span a {
+        color: #9c9c9c;
+        float: left;
+        font-size: 13px;
+        line-height: 30px;
+        padding: 0 3px;
+    }
+
+    .todos1 span {
+        border: 1px solid #dddddd;
+        float: left;
+    }
+
+    .todos1 {
+        float: left;
+        width: 100%;
+        margin: 0 0 12px;
+        display: block;
+    }
+
+    .alertbox_status1 ul p {
+        color: #838282;
+        float: left;
+        font-size: 12px;
+        line-height: 18px;
+        margin: 0 8px 0 10px;
+        width: 83%;
+    }
+
+
+    .logoRight {
+        float: left;
+        overflow: hidden;
+        width: 84%;
+    }
+
+        .logoRight li {
+            border-right: medium none;
+            padding: 10px 5px;
+        }
+    /*.logoRight small{display:none;}*/
+    #searchForm fieldset {
+        display: block;
+        position: relative;
+        width: 175px;
+    }
+
+    .number li strong {
+        clear: both;
+        color: #fff;
+        display: block;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .status_Left h1 {
+        border-bottom: 1px solid #dcdcdc;
+        color: #777777;
+        font-size: 16px;
+        margin: 0 0 35px;
+        padding: 12px 20px;
+    }
+
+    .Contract-Value h1 {
+        border-bottom: 1px solid #dcdcdc;
+        color: #777777;
+        font-size: 16px;
+        margin: 0 0 35px;
+        padding: 12px 20px;
+    }
+
+    .alertbox_status ul p {
+        color: #838282;
+        float: left;
+        font-size: 12px;
+        line-height: 19px;
+        margin: -2px 8px 0 18px !important;
+        width: 100%;
+    }
+
+    .welcome {
+        color: #797979;
+        font-size: 18px;
+        margin: 17px 0;
+        padding: 0 5%;
+        width: 90%;
+    }
+
+    .newCont1 {
+        float: right; /*position: absolute;*/
+        right: 5%;
+        top: 0;
+    }
+
+    .contNew {
+        float: right;
+        position: absolute;
+        right: 5%;
+        top: 0;
+    }
+
+    .newCont1 a {
+        color: #fff;
+        font-size: 14px;
+        padding: 4px 10px 5px 10px;
+        background-color: #44a6d8;
+        margin: 5px 0 0 0;
+        border-radius: 5px;
+        float: right;
+        margin-left: 90% !important;
+    }
+
+
+
+        .newCont1 a:hover {
+            background-color: #29324a;
+            color: #fff !important;
+        }
+
+    /*------Activities------*/
+    .my-Alerts_Act {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .box2_Right {
+        display: none;
+    }
+
+    .inserch input {
+        width: 62%;
+        float: left;
+    }
+
+    .inserch {
+        float: left;
+    }
+
+    .inserch {
+        float: left;
+        margin: 0 0 0px;
+        width: 100%;
+    }
+
+    .activity_left a {
+        float: left;
+    }
+
+    /*------contracts------*/
+    .my-Alerts_Cont {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+    .alertbox_status ul p {
+        color: #838282;
+        float: left;
+        font-size: 12px;
+        line-height: 19px;
+        margin: 0 8px 0 18px;
+        width: 96%;
+    }
+
+    .alertbox_status ul li {
+        clear: both;
+        margin: 0px 0px 15px 20px;
+        overflow: hidden;
+    }
+    /*-------Contractinner------*/
+    .contract_Left {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        clear: both;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .agreementLeft {
+        float: left;
+        margin: 0 20px;
+        overflow: hidden;
+        width: 94%;
+    }
+
+    .agreementRight {
+        float: left;
+        margin: 0 20px;
+    }
+
+        .agreementRight ul {
+            float: left;
+            margin: 20px 0 5px;
+        }
+
+        .agreementRight select {
+            display: block;
+            float: left;
+            margin: 20px 0 0 15px;
+        }
+    /*----ContractDeatile----*/
+    .welcome1 {
+        color: #797979;
+        float: left;
+        font-size: 21px;
+        margin: 6px 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .activity_left {
+        float: left;
+        width: 50%;
+    }
+
+    .my-Alerts_contDeat {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99.4%;
+    }
+
+    .box2_Right {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .box2_Right_new {
+        /* float: right; */
+        overflow: hidden;
+        width: 25.8%;
+        padding-left: 2%;
+        /* background-color: #f1f1f1; */
+    }
+
+    .box2_Right {
+        display: block !important;
+    }
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .inserch1 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 170px;
+    }
+
+    .insearch_Right {
+        display: block;
+        float: left;
+        margin: 15px 0 0;
+        width: 150px;
+        clear: both;
+    }
+    /*ContractDocuments*/
+
+    .alertbox_status ul {
+        margin: 0 15px 15px 0 !important;
+        padding: 10px 0 0;
+    }
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 210px;
+    }
+
+    .insearch_Right1 {
+        /*clear: both;*/
+        display: block;
+        margin: 25px 0 0;
+        float: left;
+    }
+
+        .insearch_Right1 li a {
+            border-left: 1px solid #d6d6d6;
+            color: #959595;
+            font-size: 13px;
+            line-height: 30px;
+            overflow: hidden;
+            padding: 10px 6px;
+        }
+
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 185px;
+    }
+
+
+    .insearch_Right1 li a {
+        border-left: 1px solid #d6d6d6;
+        color: #959595;
+        font-size: 13px;
+        line-height: 30px;
+        overflow: hidden;
+        padding: 10px 3px;
+    }
+
+    /*--------Todos--------*/
+    .toDoContenList > b {
+        color: #ababab;
+        float: left;
+        font-size: 13px;
+        line-height: 14px;
+        margin: 0 0 10px;
+        width: 100%;
+    }
+
+    .toDoContenList span small {
+        float: left;
+        margin: 0 0 10px;
+    }
+
+    /*share_document*/
+
+    .share_doc_Left {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .shareDocument {
+        height: 500px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 20px;
+        width: 86%;
+    }
+
+
+    .share_doc_Aleart span {
+        background-color: #93c05a;
+        border-radius: 5px;
+        float: left;
+        padding: 5px;
+    }
+    /*-------pop_up-------*/
+    .pop_up_Content_Left {
+        float: left;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .pop_up_Content_Right {
+        border-left: none;
+        float: left;
+        overflow: hidden;
+        margin: 0 0 0 -20px;
+        width: 100%;
+    }
+
+    .activity aside {
+        float: left;
+        margin: 0 0 0;
+    }
+    /*---summery---*/
+
+
+    .box_Summery ul {
+        float: left;
+        width: 100%;
+    }
+
+    /*------search----------*/
+    .ct-search {
+        float: none;
+        height: 34px;
+        /*  margin: 15px auto;
+    width: 262px;*/
+        margin: 0px auto !important;
+        width: auto !important;
+    }
+
+
+    input.ct-search-input[type="text"] {
+        background: none repeat scroll 0 0 #fff;
+        border: medium none;
+        height: 34px;
+        margin: 0;
+        opacity: 0;
+        outline: medium none;
+        padding: 2px 7px;
+        width: 265px;
+    }
+
+    #navigation {
+        display: none;
+    }
+
+
+    .pop_up_Harizondal li {
+        margin: 5px 0 8px 0;
+        padding: 1px 2% 14px 2%;
+        width: 100%;
+        border-bottom: 1px solid #dcdcdc;
+    }
+
+        .pop_up_Harizondal li:last-child {
+            border-bottom: none !important;
+        }
+
+    .mean-width3 li a {
+        background-color: transparent;
+        color: #666;
+        height: auto !important;
+        margin: 0px 0px 2px 0 !important;
+        padding: 8px 0px;
+    }
+
+        .mean-width3 li a:hover {
+            color: #44A6D8 !important;
+            background-color: transparent;
+            border-bottom: medium none;
+        }
+
+    .alertbox_status ul li p a {
+        font-size: 14px !important;
+        color: #838282 !important;
+        line-height: 22px;
+    }
+
+    .conTract_Rec li {
+        margin: 0px -20px !important;
+        padding: 10px 20px 10px 40px;
+    }
+
+    .pOp_Cont p {
+        float: left;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        width: 100%;
+        color: #B4B3B3 !important;
+    }
+
+    .pOp_Cont span {
+        color: #939393 !important;
+        float: right;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 5px;
+        line-height: 18px;
+    }
+
+    .filTer_Ri {
+        display: block;
+        float: left;
+        margin: -10px 0px 0px;
+        width: auto !important;
+    }
+
+    .alertbox_status ul b {
+        margin: 5px 0px 0px;
+    }
+
+    .refr-Butt {
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 360px) {
+    .logo {
+        overflow: hidden;
+        width: 100%;
+        display: block;
+        clear: both;
+    }
+
+    .logoRight {
+        float: left;
+        overflow: hidden;
+        width: 84%;
+        display: block;
+        clear: both;
+        margin-top: -10px;
+    }
+
+    .new_deatile {
+        max-width: 100%;
+    }
+
+    .cA-left-width {
+        width: 70% !important;
+    }
+
+    .cA-Rightt-width {
+        width: 30% !important;
+    }
+
+    .my-AlertsLeftHeight {
+        height: 690px;
+    }
+
+    .my_activity_height {
+        height: 1135px !important;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .ctdivLeft {
+        float: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+
+    .ctdivRight {
+        float: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+
+    .alertbox_status {
+        padding: 0px;
+    }
+
+        .alertbox_status ul p {
+            margin: 0 8px 0 0 !important;
+            width: 100% !important;
+        }
+
+    .my-AlertsLeft {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .height_chart {
+        height: auto !important;
+        padding-bottom: 30px;
+    }
+
+    .alertbox_right_text {
+        float: left;
+    }
+
+    .profilesmall {
+        padding: 0 !important;
+    }
+
+    .filTer_Ri {
+        float: right;
+        width: auto;
+        margin: -30px 0px 0px;
+    }
+
+    .text-right {
+        text-align: left;
+    }
+
+    .filter_RightNew {
+        margin-top: 10px !important;
+        width: 43% !important;
+    }
+
+    .contract_term_left {
+        width: 100% !important;
+        line-height: 18px;
+        float: left;
+    }
+
+    .manage_term-Tab {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    .popup_width100 {
+        width: 100% !important;
+    }
+
+    .Popup_WarningMsg {
+        width: 100% !important;
+    }
+
+    .pop_up_Content_Right {
+        width: 90% !important;
+    }
+
+    .pop_up_Content_Left {
+        width: 90% !important;
+        overflow: hidden;
+        float: left;
+    }
+
+    .poPup_Form_Field p {
+        width: 100% !important;
+    }
+
+    .poPup_Form_Field div {
+        width: 100% !important;
+    }
+
+    .f_list li {
+        padding-bottom: 10px;
+    }
+
+    .text_label {
+        width: 100% !important;
+        display: block;
+    }
+
+    .text {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .obligationNew_popuptitlediv {
+        width: 100%;
+        clear: both;
+    }
+
+    .obligationNew_popuptitlespan {
+        float: left;
+        margin-top: 10px;
+        margin-left: 0%;
+    }
+
+    .simple-pagination ul li {
+        float: left !important;
+        clear: none !important;
+    }
+
+    .fc-button-group {
+        margin-right: 20px !important;
+    }
+
+    .fc-view, .fc-view > table {
+        margin-left: -8px;
+    }
+
+    .agreementLeft b {
+        width: 96%;
+        font-size: 16px;
+        margin: 0px 0px 8px;
+    }
+
+    .f_head {
+        font-size: 14px; /*color: rgb(180, 179, 179);*/
+        padding-left: 20px;
+        text-align: left;
+        vertical-align: text-top;
+        line-height: 24px;
+        width: 100% !important;
+        display: block;
+    }
+
+    .labelleft {
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        vertical-align: text-top; /*;color: rgb(147, 147, 147);*/
+        width: 100% !important;
+        display: block;
+    }
+
+    .newCont1 {
+        float: right !important;
+    }
+
+    .waitingRenival li {
+        width: 100%;
+        overflow: hidden;
+        margin: 0px 0px 10px;
+        padding: 5px 0px 10px !important;
+        padding: 0 !important;
+    }
+
+    .toDoReviewed {
+        margin-top: 5px;
+    }
+
+    .nEw_ContRact5 {
+        margin: 25px 15px 0px 0px !important;
+        padding: 20px !important;
+        top: 0px;
+        width: 200px !important;
+        position: absolute;
+    }
+
+    .width60 {
+        width: 100% !important;
+    }
+
+    .width30 {
+        width: 100% !important;
+    }
+
+    width46 {
+        width: 100% !important;
+    }
+
+    .width20 {
+        width: 100% !important;
+    }
+
+    .width40 {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+    .d_left-table {
+        width: 100%;
+    }
+
+    .d_middle-table {
+        width: 100%;
+    }
+
+    .d_middle-table {
+        min-width: 100%;
+    }
+
+    .d_right-table {
+        width: 100%;
+    }
+
+    .table_Vertical-Width {
+        display: block;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 800px) {
+    .fc-content {
+        height: 35px;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 480px) {
+    .contextMenu {
+        position: absolute;
+        width: auto;
+        z-index: 99999;
+        left: 50% !important;
+    }
+
+    .alertbox_status_contDeat ul p i {
+        float: left;
+        width: 86%;
+    }
+
+    .newCont {
+        float: left !important;
+        margin: -29px 0px 0px 0 !important;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 640px) {
+    .pop_up_Content_Right {
+        width: 90%;
+    }
+
+    .pop_up_Content_Left {
+        width: 90%;
+    }
+
+    .poPup_Form_Field p {
+        width: 100% !important;
+    }
+
+    .poPup_Form_Field div {
+        width: 100% !important;
+    }
+
+    .f_head {
+        width: 100%;
+        display: block;
+    }
+
+    .labelleft {
+        width: 100%;
+        display: block;
+    }
+
+    .text_label {
+        width: 100% !important;
+        display: block;
+    }
+
+    .text {
+        width: 100% !important;
+        display: block !important;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 667px) {
+    .bg-warning {
+        background: none repeat scroll 0 0 #ffffb9;
+        border: 1px solid #fddd5b;
+        clear: both;
+        color: #6c6c6c;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        padding: 5px 5%;
+        width: 90%;
+    }
+
+    .contNew {
+        float: right;
+        position: absolute;
+        right: 5%;
+        top: 0;
+    }
+
+    .nEwaDD button {
+        display: none;
+    }
+
+    .contract_Left {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        clear: both;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .agreementLeft {
+        float: left;
+        margin: 0 20px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .agreementRight {
+        float: left;
+        margin: 0 20px 0 0;
+    }
+
+        .agreementRight ul {
+            float: left;
+            margin: 20px 0 5px;
+        }
+
+        .agreementRight select {
+            display: block;
+            float: left;
+            margin: 20px 0 0 15px;
+        }
+
+    /*----ContractDeatile----*/
+
+
+    .new_deatile {
+        float: right !important;
+        margin: -10px 0 20px !important;
+        max-width: 100%;
+    }
+
+    .newCont {
+        float: left !important;
+        margin: -29px 0 0 38px;
+    }
+
+    .activity aside {
+        float: left;
+        margin: 0 0 0;
+        /*width: 100%;*/
+    }
+
+    .activity_left {
+        float: left;
+        width: 64%;
+    }
+
+    .my-Alerts_contDeat {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99.4%;
+    }
+
+    .box2_Right {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .box2_Right {
+        display: block !important;
+    }
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .inserch1 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 170px;
+    }
+    /*-------Share-Document-----------*/
+    .share_doc_Left {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .shareDocument {
+        height: 500px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 20px;
+        width: 89%;
+    }
+
+    /*-------pop_up-------*/
+    .pop_up_Content_Left {
+        float: left;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .pop_up_Content_Right {
+        border-left: none;
+        float: left;
+        overflow: hidden;
+        margin: 0 0 0 -20px;
+        width: 100%;
+    }
+
+    .activity aside {
+        float: left;
+        margin: 0 0 0 0;
+    }
+
+    #navigation {
+        display: none;
+    }
+
+    .width20 {
+        width: 100% !important;
+    }
+
+    .ctdivRight {
+        float: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+
+    .ctdivLeft {
+        float: none !important;
+        margin: 0 auto;
+        width: 100% !important;
+    }
+
+    .height_chart {
+        height: auto !important;
+    }
+
+    .my-AlertsLeft {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .my-AlertsLeftHeight {
+        height: auto !important;
+    }
+
+    .alertbox_status ul p {
+        width: 65% !important;
+    }
+
+    .welcome {
+        width: 90%;
+        padding: 0px 5%;
+        margin: 17px 0px;
+        font-size: 21px;
+        color: #797979;
+    }
+
+    .text-right {
+        text-align: left;
+    }
+
+    .contract_term_left {
+        width: 100%;
+        line-height: 18px;
+        float: left;
+    }
+
+    .f_head {
+        width: 100%;
+        display: block;
+    }
+
+    .labelleft {
+        width: 100%;
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+
+    .contNew {
+        float: right;
+        position: absolute;
+        right: 5%;
+        top: 0;
+    }
+}
+
+@media only screen and (min-width: 362px) and (max-width: 480px) {
+    .filTer_Ri {
+        float: right;
+        width: 20%;
+        margin: -5px 0px 0px !important;
+    }
+
+    .insearch_Right1 {
+        float: right;
+        margin: 10px 0px 0px !important;
+    }
+
+    .inserch1 input {
+        width: 270px;
+    }
+}
+
+@media only screen and (min-width: 370px) and (max-width: 399px) {
+    .inserch1 input {
+        width: 212px;
+    }
+}
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    .profile-Picfull > a > img {
+        height: 52px;
+        width: 52px;
+    }
+
+    .nEwaDD button {
+        display: none;
+    }
+
+    .box2 {
+        margin: 0px 0 20px 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .logoTop b {
+        display: block;
+        margin: 11px 0;
+    }
+
+    .logoRight li {
+        border-right: 1px solid #3c4a6f;
+        float: right;
+        padding: 14px 2.9%;
+    }
+
+    .logoTop small {
+        display: none;
+    }
+
+    .clearr {
+        display: none;
+    }
+
+    .logoTop b {
+        display: block;
+    }
+
+    .newCont1 {
+        float: right; /*position: absolute;*/
+        right: 5%;
+        top: 0;
+    }
+
+        .newCont1 a {
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #44a6d8;
+            margin: 5px 0 0 0;
+            border-radius: 5px;
+            float: right;
+        }
+
+            .newCont1 a:hover {
+                background-color: #29324a;
+                color: #fff !important;
+            }
+
+    #searchForm fieldset {
+        display: block;
+        position: relative;
+        width: 210px;
+    }
+
+    .logo {
+        float: left;
+        overflow: hidden;
+        width: 24%;
+    }
+
+    .logoRight {
+        float: right;
+        overflow: hidden;
+        width: 75%;
+    }
+
+    .logoTop {
+        float: left;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .dl-menuwrapper {
+        display: block;
+    }
+
+    .pipe-Red {
+        background-color: #e67665;
+        margin: 20px 25%;
+    }
+
+    .Contract-Value img {
+        width: auto;
+    }
+
+    .pipe {
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        width: 46.6%;
+    }
+
+    .pipe-Red {
+        background-color: #e67665;
+        margin: 20px 25%;
+    }
+
+
+    .pipe {
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        width: 46.6%;
+    }
+
+    .status_Left {
+        overflow: hidden;
+        width: 99%;
+    }
+
+    .Contract-Value {
+        overflow: hidden;
+        width: 99%;
+        float: left;
+        margin: 20px 0 0 0;
+    }
+
+
+    .my-Alerts {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+
+    .my_Alersmargin {
+        border-radius: 5px;
+        float: right;
+        margin: 20px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+    /*------Activities------*/
+    .my-Alerts_Act {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .alertbox_status_Act ul p i {
+        float: left;
+        width: 90%;
+    }
+
+    .box2_Right {
+        display: none;
+    }
+
+    .inserch input {
+        width: 84.5%;
+        float: left;
+    }
+
+    .inserch {
+        float: left;
+    }
+
+    .inserch {
+        float: left;
+        margin: 0 0 20px;
+        width: 100%;
+    }
+
+    .activity_left a {
+        float: left;
+    }
+
+    /*------contracts------*/
+    .my-Alerts_Cont {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99%;
+    }
+
+    .alertbox_status_Contss ul p {
+        color: #838282;
+        float: left;
+        font-size: 14px;
+        line-height: 18px;
+        margin: 0 8px 0 18px;
+        padding: 0 20px 0 0;
+        width: 95%;
+    }
+
+    .alertbox_status ul b {
+        border-radius: 5px;
+        color: #fff;
+        display: block;
+        float: left;
+        font-size: 12px;
+        margin: 3px 0 0 0px;
+        padding: 5px;
+    }
+    /*-------Contractinner------*/
+    .contract_Left {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        clear: both;
+        float: left;
+        margin: 15px 0 0;
+        overflow: hidden;
+        position: relative;
+        width: 99.8%;
+    }
+
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    /*----ContractDeatile----*/
+    .welcome1 {
+        color: #797979;
+        float: left;
+        font-size: 21px;
+        margin: 6px 0;
+        padding: 0;
+        width: 50%;
+    }
+
+    .activity_left {
+        float: left;
+        width: 65%;
+    }
+
+    .my-Alerts_contDeat {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 99.4%;
+    }
+
+    .box2_Right {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .box2_Right {
+        display: block !important;
+    }
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    /*----Search-----*/
+    .insearch_Right1 {
+        float: right;
+        margin: -18px 0 0;
+    }
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 220px;
+    }
+
+    .insearch_Right1 li a {
+        border-left: 1px solid #d6d6d6;
+        color: #959595;
+        font-size: 13px;
+        line-height: 30px;
+        overflow: hidden;
+        padding: 10px 2px;
+    }
+
+    .activity aside {
+        float: right;
+        /*margin: 0 !important;*/
+    }
+
+    #navigation {
+        display: none;
+    }
+
+    .new_deatile {
+        float: right !important;
+        max-width: 100%;
+    }
+
+    .settingsli {
+        border-right: medium none !important;
+        border-top: 1px solid #f1f1f1;
+        float: left;
+        overflow: hidden;
+        padding: 2px 10px 4px !important;
+        width: 92%;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 667px) {
+    .alertbox_status ul p {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 640px) {
+    .alertbox_status_contDeat ul p {
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1280px) {
+
+    .todos {
+        float: right;
+        width: 57%;
+        margin: -5px 0px 0px;
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 800px) {
+    .obligationNew_popuptitlediv {
+        float: right;
+        width: 48%;
+        margin-top: -5px;
+    }
+
+    .obligationNew_popuptitlespan {
+        float: left;
+        margin-left: 38%;
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 980px) {
+    .popup_width100 {
+        width: 65% !important;
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 980px) {
+    .Popup_WarningMsg {
+        width: 65% !important;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 800px) {
+    .text_label {
+        width: 100% !important;
+        display: block;
+    }
+
+    .text {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .contextMenu {
+        position: absolute;
+        width: auto;
+        z-index: 99999;
+        left: 73% !important;
+    }
+}
+/* iPads (portrait) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 900px) {
+    .bg-warning {
+        background: none repeat scroll 0 0 #ffffb9;
+        border: 1px solid #fddd5b;
+        clear: both;
+        color: #6c6c6c;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        padding: 5px 20px;
+        width: 94%;
+    }
+
+    .nEwaDD button {
+        display: none;
+    }
+
+    .new_deatile {
+        float: right !important;
+        width: 35%;
+    }
+
+    .logoTop b {
+        display: block;
+        margin: 11px 0;
+    }
+
+    .logoRight li {
+        border-right: 1px solid #3c4a6f;
+        float: right;
+        padding: 14px 2.9%;
+    }
+
+    .logoTop small {
+        display: none;
+    }
+
+    .clearr {
+        display: none;
+    }
+
+    .logoTop b {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .dl-menuwrapper {
+        display: block;
+    }
+
+    .welcome {
+        color: #797979;
+        font-size: 21px;
+        margin: 17px 0;
+        padding: 0 5%;
+        width: 90%;
+    }
+
+    .newCont1 {
+        float: right; /* position: absolute;*/
+        right: 5%;
+        top: 0;
+    }
+
+        .newCont1 a {
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 10px;
+            background-color: #44a6d8;
+            margin: 6px 0 0 0;
+            border-radius: 5px;
+            float: right;
+        }
+
+            .newCont1 a:hover {
+                background-color: #29324a;
+                color: #fff;
+            }
+
+    .pipe-Red {
+        background-color: #e67665;
+        margin: 20px 25%;
+    }
+
+    .Contract-Value img {
+        width: 100%;
+    }
+
+    .pipe {
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        width: 46.6%;
+    }
+
+    .my-Alerts1 {
+        border-bottom: 1px solid #dcdcdc;
+        padding: 20px;
+    }
+    /*------Activities------*/
+
+    .inserch input {
+        background-color: #f1f1f1;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 250px;
+    }
+
+    /*----ContractDeatile----*/
+    .welcome1 {
+        color: #797979;
+        float: left;
+        font-size: 21px;
+        margin: 6px 0;
+        padding: 0;
+        width: 50%;
+    }
+
+    .activity_left {
+        float: left;
+        width: 65%;
+    }
+
+    .my-Alerts_contDeat {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .box2_Right {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .box2_Right {
+        display: block !important;
+    }
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+    /*----Search-----*/
+    .insearch_Right1 {
+        float: right;
+        margin: -18px 0 0;
+        /* width: 45%;*/
+    }
+
+
+
+    /*-------Contractinner------*/
+    .contract_Left {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        clear: both;
+        float: left;
+        margin: 15px 0 0;
+        overflow: hidden;
+        position: relative;
+        width: 99.8%;
+    }
+
+
+    .box2_Right-new {
+        background-color: #f1f1f1;
+        float: right;
+        margin: 30px 0 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    /*----Search-----*/
+    .insearch_Right1 {
+        float: right;
+        margin: -18px 0 0;
+        /*width: 45%;*/
+    }
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 220px;
+    }
+
+    .insearch_Right1 li a {
+        border-left: 1px solid #d6d6d6;
+        color: #959595;
+        font-size: 13px;
+        line-height: 30px;
+        overflow: hidden;
+        padding: 10px 4px;
+    }
+
+    /*-------Share_Document------*/
+    .shareDocument {
+        height: 500px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 20px;
+        width: 91%;
+    }
+
+    .share_doc_Left {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    /*-----pop-Up-----*/
+    .pop_up_Content_Right {
+        border-left: 1px solid #dcdcdc;
+        float: left;
+        overflow: hidden;
+        padding: 0 0 0 20px;
+        width: 70%;
+        min-height: 154px;
+    }
+
+    #navigation {
+        display: none;
+    }
+
+    .contNew {
+        float: right;
+        position: absolute;
+        right: 5%;
+        top: 0;
+    }
+
+    .my-AlertsLeft {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .my-Alerts1 {
+        border-bottom: 1px solid #dcdcdc;
+        min-height: 25px;
+        padding: 20px 20px 0;
+    }
+
+    .cont_sum {
+        background-color: #fff;
+        border-radius: 5px;
+        float: left;
+        margin: 10px 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .mean-width3 li a:hover {
+        color: #44A6D8;
+        background-color: transparent;
+        border-bottom: medium none;
+    }
+
+    .my_Alersmargin {
+        overflow: hidden;
+        border-radius: 5px;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .insearch_Right1 {
+        float: right;
+        /* margin: 11px 0px 0px;
+        width: 30%;
+        clear: both !important;*/
+    }
+
+    .contract_term_left {
+        width: 100%;
+        line-height: 18px;
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 800px) and (max-width: 980px) {
+
+    .pop_up_Content_Right {
+        width: 68% !important;
+    }
+}
+
+@media only screen and (min-width: 802px) and (max-width: 979px) {
+
+    .my_Alersmargin {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1074px) {
+    .bg-warning {
+        background: none repeat scroll 0 0 #ffffb9;
+        border: 1px solid #fddd5b;
+        clear: both;
+        color: #6c6c6c;
+        font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        padding: 5px 20px;
+        width: 96%;
+    }
+
+    .new_deatile {
+        float: right !important;
+        width: 39%;
+    }
+
+    #navigation ul li {
+        float: left;
+        position: relative;
+        border-right: 1px solid #dfdfdf;
+        height: 40px;
+        padding: 0 .7%;
+    }
+
+    .alertbox_status_Right h1 {
+        color: #777777;
+        float: left;
+        font-size: 18px;
+        line-height: 27px;
+        padding: 0 0 20px;
+        width: 39% !important;
+    }
+
+    .todos {
+        float: right;
+        width: 56% !important;
+    }
+
+    /*----Search-----*/
+    .insearch_Right1 {
+        float: right;
+        margin: -18px 0 0;
+        /*width: 45%;*/
+    }
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 220px;
+    }
+
+    .insearch_Right1 li a {
+        border-left: 1px solid #d6d6d6;
+        color: #959595;
+        font-size: 13px;
+        line-height: 30px;
+        overflow: hidden;
+        padding: 10px 4px;
+    }
+
+    /*----Search-----*/
+    .insearch_Right1 {
+        float: right;
+        /* margin: 10px 0 0;*/
+        /* width: 47%;*/
+    }
+
+
+    .inserch2 input {
+        background-color: #fff;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 220px;
+    }
+
+    .insearch_Right1 li a {
+        border-left: 1px solid #d6d6d6;
+        color: #959595;
+        font-size: 13px;
+        line-height: 30px;
+        overflow: hidden;
+        padding: 10px 4px;
+    }
+
+    .welcome1 {
+        color: #797979;
+        float: left;
+        font-size: 21px;
+        margin: 6px 0;
+        padding: 0;
+        width: 29%;
+    }
+
+    .inserch input {
+        background-color: #f1f1f1;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px 0 0 5px;
+        color: #a1a1a1;
+        height: 33px;
+        padding: 0 10px;
+        width: 360px;
+    }
+
+    .table_Vertical-Width {
+        float: inherit;
+    }
+}
+
+@media only screen and (min-width: 980px) and (max-width: 1024px) {
+
+    .my-AlertsLeftHeight {
+        height: 505px;
+    }
+}
+
+@media only screen and (min-width: 980px) and (max-width: 1280px) {
+    .alertbox_status_contDeat ul p {
+        color: #838282;
+        float: left;
+        font-size: 15px;
+        line-height: 18px;
+        margin: 0 8px 0 0;
+        padding: 0 20px 0 0;
+        width: 69%;
+    }
+
+    .txtarea_popwidth {
+        width: 56.2%;
+    }
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1920px) {
+    .wraper {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .welcome {
+        max-width: 1200px;
+        margin: 17px auto;
+        font-size: 21px;
+        color: #797979;
+    }
+
+    .header-1 {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .menu-destop {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .obl-Start-due {
+        margin-right: 1%;
+        margin-left: 0;
+    }
+
+    .obl-margin-right-p3per {
+        margin-right: 1.3%;
+    }
+
+    .obl-margin-right-1_2 {
+        margin-right: 1.2%;
+    }
+
+    .obl-margin-right-1per {
+        margin-right: 1.8%;
+    }
+
+    .obl-margin-right-p8per {
+        margin-right: 1.7%;
+    }
+
+    .obl-complete- {
+        margin-right: 1%;
+    }
+
+    .table_Vertical-Width {
+        float: inherit;
+    }
+}
+
+@media only screen and (min-width: 1283px) and (max-width: 1366px) {
+    .txtarea_popwidth {
+        width: 56.3%;
+    }
+
+    .table_Vertical-Width {
+        float: inherit;
+    }
+}
+
+
+@media only screen and (min-width: 1920px) and (max-width: 2048px) {
+
+    .nEw_ContRact3 {
+        /*margin: 25px 15px 0px 0px !important;*/
+        margin: 25px 15px 0px 0px;
+        padding: 10px 0px !important;
+        width: 200px !important;
+        position: absolute;
+        right: 16% !important;
+    }
+
+    .cbp-hrmenu5 .cbp-hrsub {
+        display: none;
+        position: absolute;
+        background: #FFF none repeat scroll 0% 0%;
+        width: 60%;
+        right: 0px;
+        z-index: 1012;
+        border: 1px solid #DDD;
+        margin: 0px 1px;
+        border-radius: 5px;
+        /*right: 16% !important;*/
+    }
+
+    .wraper {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0px auto;
+    }
+}
+
+@media only screen and (min-width: 2400px) and (max-width: 2560px) {
+    .nEw_ContRact3 {
+        position: absolute;
+        width: 200px !important;
+        padding: 10px 0px !important;
+        /*margin: 25px 15px 0px 0px !important;*/
+        margin: 25px 15px 0px 0px;
+    }
+
+    .cbp-hrmenu5 .cbp-hrsub {
+        display: none;
+        position: absolute;
+        background: #FFF none repeat scroll 0% 0%;
+        width: 60%;
+        right: 0px;
+        z-index: 1012;
+        border: 1px solid #DDD;
+        margin: 0px 1px;
+        border-radius: 5px;
+        right: 24% !important;
+    }
+
+    .wraper {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0px auto;
+    }
+}
+
+@media only screen and (min-width: 3800px) and (max-width: 3840px) {
+    .nEw_ContRact3 {
+        position: absolute;
+        width: 200px !important;
+        padding: 10px 0px !important;
+        right: 33% !important;
+        /*margin: 25px 15px 0px 0px !important;*/
+        margin: 25px 15px 0px 0px;
+    }
+
+    .cbp-hrmenu5 .cbp-hrsub {
+        display: none;
+        position: absolute;
+        background: #FFF none repeat scroll 0% 0%;
+        width: 60%;
+        right: 0px;
+        z-index: 1012;
+        border: 1px solid #DDD;
+        margin: 0px 1px;
+        border-radius: 5px;
+        right: 32% !important;
+    }
+
+    .wraper {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0px auto;
+    }
+}

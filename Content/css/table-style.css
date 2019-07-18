@@ -1,0 +1,178 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+* { 
+	margin: 0; 
+	padding: 0; 
+}
+body { 
+	/*font: 14px/1.4 Georgia, Serif;*/ color:#6a6a6a;  font-size:14px;
+}
+#page-wrap {
+	margin:0; width:100%;
+}
+#page-wrap p {
+	margin: 20px 0; 
+}
+
+	/* 
+	Generic Styling, for Desktops/Laptops 
+	*/
+	#page-wrap table { 
+		width: 100%; 
+		border-collapse: collapse;
+		background-color:#fff; 
+	}
+	/* Zebra striping */
+	#page-wrap tr:nth-of-type(odd) { 
+		background: #fafafa; 
+	}
+	#page-wrap th { 
+		background: #29324a; 
+		color: white; 
+		font-weight: bold; 
+	}
+	#page-wrap td, th { 
+		padding: 10px; 
+		/*border: 1px solid #ccc;*/ 
+		text-align: left; 
+        font-size: 12px;
+	}
+	
+	
+/*	---respocive----*/
+	
+	@media 
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px)  {
+	
+		/* Force table to not be like tables anymore */
+		/*#page-wrap table,#page-wrap thead,#page-wrap tbody,#page-wrap th,#page-wrap td,#page-wrap tr { 
+			display: block; 
+		}*/
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+		/*#page-wrap thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		#page-wrap tr { border: 1px solid #ccc; }*/
+		
+			/* Behave  like a "row" */
+		/*#page-wrap td { 
+			border: none;
+			border-bottom: 1px solid #eee; 
+			position: relative;
+			padding-left: 50%; 
+		}*/
+		
+			/* Now like a table header */
+			/* Top/left values mimic padding */
+		/*#page-wrap td:before { 
+			position: absolute;
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap;
+		}*/
+		
+		/*
+		Label the data
+		*/
+		/*#page-wrap td:nth-of-type(1):before { content: "Contract Number"; }
+		#page-wrap td:nth-of-type(2):before { content: "Contract Type"; }
+		#page-wrap td:nth-of-type(3):before { content: "Contract Title"; }
+		#page-wrap td:nth-of-type(4):before { content: "Counterparty"; }
+		#page-wrap td:nth-of-type(5):before { content: "Contract Value"; }
+		#page-wrap td:nth-of-type(6):before { content: "Renewal Date"; }
+		#page-wrap td:nth-of-type(7):before { content: "Expiry Date"; }
+		#page-wrap td:nth-of-type(8):before { content: "Transaction Type"; }*/
+		
+	}
+	
+	/* Smartphones (portrait and landscape) ----------- */
+	@media only screen
+	and (min-device-width : 320px)
+	and (max-device-width : 480px) {
+		
+		}
+		
+		@media only screen and (min-width: 768px) and (max-width: 1074px)
+		{
+		
+
+	}
+	
+	/* iPads (portrait and landscape) ----------- */
+	/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		body { 
+			width: 495px; 
+		}
+	}*/
+
+    /*----------------------------------------add this is responsive style--------------------------------------------------------*/
+
+@media 
+	only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px){.report_Land td{position: inherit !important;display:inline-table !important; width: 19.7%; 
+padding-left: 0 !important;}
+.report_title b { margin-top:0;}
+	}
+
+#page-wrap table + table {
+    display: block;
+    width: 100%;
+}
+
+tbody#tblVersionHistory {
+    overflow: auto;
+    max-height: 300px;
+    /*display: inline-block;*/
+    width: 100%;
+}
+#tblVersionHistory tr {
+    display: table-row !important;
+     width: 100%;
+
+}
+#tblVersionHistory td {
+    width: auto;
+    /*display: inline-block;*/
+}
+
+.tblcenter_allignment {
+    text-align:center !important;
+}
+/*#tblGeneric tr {
+    display: block;
+}
+#tblGeneric th, td {
+    display: inline-block;
+    width: 96%;
+    padding: 2%!important;
+}*/
+
+.tab_style table { 
+		width: 100%; 
+		border-collapse: collapse;
+		background-color:#fff; 
+	}
+	
+	.tab_style th { 
+		background: #29324a; 
+		color: white; 
+		font-weight: bold; 
+	}
+	.tab_style td { 
+		padding: 10px; 
+		border-bottom: 1px solid #fff;
+		text-align: left; 
+        font-size: 12px;
+	background: #EFEFEF; 
+    color:#545454;
+
+	}
+    .notidentical td{
+        background:#FCBDBD;
+    }
