@@ -1,0 +1,684 @@
+﻿@{
+    ViewBag.Title = "Global Reports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!doctype html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/Content/css/jquery.tabs.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .heading_report {
+            font-family: 'Segoe UI', 'Trebuchet MS', Verdana, sans-serif;
+            font-size: 20px;
+            color: #808080;
+            margin-bottom: 15px;
+        }
+
+        .subheading_report {
+            font-family: 'Segoe UI', 'Trebuchet MS', Verdana, sans-serif;
+            font-size: 15px;
+            color: #808080;
+        }
+
+        .report_list {
+            margin: 10px 0 40px 0 !important;
+            padding: 0;
+            background: none !important;
+        }
+
+            .report_list ul {
+                padding: 0;
+                background: none !important;
+            }
+
+
+            .report_list li {
+                margin: 0 0 5px !important;
+                padding: 0;
+                list-style: none;
+                border: none !important;
+            }
+
+                .report_list li a {
+                    margin: 0 !important;
+                    padding: 5px !important;
+                    font-family: 'Segoe UI', 'Trebuchet MS', Verdana, sans-serif;
+                    font-size: 12px;
+                    color: #5fbdff;
+                    text-decoration: none;
+                    border: none !important;
+                    width: 345px !important;
+                }
+
+                    .report_list li a:hover {
+                        background-color: white !important;
+                    }
+
+                .report_list li img {
+                    margin: 0 !important;
+                }
+
+        .CustomRpt .tabs ul > li a {
+            width: 161px !important;
+        }
+    </style>
+</head>
+<body>
+    <section class="activity">
+        <div class="navigation_div">
+            <div style="width:100%;overflow:hidden;" class="">
+                <b id="report-heading" class="report_Contract-sum">Global Insights</b>
+                <a class="upgrd_Report-ri" style="display:none" href="/Reports/ReportBuilder">Report Builder</a>
+            </div>
+        </div>
+    </section>
+    <section class="wraper">
+        <div class="wrap">
+            @*Report History Icon*@
+            <div style="padding-bottom: 10px;width: 100%;float:left;">
+                <div style="width: 45%;text-align: right;float: right;">
+                    <a href="/Reports/ShareReportHistory"><img src="/Content/Images/CM_history.png" width="18" height="18" title="Share Report History"></a>
+                </div>
+            </div>
+            @*Report History Icon*@
+            <div class="tabs">
+                <div style="width:24% !important; float:left;">
+                    <ul class="leftTabs">
+                        <li><a href="#one" class="active"><img src="~/Content/Images/icon/reportlandicon.jpg" />Contract Status Reports</a></li>
+                        <li><a href="#two"><img src="~/Content/Images/icon/reportlandicon.jpg" />Renewal & Expiration Reports</a></li>
+                        <li><a href="#three"><img src="~/Content/Images/icon/reportlandicon.jpg" />Pipeline Reports</a></li>
+                        <li><a href="#four"><img src="~/Content/Images/icon/reportlandicon.jpg" />Request Reports</a></li>
+                        <li><a href="#five"><img src="~/Content/Images/icon/reportlandicon.jpg" />Activity & Cycle Time Reports</a></li>
+                        <li><a href="#six"><img src="~/Content/Images/icon/reportlandicon.jpg" />Counterparty Reports</a></li>
+                        <li><a href="#seven"><img src="~/Content/Images/icon/reportlandicon.jpg" />Workflow Reports</a></li>
+                        <li><a href="#eight"><img src="~/Content/Images/icon/reportlandicon.jpg" />Access & Permission Reports</a></li>
+                        <li><a href="#nine"><img src="~/Content/Images/icon/reportlandicon.jpg" />Milestone & Obligation Reports</a></li>
+                        <li><a href="#eleven"><img src="~/Content/Images/icon/reportlandicon.jpg" />Other Reports</a></li>
+                        <li><a href="#ten"><img src="~/Content/Images/icon/reportlandicon.jpg" />Scheduled Report Emails</a></li>
+                    </ul>
+                </div>
+                <div style="width:74% !important; float:right;">
+                    <div id="one" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Contract Status Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="ContractsFinalized">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="Active~Up for Renewal~About to Expire"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractSummary?Status=Active~Up for Renewal~About to Expire&SavedReport=">Active (Effective) Contracts @*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="Awaiting Signatures"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractSummary?Status=Awaiting Signatures&SavedReport=">Recently Signed & Awaiting Signature@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="Cancelled~Expired~On Hold"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractSummary?Status=Cancelled~Expired~On Hold&SavedReport=">Cancelled, Expired & On Hold@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="UntendedContracts"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/UntendedContractsSummary?Type=Contracts&SavedReport=">Abandoned (No Recent Activity)@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /><label style="margin: 0 !important;padding: 8px !important;font-family: 'Segoe UI', 'Trebuchet MS', Verdana, sans-serif;font-size: 12px;">Archived & Deleted</label><img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"></li>*@
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="ContractsFinalized"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="two" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Renewals & Expirations Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="RenewalsExpirations" data-url="/Reports/RenewalandExpirationsNew">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="RenewalHistoryYear"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RenewalandExpirationsNew?Status=RenewalHistoryYear&SavedReport=">Renewal History@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="TerminationExpireYear"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RenewalandExpirationsNew?Status=TerminationExpireYear&SavedReport=">Missed Renewals, Expiration & Termination History@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="UpcomingRenewalYear"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RenewalandExpirationsNew?Status=UpcomingRenewalYear&SavedReport=">Upcoming Renewals@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="UnauthorizedandDelayedYear"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RenewalandExpirationsNew?Status=UnauthorizedandDelayedYear&SavedReport=">Unauthorized & Delayed Renewals@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                @*<tr>
+                                                        <td>
+                                                            <div class="subheading_report">Financial Related Reports</div>
+                                                            <ul class="report_list">
+                                                                <li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Value of Renewed Contracts (Spend)</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                                <li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Value of Expired & Terminated Contracts (Spend)</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                                <li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Value of Renewed Contracts (Revenue)</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                                <li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Value of Expired & Terminated Contracts (Revenue)</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>*@
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="RenewalsExpirations"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="three" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Pipeline Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="PipelineReports">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="All Pipeline Contract Records"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/pipelineReport?SavedReport=">Pipeline Status Report@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ALLContractWorkflows"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/WorkflowActivity?Status=ALLContractWorkflows&SavedReport=">Contracts with Active Workflows / Pending Tasks@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li data-status="ContractSharedSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractSharedSummary?SavedReport=">Shared for External Reviews<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"></a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                                <li data-status="ContractDocumentsSharedSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractDocumentsSharedSummary?SavedReport=">Documents Shared for External and Internal Review<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"></a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                            @*<li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Documents being Reviewed Internally<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"></a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                            <li data-status="UntendedPipelines"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/UntendedContractsSummary?Type=Pipelines&SavedReport=">Abandoned (No Recent Activity)@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="PipelineReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="four" class="tab" style="display:none;">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="RequestReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Request Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="RecentRequests"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RequestSummary?Status=RecentRequests&SavedReport=">Request Status Report@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="PendingRequests"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/RequestSummary?Status=PendingRequests&SavedReport=">Requests In Progress@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ALLRequestWorkflows"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/WorkflowActivity?Status=ALLRequestWorkflows&SavedReport=">Requests with Pending Tasks</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="RequestReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="five" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="ActivityCycleTimeReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Activity & Cycle Time Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="CycleTimeWorkflow"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/CycleTimeWorkflow?Status=CycleTimeWorkflow&SavedReport=">Workflow Activity & Cycle Time@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="CycleTimePipeline"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/CycleTimePipeline?Status=CycleTimePipeline&SavedReport=">Pipeline Time Taken by Status@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ContractSharedSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractSharedSummary?SavedReport=">Shared for External Review@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ContractAmendmentSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractAmendmentSummary?SavedReport=">Recently Amended@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ContractDocumentsSharedSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractDocumentsSharedSummary?SavedReport=">Documents Shared for External Review@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="DocumentsRecentlyUpdatedSummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/DocumentsRecentlyUpdatedSummary?SavedReport=">Recent Documents@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li data-status="eSignature"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/eSignature?SavedReport=">Shared for eSignature<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                           
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="ActivityCycleTimeReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="six" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="CounterpartyReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Counterparty Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="ActiveCounterparty"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/Counterparty?Status=ActiveCounterparty&SavedReport=">Active Counterparties@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="CounterpartyContacts"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/CounterpartyContacts?Status=CounterpartyContacts&SavedReport=">Counterparty Contacts@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Inactive & Past Counterparties</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="CounterpartyReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="seven" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="WorkflowReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Workflow Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="ActiveWorkflows"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/WorkflowActivity?Status=ActiveWorkflows&SavedReport=">Active Workflows@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li data-status="DelayedTask"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/WorkflowActivity?Status=DelayedTask&SavedReport=">Delayed Workflows (Tasks)</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                            @*<li data-status="CycleTimeWorkflow"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/CycleTimeWorkflow?SavedReport=">Workflow Activity & Cycle Time</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="WorkflowReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="eight" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="AccessPermissionReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Access & Permission Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="ContractAccess"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractAccess?SavedReport=">Contract Access Report@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="UserAccessandActivity"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/UserAccessandActivity?SavedReport=">User Access Report@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            @*<li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="#">Custom Permissions<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;"></a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>*@
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="AccessPermissionReports"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="nine" class="tab">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="ObligationMilestoneReport">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Milestone & Obligation Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="UpcomingMilestonesMonth"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractMilestoneSummary?Status=UpcomingMilestonesMonth&SavedReport=">Upcoming Milestones@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="DelayedMilestonesAll"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractMilestoneSummary?Status=DelayedMilestonesAll&SavedReport=">Delayed Milestones@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="UpcomingObligationsMonth"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ObligationSummary?Status=UpcomingObligationsMonth&SavedReport=">Upcoming Obligations@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="DelayedObligationsMonth"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ObligationSummary?Status=DelayedObligationsMonth&SavedReport=">Delayed Obligations@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="Quantity"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ObligationProductsSummary?Status=Quantity&SavedReport=">Commitments Summary@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="ProductsYearlySummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ProductsYearlySummary?SavedReport=">Quantity Commitments by Product@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="CounterpartyYearlySummary"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/CounterpartyYearlySummary?SavedReport=">Quantity Commitments by Counterparty@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li data-status="Financial"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ObligationProductsSummary?Status=Financial&SavedReport=">Financial Commitments Summary@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none">
+                                                    <td>
+                                                        <div class="subheading_report">Custom Reports</div>
+                                                        <ul class="report_list custom_report_list" id="ObligationMilestoneReport"></ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="ten" class="tab" style="display:none;">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="ScheduledReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Scheduled Report Emails<input id="btnAddNewScheduleReports" value="Add New Schedule" style="position: relative;right: 10%;top: 30%;margin-left: 100px;" class="f_button_green_small" type="submit"></div>
+                                        <ul class="report_list" id="ScheduleReports"></ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="eleven" class="tab" style="display:none;">
+                        <table width="100%" cellspacing="0" cellpadding="0" class="topreports" data-reportcategory="OtherReports">
+                            <tbody>
+                                <tr>
+                                    <td valign="top">
+                                        <div class="heading_report">Other Reports</div>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="subheading_report">Canned Reports</div>
+                                                        <ul class="report_list">
+                                                            <li data-status="ContractNotes"><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/ContractsNotesSummary?SavedReport=">Contract Record Notes@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a> <span style="color:#a9a9a9; font-size:12px;"></span> </li>
+                                                            <li><img src="~/Content/Images/report-sign.png" width="12" height="12" alt="" /> <a href="/Reports/Metrics">Metrics Report@*<img src="/Content/Images/help_iconn.png" width="4" height="10" alt="" style="padding-left:  5px;vertical-align: inherit;">*@</a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<div id="addNewReport" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewReportFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtReportID" name="ReportID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name<small style="color:red;">*</small></td>
+                    <td class="labelright"><input id="txtReportName" name="ReportName" type="text" maxlength="35" class="f_textinput validelement validtitle width70" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Description</td>
+                    <td class="labelright"><textarea id="txtReportDesc" name="ReportDesc" maxlength="70" class="f_textinput width70"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="addNewScheduleReport" style="display:none;">
+    <div class="modalbody">
+        <div id="addNewScheduleReportFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtScheduleReportID" name="ScheduleReportID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Schedule Report Name<small style="color:red;">*</small></td>
+                    <td class="labelright"><input id="txtScheduleReportName" name="Schedule ReportName" type="text" maxlength="35" class="f_textinput validelement validtitle width70" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Selected Report Name<small style="color:red;">*</small></td>
+                    <td class="labelright">
+                        <input id="txtSelectedReportName" title="Selected ReportName" class='form-contro report-input-businessarea' readonly='readonly' type='text' />
+                        <a id="viewReportsTree" class="report-a-businessarea" href='javascript:void(0)'> Browse</a>
+                </tr>
+                <tr>
+                    <td class="labelleft">Schedule Report Description</td>
+                    <td class="labelright"><textarea id="txtScheduleReportDesc" name="Schedule Report Desc" maxlength="70" class="f_textinput width70"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Schedule with External Contact(s)</td>
+                    <td class="labelright">
+                        <div id="frmScheduleReport">
+                            <table id="tblScheduleReport" class="width100">
+                                <tr>
+                                    <td>
+                                        <input id="txtScheduleReport1" autocomplete="off" name="ScheduleReportName1" maxlength="42" title="Name" placeholder="Name" type="text" class="f_inpt width90 validtitle" />
+                                    </td>
+                                    <td>
+                                        <input id="txtScheduleReportEmail1" autocomplete="off" name="ScheduleReportEmail1" maxlength="50" title="Email id" placeholder="Email ID" type="text" class="f_inpt width90 validemail" />
+                                    </td>
+                                    <td style="width:20px">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddScheduleReportUserForm()'>Add more</a></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelleft">Schedule with eContracts user(s)</td>
+                    <td class="verticalalign-top width70 labelright">
+                        <select id="ddlReportScheduleInternal" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select User(s)"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul>
+                            <li style="width: 100%; padding: 0 0 0 0px; line-height: 30px;">
+                                <div class="obligationNew_Ocurrencebody" style="width:31%;"><span>Start Date<small class="required">*</small><img title="Select the achievable date of the miletone." src="/Content/Images/input-help.png"></span></div>
+                                <input id="dtReportScheduleStartDate" name="ScheduleStartDate" style="float:left;" title="Schedule Start Date" type="text" class="form-contro-Date f_input_milestone width10 validelement validdate">
+                            </li>
+                        </ul>
+                        <ul id="ulScheduleFrequency" class="obli_ocurr_ul" style="width: 100%;">
+                            <li style="width: 100%; padding: 0 0 0 0px; line-height: 30px;float: right;" id="liScheduleRecurrence">
+                                <div class="obligationNew_Ocurrencebody" style="width:31%;"><span>Repeat<img title="Select option based on the occurence of the Miletone." src="/Content/Images/input-help.png"></span></div>
+
+                                <select name="Duration" id="ddlScheduleOccurencess" class="f_input_milestone width15 validelement" title="Schedule Recurrence Type" data-role="none">
+                                    <option value="None">Never</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                </select>
+                            </li>
+                            <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;margin-top:4px;" id="divScheduleOcurrenceWeekly">
+                                <div class="obligationNew_Ocurrencebody" style="width:31%"><span>Select Days(s)<small class="required">*</small></span></div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC0" name="chkScheduleRecurWeekly" value="0" data-role="none"> Sun
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC1" name="chkScheduleRecurWeekly" value="1" data-role="none"> Mon
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC2" name="chkScheduleRecurWeekly" value="2" data-role="none"> Tue
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC3" name="chkScheduleRecurWeekly" value="3" data-role="none"> Wed
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC4" name="chkScheduleRecurWeekly" value="4" data-role="none"> Thu
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC5" name="chkScheduleRecurWeekly" value="5" data-role="none"> Fri
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="SRC6" name="chkScheduleRecurWeekly" value="6" data-role="none"> Sat
+                                </label>
+                            </li>
+                            <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;margin-bottom:-10px;margin-top:4px;" id="divScheduleOcurrenceMonthly">
+                                <div class="obligationNew_Ocurrencebody" style="width: 29%"><span>Select day<small class=" required">*</small></span></div>
+                                <div class="milestone_Rec_month" style="width: 69.26% !important;">
+                                    <div class="checkbox-inline" style="width:60%;" id="lblScheduleOcurrenceMonth">
+                                        <span style="float: left;margin: 4px 10px 0 0;">day</span>
+                                        <input id="dtScheduleOccurrenceDueDate" name="ScheduleOccurrenceTitle" title="Schedule Occurrence Date" type="text" class="f_input_milestone width10" style="float:left;height:20px;width:25px !important;" readonly />
+                                        <span style="float: left;margin: 4px 10px 0 0;">of every</span>
+                                        <select name="Duration" id="ddlScheduleRepeatMonthly" class="f_input_milestone width20" style="float:left;width:60px !important" title="Schedule" data-role="none">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                        </select>
+                                        <span style="float: left;margin: 4px 10px 0 0;">month(s)</span>
+                                    </div>
+                                    <label class="checkbox-inline" style="width:60%;" id="lblScheduleOcurrenceYear">
+                                        <span style="float: left;margin: 4px 10px 0 0;">on</span>
+                                        <input id="dtScheduleOcurrMonthforYear" name="Month" title="Month" type="text" class="f_input_milestone width20" style="float:left;height:20px;width:30px;" readonly />
+                                        <input id="dtScheduleOcurrDateforYear" name="Date" title="Date" type="text" class="f_input_milestone width10" style="float:left;height:20px;width:30px;" readonly />
+                                    </label>
+                                </div>
+                            </li>
+                            <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right" id="dvScheduleOcurrenceEnd">
+                                <div class="obligationNew_Ocurrencebody" style="width:31%;margin-top: 10px;">
+                                    <span style="/* padding-top: 44px; */">Number of instances<small class="required">*</small></span>
+                                </div>
+                                <div>
+                                    <div style="margin-top: 10px;">
+                                        <input id="rdScheduleEndOccurenceUser" type="radio" checked name="SelectScheduleOccurenceEndDate" class="css-checkbox" value="Custom">
+                                        <label for="rdScheduleEndOccurenceUser" class="css-label margin-right8" style="text-align: -webkit-auto;">
+                                            Create schedule for next
+                                            @*<input type="text" id="txtMilestoneOccurrenceCount" onclick="javascript: allowNumericsNewMonthly(this);" class="f_input_milestone width1" style="height: 20px;width: 30px;">instances*@
+                                            <input type="text" id="txtScheduleOccurrenceCount" onkeypress="javascript: allowNumericsNewMonthly(this);" class="f_input_milestone width1 validelement" style="height: 20px;width: 30px;">instances
+                                        </label>
+                                        <label id="lblerrorreclimitSchedule" class="error" style="display:none"> * Maximum Allowed Instances are 54</label>
+                                        <label id="lblerrorreclimitScheduleNotZero" class="error" style="display:none"> * Zero instance not allowed</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right;" id="divScheduleOcurrenceSummary">
+                                <div class="obligationNew_Ocurrencebody" style="width: 31%; margin-bottom: 5px;">
+                                    <span id="scheduleEditOcursumary" style="display:none">Repeat<img title="Select option based on the occurence of the Miletone." src="/Content/Images/input-help.png"></span>
+                                </div>
+                                <label class="checkbox-inline float-left pad-rit" style="color: #6c9539; font-size: 14px;" id="ScheduleOcurrenceSummary">
+
+                                </label>
+
+                            </li>
+                            <li style="width: 100%; padding: 0px 0 0 0px; line-height: 30px;float: right">
+                                <div class="obligationNew_Ocurrencebody" style="width:31%;margin-top: 10px;">
+                                    <span style="/* padding-top: 44px; */">File Type<small class="required">*</small></span>
+                                </div>
+                                <div>
+                                    <div style="margin-top: 10px;">
+                                        <input id="rdScheduleFileTypePdf" type="radio" checked name="SelectScheduleFileType" class="css-checkbox" value="Pdf">
+                                        <label for="rdScheduleFileTypePdf" class="css-label margin-right8" style="text-align: -webkit-auto;">
+                                            Pdf
+                                        </label>
+                                        <input id="rdScheduleFileTypeXlsx" type="radio" name="SelectScheduleFileType" class="css-checkbox" value="Xlsx">
+                                        <label for="rdScheduleFileTypeXlsx" class="css-label margin-right8" style="text-align: -webkit-auto;">
+                                            Xlsx
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="browseScheduleReports" class="k-content" style="display: none; text-align: left; height:600px;">
+    <div id="loadScheduleReports"></div>
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-schedulereports" class="treetable">
+            <tbody id="tbodyBrowseScheduleReports"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem report_BA_SelectItem">
+        <div id="liSelectedScheduleReports">
+        </div>
+    </div>
+    <input id="txtSRRowkey" type="hidden" /><input id="txtSR" type="hidden" />
+</div>
+
+
+<div id="viewScheduleReportsDetail" style="display:none;" class="padding_top_0">
+    <table id="tblScheduleReportsDetail" class="width100" cellpadding="1" cellspacing="1"></table>
+</div>
+
+<ul id="myMenuScheduleReports" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+
+<ul id="myMenuSavedReports" class="contextMenu">
+    <li class="viewdetails"><a href="#view">View</a></li>
+    <li class="edit"><a href="#edit">Edit</a></li>
+    <li class="delete"><a href="#delete">Delete</a></li>
+</ul>
+@section Scripts {
+    <script src="~/Scripts/jquery.tabs.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Reports_GlobalReports.js?" + DateTime.Now.GetHashCode())
+}

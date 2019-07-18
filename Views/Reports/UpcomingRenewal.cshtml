@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "UpcomingRenewal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/daterangepicker.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Upcoming Renewal</b>
+    </div>
+</section>
+
+
+<section class="wraper">
+
+
+    <div class="box_Report">
+        <div id="reportFiltersForm" class="width100">
+            <table class="width100" id="tblReportFilters"></table>
+        </div>
+        <table class="width100"><tr><td class="text labelleft float_right1 margin-right30"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()" class="pop_up_Content_White">Apply</a> <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td></tr></table>
+
+    </div>
+
+    <section class="box2">
+        <table id="tblDownload" class="width100">
+            <tr>
+                <td align="right" class="download_image">
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToExcel');"> <img src='~/Content/images/icon/download_xls.png' title="XLS"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToPdf');"> <img src='~/Content/images/icon/download_pdf.png' title="PDF"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TablePrint();"> <img src='~/Content/images/icon/printButton.png' title="Print"></a>
+                </td>
+            </tr>
+        </table>
+        <div id="page-wrap">
+
+            <div id="page-report">
+                <div id="reportAll">
+                    <table id="customers">
+                        <thead>
+                            <tr>
+                                @if (ViewData["ReportColumns"] != null)
+                                {
+                                    foreach (var item in ViewData["ReportColumns"] as List<string>)
+                                    {
+                                        <th>@item</th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody id="contractList"></tbody>
+                    </table>
+                    <div id="loading"></div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-pagination"></article>
+        </div>
+
+    </section>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+@*<section id="mid-section">
+        <h1 class="title">Upcoming Renewal</h1>
+    </section>*@
+
+
+@*<section class="d-report">
+        <form id="reportFiltersForm">
+            <table class="width100" id="tblReportFilters">
+            </table>
+        </form>
+        <table>
+            <tr>
+                <td class="labelleft">
+                    <input id="btnAddNew" type="submit" value="Apply" class="f_button_report" onclick="ApplyFilter()" />
+                    <input id="btnClearFilter" type="submit" value="Clear" class="f_button_reportgrey" />
+                </td>
+            </tr>
+        </table>
+    </section>*@
+@*<section class="d-numb text">
+        <table class="width100">
+            <tr>
+                <td align="right" class="download_image">
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToExcel');"> <img src='~/Content/images/icon/download_xls.png' title="XLS"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToPdf');"> <img src='~/Content/images/icon/download_pdf.png' title="PDF"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TablePrint();"> <img src='~/Content/images/icon/printButton.png' title="Print"></a>
+
+                </td>
+            </tr>
+        </table>
+        <div id="page-report">
+            <div id="reportFilterd">
+                <table class="paginated width100" id="customers">
+                    <thead>
+                        <tr>
+                            @if (ViewData["ReportColumns"] != null)
+                            {
+                                foreach (var item in ViewData["ReportColumns"] as List<string>)
+                                {
+                                    <th>@item</th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody id="contractList"></tbody>
+                </table>
+            </div>
+            <div id="reportAll">
+                <table class="paginated width100" id="customers2"></table>
+            </div>
+
+            <div id="loading"></div>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-pagination"></article>
+        </div>
+    </section>*@
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var vReportColumns = $("<div/>").html('@ViewData["Columns"]').text();
+        var vReportFilters = $("<div/>").html('@ViewData["Filters"]').text();
+    </script>
+
+    @*<script src="~/Scripts/Contract365/Reports_UpcomingRenewal.js"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/Reports_UpcomingRenewal.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/PrintElement.min.js"></script>
+}

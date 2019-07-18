@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "Renewal and Expirations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #dvReportStats table td {
+        border: 1px solid #999999;
+        padding: 10px;
+    }
+    .bad_perf{
+        color: red;
+    }
+</style>
+
+<link href="~/Content/daterangepicker1.css" rel="stylesheet" type="text/css" />
+@*<script src="~/Scripts/jquery.popup.js"></script>*@
+
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="col2 m4 padding_bottom_10px padding_left_none">
+            @*<a href="/Reports/GlobalReports" class="back-btn"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>*@
+            <a href="/Reports/GlobalReportsLanding#five" id="btnGoBackReport" class="back-btn"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>
+        </div>
+    </div>
+    <div class="navigation_div">
+        <div style="width:100%;overflow:hidden;" class="">
+            <b id="report-heading" class="report_Contract-sum">Renewals And Expirations</b>
+
+            <div class="report_download">
+                <ul>
+                    <li style="display:none;"><a id="edit_CustomReport" href="javascript:void(0)" title="Edit Custom Reports" data-popmodal_id="722"><img src="/Content/Images/edit_report.png"></a></li>
+                    <li><a id="add_SaveReports" href="javascript:void(0)" title="Saved Views" data-popmodal_id="722"><img src="~/Content/Images/save_report_new.png"></a></li>
+                    <li><a href="javascript:void(0)" title="Print Report" onclick="javascript: TablePrint();"><img src="~/Content/images/print_new.png"></a></li>
+                    <li><a id="add_excel" title="Download from Excel" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/excel_new.png"></a></li>
+                    <li><a id="add_pdf" title="Download from Pdf" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/pdf_new.png"></a></li>
+                    <li><a id="add_Sett" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/settings_new.png"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="wraper">
+    <div class="box_Summery report_Filter-1" id="dvStatistics">
+        <div class="row-group">
+            <div class="col2 no-pad">
+                <label style="font-size: 20px !important;">Statistics</label>
+                <a href="javascript:void(0);" title="ShowStatistics" id="imgstats" class="report_browse" onclick="javascript: toggledivStats('report_Stats', 'divReportStats', 'imgstats');" style="float: right;">Hide Statistics</a>
+            </div>
+        </div>
+        <div id="divReportStats" class="row-group margin-top-20" style="display: block;">
+            <div class="row-group" id="dvReportStats">
+                <table class="report_Stats">
+                    <tbody id="tblStatistics">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="box_Summery report_Filter-1">
+        <div class="row-group">
+
+            <div class="col2 no-pad">
+                <label style="font-size: 20px !important;">Filters</label>
+
+                <a href="javascript:void(0);" title="HideFilters" id="imgdoc" class="report_browse collapse_wf" onclick="javascript: toggledivFilters('report_Filter', 'divReportFilters', 'imgdoc');" style="float: right;padding-left: 15px;">Hide Filters</a>
+
+            </div>
+        </div>
+        <div id="divReportFilters" class="row-group margin-top-20">
+
+            <div class="row-group" id="dvReportFilter">
+
+            </div>
+
+
+            <div class="upgrade-Report">
+                <a class="upgrd_Report-le-New" id="add_Filter" href="javascript:void(0)" data-popmodal_id="722">Add Filter &nbsp;<img src="~/Content/images/card.png"></a>
+                <a class="upgrd_Report-ri" href="javascript:void(0)" id="btnReport"> Apply Filter(s)</a>
+                <a class="upgrd_Report-ri-New" href="javascript:void(0)" id="btnSaveReport"> Save As View</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="box2">
+        <div id="page-wrap">
+
+
+            <div id="reportAll">
+                <table id="customers" class="report-TableAll">
+                    <thead>
+                        <tr id="tblhead"></tr>
+                    </thead>
+                    <tbody id="contractList"></tbody>
+                </table>
+
+            </div>
+            <div id="report_foo_pagination">
+                <div class="pagination-holder clearfix">
+                    <article id="compact-pagination"></article>
+                </div>
+                <div class="width20 float_right1 result_count">
+                    <span id="spResult"></span>
+                </div>
+            </div>
+            <div id="loading"></div>
+
+        </div>
+
+
+    </section>
+</section>
+
+
+<div style="display:none">
+    <div id="add_Filterss">
+        <ul class="add_filter"></ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="add_Settingss">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aTableColumn"><small>Table Columns</small></a></li>
+            <li><a href="javascript:void(0)" id="aPageCount"><small>Items per Page</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="divExp_Pdf">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aShareReportPdf"><small>Share As Email</small></a></li>
+            <li><a href="javascript:void(0)" onclick="javascript: TableExport('exportToPdf');"><small>Download</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="divExp_Excel">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aShareReportExcel"><small>Share As Email</small></a></li>
+            <li><a href="javascript:void(0)" onclick="javascript: TableExport('exportToExcel');"><small>Download</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div id="shareReport" style="display: none;">
+    <table class="width100">
+        <tr>
+            <td class="f_head">Report Name</td>
+            <td class="labelleft" id="tdShareReport"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share with&nbsp;<small class="required">*</small></td>
+            <td class="labelleft">
+                <form id="frmShareReport">
+                    <table id="tblShareReport" class="width100">
+                        <tr id="trShareReport1">
+                            <td>
+                                <input id="txtShareReport1" name="ShareReportName1" maxlength="42" title="Name" placeholder="Name" type="text" class="f_inpt width90 validelement" />
+                            </td>
+                            <td>
+                                <input id="txtShareReportEmail1" name="ShareReportEmail1" maxlength="50" title="Email" placeholder="Email ID" type="text" class="f_inpt width90 validelement validemail" />
+                            </td>
+                            <td style="width:20px">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+                <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddShareReport()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">eContracts User(s)</td>
+            <td class="labelleft verticalalign-top width70">
+                <select id="ddlContractShareInternal" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select User(s)"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Note to Recipients</td>
+            <td class="labelleft"><textarea id="txtShareNotesReport" name="ShareNotesReport" maxlength="500" rows="3" class="f_text-box width91_4">Please take a look at this report and let me know if you have any comments.</textarea></td>
+        </tr>
+
+
+
+    </table>
+    <p id="inprocessShareReport" class="popup_save_progress" style="visibility:hidden;">
+        <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+    </p>
+</div>
+
+
+<div id="viewColumnPopup" style="display:none;overflow: auto;">
+
+    <div id="loadProductMul"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tbodyExistingColumns"></table>
+    </div>
+</div>
+
+
+
+<div id="viewSelectedColumnPopup" style="display:none;overflow: hidden;">
+
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tbodySelectedColumns"></table>
+    </div>
+</div>
+
+<div id="viewPageCountPopup" style="display:none;overflow: hidden;">
+
+    <div id="loadProductMul"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R15" type="radio" name="PageCount" value="15">&nbsp;
+                    <label for="R15" class="margin-right8">15</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R30" type="radio" name="PageCount" value="30">&nbsp;
+                    <label for="R30" class="margin-right8">30</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R45" type="radio" checked name="PageCount" value="45">&nbsp;
+                    <label for="R45" class="margin-right8">45</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R60" type="radio" name="PageCount" value="60">&nbsp;
+                    <label for="R60" class="margin-right8">60</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R100" type="radio" name="PageCount" value="100">&nbsp;
+                    <label for="R100" class="margin-right8">100</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="RALL" type="radio" name="PageCount" value="ALL">&nbsp;
+                    <label for="RALL" class="margin-right8">Show All</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div style="display:none" id="sorttttt">
+
+</div>
+
+
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+    <div id="loadBA"></div>
+    @*<div id="treeviewBA" class="demo-section"></div>*@
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem report_BA_SelectItem">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+</div>
+
+
+<label id="lblContractValue" style="display:none"></label>
+<!-- Save Report Div -->
+<div id="addNewReport" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewReportFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtReportID" name="ReportID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name<small style="color:red;">*</small></td>
+                    <td class="labelright"><input id="txtReportName" name="ReportName" type="text" maxlength="35" class="f_textinput validelement validtitle width70 validatebracket" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Description</td>
+                    <td class="labelright"><textarea id="txtReportDesc" name="ReportDesc" maxlength="70" class="f_textinput width70"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="add_SavedReports">
+
+        <ul class="add_Sett" id="ulSavedReports">
+            @*<li><a href="javascript:void(0)" id="aTableColumn"><small>Table Columns</small></a></li>
+                <li><a href="javascript:void(0)" id="aPageCount"><small>Items per Page</small></a></li>*@
+        </ul>
+
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/NewChanges/popModal.js" type="text/javascript"></script>
+    @*<script type="text/javascript">
+            var vReportColumns = $("<div/>").html('@ViewData["Columns"]').text();
+            var vReportFilters = $("<div/>").html('@ViewData["Filters"]').text();
+        </script>*@
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/PrintElement.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Reports_RenewalandExpirationsNew.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/NewChanges/moment.js" type="text/javascript"></script>
+    <script src="~/Scripts/NewChanges/daterangepicker.js" type="text/javascript"></script>
+}
+
+
+
+

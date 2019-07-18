@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "ContractActivity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/daterangepicker.css" rel="stylesheet" type="text/css" />
+
+
+<section class="activity">
+    <div class="activity_left">
+        <b class="welcome1">Contract Activity</b>
+
+    </div>
+</section>
+
+<section class="wraper">
+
+
+    <div class="box_Report">
+        <table class="width100" id="tblReportFilters">
+            <tr>
+                <td class="text labelleft verticalalign-middle" width="15%">Activity Type</td>
+                <td class="labelleft" width="30%">
+                    <select id="ddlActivityType" name="Status" class="f_inpt_report width90">
+                        <option value="All" selected>All Activity Type</option>
+                        <option value="SimpleTask">Simple Task</option>
+                        <option value="ContractApproval">Contract Approval</option>
+                        <option value="ContractReview">Contract Review</option>
+                        <option value="DocumentApproval">Document Approval</option>
+                        <option value="DocumentReview">Document Review</option>
+                    </select>
+                </td>
+                <td class="text labelleft verticalalign-middle" width="15%">Activity Status</td>
+                <td class="labelleft" width="30%">
+                    <select id="ddlActivityStatus" name="ActivityStatus" class="f_inpt_report width90">
+                        <option value="All" selected="selected">All Activity Status</option>
+                        <option value="SimpleTodo">Complete</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Cancel">Cancel</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table class="width100"><tr><td class="text labelleft float_right1 margin-right30"><a href="javascript:void(0);" id="btnAddNew" onclick="ApplyFilter()" class="pop_up_Content_White">Apply</a> <a id="btnClearFilter" href="javascript:void(0);" class="pop_up_Content_White">Clear</a></td></tr></table>
+
+
+    </div>
+
+    <section class="box2">
+        <table id="tblDownload" class="width100">
+            <tr>
+                <td align="right" class="download_image">
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToExcel');"> <img src='~/Content/images/icon/download_xls.png' title="XLS"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TableExport('exportToPdf');"> <img src='~/Content/images/icon/download_pdf.png' title="PDF"></a>
+                    <a href="javascript:void(0)" onclick="javascript: TablePrint();"> <img src='~/Content/images/icon/printButton.png' title="Print"></a>
+                </td>
+            </tr>
+        </table>
+        <div id="page-wrap">
+
+            <div id="reportAll">
+                <table id="customers" class="paginated width100">
+                    <tr>
+                        <th>Title</th>
+                        <th>Task Type</th>
+                        <th>Status</th>
+                        <th>Assign To</th>
+                        <th>Completed By</th>
+                    </tr>
+                    <tbody id="contractList"></tbody>
+                </table>
+            </div>
+            <div id="loading"></div>
+        </div>
+        <div class="pagination">
+            <article id="compact-pagination"></article>
+        </div>
+    </section>
+</section>
+
+
+
+@section Scripts {
+
+    @*<script src="~/Scripts/Contract365/Reports_ContractActivity.js" type="text/javascript"></script>*@
+    @Scripts.Render("~/Scripts/Contract365/Reports_ContractActivity.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/PrintElement.min.js"></script>
+}
+
+
+
+

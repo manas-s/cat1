@@ -1,0 +1,892 @@
+﻿@{
+    ViewBag.Title = "UntendedContractsSummary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="/Content/daterangepicker.css" rel="stylesheet" type="text/css" />*@
+<link href="~/Content/daterangepicker1.css" rel="stylesheet" type="text/css" />
+<style>
+    tbody#contractList tr td {
+        position: relative;
+    }
+
+        tbody#contractList tr td ul.contextMenu {
+            top: inherit !important;
+            left: 110px !important;
+        }
+</style>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+
+
+
+<section class="activity">
+    <div class="navigation_div">
+        <div class="col2 m4 padding_bottom_10px padding_left_none">
+            @*<a href="/Reports/GlobalReports" class="back-btn"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>*@
+            <a href="/Reports/GlobalReportsLanding#one" id="btnGoBackReport" class="back-btn"><img src="/Content/Images/go-back.png"> <span class="">Go Back</span></a>
+ </div>
+    </div>
+    <div class="navigation_div">
+        <div style="width:100%;overflow:hidden;" class="">
+            <b id="report-heading" class="report_Contract-sum">Contract Summary</b>
+
+            <div class="report_download">
+                <ul>
+                    <li><a id="add_SaveReports" href="javascript:void(0)" title="Saved Views" data-popmodal_id="722"><img src="~/Content/Images/save_report_new.png"></a></li>
+                    <li><a href="javascript:void(0)" title="Print Report" onclick="javascript: TablePrint();"><img src="~/Content/images/print_new.png"></a></li>
+                    <li><a id="add_excel" title="Download from Excel" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/excel_new.png"></a></li>
+                    <li><a id="add_pdf" title="Download from Pdf" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/pdf_new.png"></a></li>
+                    <li><a id="add_Sett" href="javascript:void(0)" data-popmodal_id="722"><img src="~/Content/images/settings_new.png"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="wraper">
+
+
+    <div class="box_Summery report_Filter-1">
+        <div class="row-group">
+
+            <div class="col2 no-pad">
+                <label style="font-size: 20px !important;">Filters</label>
+
+                <a href="javascript:void(0);" title="HideFilters" id="imgdoc" class="report_browse collapse_wf" onclick="javascript: toggledivFilters('report_Filter', 'divReportFilters', 'imgdoc');" style="float: right;padding-left: 15px;">Hide Filters</a>
+
+            </div>
+        </div>
+
+        <div id="divReportFilters" class="row-group margin-top-20">
+
+            <div class="row-group margin-top-20" id="dvReportFilter">
+                <table class="report_Filter">
+                    <tr id="liBusinessArea" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Business Area</small>
+                        </td>
+                        <td class="report-Filter-Control">
+                            <input id="txtReportBusinessArea" title="Business Area" class='form-contro report-input-businessarea' readonly='readonly' type='text' />
+                            <a id="viewbusinessarea" class="report-a-businessarea" href='javascript:void(0)'> Browse</a>
+
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="txtReportBusinessAreaD" onclick="javascript: RemoveSelectedFilter($('#txtReportBusinessArea'));">Clear</span>
+                            <span class="filter-Close margin-l0px" id="liBusinessAreaS">Remove</span>
+                        </td>
+
+
+                    </tr>
+
+                    <tr id="liLegalEntityType" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Legal Entity</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Legal Entity" multiple="multiple" id="ddlReportLegalEntity"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportLegalEntityD" onclick="javascript: RemoveSelectedFilter($('#ddlReportLegalEntity'));">Clear</span>
+                            <span class="filter-Close" id="liLegalEntityTypeS">Remove</span>
+                        </td>
+                    </tr>
+
+                    <tr id="liOwnership" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Ownership</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Ownership" multiple="multiple" id="ddlReportOwners"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportOwnersD" onclick="javascript: RemoveSelectedFilter($('#ddlReportOwners'));">Clear</span>
+                            <span class="filter-Close" id="liOwnershipS">Remove</span>
+                        </td>
+                    </tr>
+
+                    <tr id="liStatus" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Status</small>
+                        </td>
+
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="status" multiple="multiple" id="ddlReportStatus"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportStatusD" onclick="javascript: RemoveSelectedFilter($('#ddlReportStatus'));">Clear</span>
+                            <span class="filter-Close" id="liStatusS">Remove</span>
+                        </td>
+
+                    </tr>
+
+                    <tr id="liApproversType" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Approver(s)</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Approvers" multiple="multiple" id="ddlReportApprovers"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportApproversD" onclick="javascript: RemoveSelectedFilter($('#ddlReportApprovers'));">Clear</span>
+                            <span class="filter-Close" id="liApproversTypeS">Remove</span>
+                        </td>
+                    </tr>
+                    <tr id="liReviewersType" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Reviewer(s)</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Reviewers" multiple="multiple" id="ddlReportReviewers"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportReviewersD" onclick="javascript: RemoveSelectedFilter($('#ddlReportReviewers'));">Clear</span>
+                            <span class="filter-Close" id="liReviewersTypeS">Remove</span>
+                        </td>
+                    </tr>
+                    <tr id="liInternalSigneesType" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Internal Signee(s)</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="Reviewers" multiple="multiple" id="ddlReportInternalSignees"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlReportInternalSigneesD" onclick="javascript: RemoveSelectedFilter($('#ddlReportInternalSignees'));">Clear</span>
+                            <span class="filter-Close" id="liInternalSigneesTypeS">Remove</span>
+                        </td>
+                    </tr>
+
+
+                    <tr id="liEndDate" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>End Date</small>
+                        </td>
+
+                        <td class="report-Filter-Control">
+                            <input type="text" name="daterange" id="txtReportEndDate" class="report-Filter-DatePicker" />
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="txtReportEndDateD" onclick="javascript: RemoveSelectedFilter($('#txtReportEndDate'));">Clear</span>
+                            <span class="filter-Close" id="liEndDateS">Remove</span>
+                        </td>
+
+                    </tr>
+
+                    <tr id="liUntended" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Untended Terms</small>
+                        </td>
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report" id="ddlReportUntended">
+                                <option value="0">None</option>
+                                <option value="1">3 months</option>
+                                <option value="2">6 months</option>
+                                <option value="3">1 years</option>
+                            </select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="txtReportUntendedD" onclick="javascript: RemoveSelectedFilter($('#ddlReportUntended'));">Clear</span>
+                            <span class="filter-Close" id="liUntendedS">Remove</span>
+                        </td>
+                    </tr>
+                    <tr id="liLabels" class="report_MuLti" style="display:none">
+                        <td class="report-Filter-title">
+                            <small>Labels</small>
+                        </td>
+                        <td class="report-Filter-Control">
+                            <select class="f_inpt_report chosenmulti" data-placeholder=" " title="status" multiple="multiple" id="ddlLabels"></select>
+                        </td>
+                        <td>
+                            <span class="filter-Clear-d margin-l0px" id="ddlLabelsD" onclick="javascript: RemoveSelectedFilter($('#ddlLabels'));">Clear</span>
+                            <span class="filter-Close" id="liLabelsS">Remove</span>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+
+
+            <div class="upgrade-Report">
+                <a class="upgrd_Report-le-New" id="add_Filter" href="javascript:void(0)" data-popmodal_id="722">Add Filter &nbsp;<img src="~/Content/images/card.png"></a>
+                <a class="upgrd_Report-ri" href="javascript:void(0)" id="btnReport"> Apply Filter(s)</a>
+                <a class="upgrd_Report-ri-New" href="javascript:void(0)" id="btnSaveReport"> Save As View</a>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="box2" style="margin:10px 0;">
+        <div id="dvContractValue" class="width98 bg-warning" style="display:none">
+            <label id="dvContractValueText" class="margin-bottom-0">NA</label>
+        </div>
+        <div id="page-wrap">
+
+
+            <div id="reportAll">
+                <table id="customers" class="report-TableAll">
+                    <thead>
+                        <tr id="tblhead"></tr>
+                    </thead>
+                    <tbody id="contractList"></tbody>
+                </table>
+
+
+            </div>
+            <div id="report_foo_pagination">
+                <div class="pagination-holder clearfix">
+                    <article id="compact-pagination"></article>
+                </div>
+                <div class="width20 float_right1 result_count">
+                    <span id="spResult"></span>
+                </div>
+            </div>
+
+            <div id="loading"></div>
+
+        </div>
+
+
+    </section>
+</section>
+
+<div style="display:none">
+    <div id="add_Filterss">
+        <ul class="add_filter">
+            <li id="businessAreaFilter"><a href="javascript:void(0)"><input type="checkbox" value="liBusinessAreaC" name="addFilter" /><small>Business Area</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liLegalEntityTypeC" name="addFilter" /><small>Legal Entity</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liOwnershipC" name="addFilter" /><small>Ownership</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liStatusC" name="addFilter" /><small>Status</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liApproversTypeC" name="addFilter" /><small>Approver(s)</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liReviewersTypeC" name="addFilter" /><small>Reviewer(s)</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liInternalSigneesTypeC" name="addFilter" /><small>Internal Signee(s)</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liEndDateC" name="addFilter" /><small>End Date</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liUntendedC" name="addFilter" /><small>Untended Terms</small></a></li>
+            <li><a href="javascript:void(0)"><input type="checkbox" value="liLabelsC" name="addFilter" /><small>Labels</small></a></li>
+            <li><a class="aplay_Filter" id="aFilterApply" href="javascript:void(0)"><small>Apply</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="add_Settingss">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aTableColumn"><small>Table Columns</small></a></li>
+            <li><a href="javascript:void(0)" id="aPageCount"><small>Items per Page</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="divExp_Pdf">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aShareReportPdf"><small>Share As Email</small></a></li>
+            <li><a href="javascript:void(0)" onclick="javascript: TableExport('exportToPdf');"><small>Download</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="divExp_Excel">
+
+        <ul class="add_Sett">
+            <li><a href="javascript:void(0)" id="aShareReportExcel"><small>Share As Email</small></a></li>
+            <li><a href="javascript:void(0)" onclick="javascript: TableExport('exportToExcel');"><small>Download</small></a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+    <div id="loadBA"></div>
+    @*<div id="treeviewBA" class="demo-section"></div>*@
+    <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+        <table id="example-basic-12" class="treetable">
+            <tbody id="tbodyBusinessArea12"></tbody>
+        </table>
+    </div>
+    <div class="selectFIlterItem report_BA_SelectItem">
+        <div id="liSelectedBA">
+        </div>
+    </div>
+    <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+    <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+</div>
+
+
+
+<div id="shareReport" style="display: none;">
+    <table class="width100">
+        <tr>
+            <td class="f_head">Report Name</td>
+            <td class="labelleft" id="tdShareReport"></td>
+        </tr>
+        <tr>
+            <td class="f_head">Share with&nbsp;<small class="required">*</small></td>
+            <td class="labelleft">
+                <div id="frmShareReport" class="width100">
+                    <table id="tblShareReport" class="width100">
+                        <tr id="trShareReport1">
+                            <td>
+                                <input id="txtShareReport1" name="ShareReportName1" maxlength="42" title="Name" placeholder="Name" type="text" class="f_inpt width90 validelement" />
+                            </td>
+                            <td>
+                                <input id="txtShareReportEmail1" name="ShareReportEmail1" maxlength="50" title="Email" placeholder="Email ID" type="text" class="f_inpt width90 validelement validemail" />
+                            </td>
+                            <td style="width:20px">
+                                &nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <span class='right-float'><a href='javascript:void(0)' class="addmorelinks" onclick='AddShareReport()'>Add More</a></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">eContracts User(s)</td>
+            <td class="labelleft verticalalign-top width70">
+                <select id="ddlContractShareInternal" multiple="multiple" class="f_input_milestone width90 height-auto chosenmulti" data-placeholder="Select User(s)"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="f_head">Note to Recipients</td>
+            <td class="labelleft"><textarea id="txtShareNotesReport" name="ShareNotesReport" maxlength="500" rows="3" class="f_text-box width91_4">Please take a look at this report and let me know if you have any comments.</textarea></td>
+        </tr>
+
+
+
+    </table>
+    <p id="inprocessShareReport" class="popup_save_progress" style="visibility:hidden;">
+        <img src="../Content/Images/loading.gif" />&nbsp;&nbsp;Please wait...
+    </p>
+</div>
+
+
+<div id="viewColumnPopup" style="display:none;overflow: auto;">
+
+    <div id="loadProductMul"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tbodyExistingColumns">
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Number" type="checkbox" checked name="TableColums" value="Contract Record Number">&nbsp;
+                    <label for="Contract Number" class="margin-right8">Contract Record Number</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Title" type="checkbox" checked name="TableColums" value="Contract Record Title">&nbsp;
+                    <label for="Contract Title" class="margin-right8">Contract Record Title</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Type" type="checkbox" checked name="TableColums" value="Contract Record Type">&nbsp;
+                    <label for="Contract Type" class="margin-right8">Contract Record Type</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Counterparty" type="checkbox" checked name="TableColums" value="Counterparty">&nbsp;
+                    <label for="Counterparty" class="margin-right8">Counterparty</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Value" type="checkbox" checked name="TableColums" value="Contract Value">&nbsp;
+                    <label for="Contract Value" class="margin-right8">Contract Value</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Transaction Type" type="checkbox" checked name="TableColums" value="Transaction Type">&nbsp;
+                    <label for="Transaction Type" class="margin-right8">Transaction Type</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Start Date" type="checkbox" checked name="TableColums" value="Start Date">&nbsp;
+                    <label for="Start Date" class="margin-right8">Start Date</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="End Date" type="checkbox" checked name="TableColums" value="End Date">&nbsp;
+                    <label for="End Date" class="margin-right8">End Date</label>
+                </td>
+            </tr>
+
+
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Business Area" type="checkbox" checked name="TableColums" value="Business Area">&nbsp;
+                    <label for="Business Area" class="margin-right8">Business Area</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Status" type="checkbox" checked name="TableColums" value="Status">&nbsp;
+                    <label for="Status" class="margin-right8">Status</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Signee" type="checkbox" checked name="TableColums" value="Signee (Internal)">&nbsp;
+                    <label for="Signee" class="margin-right8">Signee (Internal)</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Originating Party" type="checkbox" checked name="TableColums" value="Originating Party">&nbsp;
+                    <label for="Originating Party" class="margin-right8">Originating Party</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Last Modified" type="checkbox" checked name="TableColums" value="Last Modified">&nbsp;
+                    <label for="Last Modified" class="margin-right8">Last Modified</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Last Modified by" type="checkbox" checked name="TableColums" value="Last Modified by">&nbsp;
+                    <label for="Last Modified by" class="margin-right8">Last Modified by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Reviewed by" type="checkbox" checked name="TableColums" value="Reviewed by">&nbsp;
+                    <label for="Reviewed by" class="margin-right8">Reviewed by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="External Signee" type="checkbox" checked name="TableColums" value="External Signee">&nbsp;
+                    <label for="External Signee" class="margin-right8">External Signee</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Company Legal Entity" type="checkbox" checked name="TableColums" value="Company Legal Entity">&nbsp;
+                    <label for="Company Legal Entity" class="margin-right8">Company Legal Entity</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Currency" type="checkbox" checked name="TableColums" value="Contract Currency">&nbsp;
+                    <label for="Contract Currency" class=" margin-right8">Contract Currency</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Renewable" type="checkbox" checked name="TableColums" value="Renewable">&nbsp;
+                    <label for="Renewable" class="margin-right8">Renewable</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Last Renewed" type="checkbox" checked name="TableColums" value="Last Renewed">&nbsp;
+                    <label for="Last Renewed" class="margin-right8">Last Renewed</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Last Renewed by" type="checkbox" checked name="TableColums" value="Last Renewed by">&nbsp;
+                    <label for="Last Renewed by" class="margin-right8">Last Renewed by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Current Term End Date" type="checkbox" checked name="TableColums" value="Current Term End Date">&nbsp;
+                    <label for="Current Term End Date" class="margin-right8">Current Term End Date</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Class" type="checkbox" checked name="TableColums" value="Contract Class">&nbsp;
+                    <label for="Contract Class" class="margin-right8">Contract Class</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Related Contracts" type="checkbox" checked name="TableColums" value="Related Contract Records">&nbsp;
+                    <label for="Related Contracts" class="margin-right8">Related Contract(s)</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Created by" type="checkbox" checked name="TableColums" value="Created by">&nbsp;
+                    <label for="Created by" class="margin-right8">Created by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Created date" type="checkbox" checked name="TableColums" value="Created date">&nbsp;
+                    <label for="Created date" class="margin-right8">Created date</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Approved by" type="checkbox" checked name="TableColums" value="Approved by">&nbsp;
+                    <label for="Approved by" class="margin-right8">Approved by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Owner(s)" type="checkbox" checked name="TableColums" value="Owner(s)">&nbsp;
+                    <label for="Owner(s)" class="margin-right8">Owner(s)</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Term" type="checkbox" checked name="TableColums" value="Contract Term">&nbsp;
+                    <label for="Contract Term" class="margin-right8">Contract Term</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="Contract Term Type" type="checkbox" checked name="TableColums" value="Contract Term Type">&nbsp;
+                    <label for="Contract Term Type" class="margin-right8">Contract Term Type</label>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+
+<div id="viewSelectedColumnPopup" style="display:none;overflow: hidden;">
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table id="tbodySelectedColumns">
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Number" type="checkbox" name="SelectedTableColums" value="Contract Record Number">&nbsp;
+                    <label for="SContract Number" class="margin-right8">Contract Record Number</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Title" type="checkbox" name="SelectedTableColums" value="Contract Record Title">&nbsp;
+                    <label for="SContract Title" class="margin-right8">Contract Record Title</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Type" type="checkbox" name="SelectedTableColums" value="Contract Record Type">&nbsp;
+                    <label for="SContract Type" class="margin-right8">Contract Record Type</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SCounterparty" type="checkbox" name="SelectedTableColums" value="Counterparty">&nbsp;
+                    <label for="SCounterparty" class="margin-right8">Counterparty</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Value" type="checkbox" name="SelectedTableColums" value="Contract Value">&nbsp;
+                    <label for="SContract Value" class="margin-right8">Contract Value</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="STransaction Type" type="checkbox" name="SelectedTableColums" value="Transaction Type">&nbsp;
+                    <label for="STransaction Type" class="margin-right8">Transaction Type</label>
+                </td>
+            </tr>
+            @*<tr style="display: table-row;">
+                    <td>
+                        <input id="SExpiry Date" type="checkbox" name="SelectedTableColums" value="Expiry Date">&nbsp;
+                        <label for="SExpiry Date" class="margin-right8">Expiry Date</label>
+                    </td>
+                </tr>*@
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SStart Date" type="checkbox" name="SelectedTableColums" value="Start Date">&nbsp;
+                    <label for="SStart Date" class="margin-right8">Start Date</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SEnd Date" type="checkbox" name="SelectedTableColums" value="End Date">&nbsp;
+                    <label for="SEnd Date" class="margin-right8">End Date</label>
+                </td>
+            </tr>
+
+
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SBusiness Area" type="checkbox" name="SelectedTableColums" value="Business Area">&nbsp;
+                    <label for="SBusiness Area" class="margin-right8">Business Area</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SStatus" type="checkbox" name="SelectedTableColums" value="Status">&nbsp;
+                    <label for="SStatus" class="margin-right8">Status</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SSignee" type="checkbox" name="SelectedTableColums" value="Signee (Internal)">&nbsp;
+                    <label for="SSignee" class="margin-right8">Signee (Internal)</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SOriginating Party" type="checkbox" name="SelectedTableColums" value="Originating Party">&nbsp;
+                    <label for="SOriginating Party" class="margin-right8">Originating Party</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SLast Modified" type="checkbox" name="SelectedTableColums" value="Last Modified">&nbsp;
+                    <label for="SLast Modified" class="margin-right8">Last Modified</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SLast Modified by" type="checkbox" name="SelectedTableColums" value="Last Modified by">&nbsp;
+                    <label for="SLast Modified by" class="margin-right8">Last Modified by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SReviewed by" type="checkbox" name="SelectedTableColums" value="Reviewed by">&nbsp;
+                    <label for="SReviewed by" class="margin-right8">Reviewed by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SExternal Signee" type="checkbox" name="SelectedTableColums" value="External Signee">&nbsp;
+                    <label for="SExternal Signee" class="margin-right8">External Signee</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SCompany Legal Entity" type="checkbox" name="SelectedTableColums" value="Company Legal Entity">&nbsp;
+                    <label for="SCompany Legal Entity" class="margin-right8">Company Legal Entity</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Currency" type="checkbox" name="SelectedTableColums" value="Contract Currency">&nbsp;
+                    <label for="SContract Currency" class=" margin-right8">Contract Currency</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SRenewable" type="checkbox" name="SelectedTableColums" value="Renewable">&nbsp;
+                    <label for="SRenewable" class="margin-right8">Renewable</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SLast Renewed" type="checkbox" name="SelectedTableColums" value="Last Renewed">&nbsp;
+                    <label for="SLast Renewed" class="margin-right8">Last Renewed</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SLast Renewed by" type="checkbox" name="SelectedTableColums" value="Last Renewed by">&nbsp;
+                    <label for="SLast Renewed by" class="margin-right8">Last Renewed by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SCurrent Term End Date" type="checkbox" name="SelectedTableColums" value="Current Term End Date">&nbsp;
+                    <label for="SCurrent Term End Date" class="margin-right8">Current Term End Date</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Class" type="checkbox" name="SelectedTableColums" value="Contract Class">&nbsp;
+                    <label for="SContract Class" class="margin-right8">Contract Class</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SRelated Contracts" type="checkbox" name="SelectedTableColums" value="Related Contract Records">&nbsp;
+                    <label for="SRelated Contracts" class="margin-right8">Related Contract(s)</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SCreated by" type="checkbox" name="SelectedTableColums" value="Created by">&nbsp;
+                    <label for="SCreated by" class="margin-right8">Created by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SCreated date" type="checkbox" name="SelectedTableColums" value="Created date">&nbsp;
+                    <label for="SCreated date" class="margin-right8">Created date</label>
+                </td>
+            </tr>
+
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SApproved by" type="checkbox" name="SelectedTableColums" value="Approved by">&nbsp;
+                    <label for="SApproved by" class="margin-right8">Approved by</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SOwner(s)" type="checkbox" name="SelectedTableColums" value="Owner(s)">&nbsp;
+                    <label for="SOwner(s)" class="margin-right8">Owner(s)</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Term" type="checkbox" name="SelectedTableColums" value="Contract Term">&nbsp;
+                    <label for="SContract Term" class="margin-right8">Contract Term</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="SContract Term Type" type="checkbox" name="SelectedTableColums" value="Contract Term Type">&nbsp;
+                    <label for="SContract Term Type" class="margin-right8">Contract Term Type</label>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+
+
+
+<div id="viewPageCountPopup" style="display:none;overflow: hidden;">
+
+    <div id="loadProductMul"></div>
+    <div id="page-wrap" class="f_list" style="margin-bottom: 10px;">
+        <table>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R15" type="radio" name="PageCount" value="15">&nbsp;
+                    <label for="R15" class="margin-right8">15</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R30" type="radio" name="PageCount" value="30">&nbsp;
+                    <label for="R30" class="margin-right8">30</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R45" type="radio" checked name="PageCount" value="45">&nbsp;
+                    <label for="R45" class="margin-right8">45</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R60" type="radio" name="PageCount" value="60">&nbsp;
+                    <label for="R60" class="margin-right8">60</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="R100" type="radio" name="PageCount" value="100">&nbsp;
+                    <label for="R100" class="margin-right8">100</label>
+                </td>
+            </tr>
+            <tr style="display: table-row;">
+                <td>
+                    <input id="RALL" type="radio" name="PageCount" value="ALL">&nbsp;
+                    <label for="RALL" class="margin-right8">Show All</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div style="display:none" id="sorttttt">
+
+</div>
+
+
+<label id="lblContractValue" style="display:none"></label>
+<label id="lblTotalContractValue" style="display:none"></label>
+
+<!-- Save Report Div -->
+<div id="addNewReport" style="display:none;overflow-y: auto;">
+    <div class="modalbody">
+        <div id="addNewReportFields">
+            <table cellpadding="2" cellspacing="2" class="width100">
+                <tr>
+                    <td class="labelleft"></td>
+                    <td class="labelright"><input id="txtReportID" name="ReportID" type="hidden" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Name<small style="color:red;">*</small></td>
+                    <td class="labelright"><input id="txtReportName" name="ReportName" type="text" maxlength="35" class="f_textinput validelement validtitle width70 validatebracket" /></td>
+                </tr>
+                <tr>
+                    <td class="labelleft">View Description</td>
+                    <td class="labelright"><textarea id="txtReportDesc" name="ReportDesc" maxlength="70" class="f_textinput width70"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="add_SavedReports">
+
+        <ul class="add_Sett" id="ulSavedReports">
+            @*<li><a href="javascript:void(0)" id="aTableColumn"><small>Table Columns</small></a></li>
+                <li><a href="javascript:void(0)" id="aPageCount"><small>Items per Page</small></a></li>*@
+        </ul>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @*<script src="~/Scripts/NewChanges/popModal.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        var vReportColumns = $("<div/>").html('@ViewData["Columns"]').text();
+        var vReportFilters = $("<div/>").html('@ViewData["Filters"]').text();
+    </script>
+    <script src="~/Scripts/jquery-priceformat.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/PrintElement.min.js"></script>
+    @Scripts.Render("~/Scripts/Contract365/Reports_UntendedContractsSummary.js?" + DateTime.Now.GetHashCode())
+    <script src="~/Scripts/NewChanges/moment.js" type="text/javascript"></script>
+    <script src="~/Scripts/NewChanges/daterangepicker.js" type="text/javascript"></script>
+}
+
+
+

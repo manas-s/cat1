@@ -1,0 +1,527 @@
+﻿@{
+    ViewBag.Title = "GlobalReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="activity">
+    <div class="navigation_div">
+        <div style="width:100%;overflow:hidden;" class="">
+            <b id="report-heading" class="report_Contract-sum">Global Insights</b>
+        </div>
+    </div>
+</section>
+
+
+<section class="wraper">
+    <table class="report_Land">
+
+        <tbody>
+
+
+
+            
+
+
+            <!--1 st Row -->
+             
+
+
+            <tr>
+                <!--1 st Column -->
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Contract Record Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <!--2 nd Column -->
+                <td>
+                    <div class="report_right_div">
+                        <p>Contract Record Summary</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=Active~Up for Renewal~About to Expire">All Active Contracts</a></small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=Awaiting Signatures"> Recently Signed & Awaiting Signature</a></small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=Cancelled~Expired"> Cancelled & Expired</a></small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/UntendedContractsSummary?Type=Contracts"> Untended Contracts</a></small></li>
+
+                        </ul>
+                    </div>
+                </td>
+                <!--3 rd Column -->
+                <td>
+                    <div class="report_right_div">
+                        <p>Active Contracts</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=ActiveContractsMonth">This Month</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=ActiveContracts3Month">Last 3 Months</a>  </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=ActiveContractsYear">This Year</a>  </small></li>
+                        </ul>
+                    </div>
+
+                </td>
+                <!--4 th Column -->
+                <td>
+                    <div class="report_right_div">
+                        <p>Metrics</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/Metrics">Metrics</a> </small></li>
+                        </ul>
+                    </div>
+                </td>
+                <!--5 th Column -->
+                <td>&nbsp;</td>
+
+            </tr>
+
+            <!--2 nd Row -->
+
+            <tr class="FL_Pipeline" style="display:none;">
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Pipeline Summary Reports</b>
+                        </div>
+                    </div>
+                </td>
+            
+                <td>
+
+                    <div class="report_right_div">
+                        <p>Pipeline Summary</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/pipelineReport">All Pipeline Contracts</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/UntendedContractsSummary?Type=Pipelines"> Untended Pipeline Contracts</a></small></li>
+                        </ul>
+                        <!--<span>( </span>
+                     <small><a href="javascript:void(0);">All Pipeline Contracts</a> , </small>
+                     <small><a href="javascript:void(0);"> Untended Pipeline Contracts</a></small>
+                <span>) </span>   -->
+
+                    </div>
+
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>All Recent</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=RecentContractsMonth">This Month</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=RecentContracts3Month">Last 3 Months</a>  </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSummary?Status=RecentContractsYear">This Year</a>  </small></li>
+                        </ul>
+
+                        <!--    <span>( </span>
+                 <small><a href="javascript:void(0);">This Month</a> , </small>
+                 <small><a href="javascript:void(0);"> Last 3 Months</a> , </small>
+                 <small><a href="javascript:void(0);"> This Year</a></small>
+            <span>) </span>   -->
+
+                    </div>
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+
+            </tr>
+
+
+
+
+            <tr class="FL_Requests" style="display:none;">
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Request Summary Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Request Summary</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RequestSummary?Status=RecentRequests">Recent Requests</a></small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RequestSummary?Status=PendingRequests">Pending Requests</a></small></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+
+            </tr>
+
+
+            <!--3 rd Row -->
+            <tr class="FL_Counterparty1" style="display:none;">
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Counterparty Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div report_Land-border">
+                        <p>Counterparty Summary</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/Counterparty?Status=RecentCounterparty">Recent Counterparty</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/Counterparty?Status=ActiveCounterparty"> All Active Counterparty</a>  </small></li>
+
+                        </ul>
+                    </div>
+                </td>
+                <!--3 rd Column -->
+                <td>&nbsp;</td>
+                <!--4 th Column -->
+                <td>&nbsp;</td>
+                <!--5 th Column -->
+                <td>&nbsp;</td>
+            </tr>
+
+            <!--4 th Row -->
+
+            <tr>
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Renewals & Expirations</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Upcoming Contract Record Renewals</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=UpcomingRenewalsDays">Next 15 Days</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=UpcomingRenewalsMonth">Next 3 Months</a>  </small></li>
+                        </ul>
+
+
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div">
+                        <p>Contract Record Renewed</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractRenewedMonth">This Month</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractRenewed3Months">Last 3 Months</a>  </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractRenewedYear">This Year</a>  </small></li>
+                        </ul>
+
+
+
+
+                    </div>
+
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Upcoming Expirations</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=UpcomingExpirationsDays">Next 15 Days</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=UpcomingExpirationsMonth">Next 3 Months</a>  </small></li>
+                        </ul>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Contract Record Expired</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractExpiredMonth">This Month</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractExpired3Month">Last 3 Months</a>  </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/RenewalandExpirations?Status=ContractExpiredYear">This Year</a>  </small></li>
+                        </ul>
+
+
+
+
+                    </div>
+                </td>
+
+            
+
+            </tr>
+
+            <!--5 th Row -->
+            <tr>
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Workflow Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Active (Running) Workflows</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowActivity?Status=ActiveWorkflows">All Active Workflows</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowActivity?Status=RecentActiveWorkflows">Recent Workflows</a>  </small></li>
+                        </ul>
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div">
+                        <p>Entity</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowActivity?Status=ALLContractWorkflows">All Contract Record Workflows</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowActivity?Status=ALLDocumentWorkflows">All Document Workflows</a>  </small></li>
+                            <li class="FL_Requests" style="display:none;"><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowActivity?Status=ALLRequestWorkflows">All Request Workflows</a>  </small></li>
+                        </ul>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Workflow Tasks</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small>Delayed Tasks</small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowTaskActivity?Status=RecentlyCompleted"> Recently Completed</a>  </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/WorkflowTaskActivity?Status=RecentlyRejected"> Recent Rejected & Change Requests</a>  </small></li>
+                        </ul>
+                    </div>
+                </td>
+
+                <td>&nbsp;</td>
+            </tr>
+            <!--6 th Row -->
+            <tr>
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Access Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Contract Record Access</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractAccess">Contract Record Access Report</a> </small></li>
+                        </ul>
+
+                        <!--<span>( </span>
+                             <small><a href="javascript:void(0);">Sort by Contract Name</a> ,</small>
+                        <span>) </span>   -->
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div">
+                        <p>User Access</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/UserAccessandActivity">User Access Report</a> </small></li>
+                        </ul>
+
+                        <!-- <span>( </span>
+                             <small><a href="javascript:void(0);">(Sort by User Name)</a> ,</small>
+                        <span>) </span>   -->
+
+                    </div>
+
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <!--7 th Row -->
+            <tr>
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Milestones Report</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Upcoming Milestones</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractMilestoneSummary?Status=UpcomingMilestonesDays">Next 15 Days</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractMilestoneSummary?Status=UpcomingMilestonesMonth">Next 3 Months</a>  </small></li>
+                        </ul>
+                        <!--<span>( </span>
+                         <small><a href="javascript:void(0);">Next 15 Days</a> , </small>
+                         <small><a href="javascript:void(0);"> Next 3 Months</a> </small>
+                        <span>) </span>   -->
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div">
+                        <p>Delayed Milestones</p>
+
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractMilestoneSummary?Status=DelayedMilestonesMonth">Last 3 Months</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractMilestoneSummary?Status=DelayedMilestonesAll">All Delayed Milestones</a>  </small></li>
+                        </ul>
+                        <!-- <span>( </span>
+                             <small><a href="javascript:void(0);">Last 3 Months</a> , </small>
+                             <small><a href="javascript:void(0);"> All Delayed Milestones</a></small>
+                        <span>) </span>   -->
+
+                    </div>
+
+                </td>
+
+                <td>
+                    <div class="report_right_div">
+                        <p>Completed Milestones</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractMilestoneSummary?Status=CompletedMilestones">Recently Completed</a> </small></li>
+                        </ul>
+
+                        <!--<span>( </span>
+                             <small><a href="javascript:void(0);">Recently Completed</a></small>
+                        <span>) </span>   -->
+
+                    </div>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <!--8 th Row -->
+            <tr>
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b>Other Activity Report</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Contracts Activity</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractSharedSummary">Contracts Shared Externally and Internally</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractAmendmentSummary">Recently Amended</a> </small></li>
+                        </ul>
+
+                        <!-- <span>( </span>
+                            <small><a href="javascript:void(0);">Contracts Shared Externally</a> , </small>
+                            <small><a href="javascript:void(0);"> Recently Amended </a></small>
+                           <span>) </span>
+                        -->
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div">
+                        <p>Documents Activity</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ContractDocumentsSharedSummary">Documents Shared Externally and Internally</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/DocumentsRecentlyUpdatedSummary">Documents Recently Updated</a> </small></li>
+                        </ul>
+
+                        <!--<span>( </span>
+                             <small><a href="javascript:void(0);">Documents Shared Externally</a> ,</small>
+                             <small><a href="javascript:void(0);"> Documents Recently Updated</a> </small>
+                        <span>) </span>   -->
+
+                    </div>
+
+                </td>
+
+                <td>
+                    <div class="report_right_div">
+                        <p>eSignature Report</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small>eSignature In Progress </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small>Recent eSignatures </small></li>
+                        </ul>
+                        <!--<span>( </span>
+                             <small><a href="javascript:void(0);">eSignature In Progress</a> , </small>
+                             <small><a href="javascript:void(0);"> Recent eSignatures</a></small>
+                        <span>) </span>   -->
+
+                    </div>
+
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            <!--9 th Row -->
+            <tr class="FL_Obligations" style="display:none;">
+                <td class="report_Land_title">
+                    <div class="report_title">
+                        <div>
+                            <img src="~/Content/images/icon/reportlandicon.jpg" /><b> Obligation Reports</b>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Upcoming Obligations</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationSummary?Status=UpcomingObligationsDays">Next 30 Days</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationSummary?Status=UpcomingObligationsMonth">Next 3 Months</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationSummary?Status=DelayedObligationsMonth">Delayed Obligations</a> </small></li>
+                        </ul>
+
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Quantity Commitment Report</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationProductsSummary?Status=Quantity">Quantity Obligations Summary</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ProductsYearlySummary">Product Quantity- Monthly View</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/CounterpartyYearlySummary">Counterparty Quantity- Monthly View</a> </small></li>
+                        </ul>
+
+
+                    </div>
+                </td>
+                <td>
+                    <div class="report_right_div">
+                        <p>Financial Commitment Report</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationProductsSummary?Status=Financial">Financial Commitment</a> </small></li>
+                        </ul>
+
+
+                    </div>
+                </td>
+                <td>
+
+                    <div class="report_right_div" style="display:none">
+                        <p>Product / Service Obligation Report</p>
+                        <ul>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationSummary?Status=UpcomingProductObligations">Upcoming Product / Service Obligations</a> </small></li>
+                            <li><span class="bullet_Point"><img src="~/Content/images/icon/bullet.png" /></span><small><a href="/Reports/ObligationSummary?Status=DelayedProductObligations">Delayed Product / Service Obligations</a> </small></li>
+                        </ul>
+
+
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+
+
+    </table>
+
+
+
+</section>
+
+@section Scripts {
+   
+    @Scripts.Render("~/Scripts/Contract365/Reports_GlobalReports.js?" + DateTime.Now.GetHashCode())
+}
+   

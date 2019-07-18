@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "TestMetrics";
+}
+
+@*<section class="wraper">
+
+
+        <div style="width: 50%;float:left">
+            <div style="width: 15%; float: left;">
+                <a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br>
+
+            </div>
+            <div style="width: 85%;float: left;">
+                <div id="chartdiv"></div>
+
+    \
+    5r4es-        </div>
+        </div>
+        <div style="width: 50%;float:left">
+            <div style="width: 15%; float: left;">
+                <a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br><a>abc</a><br>
+
+            </div>
+            <div style="width: 85%;float: left;">
+                <div id="chartdivforpie"></div>
+                <div id="legenddiv"></div>
+            </div>
+        </div>
+
+
+    </section>*@
+
+<section class="wraper">
+  
+    <section class="cont-piechat-container" id="ScreenShotFull">
+
+        <div class="cont-piechat-Left" id="ScreenShot1">
+            <div class="number-Cont">
+                <h1>Number of Contracts</h1>
+
+                <div class="number-Cont-Right">
+                    <span>Contract Area <a href="javascript:void(0)"><img src="../Scripts/Metrics/images/dp-ddown-dash.png" /></a></span>
+                    <span><a href="javascript:void(0)"><img src="../Scripts/Metrics/images/search_hover-1.png" /></a></span>
+                    <span><a href="javascript:void(0)"><img src="../Scripts/Metrics/images/setting-1.png" onclick="take23('ScreenShotFull')"   /></a></span>
+                </div>
+            </div>
+
+
+            <div class="number-Cont-Pie">
+                <div class="number-Cont-Pie-Left">
+
+                    <ul>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="number-Cont-Pie-Right" id="chartdiv">
+
+                    @*<img src="../Scripts/Metrics/images/pie-chart.png" />*@
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="cont-piechat-Left flt-right" id="ScreenShot2">
+            <div class="number-Cont">
+                <h1>Number of Contracts</h1>
+                <div class="number-Cont-Right">
+                    <span>Contract Area <a href="javascript:void(0)"><img src="../Scripts/Metrics/images/dp-ddown-dash.png" /></a></span>
+                    <span><a href="javascript:void(0)"><img src="../Scripts/Metrics/images/search_hover-1.png" /></a></span>
+                    <span><a href="javascript:void(0)"><img src="../Scripts/Metrics/images/setting-1.png" onclick="capture('ScreenShot2')" /></a></span>
+                </div>
+            </div>
+
+
+            <div class="number-Cont-Pie">
+                <div class="number-Cont-Pie-Left">
+
+                    <ul>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="pie-color"><img src="../Scripts/Metrics/images/color.png" /></span>
+                            <div>
+                                <span class="pie-Result">All Active</span>
+                                <span class="pie-Value">3505</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="number-Cont-Pie-Right" id="chartdivforpie">
+
+                    @*<img src="../Scripts/Metrics/images/pie-chart.png" />*@
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div id="clean">clean:<br></div>
+    </section>
+</section>
+
+@section Scripts {
+
+
+   <script src="~/Scripts/Metrics/amcharts.js" type="text/javascript"></script>
+<script src="~/Scripts/Metrics/pie.js" type="text/javascript"></script>
+<script src="~/Scripts/Metrics/export.js" type="text/javascript"></script>
+<script src="~/Scripts/Metrics/serial.js" type="text/javascript"></script>
+<script src="~/Scripts/Metrics/export.config.default.js" type="text/javascript"></script>
+
+
+<link href="~/Content/Metrics/css/export.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Metrics/css/metrics.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/Metrics/responsive.min.js" type="text/javascript"></script>
+<script src="~/Scripts/Metrics/html2canvas.js"></script>
+<script src="~/Scripts/Metrics/jquery.plugin.html2canvas.js"></script>
+<script src="~/Scripts/Metrics/html2canvas.svg.js"></script>
+
+<script src="~/Scripts/Contract365/Reports_Metrics.js"></script>
+
+    @*<style>
+            body, html {
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                overflow-y: auto;
+                font-size: 11px;
+                font-family: Verdana;
+            }
+
+            #chartdiv {
+                width: 100%;
+                height: 100%;
+            }
+
+            hr, footer {
+                display: block;
+                clear: both;
+            }
+        </style>*@
+
+
+
+    @Scripts.Render("~/Scripts/Contract365/Reports_TestMetrics.js?" + DateTime.Now.GetHashCode())
+
+
+
+
+}

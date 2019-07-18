@@ -1,0 +1,436 @@
+﻿@{
+    ViewBag.Title = "ReportBuilder";
+    Layout = "~/Views/Shared/_Layout_SettingsHeader.cshtml";
+}
+
+@*CSS*@
+<link href="~/Content/css/jquery_002.css" rel="stylesheet" />
+<link href="~/Content/css/screen.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/AdvanceReports/econtract.css" rel="stylesheet" />
+<link href="~/Content/AdvanceReports/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/AdvanceReports/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/daterangepicker.css" rel="stylesheet" type="text/css" />
+<style>
+    .actionBar > a, .actionBar > a:link {
+        color: white !important;
+    }
+
+        .actionBar > a.btn-default, .actionBar > a.btn-default:link {
+            color: black !important;
+        }
+
+    ul li.filterValue {
+        padding: 0;
+        margin: 0;
+    }
+
+    #bar2 li.filterValue {
+        padding-bottom: 3px;
+        display: block;
+        float: left;
+        width: 100%;
+    }
+
+    .scrolledTable {
+        overflow-y: auto;
+        clear: both;
+    }
+</style>
+<div style="clear:both"></div>
+<div class="mar-t15">
+    <div class="col-md-12" style="padding-top: 15px;">
+        <div id="wizard" class="form_wizard wizard_horizontal">
+            <ul class="wizard_steps">
+                <li>
+                    <a href="#step-1">
+                        <span class="step_no">1</span> <span class="step_descr">
+                            Step 1<br />
+                            <small>Choose Base Report</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#step-2">
+                        <span class="step_no">2</span> <span class="step_descr">
+                            Step 2<br />
+                            <small>Choose Columns</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#step-3">
+                        <span class="step_no">3</span> <span class="step_descr">
+                            Step 3<br />
+                            <small>Choose Filters</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#step-4">
+                        <span class="step_no">4</span> <span class="step_descr">
+                            Step 4<br />
+                            <small>Build Report</small>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <div id="step-1">
+                <form class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Choose Base Report</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" id="basereport">
+                                <option value="0">--Select--</option>
+                                @*<option>Contracts</option>*@
+                                <option value="RenewalsExpirations">Renewals & Expirations</option>
+                                @*<option>Requests</option>
+                                    <option>Counterparties</option>
+                                    <option>Document Templates</option>
+                                    <option>Standard Clauses</option>
+                                    <option>Workflows</option>
+                                    <option>Milestones</option>
+                                    <option>Obligations</option>
+                                    <option>Amendments</option>*@
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="dvPrimaryData" style="display:none;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Choose Primary Data</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" id="ddlprimarydata"></select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="dvSecondaryData" style="display:none;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Choose Secondary Data</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" id="ddlsecondarydata"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="step-2">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div data-force="30" class="layer block">
+                            <h4>Select Columns</h4>
+                            <div class="form-group mar-b5 mar-t5">
+                                <input id="columnselect" type="text" class="form-control input-sm" style="border-radius:0px" placeholder="Search">
+                            </div>
+                            <!--<div class="layer title">Choose Report Data</div>-->
+                            <div class="accordion" id="accordionContracts" style="display:none;">
+                                <h4 class="accordion-toggle">Contracts</h4>
+                                <div class="accordion-content">
+                                    <ul id="ContractList" class="block__list block__list_words"></ul>
+                                </div>
+                            </div>
+                            <div id="accordionRenew" style="display:none;">
+                                <div class="accordion" id="accordionRenewContracts">
+                                    <h4 class="accordion-toggle">Contracts</h4>
+                                    <div class="accordion-content">
+                                        <ul id="RenewContractList" class="block__list block__list_words">
+                                            <li data-fieldtype="Single Line Text" data-fieldname="ContractTitle" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Contract Record Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="Counterparty" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Counterparty(ies) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Date" data-fieldname="StartDate" data-fieldcategory="RenewContracts"><i class="fa cal_icon" aria-hidden="true"></i> Contract Start Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Date" data-fieldname="EndDate" data-fieldcategory="RenewContracts"><i class="fa cal_icon" aria-hidden="true"></i> Contract End Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="RemindersSentTo" data-fieldcategory="RenewContracts"><i class="fa cal_icon" aria-hidden="true"></i> Reminders Sent To <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="RelatedContracts" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Related Contract(s) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="Status" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Contract Status <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="ContractType" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Contract Record Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="CompanyProfile" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Company Legal Entity(ies)<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="CounterpartyContacts" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i>Counterparty Contacts<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Taxonomy" data-fieldname="BusinessArea" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Business Area <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Choice" data-fieldname="ContractTermType" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Contract Term Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="User" data-fieldname="ContractManagers" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Contract Owner(s) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="AutoRenew" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i>Renewal Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="ContractDescription" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i>Contract Description <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="RenewalChecklist" data-fieldcategory="RenewContracts"><i class="fa string_icon" aria-hidden="true"></i> Amendments during Renewal <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="accordion" id="accordionRenewHistory">
+                                    <h4 class="accordion-toggle">Renewals & Expirations</h4>
+                                    <div class="accordion-content">
+                                        <ul id="RenewHistoryList" class="block__list block__list_words">
+                                            <li data-fieldtype="Single Line Text" data-fieldname="RenewedTermDuration" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Renewed Term Duration <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="RenewalPerformance" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Renewal Performance <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Date" data-fieldname="RenewedOn" data-fieldcategory="RenewHistory"><i class="fa cal_icon" aria-hidden="true"></i> Renewed On <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Date" data-fieldname="RenewedBy" data-fieldcategory="RenewHistory"><i class="fa cal_icon" aria-hidden="true"></i>Renewed By  <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="OrdinalNumberofRenewal" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Ordinal Number of Renewal <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="TerminatedExpired" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Terminated/Expired <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="TerminatedExpiredBy" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Terminated/Expired By<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Custom Lookup" data-fieldname="TerminationExpirationDate" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Termination/Expiration Date<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Taxonomy" data-fieldname="ExpiryTerminationNotes" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Expiry/Termination Notes <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Choice" data-fieldname="NotificationSentTo" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Notification Sent To <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="User" data-fieldname="RenewalTerminationconditions" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Renewal/Termination Conditions <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="RenewalNotes" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Renewal Notes <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="UpcomingTermDuration" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Upcoming Term Duration <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="Renewonorbefore" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Renew on or before <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="DaysLeftforrenewal" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Days Left for renewal <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Taxonomy" data-fieldname="DaysLeftforrenewalNotice" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Days Left for renewal Notice <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Choice" data-fieldname="TermEndDate" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Current Term End Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="User" data-fieldname="DurationofNewTerm" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i> Duration of New Term <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                            <li data-fieldtype="Single Line Text" data-fieldname="RenewalDelayedby" data-fieldcategory="RenewHistory"><i class="fa string_icon" aria-hidden="true"></i>Renewal Delayed by <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionRequests" style="display:none;">
+                                <h4 class="accordion-toggle">Requests</h4>
+                                <div class="accordion-content">
+                                    <ul id="RequestList" class="block__list block__list_words"></ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionCounterparty" style="display:none;">
+                                <h4 class="accordion-toggle">Counterparty</h4>
+                                <div class="accordion-content">
+                                    <ul id="CounterpartyList" class="block__list block__list_words"></ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionDocTemplates" style="display:none;">
+                                <h4 class="accordion-toggle">Document Templates</h4>
+                                <div class="accordion-content">
+                                    <ul id="DocTemplateList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="TemplateName"><i class="fa string_icon" aria-hidden="true"></i> Template Name <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="Description"><i class="fa string_icon" aria-hidden="true"></i> Description <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="DocumentType"><i class="fa string_icon" aria-hidden="true"></i>Document Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="ContractAreas"><i class="fa string_icon" aria-hidden="true"></i> Contract Area(s)<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="DocumentFormat"><i class="fa string_icon" aria-hidden="true"></i> Format<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="FileSize"><i class="fa string_icon" aria-hidden="true"></i>Size <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="Created"><i class="fa cal_icon" aria-hidden="true"></i>Uploaded Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="Modified"><i class="fa cal_icon" aria-hidden="true"></i> Last Updated <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="CreatedBy"><i class="fa string_icon" aria-hidden="true"></i> Uploaded By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="Modified"><i class="fa cal_icon" aria-hidden="true"></i> Last Used <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="UsageTotal"><i class="fa hash_icon" aria-hidden="true"></i>Usage - Total <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="UsageActive"><i class="fa hash_icon" aria-hidden="true"></i>Usage - Active <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="MappedClauses"><i class="fa hash_icon" aria-hidden="true"></i> # of Mapped Clauses <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionStdClause" style="display:none;">
+                                <h4 class="accordion-toggle">Stand Clauses</h4>
+                                <div class="accordion-content">
+                                    <ul id="StdClauseList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ClauseTitle"><i class="fa string_icon" aria-hidden="true"></i> Clause Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="Description"><i class="fa string_icon" aria-hidden="true"></i>Clause Description <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="GroupTitle"><i class="fa string_icon" aria-hidden="true"></i> Clause Group <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="MappedwithDocumentTemplate"><i class="fa string_icon" aria-hidden="true"></i>Mapped with Document Template(s) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="MutuallyInclusiveWith"><i class="fa string_icon" aria-hidden="true"></i> Mutually Inclusive with<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="MutuallyExclusiveWith"><i class="fa string_icon" aria-hidden="true"></i> Mutually Exclusive with<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="AlternateLanguageCount"><i class="fa hash_icon" aria-hidden="true"></i>Alternate Language Count <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="UsageModified"><i class="fa hash_icon" aria-hidden="true"></i>Usage - Modified (Active) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="UsageExact"><i class="fa hash_icon" aria-hidden="true"></i> Usage - Exact (Active) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="UsageTotal"><i class="fa hash_icon" aria-hidden="true"></i> Usage - Total <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionWorkflow" style="display:none;">
+                                <h4 class="accordion-toggle">Workflow</h4>
+                                <div class="accordion-content">
+                                    <ul id="WorkflowList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="WorkflowTitle"><i class="fa string_icon" aria-hidden="true"></i> Workflow Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="WorkflowType"><i class="fa string_icon" aria-hidden="true"></i>Workflow Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ObjectTitle"><i class="fa string_icon" aria-hidden="true"></i> Contract Record Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ObjectTitle"><i class="fa string_icon" aria-hidden="true"></i>Document Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ObjectTitle"><i class="fa string_icon" aria-hidden="true"></i> Request Title<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="Initiator"><i class="fa string_icon" aria-hidden="true"></i>Initiator<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="StartDate"><i class="fa cal_icon" aria-hidden="true"></i>Initiated Date<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="DueDate"><i class="fa cal_icon" aria-hidden="true"></i>Due Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="Status"><i class="fa string_icon" aria-hidden="true"></i> Status<span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="ModifiedDate"><i class="fa cal_icon" aria-hidden="true"></i>Latest Activity <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="Participants"><i class="fa string_icon" aria-hidden="true"></i>Participants <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="TaskRouting"><i class="fa string_icon" aria-hidden="true"></i>Task Routing / Rule <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="DelayedTasks"><i class="fa hash_icon" aria-hidden="true"></i>Delayed Tasks <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="Stages"><i class="fa string_icon" aria-hidden="true"></i>Stages <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="CurrentStage"><i class="fa string_icon" aria-hidden="true"></i>Current Stage <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Taxonomy" data-fieldname="BusinessArea"><i class="fa string_icon" aria-hidden="true"></i>Business Area <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionMilestones" style="display:none;">
+                                <h4 class="accordion-toggle">Milestones</h4>
+                                <div class="accordion-content">
+                                    <ul id="MilestoneList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="MilestoneTitle"><i class="fa string_icon" aria-hidden="true"></i>Milestone Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="MilestoneType"><i class="fa string_icon" aria-hidden="true"></i>Milestone Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="MilestoneDescription"><i class="fa string_icon" aria-hidden="true"></i>Description <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ContractTitle"><i class="fa string_icon" aria-hidden="true"></i>Contract Record Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="MilestoneOwner"><i class="fa string_icon" aria-hidden="true"></i>Milestone Owner <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="MilestoneStatus"><i class="fa string_icon" aria-hidden="true"></i>Milestone Status <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="MilestoneDate"><i class="fa cal_icon" aria-hidden="true"></i>Milestone Due Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="Delayed"><i class="fa string_icon" aria-hidden="true"></i>Delayed By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="MilestoneCompletedDate"><i class="fa cal_icon" aria-hidden="true"></i>Completion Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="MilestoneCompletedBy"><i class="fa string_icon" aria-hidden="true"></i>Completed By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Yes/No" data-fieldname="Recurring"><i class="fa string_icon" aria-hidden="true"></i>Recurring <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="CreatedBy"><i class="fa string_icon" aria-hidden="true"></i>Created by <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="Created"><i class="fa cal_icon" aria-hidden="true"></i>Created date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="Modified"><i class="fa cal_icon" aria-hidden="true"></i>Modified Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="ModifiedBy"><i class="fa string_icon" aria-hidden="true"></i>Modified by <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="SendReminderTo"><i class="fa string_icon" aria-hidden="true"></i>Send Reminder To <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionObligations" style="display:none;">
+                                <h4 class="accordion-toggle">Obligations</h4>
+                                <div class="accordion-content">
+                                    <ul id="ObligationList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ObligationTitle"><i class="fa string_icon" aria-hidden="true"></i>Obligation Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="Obligation ype"><i class="fa string_icon" aria-hidden="true"></i>Obligation Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="Description"><i class="fa string_icon" aria-hidden="true"></i>Description <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ContractTitle"><i class="fa string_icon" aria-hidden="true"></i>Contract Record Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="ObligationValue"><i class="fa hash_icon" aria-hidden="true"></i>Obligation Value  <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="ContractCurrency"><i class="fa hash_icon" aria-hidden="true"></i>Currency <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="ObligationStatus"><i class="fa string_icon" aria-hidden="true"></i>Status <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="ObligationOwners"><i class="fa string_icon" aria-hidden="true"></i>Obligation Owner(s) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="PerformedBy"><i class="fa string_icon" aria-hidden="true"></i>Performing Party  <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="Counterparty"><i class="fa string_icon" aria-hidden="true"></i>Counterparty(ies) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Custom Lookup" data-fieldname="CompanyProfile"><i class="fa string_icon" aria-hidden="true"></i>Legal Entity(ies) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="ObligationStartDate"><i class="fa cal_icon" aria-hidden="true"></i>Obligation Due Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="DelayedBy"><i class="fa string_icon" aria-hidden="true"></i>Delayed By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="ObligationMetBy"><i class="fa string_icon" aria-hidden="true"></i>Mode of Completion <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+
+                                        <li data-fieldtype="Date" data-fieldname="ObligationMetDate"><i class="fa hash_icon" aria-hidden="true"></i>Completed On <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="CancelledOn"><i class="fa hash_icon" aria-hidden="true"></i>Cancelled On <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="CancelledBy"><i class="fa string_icon" aria-hidden="true"></i>Cancelled By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Choice" data-fieldname="Recurrences"><i class="fa string_icon" aria-hidden="true"></i>Repeat <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Taxonomy" data-fieldname="BusinessArea"><i class="fa string_icon" aria-hidden="true"></i>Business Area <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionAmendments" style="display:none;">
+                                <h4 class="accordion-toggle">Amendments</h4>
+                                <div class="accordion-content">
+                                    <ul id="AmendmentList" class="block__list block__list_words">
+                                        <li data-fieldtype="Single Line Text" data-fieldname="AmendmentTitle"><i class="fa string_icon" aria-hidden="true"></i>Amendment Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ContractTitle"><i class="fa string_icon" aria-hidden="true"></i>Contract Record Title <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Lookup" data-fieldname="AmendmentType"><i class="fa string_icon" aria-hidden="true"></i>Amendment Type <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="ReasonForAmendment"><i class="fa string_icon" aria-hidden="true"></i>Reason for Amendment <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="User" data-fieldname="CreatedBy"><i class="fa string_icon" aria-hidden="true"></i>Requested By <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="EffectiveDate"><i class="fa cal_icon" aria-hidden="true"></i>Effective Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Yes/No" data-fieldname="AmendmentCompleted"><i class="fa string_icon" aria-hidden="true"></i>Amendment Completed? <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="AmendmentCompletedDate"><i class="fa cal_icon" aria-hidden="true"></i>Completed Date <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Yes/No" data-fieldname="IsContractValidityEnabled"><i class="fa string_icon" aria-hidden="true"></i>Contract Record Validity Amended? <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="EndDate"><i class="fa cal_icon" aria-hidden="true"></i>Contract Record End Date(Current) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Date" data-fieldname="ContractEndDateAfterAmendment"><i class="fa cal_icon" aria-hidden="true"></i>Contract Record End Date(After Amendment) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="AmendedTermsNotes"><i class="fa string_icon" aria-hidden="true"></i>Notes <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Yes/No" data-fieldname="ChangeInContractValue"><i class="fa string_icon" aria-hidden="true"></i>Contract Value Amended? <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="COntractValue"><i class="fa hash_icon" aria-hidden="true"></i>Contract Value(Current) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Number" data-fieldname="ContractValueAfterAmendment"><i class="fa hash_icon" aria-hidden="true"></i>Contract Value(After Amendment) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Yes/No" data-fieldname="IsSOWEnabled"><i class="fa string_icon" aria-hidden="true"></i>Scope of Work / Obligation/  Commitment Amended? <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="SummaryofSOWCurrent"><i class="fa string_icon" aria-hidden="true"></i>Summary of SOW/Obligation/Commitment(Current) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Single Line Text" data-fieldname="SummaryOfSOWAfterAmendment"><i class="fa string_icon" aria-hidden="true"></i>Summary of SOW/Obligation/Commitment(After Amendment) <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                        <li data-fieldtype="Hyperlink" data-fieldname="RelatedDocuments"><i class="fa string_icon" aria-hidden="true"></i>Related Documents <span data-toggle="tooltip" title="Description"><i class="fa i_icon" aria-hidden="true"></i></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div data-force="18" class="layer block">
+                            <!--<div class="layer title">List B</div>-->
+                            <ul id="bar" class="block__list block__list_tags border_block drag_drp_bg"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="step-3">
+                <div class="row">
+                    <div class="col-md-3 col-xs-5">
+                        <div data-force="30" class="layer block">
+                            <h4>Select Filters</h4>
+                            <div class="form-group mar-b5 mar-t5">
+                                <input id="filterselect" type="text" class="form-control input-sm" style="border-radius:0px" placeholder="Search">
+                            </div>
+                            <!--<div class="layer title">Choose Report Data</div>-->
+                            <ul id="FilterList" class="block__list block__list_words"></ul>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-xs-7">
+                        <div data-force="18" class="layer block">
+                            <!--<div class="layer title">List B</div>-->
+                            <span class="section heading_sub">Filters</span><br>
+                            <ul id="bar1" class="block__list block__list_tags_filter border_block drag_drp_Filter_bg" style="background-size:contain;"></ul>
+                            <ul id="bar2" class="block__list block__list_tags_filter_r border_block"></ul>
+                            <div class="clearfix"></div>
+                            @*<span class="section heading_sub mar-t10">Group By</span><br>
+                                <select id="GroupBySelect" multiple="multiple"></select>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="step-4">
+                <form class="form-horizontal form-label-left" id="formReport">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Report Name <span class="required">*</span> </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="reportName" maxlength="35" required="required" class="form-control col-md-7 col-xs-12 validelement">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Report Description <span class="required">*</span> </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <textarea class="form-control validelement" rows="5" id="reportDescription"></textarea>
+                        </div>
+                    </div>
+                    @* <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Report Folder <span class="required">*</span> </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control validmultiselect validelement" id="reportFolder">
+                                    <option value="">--Select--</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+                        </div>*@
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div style="display:none;margin-bottom:10px;" id="previewtable">
+            <h4>Preview</h4>
+            <table id="previewTbl" class="table report_table table-bordered mar-t15">
+                <thead id="previewHead"></thead>
+                <tbody id="previewBody"></tbody>
+            </table>
+        </div>
+        <div id="browseBA" class="k-content" style="display: none; text-align: left; height:600px;">
+            <div id="loadBA"></div>
+            <div style="overflow-y: auto; height: 480px;border: 1px solid #dcdcdc;">
+                <table id="example-basic-12" class="treetable">
+                    <tbody id="tbodyBusinessArea12"></tbody>
+                </table>
+            </div>
+            <div class="selectFIlterItem" style="margin-bottom:15px;">
+                <div id="liSelectedBA">
+                </div>
+            </div>
+            <input id="txtBARowkey" type="hidden" /><input id="txtBAParent" type="hidden" /><input id="txtBA" type="hidden" />
+            <input id="txtContractAreaName" type="hidden" /><input id="txtContractAreaAdministrators" type="hidden" /><input id="txtBusinessAreaOwners" type="hidden" />
+        </div>
+    </div>
+</div>
+
+@*JS*@
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/AdvanceReports/jquery.smartWizard.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/AdvanceReports/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/AdvanceReports/dragndrop.table.columns.js"></script>
+<script src="~/Scripts/AdvanceReports/bootstrap-multiselect.js"></script>
+<script src="~/Scripts/AdvanceReports/bootstrap3-typeahead.min.js"></script>
+<script src="~/Scripts/AdvanceReports/Sortable.min.js"></script>
+<script src="~/Scripts/AdvanceReports/app.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/corevo.validate.js"></script>
+<script src="~/Scripts/jquery.treetable.js" type="text/javascript"></script>
+<script src="~/Scripts/NewChanges/moment.js"></script>
+<script src="~/Scripts/jquery.daterangepicker.js" type="text/javascript"></script>
+@Scripts.Render("~/Scripts/Contract365/Reports_ReportBuilder.js?" + DateTime.Now.GetHashCode())
+
