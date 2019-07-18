@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.2.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="~/Scripts/dataTables.searchHighlight.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/simplePagination.css" />
+    <script type="text/javascript" src="../../Scripts/jquery.simplePagination.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/jquery.popup.css" />
+    <link rel="stylesheet" type="text/css" href="../../Content/jquery-filetype.css" />
+    <script type="text/javascript" src="../../Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1.0/hosted/office.js" type="text/javascript"></script>
+    <link href="../../Content/Office.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/form.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/corevo.validate.js" type="text/javascript"></script>
+    <script src="../../Scripts/filesize.min.js"></script>
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+    <script src="Document.js?2.18032016" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+
+        <div class="left">
+            <ul>
+                <li><img src="../../Content/Mail/eContracts_logo.png" title="Home." onclick="SharepointOnline()" style="width: 30px;" /></li>
+                <li><img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." onclick="Correspondence()" /></li>
+                <li class="activemenu"><img src="../../Content/Mail/document.png" title="Save as Contract Document." onclick="AddDocument()" /></li>
+                <li><img src="../../Content/Mail/contact.png" title="Save email participants as Contacts in eContract." onclick="AddContact()" /></li>
+                <li><img src="../../Content/Mail/tasks.png" title="Tasks." onclick="Tasks()" /></li>
+                <li><img src="../../Content/Mail/notifications.png" title="My Alerts." onclick="Notifications()" /></li>
+                <!--<li><img src="../../Content/Mail/contracts.png" title="Create New Contract Record in eContracts." onclick="NewContract()" /></li>
+                <li><img src="../../Content/Mail/review.png" title="Initiate a review workflow in eContract." onclick="StartReview()" /></li>
+                <li><img src="../../Content/Mail/approve.png" title="Initiate an approval workflow in eContract." onclick="StartApproval()" /></li>
+                <li><img src="../../Content/Mail/share_contract.png" title="Share with External User" onclick="StartShare()" /></li>
+                <li><img src="../../Content/Mail/counterparty.png" title="Add Counterparty" onclick="AddCounterparty()" /></li>-->
+            </ul>
+        </div>
+
+        <div class="right">
+            <h2>Upload Document<a style="float: right;font-size: 13px;color:#2a8dd4;" href="javascript:void(0);" onclick="eContractsOnline();" title="Open eContracts in new tab">Launch eContracts<img src="../../Content/Mail/ext_link.png" style="width: 14px;vertical-align: sub;margin-left: 5px;" /></a></h2>
+            <!--<ul class="tabmenu">
+                <li style="width:130%;"><a href="javascript:void(0)" id="aAttachment" onclick="ShowAttachment()">Upload From Attachment</a></li>
+                <li style="width:130%;"><a href="javascript:void(0)" id="aComputer" onclick="ShowComputer()">Upload From Computer</a></li>
+            </ul>-->
+            <p>
+                <div class="botton2">
+                    <input type="radio" name="ApprovalProcess" onclick="ShowAttachment()" value="Contract" id="rdioContract" class="css-checkbox" checked />
+                    <label for="rdioContract" class="css-label">Email Attachment(s)</label>
+                    <input type="radio" name="ApprovalProcess" value="Document" onclick="ShowComputer()" id="rdioDocument" class="css-checkbox" />
+                    <label for="rdioDocument" class="css-label">From Computer</label>
+                </div>
+            </p>
+            <div id="dvAttachment">
+                <div id="saveForm" class="width100">
+                    <ul class="box" id="ulDocuments">
+                        <li>
+                            <p style="color: #565650;margin-left: 0;">Select Contract <span class="error">*</span></p><br><div style="width:100%">
+                                <input id="txtContractRecElement1" class="input validelement PreserveSpace" title="Contract Record" type="text" maxlength="60">
+                                <input id="txtContractRecElementID1" type="hidden">
+                                <img id="imgOpenSearch" title="Search" style="cursor: pointer;position: relative;top: 6px;background: #fff;display: block;padding: 1px 4px;width: 15px;" onclick="javascript: OpenSearch();" src="../../Content/Images/search_over.png" class="left_img_30">
+                                <img id="imgClearSearch" title="Clear" style="cursor: pointer;position: relative;left: -55px;top: -10px;background: #fff;display: block;padding: 1px 4px;width: 11px;display:none;" onclick="javascript: txtClearSearch(this);" src="../../Content/Images/close.png">
+
+                                <!--<a href="javascript:void(0)" onclick="ContractRec('1')">Browse</a>-->
+                                <input id="DocumentsUrl1" name="DocumentsUrl" type="hidden" value="/Contract Documents" />
+                                <input id="Folder1" name="Folder" type="hidden" value="" />
+                                <input id="lblBusinessArea" name="Folder" type="hidden" value="" />
+                                <input id="lblBusinessAreaPath" name="Folder" type="hidden" value="" />
+                                <input id="lblContractArea" name="Folder" type="hidden" value="" />
+                                <input id="lblContractAreaAdmins" name="Folder" type="hidden" value="" />
+                                <input id="lblBusinessAreaOwners" name="Folder" type="hidden" value="" />
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="color: #565650;font-size: 13px; margin: 5px 0 0 22px;">Documents to Upload</div>
+                    <table class="upload_list" style="margin:-0px 20px 20px 20px !important" id="tblAttachments" width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <!--<tr>
+                            <td></td>
+                        </tr>-->
+                    </table>
+
+                    <div class="botton">
+                        <span style="float:right;"><a href="javascript:void(0)" style="background-color:#ccd2d6 !important;border:1px solid #ccd2d6 !important;" class="disable-link" id="btnMultiDocUpload" onclick="UploadAttachmentsMul()">Upload</a></span>
+                        <!--<span><a href="javascript:void(0)" onclick="ClearMulAtt()">Clear</a></span>-->
+                    </div>
+                </div>
+                <span id="spNote" class="text2" style="display:none">Note: This feature is supported only in the Outlook web app.</span>
+                <!--<div id="dvSaveFormButn" style="display:none" class="botton">
+                    <span id="btnCancel"><a href="javascript:void(0)" onclick="UploadAttachments()">Save</a></span>
+                    <span id="btnSave"><a href="javascript:void(0)" onclick="ClearForm()">Cancel</a></span>
+                </div>-->
+            </div>
+            <div id="dvComputer" style="display:none">
+                <div id="saveFormComputer" class="width100">
+                    <ul class="box">
+                        <li><p>Browse File <span class="error">*</span></p><div><input type="file" id="docContract" onchange="javascript:changeinupload(this);" name="file" title="Document" style="padding-top:4px;" class="input validelement validfilename" /></div></li>
+                        <li>
+
+                            <p>Document Type <span class="error"></span></p><div>
+                                <select id="ddlDocumentTypeCreate" title="Document Type" class="f_inpt">
+                                    <!--<option value="0">--Select--</option>-->
+                                </select>
+
+                            </div>
+                        </li>
+                        <li>
+                            <p>Contract Record <span class="error">*</span></p><div>
+                                <input id="txtContractRecElement" name="ContractRecElement" readonly="readonly" type="text" class="input PreserveSpace validelement" />
+                                <span class="right-float_large"><a href="javascript:void(0)" id="contractRec" onclick="ContractRec('');">Browse</a></span>
+                                <input id="txtContractRecElementID" name="ContractRecElementID" type="hidden" />
+                                <input id="DocumentsUrl" name="DocumentsUrl" type="hidden" value="/Contract Documents" />
+                                <input id="FinalUrl" name="FinalUrl" type="hidden" />
+                                <input id="DraftUrl" name="DraftUrl" type="hidden" />
+                                <input id="Folder" name="Folder" type="hidden" />
+                            </div>
+                        </li>
+                        <!--<li>
+                            <p>Counterparty </p><div>
+                                <input id="txtCounterpartyCreate" name="CounterpartyCreatet" readonly="readonly" type="text" class="input" />
+                                <span class="right-float_large" id="spCounterpartyCreate" style="display:none"><a href="javascript:void(0)" id="contractRec" onclick="CounterpartyCreate();">Browse</a></span>
+                            </div>
+                        </li>-->
+                        <!--<li>
+                            <p>Finalized ? <span class="error">*</span></p><div>
+                                                                               <input type="radio" name="IsFinalizedEdit" value="Yes" id="rdioYes" class="css-checkbox" />
+                                                                               <label for="rdioYes" class="css-label">Yes</label>
+                                                                               <input type="radio" name="IsFinalizedEdit" value="No" id="rdioNo" class="css-checkbox" checked />
+                                                                               <label for="rdioNo" class="css-label">No</label>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
+                <div class="botton">
+                    <span id="btnCancel"><a href="javascript:void(0)" onclick="UploadFromComputer()">Upload</a></span>
+                    <span id="btnSave"><a href="javascript:void(0)" onclick="ClearFormComputer()" class="botton1_cancel">Cancel</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dvContractRec" style="display:none;overflow-y: auto;">
+        <div class="modalbody">
+            <article id="right" class="out-look-search-box">
+                <input id="txtSearchBoxTodoForm" class="input width90 cl padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" maxlength="60" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:2px; " onclick="javascript: SearchContractRec1();" src="../../Content/Images/search_over.png" />
+                <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxTodoForm').val(''); ClearSearch();">Clear</a>
+            </article>
+            <div id="dvLoading">
+                <img src="../../Content/Images/icon/loading.gif" />
+            </div>
+            <div id="page-wrap" class="out-look-select-contract">
+                <table class="width100" id="tblContractsTodo">
+                    <thead id="theadContractsTodo">
+                        <tr>
+                            <th style="text-align:center; width: 33%; background: none repeat scroll 0% 0% rgb(41, 50, 74); color: rgb(255, 255, 255); font-weight: bold;text-align: left; padding:3px;">Contract Record Title</th>
+                            <th style="text-align:center; width: 33%; background: none repeat scroll 0% 0% rgb(41, 50, 74); color: rgb(255, 255, 255); font-weight: bold;text-align: left; padding:3px;">Counterparty</th>
+                            <th style="text-align:center; width: 33%; background: none repeat scroll 0% 0% rgb(41, 50, 74); color: rgb(255, 255, 255); font-weight: bold;text-align: left; padding:3px;">Contract Number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyContractsTodo"></tbody>
+                </table>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article class="outlook-pagniation" id="compact-paginationContractsTodo"></article>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article class="outlook-pagniation" id="compact-paginationDocumentsTodo"></article>
+            </div>
+        </div>
+    </div>
+    <div id="browseCounterparty" style="display:none;overflow-y: auto;">
+        <article id="right" class="out-look-search-box">
+            <input id="txtSearchBoxCounterparty" class="input width90 cl padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+            <img title="Search" style="cursor: pointer; position: relative; left: -40px; top:2px; " onclick="javascript: CounterpartyFunc();" src="../../Content/Images/search_over.png" />
+            <a href="javascript:void(0)" class="linkPickerClear" onclick="$('#txtSearchBoxCounterparty').val(''); CounterpartyFunc();">Clear</a>
+        </article>
+        <div id="loadCP"></div>
+        <div id="page-wrap" class="out-look-select-contract f_list">
+            <div id="listWrapper">
+                <!--<table id="tblCounterparties"></table>-->
+            </div>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article class="outlook-pagniation" id="compact-paginationCounterparties"></article>
+        </div>
+    </div>
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../../Content/Images/icon/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <input id="hdConElm" type="hidden" />
+    <input id="hdConElmID" type="hidden" />
+</body>
+</html>

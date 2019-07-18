@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.2.1.js" type="text/javascript"></script>
+
+    <link href="../../Content/Office.css" rel="stylesheet" type="text/css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1.0/hosted/office.js" type="text/javascript"></script>
+
+    <!-- To enable offline debugging using a local reference to Office.js, use:                        -->
+    <!--    <script src="../../Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>       -->
+    <!--    <script src="../../Scripts/Office/1.0/office.js" type="text/javascript"></script>          -->
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+    
+    <!--<link href="Home.css" rel="stylesheet" type="text/css" />-->
+    <script src="Home.js?2.18032016" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+
+        <div class="left">
+            <ul>
+                <li><img src="../../Content/Mail/eContracts_logo.png" title="Home." onclick="SharepointOnline()" style="width: 30px;"/></li>
+                <li><img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." onclick="Correspondence()" /></li>
+                <li><img src="../../Content/Mail/document.png" title="Save as Contract Document." onclick="AddDocument()" /></li>
+                <li><img src="../../Content/Mail/contact.png" title="Save email participants as Contacts in eContract." onclick="AddContact()" /></li>
+                <li><img src="../../Content/Mail/tasks.png" title="Tasks." onclick="Tasks()" /></li>
+                <li><img src="../../Content/Mail/notifications.png" title="Notifications." onclick="Notifications()" /></li>
+                <!--<li><img src="../../Content/Mail/contracts.png" title="Create New Contract Record in eContracts." onclick="NewContract()" /></li>-->
+                <!--<li><img src="../../Content/Mail/review.png" title="Initiate a review workflow in eContract." onclick="StartReview()" /></li>
+                <li><img src="../../Content/Mail/approve.png" title="Initiate an approval workflow in eContract." onclick="StartApproval()" /></li>
+                <li><img src="../../Content/Mail/share_contract.png" title="Share with External User" onclick="StartShare()" /></li>
+                <li><img src="../../Content/Mail/counterparty.png" title="Add Counterparty" onclick="AddCounterparty()" /></li>-->
+            </ul>
+        </div>
+        <div class="right">
+            <h2 id="tdWelcome" style="display:none;">Hi <span id="name"></span>,<a style="float: right;font-size: 13px;color:#2a8dd4;" href="javascript:void(0);" onclick="eContractsOnline();" title="Open eContracts in new tab">Launch eContracts<img src="../../Content/Mail/ext_link.png" style="width: 14px;vertical-align: sub;margin-left: 5px;"/></a></h2>
+            <ul id="tdContent" style="" class="box">
+                <li id="liCorrespondence" class="liHome">
+                    <img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." style="vertical-align: text-bottom;">
+                    <a href="javascript:void(0)" onclick="Correspondence()" style="margin-left: 0;">Save Email</a><br />
+                </li>
+                <li id="liAttachment" class="liHome">
+                    <img src="../../Content/Mail/document.png" title="Save as Contract Document." style="vertical-align: text-bottom;">
+                    <a href="javascript:void(0)" onclick="AddDocument()" style="margin-left: 0;">Upload Document</a><br /><span id="noofattachment"></span> 
+                </li>
+                <li id="liContacts" class="liHome">
+                    <img src="../../Content/Mail/contact.png" title="Save email participants as Contacts in eContract." style="vertical-align: text-bottom;">
+                    <a href="javascript:void(0)" onclick="AddContact()" style="margin-left: 0;">Save Contacts</a><br /><span id="noofcontact"></span> 
+                </li>
+            </ul>
+            <p id="tdLoading" align="center"><img src="../../Content/Images/loading.gif" />&nbsp;&nbsp;</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Corevo.eContracts365.SPWeb.Services.AppEventReceiver" CodeBehind="AppEventReceiver.svc.cs" %>

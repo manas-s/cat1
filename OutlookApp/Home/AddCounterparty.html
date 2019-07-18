@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+    <script src="../../Scripts/jquery-3.2.1.js" type="text/javascript"></script>
+
+    <link href="../../Content/Office.css" rel="stylesheet" type="text/css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1.0/hosted/office.js" type="text/javascript"></script>
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div class="main">
+
+        <div class="left">
+            <ul>
+                <li><img src="../../Content/Mail/eContracts_logo.png" title="Home." onclick="SharepointOnline()" style="width: 30px;" /></li>
+                <li class="activemenu"><img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." onclick="Correspondence()" /></li>
+                <li><img src="../../Content/Mail/contracts.png" title="New Contract" onclick="NewContract()" /></li>
+                <li><img src="../../Content/Mail/document.png" title="Add Document" onclick="AddDocument()" /></li>
+                <li><img src="../../Content/Mail/review.png" title="Start for Review Process" onclick="StartReview()" /></li>
+                <li><img src="../../Content/Mail/approve.png" title="Start for Approval Process" onclick="StartApproval()" /></li>
+                <!--<li><img src="../../Content/Mail/share_contract.png" title="Share with External User" onclick="StartShare()" /></li>
+                <li><img src="../../Content/Mail/counterparty.png" title="Add Counterparty" onclick="AddCounterparty()" /></li>-->
+                <li><img src="../../Content/Mail/contact.png" title="Add Counterparty Contact" onclick="AddContact()" /></li>
+            </ul>
+        </div>
+
+        <div class="right">
+            <h2>Add Counterparty<a style="float: right;font-size: 13px;color:#2a8dd4;" href="javascript:void(0);" onclick="eContractsOnline();" title="Open eContracts in new tab">Launch eContracts<img src="../../Content/Mail/ext_link.png" style="width: 14px;vertical-align: sub;margin-left: 5px;"/></a></h2>
+            <div id="saveForm"></div>
+
+        </div>
+    </div>
+</body>
+</html>

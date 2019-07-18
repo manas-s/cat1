@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../Scripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/simplePagination.css" />
+    <script type="text/javascript" src="../../Scripts/jquery.simplePagination.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/jquery.popup.css" />
+    <script type="text/javascript" src="../../Scripts/jquery-ui-1.12.1.js"></script>
+    <link href="../../Content/form.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/corevo.validate.js" type="text/javascript"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1.0/hosted/office.js" type="text/javascript"></script>
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+    <script src="StartReview.js?3" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="left">
+            <ul>
+                <li><img src="../../Content/Mail/eContracts_logo.png" title="Home." onclick="SharepointOnline()" style="width: 30px;" /></li>
+                <li><img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." onclick="Correspondence()" /></li>
+                <li><img src="../../Content/Mail/contracts.png" title="Create New Contract Record in eContracts." onclick="NewContract()" /></li>
+                <li><img src="../../Content/Mail/document.png" title="Save as Contract Document." onclick="AddDocument()" /></li>
+                <li class="activemenu"><img src="../../Content/Mail/review.png" title="Initiate a review workflow in eContract." onclick="StartReview()" /></li>
+                <li><img src="../../Content/Mail/approve.png" title="Initiate an approval workflow in eContract." onclick="StartApproval()" /></li>
+                <!--<li><img src="../../Content/Mail/share_contract.png" title="Share with External User" onclick="StartShare()" /></li>
+                <li><img src="../../Content/Mail/counterparty.png" title="Add Counterparty" onclick="AddCounterparty()" /></li>-->
+                <li><img src="../../Content/Mail/contact.png" title="Save email participants as Contacts in eContract." onclick="AddContact()" /></li>
+            </ul>
+        </div>
+
+        <div class="right">
+            <h2>Start Review Workflow<a style="float: right;font-size: 13px;color:#2a8dd4;" href="javascript:void(0);" onclick="eContractsOnline();" title="Open eContracts in new tab">Launch eContracts<img src="../../Content/Mail/ext_link.png" style="width: 14px;vertical-align: sub;margin-left: 5px;"/></a></h2>
+            <div id="saveForm" class="width100">
+                <p>
+                    <div class="botton2">
+                        <input type="radio" name="ApprovalProcess" onclick="ApproveContract()" value="Contract" id="rdioContract" class="css-checkbox" checked />
+                        <label for="rdioContract" class="css-label">Contract Record</label>
+                        <input type="radio" name="ApprovalProcess" value="Document" onclick="ApproveDocument()" id="rdioDocument" class="css-checkbox" />
+                        <label for="rdioDocument" class="css-label">Single Contract Document</label>
+                    </div>
+                </p>
+                <ul class="box">
+                    <li>
+                        <p>Task Title <span class="error">*</span></p><div>
+                            <input id="txtTodoTitle" name="TodoTitle" type="text" title="Task Title" class="input width70 validelement" />
+                        </div>
+                    </li>
+                    <li>
+                        <p>Select <span id="spElement">Contract</span> <span class="error">*</span></p><div>
+                            <input id="txtBrowseElement" name="BrowseElement" readonly="readonly" type="text" class="input width70 validelement" />&nbsp;
+                            <span class="right-float_large"><a href="javascript:void(0)" id="browse" onclick="Browse();">Browse</a></span>
+                            <input id="txtBrowseElementID" name="BrowseElementID" type="hidden" />
+                        </div>
+                    </li>
+                    <li>
+                        <p>Approvers <span class="error">*</span></p><div>
+                            <input id="txtBrowseUser" name="BrowseUser" readonly="readonly" type="text" class="input width70 validelement" />&nbsp;
+                            <span class="right-float_large"><a href="javascript:void(0)" id="browse" onclick="BrowseUser();">Browse</a></span>
+                        </div>
+                    </li>
+                    <li>
+                        <p>Due Date</p><div>
+                            <input id="txtDueDate" name="DueDate" type="text" title="Due Date" class="input width70 validdate" />
+                        </div>
+                    </li>
+                    <li><p>Notes <span class="error">*</span></p><div><textarea id="txtNotes" class="validelement" title="Comment"></textarea></div></li>
+                    <li><div></div></li>
+                </ul>
+                <p>
+                    <input type="checkbox" name="Extendable" id="chkNotifyMe" class="css1-checkbox" value="NotifyMe" />
+                    <label for="chkNotifyMe" class="css1-label">Email me on completion of workflow.</label>
+                </p>
+            </div>
+            <div class="botton">
+                <span><a href="javascript:void(0)" onclick="SaveTodo()">Ok</a></span>
+                <span><a href="javascript:void(0)" onclick="ClearForm()" class="botton1_cancel">Cancel</a></span>
+            </div>
+        </div>
+    </div>
+    <div id="dvBrowse" style="display:none;overflow-y: auto;">
+        <div class="modalbody">
+            <article id="right" class="out-look-search-box">
+                <input id="txtSearchBoxTodoForm" class="f_inpt width80 cl padding_right_20px" type="text" style="text-wrap:none" placeholder="Type to Search" />
+                <img title="Search" style="cursor: pointer; position: relative; left: -35px; top:3px; " onclick="javascript: Search();" src="../../Content/Images/search_over.png" />
+            </article>
+            <div id="dvLoading">
+
+            </div>
+            <div id="page-wrap">
+                <ul class="f_list" id="tblContractsTodo"></ul>
+                <ul class="f_list" id="tblDocumentsTodo"></ul>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationContractsTodo"></article>
+            </div>
+            <div class="pagination-holder clearfix">
+                <article id="compact-paginationDocumentsTodo"></article>
+            </div>
+        </div>
+    </div>
+    <div id="dvBrowseUser" style="display:none;overflow-y: auto;">
+        <div id="loadCP"></div>
+        <div id="page-wrap">
+            <table class="page-wrap width100" id="tblUser"></table>
+        </div>
+        <div class="pagination-holder clearfix">
+            <article id="compact-paginationCounterparties"></article>
+        </div>
+    </div>
+    <div id="loadingPage">
+        <div id="loadingcontent">
+            <p id="loadingspinner">
+                <img src="../../Content/Images/loading.gif" />&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+</body>
+</html>

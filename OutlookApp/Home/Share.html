@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../Scripts/jquery-3.2.1.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/simplePagination.css" />
+    <script type="text/javascript" src="../../Scripts/jquery.simplePagination.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../Content/jquery.popup.css" />
+    <script type="text/javascript" src="../../Scripts/jquery-ui-1.12.1.js"></script>
+    <link href="../../Content/form.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/corevo.validate.js" type="text/javascript"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1.0/hosted/office.js" type="text/javascript"></script>
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+    <script src="Share.js?3" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="left">
+            <ul>
+                <li><img src="../../Content/Mail/eContracts_logo.png" title="Home." onclick="SharepointOnline()" style="width: 30px;" /></li>
+                <li><img src="../../Content/Mail/correspondence.png" title="Save email as Contract Correspondence." onclick="Correspondence()" /></li>
+                <li><img src="../../Content/Mail/contracts.png" title="New Contract" onclick="NewContract()" /></li>
+                <li><img src="../../Content/Mail/document.png" title="Add Document" onclick="AddDocument()" /></li>
+                <li><img src="../../Content/Mail/review.png" title="Start for Review Process" onclick="StartReview()" /></li>
+                <li><img src="../../Content/Mail/approve.png" title="Start for Approval Process" onclick="StartApproval()" /></li>
+                <li class="activemenu"><img src="../../Content/Mail/share_contract.png" title="Share with External User" onclick="StartShare()" /></li>
+                <!--<li><img src="../../Content/Mail/counterparty.png" title="Add Counterparty" onclick="AddCounterparty()" /></li>-->
+                <li><img src="../../Content/Mail/contact.png" title="Add Counterparty Contact" onclick="AddContact()" /></li>
+            </ul>
+        </div>
+
+        <div class="right">
+            <h2>External User Sharing<a style="float: right;font-size: 13px;color:#2a8dd4;" href="javascript:void(0);" onclick="eContractsOnline();" title="Open eContracts in new tab">Launch eContracts<img src="../../Content/Mail/ext_link.png" style="width: 14px;vertical-align: sub;margin-left: 5px;"/></a></h2>
+            <div id="saveForm" class="width100"></div>
+            <div class="botton">
+                <span><a href="javascript:void(0)" onclick="SaveCorrespondence()">Save</a></span>
+                <span><a href="javascript:void(0)" onclick="ClearForm()">Cancel</a></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
